@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basirah_core/basirah_core.dart';
 
 import 'agent.dart';
@@ -64,6 +66,7 @@ class AskPipeline {
     TafsirSource? tafsir,
     this.hadith,
     this.cache,
+    this.answerBudget = const Duration(seconds: 75),
     DateTime Function()? clock,
   }) : tafsir = tafsir ?? (quran == null ? null : DorarTafsir()),
        _clock = clock ?? DateTime.now,
@@ -92,6 +95,10 @@ class AskPipeline {
   /// Saved live answers ([AnswerCache]); null = always research afresh
   /// (as the evaluation does).
   final AnswerCache? cache;
+
+  /// The longest a live answer may take, all models included. Past it the
+  /// stored answer is shown, with a notice, instead of a longer wait.
+  final Duration answerBudget;
   final DateTime Function() _clock;
   final Map<String, OfflineRouter> _routers;
   late final List<(LlmClient, ResearchAgent)> _agents;
@@ -172,11 +179,24 @@ class AskPipeline {
     ) + (preread.isEmpty ? '' : buildPrereadBlock(quran!, preread, lang: lang));
 
     final skipped = <String>[];
+    final watch = Stopwatch()..start();
     for (final (client, agent) in _agents) {
       final until = _exhaustedUntil[client];
       if (until != null && _clock().isBefore(until)) continue;
+      final left = answerBudget - watch.elapsed;
+      if (left <= Duration.zero) break;
       try {
-        final outcome = await agent.run(userTurn, lang: lang, preread: preread);
+        final AgentOutcome outcome;
+        try {
+          outcome = await agent.run(userTurn, lang: lang, preread: preread).timeout(left);
+        } on TimeoutException {
+          return PipelineResult(
+            answer: routed.answer,
+            via: Via.offline,
+            notice: 'ai_busy',
+            guardActions: [...skipped, 'time budget reached (${answerBudget.inSeconds} s)'],
+          );
+        }
         final result = _finish(outcome, question, router, signals, hits);
         // A personal case is never cached: its referral may restate the
         // asker's situation, and the server does not keep that.

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:basirah_core/basirah_core.dart';
 import 'package:basirah_server/basirah_server.dart';
 import 'package:http/http.dart' as http;
@@ -198,6 +200,33 @@ void main() {
     expect(r.via, Via.offline);
     expect(r.notice, 'ai_busy');
     expect(r.answer.kind, AnswerKind.abstain);
+  });
+
+  test('past the time budget: the stored answer with a notice, not a longer wait', () async {
+    final slow = ClaudeClient(
+      apiKey: 'k',
+      client: MockClient((_) => Completer<http.Response>().future), // never answers
+    );
+    final r = await AskPipeline(kb, llm: slow, quran: quran, tafsir: FakeTafsir(), answerBudget: const Duration(milliseconds: 200))
+        .ask('How many angels carry the Throne on the Day of Judgement?');
+    expect(r.via, Via.offline);
+    expect(r.notice, 'ai_busy');
+    expect(r.guardActions.last, startsWith('time budget reached'));
+  });
+
+  test('the tools of one turn run together; the research trail keeps their order', () async {
+    final s = ScriptedClaude([
+      toolTurn([
+        ('search_quran', {'query': 'بر الأقارب'}),
+        ('read_tafsir', {'refs': ['60:8']}),
+        ('search_quran', {'query': 'صلة الرحم'}),
+      ]),
+      toolTurn([('submit_answer', submission())]),
+    ]);
+    final r = await pipeline(s).ask('هل يمكنني زيارة عائلتي غير المسلمة؟');
+    expect(r.via, Via.ai);
+    final searches = [for (final step in r.answer.research) if (step.startsWith('بحث في القرآن')) step];
+    expect(searches, ['بحث في القرآن الكريم: «بر الأقارب»', 'بحث في القرآن الكريم: «صلة الرحم»']);
   });
 
   test('clearly off-topic questions are declined without calling Claude', () async {

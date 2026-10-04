@@ -18,14 +18,15 @@ import 'llm.dart';
 ///   when Gemini gave one, by call id).
 ///
 /// Rate limits (HTTP 429, frequent on the free tier) and server errors are
-/// retried after the delay the API asks for, within [maxWait]; an exhausted
-/// daily quota is reported at once.
+/// retried after the delay the API asks for, within [maxWait] (short: with a
+/// chain of models, moving on is faster than waiting); an exhausted daily
+/// quota is reported at once.
 class GeminiClient implements LlmClient {
   GeminiClient({
     required this.apiKey,
     this.model = defaultModel,
     this.thinkingLevel,
-    this.maxWait = const Duration(seconds: 90),
+    this.maxWait = const Duration(seconds: 10),
     this.timeout = const Duration(seconds: 75),
     String baseUrl = 'https://generativelanguage.googleapis.com',
     http.Client? client,

@@ -167,9 +167,15 @@ class ResearchAgent {
         continue;
       }
 
-      final results = <Map<String, dynamic>>[
-        for (final u in uses) await _execute(u, readRefs, tafsirRead, hadithRead, research, lang),
-      ];
+      // The tools of one turn run together (each is a network call); their
+      // research steps keep the order the model asked for them in.
+      final steps = [for (final _ in uses) <String>[]];
+      final results = await Future.wait([
+        for (final (i, u) in uses.indexed) _execute(u, readRefs, tafsirRead, hadithRead, steps[i], lang),
+      ]);
+      for (final s in steps) {
+        research.addAll(s);
+      }
       final content = <Map<String, dynamic>>[
         ...results,
         if (round >= maxRounds - 1)
