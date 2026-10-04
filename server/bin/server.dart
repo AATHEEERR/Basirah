@@ -38,7 +38,7 @@ Future<void> main() async {
   final llm = llms.firstOrNull;
   final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran, hadith: HadeethEnc(), cache: AnswerCache());
   final limiter = RateLimiter();
-  final recitation = RecitationSource();
+  final verseAudio = VerseAudioSource();
   final origin = env['ALLOWED_ORIGIN'] ?? '*';
   final metrics = Metrics(file: env['METRICS_FILE'] ?? 'cache/metrics.jsonl');
 
@@ -58,23 +58,26 @@ Future<void> main() async {
         'tafsir': quran == null ? null : ['موسوعة التفسير — الدرر السنية'],
       }),
     )
-    // A verse's recitation: GET /api/recitation?key=60:8&read=118
+    // Verse recitation, one MP3 per verse from the association's MCP server:
+    // GET /api/recitation?key=2:186&to=187&reciter=husary
     ..get('/api/recitation', (Request req) async {
       final q = req.url.queryParameters;
       final key = quran?.parseRef(q['key'] ?? '');
       if (key == null) return _json({'error': 'unknown verse'}, status: 400);
       final parts = key.split(':');
-      final audio = await recitation.verse(
-        int.parse(parts[0]),
-        int.parse(parts[1]),
-        read: int.tryParse(q['read'] ?? '') ?? reciters.first.read,
-      );
-      if (audio == null) return _json({'error': 'unavailable'}, status: 503);
+      final surah = int.parse(parts[0]);
+      final first = int.parse(parts[1]);
+      final lastKey = q['to'] == null ? key : quran?.parseRef('$surah:${q['to']}');
+      final last = lastKey == null ? first : int.parse(lastKey.split(':')[1]);
+      if (last < first || last - first >= 20) return _json({'error': 'range'}, status: 400);
+      final reciter = verseReciters.where((r) => r.id == q['reciter']).firstOrNull ?? verseReciters.first;
+      final urls = await Future.wait([for (var a = first; a <= last; a++) verseAudio.url(surah, a, reciter: reciter.id)]);
+      if (urls.any((u) => u == null)) return _json({'error': 'unavailable'}, status: 503);
       return _json({
-        ...audio.toJson(),
-        'reciters': [
-          for (final r in reciters) {'read': r.read, 'ar': r.ar, 'en': r.en},
-        ],
+        'verses': [for (var i = 0; i < urls.length; i++) {'ayah': first + i, 'url': urls[i]}],
+        'reciter': reciter.toJson(),
+        'reciters': [for (final r in verseReciters) r.toJson()],
+        'teacherUrl': teacherUrl(surah),
       });
     })
     ..post('/api/ask', (Request req) async {

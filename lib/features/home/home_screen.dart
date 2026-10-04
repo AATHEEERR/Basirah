@@ -13,6 +13,7 @@ import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
+import '../library/impact_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -134,6 +135,9 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: _ReferencesPromo(kb: kb)),
+                const SliverToBoxAdapter(
+                  child: Padding(padding: EdgeInsets.fromLTRB(16, 14, 16, 0), child: ImpactTeaser()),
+                ),
                 const SliverToBoxAdapter(child: _TrustLaurel()),
                 const SliverToBoxAdapter(child: SizedBox(height: 120)),
               ],
@@ -658,6 +662,8 @@ class _WideHome extends StatelessWidget {
                 child: Column(
                   children: [
                     _AiCard(onTap: () => ask(), padding: EdgeInsets.zero),
+                    const SizedBox(height: 14),
+                    const ImpactTeaser(),
                     _ReferencesPromo(kb: kb, padding: const EdgeInsets.only(top: 14)),
                   ],
                 ),

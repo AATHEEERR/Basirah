@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../app/theme.dart';
+import '../../core/config.dart';
 import '../../core/feedback.dart';
 import '../../core/lang.dart';
 import '../../shared/web_frame.dart';
@@ -235,4 +237,85 @@ class _Note extends StatelessWidget {
       ],
     ),
   );
+}
+
+/// «لوحة الأثر» on the home page: three numbers and the way to the board.
+/// Hidden without a server.
+class ImpactTeaser extends ConsumerWidget {
+  const ImpactTeaser({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (!AppConfig.hasApi) return const SizedBox.shrink();
+    final s = ref.watch(statsProvider).valueOrNull;
+    final n = s?['questions'] as int? ?? 0;
+    final kinds = ((s?['kinds'] as Map?) ?? const {}).cast<String, int>();
+    final fb = ((s?['feedback'] as Map?) ?? const {}).cast<String, dynamic>();
+    final fbTotal = fb['total'] as int? ?? 0;
+    String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}٪';
+    final tiles = [
+      ('$n', context.tr('سؤالاً طُرح', 'questions asked'), Tones.guidance),
+      (pct((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0), n), context.tr('أُجيبت من المصادر', 'answered from the sources'), Tones.principle),
+      (pct(fb['helpful'] as int? ?? 0, fbTotal), context.tr('رضا من قيّموا', 'rated helpful'), Tones.culture),
+    ];
+    return Material(
+      color: BColors.surface,
+      borderRadius: BorderRadius.circular(24),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(24),
+        onTap: () => context.push('/impact'),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.insights_rounded, color: Tones.culture.accent, size: 22),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(context.tr('لوحة الأثر', 'Impact board'), style: BText.title(15.5)),
+                        Text(
+                          context.tr('أرقام الاستخدام والرضا، دون حفظ أي سؤال', 'Usage and ratings in numbers, with no question stored'),
+                          style: BText.label(12, weight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  for (final (i, (value, label, tone)) in tiles.indexed) ...[
+                    if (i > 0) const SizedBox(width: 8),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(value, style: BText.brand(22, color: tone.accent)),
+                            Text(label, style: BText.label(11.5, color: BColors.ink, weight: FontWeight.w500), maxLines: 1, overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

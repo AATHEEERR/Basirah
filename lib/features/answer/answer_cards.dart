@@ -192,7 +192,7 @@ class EvidenceView extends StatelessWidget {
     final accent = Tones.evidence.accent;
     final platform = e.platformNameFor(context.lang);
     final link = TextButton.icon(
-      onPressed: () => launchUrl(Uri.parse(e.url), mode: LaunchMode.externalApplication),
+      onPressed: () => launchUrl(Uri.parse(e.urlFor(context.lang)), mode: LaunchMode.externalApplication),
       icon: const Icon(Icons.open_in_new_rounded, size: 15),
       label: Text(
         context.tr('تحقّق في $platform', 'Verify on $platform'),

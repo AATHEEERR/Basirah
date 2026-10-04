@@ -133,19 +133,26 @@ class Evidence {
   String get reference =>
       isQuran ? '${surahName ?? ''}: ${ayah ?? ''}' : (source ?? '');
 
-  /// Link to the approved platform where the text can be verified.
-  String get url => isQuran
-      ? 'https://quranpedia.net/surah/1/${surah ?? 1}'
+  /// Link to the approved platform where the text can be verified: for a
+  /// verse, its own page (the first verse of a range) on the association's
+  /// موسوعة المحتوى الإسلامي باللغات, with the Mushaf text and the approved
+  /// translation.
+  String get url => urlFor('ar');
+
+  String urlFor(String lang) => isQuran
+      ? 'https://islamenc.com/${lang == 'en' ? 'en' : 'ar'}/quran/${surah ?? 1}/${_firstAyah ?? 1}'
       : 'https://dorar.net/hadith/search?q=${Uri.encodeQueryComponent(search ?? text)}';
+
+  int? get _firstAyah => int.tryParse((ayah ?? '').split(RegExp('[–-]')).first.trim());
 
   /// The surah in Dorar's tafsir encyclopedia (dorar.net/tafseer) — the
   /// tafsir platform named by the reference pack.
   String? get dorarTafsirUrl => isQuran && surah != null ? 'https://dorar.net/tafseer/$surah' : null;
 
-  String get platformName => isQuran ? 'قرآنبيديا' : 'الدرر السنية';
+  String get platformName => isQuran ? 'موسوعة المحتوى الإسلامي' : 'الدرر السنية';
 
   String platformNameFor(String lang) =>
-      lang == 'en' ? (isQuran ? 'Quranpedia' : 'Dorar.net') : platformName;
+      lang == 'en' ? (isQuran ? 'IslamEnc' : 'Dorar.net') : platformName;
 
   Evidence copyWith({
     String? text,

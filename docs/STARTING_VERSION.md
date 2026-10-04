@@ -31,7 +31,7 @@ This file records what existed **before** the challenge window (4–6 October 20
 * **«سياقي»** — optional on-device asker context (who, since when, where, answer style) asked at first launch; fixed choices only; adapts the explanation, never the ruling.
 * **Answer cache** — a repeated first question is answered without a model call; the question text is never stored; personal cases are never cached.
 * **Website layout on computers** — side navigation, reading column, larger text; «عرض الجوال» switch.
-* **Verse recitation** — mp3quran.net reciters with per-verse timing, repeat, slower speed, and المصحف المعلّم for the whole surah.
+* **Verse recitation** — one MP3 per verse from the association's MCP server (`get_quran_audio`, 8 reciters), repeat, slower speed, and المصحف المعلّم for the whole surah from mp3quran.net. (First built on mp3quran timings inside whole-surah files; seeking deep into long surahs was fragile, so it moved to per-verse files on 4 Oct.)
 * **Design documentation** — `docs/DESIGN_SYSTEM.md`, `docs/USER_JOURNEY.md`, `docs/USER_TEST_KIT.md`.
 
 ## Still to do in the window

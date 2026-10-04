@@ -117,7 +117,7 @@ class ShareCard extends StatelessWidget {
     final e = verse ?? hadith!;
     // The page where the source can be checked: the hadith on HadeethEnc,
     // otherwise the approved platform's page for the text.
-    final checkUrl = !e.isQuran && (e.tafsirUrl?.contains('hadeethenc') ?? false) ? e.tafsirUrl! : e.url;
+    final checkUrl = !e.isQuran && (e.tafsirUrl?.contains('hadeethenc') ?? false) ? e.tafsirUrl! : e.urlFor(lang);
     var text = a.kind == AnswerKind.khilaf ? a.khilafAgreed : a.principle;
     // Keep the card short: end on a whole sentence when one fits, and mark
     // the cut so the excerpt is never read as the whole answer.

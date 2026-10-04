@@ -20,19 +20,19 @@ final recitationPlayerProvider = Provider<AudioPlayer>((ref) {
 /// What is loaded in the player (a verse key, or «teacher:60»).
 final nowPlayingProvider = StateProvider<String?>((ref) => null);
 
-/// The chosen reciter (mp3quran «read» id) for this session.
-final reciterProvider = StateProvider<int>((ref) => 118);
+/// The chosen reciter (the MCP server's reciter name) for this session.
+final reciterProvider = StateProvider<String>((ref) => 'husary');
 
-/// Reciters offered by the server (read id, Arabic, English).
-final recitersProvider = StateProvider<List<(int, String, String)>>((ref) => const [
-  (118, 'محمود خليل الحصري', 'Mahmoud Khalil Al-Husary'),
+/// Reciters offered by the server (id, Arabic, English).
+final recitersProvider = StateProvider<List<(String, String, String)>>((ref) => const [
+  ('husary', 'محمود خليل الحصري', 'Mahmoud Khalil Al-Husary'),
 ]);
 
-/// Listen to a verse from المكتبة الصوتية للقرآن الكريم (mp3quran.net, a
-/// platform the reference pack names): real reciters only — never a
-/// synthetic voice — with repeat and a slower speed for learning to
-/// pronounce, and «المصحف المعلّم» (the teaching recitation) for the whole
-/// surah.
+/// Listen to a verse: one MP3 per verse from the association's MCP server
+/// (`get_quran_audio`), real reciters only — never a synthetic voice — with
+/// repeat and a slower speed for learning to pronounce, and «المصحف
+/// المعلّم» (the teaching recitation) for the whole surah from المكتبة
+/// الصوتية للقرآن الكريم (mp3quran.net).
 class RecitationBar extends ConsumerStatefulWidget {
   const RecitationBar({super.key, required this.evidence});
 
@@ -58,9 +58,9 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
 
   String get _key => '${widget.evidence.surah}:${_range.$1}-${_range.$2}';
 
-  Future<Map<String, dynamic>> _fetch(int ayah, int read) async {
+  Future<Map<String, dynamic>> _fetch(int first, int last, String reciter) async {
     final res = await http
-        .get(Uri.parse('${AppConfig.apiBase}/api/recitation?key=${widget.evidence.surah}:$ayah&read=$read'))
+        .get(Uri.parse('${AppConfig.apiBase}/api/recitation?key=${widget.evidence.surah}:$first&to=$last&reciter=$reciter'))
         .timeout(const Duration(seconds: 25));
     if (res.statusCode != 200) throw http.ClientException('HTTP ${res.statusCode}');
     return jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>;
@@ -80,25 +80,20 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
       _error = null;
     });
     try {
-      final read = ref.read(reciterProvider);
       final (first, last) = _range;
-      final a = await _fetch(first, read);
-      final b = last == first ? a : await _fetch(last, read);
+      final a = await _fetch(first, last, ref.read(reciterProvider));
       ref.read(recitersProvider.notifier).state = [
         for (final r in (a['reciters'] as List).cast<Map<String, dynamic>>())
-          (r['read'] as int, r['ar'] as String, r['en'] as String),
+          (r['id'] as String, r['ar'] as String, r['en'] as String),
       ];
       _teacherUrl = a['teacherUrl'] as String?;
       await player.stop();
-      await player.setAudioSource(
-        ClippingAudioSource(
-          start: Duration(milliseconds: a['start'] as int),
-          end: Duration(milliseconds: b['end'] as int),
-          child: AudioSource.uri(Uri.parse(a['url'] as String)),
-        ),
-      );
+      // One small file per verse, played in order.
+      await player.setAudioSources([
+        for (final v in (a['verses'] as List).cast<Map<String, dynamic>>()) AudioSource.uri(Uri.parse(v['url'] as String)),
+      ]);
       await player.setSpeed(_slow ? .75 : 1);
-      await player.setLoopMode(_repeat ? LoopMode.one : LoopMode.off);
+      await player.setLoopMode(_repeat ? LoopMode.all : LoopMode.off);
       ref.read(nowPlayingProvider.notifier).state = _key;
       player.play();
     } on Exception {
@@ -155,7 +150,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                     strong: true,
                     onTap: _loading ? null : _play,
                   ),
-                  PopupMenuButton<int>(
+                  PopupMenuButton<String>(
                     tooltip: context.tr('اختر القارئ', 'Choose the reciter'),
                     onSelected: (r) {
                       ref.read(reciterProvider.notifier).state = r;
@@ -163,7 +158,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                       player.stop();
                     },
                     itemBuilder: (_) => [
-                      for (final r in names.length > 1 ? names : const [(118, 'محمود خليل الحصري', 'Mahmoud Khalil Al-Husary')])
+                      for (final r in names.length > 1 ? names : const [('husary', 'محمود خليل الحصري', 'Mahmoud Khalil Al-Husary')])
                         PopupMenuItem(value: r.$1, child: Text(context.tr(r.$2, r.$3))),
                     ],
                     child: _Pill(icon: Icons.person_outline_rounded, label: name),
@@ -174,7 +169,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                     selected: _repeat,
                     onTap: () {
                       setState(() => _repeat = !_repeat);
-                      if (mine) player.setLoopMode(_repeat ? LoopMode.one : LoopMode.off);
+                      if (mine) player.setLoopMode(_repeat ? LoopMode.all : LoopMode.off);
                     },
                   ),
                   _Pill(
@@ -201,7 +196,10 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
               Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
-                  context.tr('التلاوة من المكتبة الصوتية للقرآن الكريم (mp3quran.net)', 'Recitation from the Quran audio library (mp3quran.net)'),
+                  context.tr(
+                    'التلاوة آيةً آيةً عبر خادم جمعية خدمة المحتوى الإسلامي باللغات، والمصحف المعلّم من المكتبة الصوتية للقرآن الكريم',
+                    'Verse-by-verse recitation via the Islamic Content Service Association; the teaching recitation from the Quran audio library (mp3quran.net)',
+                  ),
                   style: BText.label(11, weight: FontWeight.w400),
                 ),
               ),

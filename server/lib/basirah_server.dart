@@ -20,4 +20,5 @@ export 'src/rate_limit.dart';
 export 'src/recitation.dart';
 export 'src/registry_check.dart';
 export 'src/tafsir.dart';
+export 'src/verse_audio.dart';
 export 'src/web_app.dart';
