@@ -43,3 +43,9 @@ flutter:
   assets:
     - assets/kb/
     - assets/brand/
+  fonts:
+    # The King Fahd Complex's own Hafs font (fonts.qurancomplex.gov.sa,
+    # V30), unmodified: it draws the Mushaf text's open tanween correctly.
+    - family: KFGQPCHafs
+      fonts:
+        - asset: assets/fonts/KFGQPC-Hafs-V30.ttf

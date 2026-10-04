@@ -72,6 +72,16 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: _AiCard(onTap: () => ask())),
+                SliverToBoxAdapter(
+                  child: SectionHeader(
+                    context.tr('أربعة وعود في كل إجابة', 'Four promises in every answer'),
+                    eyebrow: context.tr('لماذا تثق ببصيرة؟', 'Why trust Basirah?'),
+                  ),
+                ),
+                const SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverToBoxAdapter(child: _Promises()),
+                ),
                 SliverToBoxAdapter(child: SectionHeader(context.tr('الأكثر سؤالاً', 'Most asked'))),
                 SliverList.list(
                   children: [
@@ -616,6 +626,11 @@ class _WideHome extends StatelessWidget {
           ),
         ),
         _WideSection(
+          eyebrow: context.tr('لماذا تثق ببصيرة؟', 'Why trust Basirah?'),
+          title: context.tr('أربعة وعود في كل إجابة', 'Four promises in every answer'),
+          child: const _Promises(),
+        ),
+        _WideSection(
           eyebrow: context.tr('أكثر ما يشغل المسلم الجديد', 'What new Muslims ask most'),
           title: context.tr('ابدأ من هنا', 'Start here'),
           linkLabel: context.tr('عرض الكل', 'See all'),
@@ -806,6 +821,114 @@ class _AnswerSample extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Basirah's four promises, as cards with a coloured tag (the style of the
+/// project's plan page): what every answer does, worded as the system
+/// actually behaves.
+List<(Tone, String, String, String, String, String, String)> _promises() => const [
+  (
+    Tones.culture,
+    'من المصحف',
+    'From the Mushaf',
+    'نص الآية من مصحف مجمع الملك فهد',
+    'The verse from the King Fahd Complex Mushaf',
+    'يختار الذكاء الاصطناعي الآية برقمها فقط، ويُنسخ نصها من المصحف، ومعها رابط صفحتها للتحقق.',
+    'The AI picks the verse by its number only; its text is copied from the Mushaf, with a link to its page to check it.',
+  ),
+  (
+    Tones.principle,
+    'يقرأ قبل أن يجيب',
+    'Reads before it answers',
+    'التفسير من الدرر السنية',
+    'Tafsir from Dorar.net',
+    'لا يستشهد بآية قبل أن يقرأ تفسيرها في موسوعة التفسير.',
+    'It cites no verse before reading its tafsir in Dorar’s tafsir encyclopedia.',
+  ),
+  (
+    Tones.guidance,
+    'الحديث المقبول فقط',
+    'Accepted hadith only',
+    'الحديث بمصدره وحكمه',
+    'Hadith with its source and grading',
+    'يُعرض الحديث بنصه ومصدره وحكمه، ولا يُقبل إلا الصحيح والحسن.',
+    'Each hadith is shown with its text, source and grading; only sahih and hasan are accepted.',
+  ),
+  (
+    Tones.refer,
+    'يحيل ولا يفتي',
+    'Refers, never rules',
+    'الحالة الشخصية لأهل العلم',
+    'Personal cases go to scholars',
+    'بصيرة أداة ذكاء اصطناعي وليست مفتياً؛ تعطي المعلومة العامة وتحيل الحالة الشخصية إلى مختص.',
+    'Basirah is an AI tool, not a mufti: it gives general information and refers personal cases to a specialist.',
+  ),
+];
+
+class _PromiseCard extends StatelessWidget {
+  const _PromiseCard(this.p);
+
+  final (Tone, String, String, String, String, String, String) p;
+
+  @override
+  Widget build(BuildContext context) {
+    final (tone, tagAr, tagEn, titleAr, titleEn, bodyAr, bodyEn) = p;
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(22)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            decoration: BoxDecoration(color: tone.top, borderRadius: BorderRadius.circular(99)),
+            child: Text(context.tr(tagAr, tagEn), style: BText.label(12, color: tone.accent, weight: FontWeight.w600)),
+          ),
+          const SizedBox(height: 10),
+          Text(context.tr(titleAr, titleEn), style: BText.title(16.5)),
+          const SizedBox(height: 6),
+          Text(context.tr(bodyAr, bodyEn), style: BText.body(13.5, color: BColors.textMuted, height: 1.7)),
+        ],
+      ),
+    );
+  }
+}
+
+/// The promises: one row of four on the website, a column on a phone.
+class _Promises extends StatelessWidget {
+  const _Promises();
+
+  @override
+  Widget build(BuildContext context) {
+    final cards = [for (final p in _promises()) _PromiseCard(p)];
+    if (!isWebsite(context)) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (final (i, c) in cards.indexed) ...[if (i > 0) const SizedBox(height: 10), c],
+        ],
+      );
+    }
+    // Each card grows with its text (never clipped); the minimum height
+    // keeps the row level in the usual case.
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final (i, c) in cards.indexed) ...[
+          if (i > 0) const SizedBox(width: 14),
+          Expanded(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 210),
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(22)),
+                child: c,
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

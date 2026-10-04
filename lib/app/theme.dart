@@ -48,8 +48,8 @@ abstract final class BColors {
 }
 
 /// Typography: IBM Plex Sans Arabic throughout (large, regular-weight titles
-/// as in Nusuk), Reem Kufi for the wordmark only, Amiri Quran for verses and
-/// Amiri for hadith.
+/// as in Nusuk), Reem Kufi for the wordmark and website titles, the King
+/// Fahd Complex's Hafs font for verses, and Amiri for hadith.
 abstract final class BText {
   static TextStyle brand(double size, {Color? color}) =>
       GoogleFonts.reemKufi(fontSize: size, fontWeight: FontWeight.w700, color: color ?? BColors.ink, height: 1.2);
@@ -66,8 +66,11 @@ abstract final class BText {
   static TextStyle label(double size, {Color? color, FontWeight weight = FontWeight.w500}) =>
       GoogleFonts.ibmPlexSansArabic(fontSize: size, fontWeight: weight, color: color ?? BColors.textMuted, height: 1.3);
 
+  /// Verses in the King Fahd Complex's Hafs font (V30), which draws the
+  /// Mushaf text's open tanween (U+0657, U+065E, U+0656 in the QuranEnc
+  /// text) as in the printed Mushaf; Amiri Quran drew them as other marks.
   static TextStyle quran(double size, {Color? color}) =>
-      GoogleFonts.amiriQuran(fontSize: size, color: color ?? const Color(0xFF3A2A12), height: 2.15);
+      TextStyle(fontFamily: 'KFGQPCHafs', fontSize: size, color: color ?? const Color(0xFF3A2A12), height: 2.15);
 
   static TextStyle hadith(double size, {Color? color}) =>
       GoogleFonts.amiri(fontSize: size, color: color ?? BColors.ink, height: 1.95);

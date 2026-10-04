@@ -25,7 +25,8 @@ Quran and hadith texts are in the public domain as scripture; excerpts are short
 | flutter_riverpod, riverpod | MIT |
 | go_router, shared_preferences, url_launcher, http, intl, shelf, shelf_router, test | BSD-3-Clause |
 | google_fonts (package) | Apache-2.0 |
-| Fonts: Reem Kufi, IBM Plex Sans Arabic, Amiri, Amiri Quran | SIL Open Font License 1.1 |
+| Fonts: Reem Kufi, IBM Plex Sans Arabic, Amiri | SIL Open Font License 1.1 |
+| Font for the verses: KFGQPC Hafs V30 (King Fahd Glorious Qur'an Printing Complex, fonts.qurancomplex.gov.sa), bundled unmodified in `assets/fonts/` | Free to use, copy and distribute; not to be sold or modified. © KFGQPC |
 | Logo | Drawn by the team from geometry (`lib/shared/brand.dart`, `tool/make_logo.ps1`) — no third-party artwork |
 | Inter (status-bar clock in the desktop iPhone frame) | SIL Open Font License 1.1 |
 | Claude API (Anthropic) — `claude-sonnet-5` by default | Commercial API, used under Anthropic's terms; key held server-side only |
