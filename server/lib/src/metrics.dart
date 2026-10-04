@@ -123,6 +123,12 @@ class Metrics {
         if (a['cached'] != true) (a['ms'] as num).toInt(),
     ]..sort();
     int? pct(double q) => ms.isEmpty ? null : ms[((ms.length - 1) * q).round()];
+    // The median of an even count is the mean of the two middle times.
+    final median = ms.isEmpty
+        ? null
+        : ms.length.isOdd
+        ? ms[ms.length ~/ 2]
+        : ((ms[ms.length ~/ 2 - 1] + ms[ms.length ~/ 2]) / 2).round();
     final reasons = count([for (final f in feedback) ...(f['reasons'] as List)]);
     return {
       'since': asks.isEmpty ? null : asks.first['t'],
@@ -133,7 +139,7 @@ class Metrics {
       'withVerses': asks.where((a) => (a['verses'] as num? ?? 0) > 0).length,
       'withHadith': asks.where((a) => (a['hadith'] as num? ?? 0) > 0).length,
       'guardCatches': asks.where((a) => (a['guard'] as num? ?? 0) > 0).length,
-      'medianMs': pct(.5),
+      'medianMs': median,
       'p90Ms': pct(.9),
       'lang': count(asks.map((a) => a['lang'])),
       'categories': count(asks.map((a) => a['category'])),

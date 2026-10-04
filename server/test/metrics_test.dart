@@ -70,6 +70,12 @@ void main() {
     });
   });
 
+  test('the median of an even count is the mean of the two middle times', () {
+    ask('answer', ms: 37532);
+    ask('answer', ms: 75742);
+    expect(metrics.summary()['medianMs'], 56637);
+  });
+
   test('only the guard changing an answer counts as an intervention', () {
     expect(isGuardIntervention('replaced Quran quotation with its reference'), isTrue);
     expect(isGuardIntervention('dropped 60:8: cited without reading its tafsir'), isTrue);
