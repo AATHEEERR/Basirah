@@ -20,6 +20,6 @@ services:
       - key: CLAUDE_MODEL
         value: claude-sonnet-5-5,claude-haiku-4-5
       - key: CLAUDE_EFFORT
-        value: high
+        value: medium
       - key: ALLOWED_ORIGIN
         value: "*"
