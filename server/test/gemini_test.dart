@@ -324,6 +324,21 @@ void main() {
       expect(llm?.provider, 'claude');
       expect(llm?.model, 'claude-opus-5-5');
     });
+    test('with both keys, the other provider is the last resort', () {
+      final llms = llmsFromEnv({
+        'ANTHROPIC_API_KEY': 'a',
+        'GEMINI_API_KEY': 'g',
+        'AI_PROVIDER': 'claude',
+        'CLAUDE_MODEL': 'claude-sonnet-5-5,claude-haiku-4-5',
+        'GEMINI_MODEL': 'gemini-x,gemini-y',
+      });
+      expect([for (final m in llms) '${m.provider}:${m.model}'], [
+        'claude:claude-sonnet-5-5',
+        'claude:claude-haiku-4-5',
+        'gemini:gemini-x',
+        'gemini:gemini-y',
+      ]);
+    });
     test('CLAUDE_MODEL can be a chain tried in order', () {
       final llms = llmsFromEnv({'ANTHROPIC_API_KEY': 'a', 'CLAUDE_MODEL': 'claude-opus-5-5, claude-sonnet-5-5'});
       expect([for (final m in llms) m.model], ['claude-opus-5-5', 'claude-sonnet-5-5']);

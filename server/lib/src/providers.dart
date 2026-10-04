@@ -17,8 +17,13 @@ import 'llm.dart';
 ///   CLAUDE_EFFORT (default high), CLAUDE_FALLBACKS (`default` | `off`),
 ///   ANTHROPIC_BASE_URL
 ///
-/// Returns an empty list when no usable key is configured: the API then
-/// serves curated and offline answers only.
+/// With both keys set, the chosen provider's models come first and the
+/// other provider's follow as the last resort (e.g. Claude Sonnet → Claude
+/// Haiku → the Gemini chain).
+///
+/// Returns an empty list when no usable key is configured — or when
+/// AI_PROVIDER names a provider without its key: the API then serves curated
+/// and offline answers only.
 List<LlmClient> llmsFromEnv(Map<String, String> env) {
   String? value(String k) => (env[k]?.trim().isEmpty ?? true) ? null : env[k]!.trim();
   final geminiKey = value('GEMINI_API_KEY');
@@ -30,23 +35,29 @@ List<LlmClient> llmsFromEnv(Map<String, String> env) {
           : claudeKey != null
           ? 'claude'
           : null);
+  List<String> models(String key, String fallback) => [
+    for (final m in (value(key) ?? fallback).split(','))
+      if (m.trim().isNotEmpty) m.trim(),
+  ];
+  final gemini = <LlmClient>[
+    if (geminiKey != null)
+      for (final model in models('GEMINI_MODEL', GeminiClient.defaultModel))
+        GeminiClient(apiKey: geminiKey, model: model, thinkingLevel: value('GEMINI_THINKING')),
+  ];
+  final claude = <LlmClient>[
+    if (claudeKey != null)
+      for (final model in models('CLAUDE_MODEL', ClaudeClient.defaultModel))
+        ClaudeClient(
+          apiKey: claudeKey,
+          model: model,
+          effort: value('CLAUDE_EFFORT') ?? 'high',
+          useFallbacks: (value('CLAUDE_FALLBACKS') ?? 'default') != 'off',
+          baseUrl: value('ANTHROPIC_BASE_URL') ?? 'https://api.anthropic.com',
+        ),
+  ];
   return switch (provider) {
-    'gemini' when geminiKey != null => [
-      for (final model in (value('GEMINI_MODEL') ?? GeminiClient.defaultModel).split(','))
-        if (model.trim().isNotEmpty)
-          GeminiClient(apiKey: geminiKey, model: model.trim(), thinkingLevel: value('GEMINI_THINKING')),
-    ],
-    'claude' when claudeKey != null => [
-      for (final model in (value('CLAUDE_MODEL') ?? ClaudeClient.defaultModel).split(','))
-        if (model.trim().isNotEmpty)
-          ClaudeClient(
-            apiKey: claudeKey,
-            model: model.trim(),
-            effort: value('CLAUDE_EFFORT') ?? 'high',
-            useFallbacks: (value('CLAUDE_FALLBACKS') ?? 'default') != 'off',
-            baseUrl: value('ANTHROPIC_BASE_URL') ?? 'https://api.anthropic.com',
-          ),
-    ],
+    'gemini' when geminiKey != null => [...gemini, ...claude],
+    'claude' when claudeKey != null => [...claude, ...gemini],
     _ => const [],
   };
 }
