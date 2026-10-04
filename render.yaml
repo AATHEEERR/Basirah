@@ -13,8 +13,12 @@ services:
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: AI_PROVIDER
+        value: claude
+      - key: GEMINI_API_KEY
+        sync: false
       - key: CLAUDE_MODEL
-        value: claude-opus-5-5,claude-sonnet-5-5
+        value: claude-sonnet-5-5,claude-haiku-4-5
       - key: CLAUDE_EFFORT
         value: high
       - key: ALLOWED_ORIGIN
