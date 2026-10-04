@@ -108,6 +108,9 @@ void main() {
     final r = await pipeline(s).ask('Can I visit my non-Muslim parents?');
     expect([for (final e in r.answer.evidence) if (e.isQuran) e.surah], [60]);
     expect(r.guardActions.single, contains('2:256'));
+    // «إيصال بصيرة»: the drop travels with the answer, in its JSON too.
+    expect(r.answer.guard, r.guardActions);
+    expect(BasirahAnswer.fromJson(r.answer.toJson()).guard, r.guardActions);
   });
 
   test('pre-read tafsir: the closest reference answer\'s verses let the model answer in one request', () async {

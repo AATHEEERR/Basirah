@@ -197,7 +197,17 @@ class AskPipeline {
             guardActions: [...skipped, 'time budget reached (${answerBudget.inSeconds} s)'],
           );
         }
-        final result = _finish(outcome, question, router, signals, hits);
+        final finished = _finish(outcome, question, router, signals, hits);
+        // What the guard did travels with the answer («إيصال بصيرة»).
+        final result = finished.guardActions.isEmpty
+            ? finished
+            : PipelineResult(
+                answer: finished.answer.copyWith(guard: finished.guardActions),
+                via: finished.via,
+                notice: finished.notice,
+                guardActions: finished.guardActions,
+                usage: finished.usage,
+              );
         // A personal case is never cached: its referral may restate the
         // asker's situation, and the server does not keep that.
         if (cacheKey != null &&

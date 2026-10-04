@@ -13,6 +13,7 @@ import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import 'answer_cards.dart';
 import 'feedback_bar.dart';
+import 'receipt.dart';
 import 'share_card.dart';
 
 /// Answer page for a curated question (`/faq/:id`).
@@ -146,7 +147,7 @@ class AnswerView extends ConsumerWidget {
                       tooltip: context.tr('نسخ الإجابة', 'Copy answer'),
                       onTap: () {
                         Clipboard.setData(
-                          ClipboardData(text: _plainText(a, context.lang)),
+                          ClipboardData(text: plainText(a, context.lang)),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -229,7 +230,7 @@ class AnswerView extends ConsumerWidget {
                     ],
                     const SizedBox(height: 22),
                     AnswerCards(answer: a),
-                    if (a.research.isNotEmpty) ResearchTrail(steps: a.research),
+                    if (a.kind != AnswerKind.offTopic) AnswerReceipt(answer: a),
                     FeedbackBar(answer: a, category: entry?.categoryId),
                     _TrustFooter(answer: a),
                   ],
@@ -262,7 +263,8 @@ class AnswerView extends ConsumerWidget {
     );
   }
 
-  static String _plainText(BasirahAnswer a, String lang) {
+  /// The answer as plain text with its sources (the copy button).
+  static String plainText(BasirahAnswer a, String lang) {
     final en = lang == 'en';
     final b = StringBuffer()
       ..writeln('${en ? 'Q' : 'س'}: ${a.question}')

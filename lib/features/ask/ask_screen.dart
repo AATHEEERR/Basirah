@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +16,10 @@ import '../../shared/brand.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
+import '../answer/answer_screen.dart';
 import '../answer/feedback_bar.dart';
+import '../answer/receipt.dart';
+import '../answer/share_card.dart';
 import '../welcome/context_screen.dart';
 
 class AskScreen extends ConsumerStatefulWidget {
@@ -536,7 +540,7 @@ class _AssistantMessage extends ConsumerWidget {
             const SizedBox(height: 10),
           ],
           AnswerCards(answer: a, compact: true),
-          if (a.research.isNotEmpty) ResearchTrail(steps: a.research),
+          if (!offTopic) AnswerReceipt(answer: a),
           FeedbackBar(answer: a),
           if (related.isNotEmpty) ...[
             Text(context.tr('أسئلة قريبة موثّقة', 'Related documented questions'), style: BText.label(12.5)),
@@ -572,6 +576,22 @@ class _AssistantMessage extends ConsumerWidget {
                   icon: saved ? Icons.bookmark_rounded : Icons.bookmark_add_outlined,
                   onTap: () => ref.read(savedProvider.notifier).toggle(a),
                 ),
+                SecondaryButton(
+                  label: context.tr('نسخ', 'Copy'),
+                  icon: Icons.copy_rounded,
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(text: AnswerView.plainText(a, context.lang)));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(context.tr('نُسخت الإجابة مع مصادرها', 'Answer copied with its sources'))),
+                    );
+                  },
+                ),
+                if (canShareCard(a))
+                  SecondaryButton(
+                    label: context.tr('مشاركة كبطاقة', 'Share as a card'),
+                    icon: Icons.ios_share_rounded,
+                    onTap: () => showShareCard(context, a),
+                  ),
                 if (outcome.isStored && outcome.notice != null && onRetryLive != null)
                   SecondaryButton(
                     label: context.tr('أعد المحاولة بإجابة حية', 'Retry with a live answer'),

@@ -817,10 +817,15 @@ class BasirahAnswer {
     this.review = 'pending',
     this.model,
     this.research = const [],
+    this.guard = const [],
   });
 
   /// How the answer was researched, e.g. «بحث: …», «قراءة تفسير: الممتحنة ٨».
   final List<String> research;
+
+  /// What the guard did to a live answer before it was shown (e.g. «dropped
+  /// 60:8: cited without reading its tafsir»), for «إيصال بصيرة».
+  final List<String> guard;
 
   final String question;
   final AnswerKind kind;
@@ -882,6 +887,7 @@ class BasirahAnswer {
     String? question,
     List<String>? related,
     List<String>? guidance,
+    List<String>? guard,
   }) => BasirahAnswer(
     question: question ?? this.question,
     kind: kind,
@@ -902,6 +908,7 @@ class BasirahAnswer {
     review: review,
     model: model,
     research: research,
+    guard: guard ?? this.guard,
   );
 
   factory BasirahAnswer.fromJson(Map<String, dynamic> j) => BasirahAnswer(
@@ -927,6 +934,7 @@ class BasirahAnswer {
     review: (j['review'] as String?) ?? 'pending',
     model: j['model'] as String?,
     research: _strings(j['research']),
+    guard: _strings(j['guard']),
   );
 
   Map<String, dynamic> toJson() => {
@@ -949,6 +957,7 @@ class BasirahAnswer {
     'review': review,
     'model': model,
     'research': research,
+    if (guard.isNotEmpty) 'guard': guard,
   };
 }
 
