@@ -39,6 +39,7 @@ Future<void> main() async {
   final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran, hadith: HadeethEnc(), cache: AnswerCache());
   final limiter = RateLimiter();
   final verseAudio = VerseAudioSource();
+  final meaning = MeaningSource();
   final origin = env['ALLOWED_ORIGIN'] ?? '*';
   final metrics = Metrics(file: env['METRICS_FILE'] ?? 'cache/metrics.jsonl');
 
@@ -58,6 +59,30 @@ Future<void> main() async {
         'tafsir': quran == null ? null : ['موسوعة التفسير — الدرر السنية'],
       }),
     )
+    // «اسمعها بلغتك»: a verse's approved translation, text and recorded voice,
+    // from موسوعة القرآن الكريم: GET /api/meaning?key=60:8&to=9&lang=tagalog_rwwad
+    // (without `lang`: the list of languages).
+    ..get('/api/meaning', (Request req) async {
+      final q = req.url.queryParameters;
+      final languages = [for (final l in meaningLanguages) l.toJson()];
+      final lang = meaningLanguages.where((l) => l.key == q['lang']).firstOrNull;
+      if (lang == null) return _json({'languages': languages});
+      final key = quran?.parseRef(q['key'] ?? '');
+      if (key == null) return _json({'error': 'unknown verse'}, status: 400);
+      final surah = int.parse(key.split(':')[0]);
+      final first = int.parse(key.split(':')[1]);
+      final lastKey = q['to'] == null ? key : quran?.parseRef('$surah:${q['to']}');
+      final last = lastKey == null ? first : int.parse(lastKey.split(':')[1]);
+      if (last < first || last - first >= 20) return _json({'error': 'range'}, status: 400);
+      final verses = await Future.wait([for (var a = first; a <= last; a++) meaning.verse(surah, a, lang)]);
+      if (verses.any((v) => v == null)) return _json({'error': 'unavailable'}, status: 503);
+      return _json({
+        'language': lang.toJson(),
+        'title': await meaning.title(lang),
+        'verses': [for (final v in verses) v!.toJson()],
+        'languages': languages,
+      });
+    })
     // Verse recitation, one MP3 per verse from the association's MCP server:
     // GET /api/recitation?key=2:186&to=187&reciter=husary
     ..get('/api/recitation', (Request req) async {

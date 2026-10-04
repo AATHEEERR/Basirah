@@ -10,6 +10,7 @@ export 'src/guard.dart';
 export 'src/hadith.dart';
 export 'src/kb_loader.dart';
 export 'src/llm.dart';
+export 'src/meaning.dart';
 export 'src/metrics.dart';
 export 'src/pipeline.dart';
 export 'src/prompt.dart';

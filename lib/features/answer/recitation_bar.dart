@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
 import '../../core/config.dart';
 import '../../core/lang.dart';
+import '../../core/meaning.dart';
 
 /// One player for the whole app: starting a verse stops any other.
 final recitationPlayerProvider = Provider<AudioPlayer>((ref) {
@@ -49,6 +51,38 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
   String? _teacherUrl;
   String? _error;
 
+  /// «اسمعها بلغتك»: the approved translation of this verse (range) in the
+  /// chosen language, and which language it is for.
+  Map<String, dynamic>? _meaning;
+  String? _meaningFor;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _loadMeaning(ref.read(meaningLangProvider));
+    });
+  }
+
+  Future<void> _loadMeaning(String? lang) async {
+    if (lang == null) {
+      if (mounted) setState(() => _meaning = _meaningFor = null);
+      return;
+    }
+    if (_meaningFor == lang && _meaning != null) return;
+    _meaningFor = lang;
+    final (first, last) = _range;
+    try {
+      final res = await http
+          .get(Uri.parse('${AppConfig.apiBase}/api/meaning?key=${widget.evidence.surah}:$first&to=$last&lang=$lang'))
+          .timeout(const Duration(seconds: 25));
+      if (res.statusCode != 200 || !mounted || _meaningFor != lang) return;
+      setState(() => _meaning = jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>);
+    } on Exception {
+      // The recitation still works without the meaning.
+    }
+  }
+
   /// «8» or «1–4» → first and last verse.
   (int, int) get _range {
     final parts = (widget.evidence.ayah ?? '').split(RegExp('[–-]')).map((s) => int.tryParse(s.trim())).toList();
@@ -88,9 +122,15 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
       ];
       _teacherUrl = a['teacherUrl'] as String?;
       await player.stop();
-      // One small file per verse, played in order.
+      final lang = ref.read(meaningLangProvider);
+      if (lang != null) await _loadMeaning(lang);
+      final meaning = lang == null ? null : _meaning;
+      // One small file per verse, played in order; then, when a language is
+      // chosen, the approved meaning of each verse in that language.
       await player.setAudioSources([
         for (final v in (a['verses'] as List).cast<Map<String, dynamic>>()) AudioSource.uri(Uri.parse(v['url'] as String)),
+        if (meaning != null)
+          for (final v in (meaning['verses'] as List).cast<Map<String, dynamic>>()) AudioSource.uri(Uri.parse(v['audio'] as String)),
       ]);
       await player.setSpeed(_slow ? .75 : 1);
       await player.setLoopMode(_repeat ? LoopMode.all : LoopMode.off);
@@ -125,6 +165,8 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
     final names = ref.watch(recitersProvider);
     final name = names.where((r) => r.$1 == read).map((r) => context.tr(r.$2, r.$3)).firstOrNull ??
         context.tr('الحصري', 'Al-Husary');
+    ref.listen<String?>(meaningLangProvider, (_, next) => _loadMeaning(next));
+    final lang = meaningLanguages.where((l) => l.$1 == ref.watch(meaningLangProvider)).firstOrNull;
     return StreamBuilder<PlayerState>(
       stream: player.playerStateStream,
       builder: (context, snap) {
@@ -146,9 +188,29 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                         : (playing && mine ? Icons.pause_rounded : Icons.play_arrow_rounded),
                     label: playing && mine
                         ? context.tr('إيقاف', 'Pause')
-                        : context.tr('استمع للآية', 'Listen'),
+                        : lang == null
+                        ? context.tr('استمع للآية', 'Listen')
+                        : context.tr('استمع للآية ثم معناها', 'Listen, then the meaning'),
                     strong: true,
                     onTap: _loading ? null : _play,
+                  ),
+                  PopupMenuButton<String>(
+                    tooltip: context.tr('اسمع معنى الآية بلغتك', 'Hear the meaning in your language'),
+                    onSelected: (k) {
+                      ref.read(meaningLangProvider.notifier).set(k.isEmpty ? null : k);
+                      ref.read(nowPlayingProvider.notifier).state = null;
+                      player.stop();
+                    },
+                    itemBuilder: (_) => [
+                      PopupMenuItem(value: '', child: Text(context.tr('بدون ترجمة', 'No translation'))),
+                      for (final l in meaningLanguages)
+                        PopupMenuItem(value: l.$1, child: Text(context.isEn ? l.$3 : '${l.$3} · ${l.$4}')),
+                    ],
+                    child: _Pill(
+                      icon: Icons.translate_rounded,
+                      label: lang == null ? context.tr('المعنى بلغتك', 'Meaning in your language') : lang.$3,
+                      selected: lang != null,
+                    ),
                   ),
                   PopupMenuButton<String>(
                     tooltip: context.tr('اختر القارئ', 'Choose the reciter'),
@@ -203,10 +265,62 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                   style: BText.label(11, weight: FontWeight.w400),
                 ),
               ),
+              if (lang != null && _meaning != null && _meaningFor == lang.$1) _MeaningBox(lang: lang, meaning: _meaning!),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+/// The approved translation of the verse in the chosen language, its
+/// source, and the IslamHouse library in that language.
+class _MeaningBox extends StatelessWidget {
+  const _MeaningBox({required this.lang, required this.meaning});
+
+  final (String, String, String, String, bool) lang;
+  final Map<String, dynamic> meaning;
+
+  @override
+  Widget build(BuildContext context) {
+    final verses = (meaning['verses'] as List).cast<Map<String, dynamic>>();
+    final title = meaning['title'] as String?;
+    return Container(
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: Colors.white.withValues(alpha: .85), borderRadius: BorderRadius.circular(14)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            context.tr('ترجمة معاني معتمدة · ${lang.$4} · موسوعة القرآن الكريم', 'Approved translation of the meanings · ${lang.$3} · QuranEnc'),
+            style: BText.label(11.5, color: BColors.goldDeep, weight: FontWeight.w600),
+          ),
+          if (title != null) Text(title, style: BText.label(11, weight: FontWeight.w400), textDirection: TextDirection.ltr),
+          const SizedBox(height: 6),
+          for (final v in verses)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text(
+                verses.length > 1 ? '(${v['ayah']}) ${v['text']}' : v['text'] as String,
+                textDirection: lang.$5 ? TextDirection.rtl : TextDirection.ltr,
+                style: BText.body(14, height: 1.6),
+              ),
+            ),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: TextButton.icon(
+              onPressed: () => launchUrl(Uri.parse('https://islamhouse.com/${lang.$2}/main/'), mode: LaunchMode.externalApplication),
+              icon: const Icon(Icons.local_library_outlined, size: 16, color: BColors.goldDeep),
+              label: Text(
+                context.tr('تعلّم أكثر بلغتك: مكتبة دار الإسلام', 'Learn more in your language: IslamHouse library'),
+                style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
