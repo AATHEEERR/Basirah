@@ -1,0 +1,12 @@
+name: basirah_core
+description: >-
+  Knowledge-base models, Arabic-aware retrieval and safety routing shared by the
+  Basirah app and the Basirah API. Pure Dart, no Flutter dependency.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+dev_dependencies:
+  test: ^1.25.0

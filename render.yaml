@@ -1,0 +1,19 @@
+# Render blueprint for the Basirah API (free web service).
+# Set ANTHROPIC_API_KEY in the Render dashboard — never commit it.
+services:
+  - type: web
+    name: basirah-api
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: CLAUDE_MODEL
+        value: claude-opus-5
+      - key: CLAUDE_EFFORT
+        value: high
+      - key: ALLOWED_ORIGIN
+        value: "*"

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="بصيرة — إجابات موثقة لأسئلة المسلم الجديد، من المراجع المعتمدة فقط.">
+  <meta name="theme-color" content="#F2F2F4">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="بصيرة">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>بصيرة · Basirah</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html, body { margin: 0; height: 100%; background: #F2F2F4; }
+    #boot { position: fixed; inset: 0; display: grid; place-items: center; }
+    #boot img { width: 96px; height: 96px; animation: twinkle 1.6s ease-in-out infinite alternate; }
+    @keyframes twinkle { from { transform: scale(.88); opacity: .75; } to { transform: scale(1.02); opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div id="boot" aria-hidden="true">
+    <img src="logo.png" alt="">
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var b = document.getElementById('boot'); if (b) b.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

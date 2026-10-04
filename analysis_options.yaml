@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  # The shared core and the API are separate Dart packages with their own
+  # analysis (run `dart analyze` inside each).
+  exclude:
+    - packages/**
+    - server/**
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_final_locals: true
+    sort_child_properties_last: true

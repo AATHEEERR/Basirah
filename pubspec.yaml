@@ -1,0 +1,42 @@
+name: basirah
+description: "بصيرة — Basirah: trustworthy, reference-grounded answers for new Muslims."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Shared with the API: knowledge-base models, Arabic retrieval, safety router
+  basirah_core:
+    path: packages/basirah_core
+
+  # State management & routing
+  flutter_riverpod: ^2.6.1
+  go_router: ^17.5.0
+
+  # UI / typography
+  google_fonts: ^8.2.1
+  cupertino_icons: ^1.0.8
+
+  # Utilities
+  http: ^1.6.0
+  shared_preferences: ^2.5.5
+  intl: ^0.20.2
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/kb/
+    - assets/brand/

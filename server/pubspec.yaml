@@ -1,0 +1,20 @@
+name: basirah_server
+description: >-
+  Basirah API: grounds Claude in the closed Basirah knowledge base, enforces the
+  reference pack's response levels, and validates every answer before it
+  reaches the app. Keeps the Anthropic API key off the client.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  basirah_core:
+    path: ../packages/basirah_core
+  http: ^1.2.0
+  shelf: ^1.4.0
+  shelf_router: ^1.1.0
+
+dev_dependencies:
+  test: ^1.25.0
