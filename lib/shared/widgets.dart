@@ -332,7 +332,11 @@ class TrackTile extends StatelessWidget {
     required this.level,
     required this.onTap,
     this.kind,
+    this.padding = const EdgeInsets.fromLTRB(16, 0, 16, 10),
   });
+
+  /// Space around the tile (the website's columns need no side padding).
+  final EdgeInsets padding;
 
   final int index;
   final String title;
@@ -349,7 +353,7 @@ class TrackTile extends StatelessWidget {
       _ => null,
     };
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+      padding: padding,
       child: SoftCard(
         onTap: onTap,
         radius: 20,

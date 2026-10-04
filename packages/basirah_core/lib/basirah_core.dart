@@ -3,6 +3,7 @@
 library;
 
 export 'src/arabic.dart';
+export 'src/asker_context.dart';
 export 'src/models.dart';
 export 'src/offline_router.dart';
 export 'src/retriever.dart';

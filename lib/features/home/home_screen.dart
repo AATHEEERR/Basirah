@@ -10,6 +10,7 @@ import '../../core/state.dart';
 import '../../shared/brand.dart';
 import '../../shared/lang_toggle.dart';
 import '../../shared/patterns.dart';
+import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
 
@@ -21,6 +22,10 @@ class HomeScreen extends ConsumerWidget {
     void ask([AskDraft? draft]) {
       ref.read(askDraftProvider.notifier).state = draft;
       context.go('/ask');
+    }
+
+    if (isWebsite(context)) {
+      return Scaffold(body: KbBuilder(builder: (context, kb) => _WideHome(kb: kb, ask: ask)));
     }
 
     return Scaffold(
@@ -281,16 +286,19 @@ class _QuickRow extends StatelessWidget {
 
 /// Deep "photo" card with a black badge and white title (Nusuk content card).
 class _FeaturedCard extends StatelessWidget {
-  const _FeaturedCard({required this.category, required this.kb});
+  const _FeaturedCard({required this.category, required this.kb, this.width = 250});
 
   final Category category;
   final KnowledgeBase kb;
+
+  /// Null to fill the space given (the website grid).
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     final count = kb.entriesIn(category.id).length;
     return SizedBox(
-      width: 250,
+      width: width,
       child: CategoryBackdrop(
         category: category,
         patternSize: 220,
@@ -392,14 +400,15 @@ class CategoryTile extends StatelessWidget {
 
 /// «بصيرة AI» card with a warm sand glow (Nusuk AI card).
 class _AiCard extends StatelessWidget {
-  const _AiCard({required this.onTap});
+  const _AiCard({required this.onTap, this.padding = const EdgeInsets.fromLTRB(16, 26, 16, 0)});
 
   final VoidCallback onTap;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 26, 16, 0),
+      padding: padding,
       child: SoftCard(
         onTap: onTap,
         glow: BColors.sand,
@@ -457,14 +466,15 @@ class _MiniDots extends StatelessWidget {
 }
 
 class _ReferencesPromo extends StatelessWidget {
-  const _ReferencesPromo({required this.kb});
+  const _ReferencesPromo({required this.kb, this.padding = const EdgeInsets.fromLTRB(16, 28, 16, 0)});
 
   final KnowledgeBase kb;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 28, 16, 0),
+      padding: padding,
       child: SoftCard(
         onTap: () => context.push('/sources'),
         glow: BColors.beige,
@@ -530,6 +540,265 @@ class _TrustLaurel extends StatelessWidget {
           const SizedBox(width: 10),
           const Icon(Icons.spa_outlined, color: BColors.textFaint, size: 34),
         ],
+      ),
+    );
+  }
+}
+
+
+/// The home page laid out as a website (a computer): a hero with the title,
+/// the search and a sample of how an answer is built; then sections in
+/// grids, divided by hairlines, instead of the phone's carousels.
+class _WideHome extends StatelessWidget {
+  const _WideHome({required this.kb, required this.ask});
+
+  final KnowledgeBase kb;
+  final void Function([AskDraft? draft]) ask;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(20, 44, 20, 40),
+          sliver: SliverToBoxAdapter(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.label(15, color: BColors.goldDeep, weight: FontWeight.w600)),
+                      const SizedBox(height: 6),
+                      Text(context.tr('اسأل على بصيرة', 'Ask with insight'), style: BText.brand(context.isEn ? 46 : 54)),
+                      const SizedBox(height: 14),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 560),
+                        child: Text(
+                          context.tr(
+                            'إجابات عن أسئلتك في الإسلام من المصادر المعتمدة: الآية من مصحف مجمع الملك فهد، والحديث بمصدره وحكمه، وما يحتاج إلى مختص يُحال إلى أهله.',
+                            'Answers to your questions about Islam from approved sources: the verse from the King Fahd Complex Mushaf, the hadith with its source and grading, and anything that needs a specialist is referred to one.',
+                          ),
+                          style: BText.body(17, color: BColors.textMuted, height: 1.75),
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      _SearchPill(onTap: () => ask()),
+                      const SizedBox(height: 16),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          for (final c in kb.categories)
+                            ActionChip(
+                              onPressed: () => context.push('/category/${c.id}'),
+                              avatar: Icon(c.iconData, size: 17, color: c.accent),
+                              label: Text(c.title, style: BText.label(13, color: BColors.ink)),
+                              backgroundColor: BColors.surface,
+                              side: BorderSide.none,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 40),
+                const Expanded(flex: 5, child: _AnswerSample()),
+              ],
+            ),
+          ),
+        ),
+        _WideSection(
+          eyebrow: context.tr('أكثر ما يشغل المسلم الجديد', 'What new Muslims ask most'),
+          title: context.tr('ابدأ من هنا', 'Start here'),
+          linkLabel: context.tr('عرض الكل', 'See all'),
+          onLink: () => context.go('/explore'),
+          child: SizedBox(
+            height: 290,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final (i, c) in kb.categories.take(4).indexed) ...[
+                  if (i > 0) const SizedBox(width: 14),
+                  Expanded(child: _FeaturedCard(category: c, kb: kb, width: null)),
+                ],
+              ],
+            ),
+          ),
+        ),
+        _WideSection(
+          eyebrow: context.tr('الأسئلة', 'Questions'),
+          title: context.tr('الأكثر سؤالاً', 'Most asked'),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 7,
+                child: Column(
+                  children: [
+                    for (final (i, e) in kb.popular.take(5).indexed)
+                      TrackTile(
+                        index: i + 1,
+                        title: e.question,
+                        subtitle: kb.category(e.categoryId)?.title ?? '',
+                        level: e.level,
+                        kind: e.kind,
+                        padding: const EdgeInsets.only(bottom: 10),
+                        onTap: () => context.push('/faq/${e.id}'),
+                      ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  children: [
+                    _AiCard(onTap: () => ask(), padding: EdgeInsets.zero),
+                    _ReferencesPromo(kb: kb, padding: const EdgeInsets.only(top: 14)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        _WideSection(
+          eyebrow: context.tr('استكشف', 'Explore'),
+          title: context.tr('حسب الفئة', 'By category'),
+          linkLabel: context.tr('عرض الكل', 'See all'),
+          onLink: () => context.go('/explore'),
+          child: GridView.count(
+            crossAxisCount: 4,
+            crossAxisSpacing: 14,
+            mainAxisSpacing: 14,
+            childAspectRatio: 1.55,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            children: [for (final c in kb.categories) CategoryTile(category: c, kb: kb)],
+          ),
+        ),
+        const SliverPadding(
+          padding: EdgeInsets.only(bottom: 56),
+          sliver: SliverToBoxAdapter(child: _TrustLaurel()),
+        ),
+      ],
+    );
+  }
+}
+
+/// A website section: a hairline above, a small gold eyebrow, the title, an
+/// optional «عرض الكل» link, then the content.
+class _WideSection extends StatelessWidget {
+  const _WideSection({required this.eyebrow, required this.title, required this.child, this.linkLabel, this.onLink});
+
+  final String eyebrow;
+  final String title;
+  final Widget child;
+  final String? linkLabel;
+  final VoidCallback? onLink;
+
+  @override
+  Widget build(BuildContext context) => SliverPadding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    sliver: SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.only(top: 32, bottom: 40),
+        decoration: const BoxDecoration(border: Border(top: BorderSide(color: BColors.stroke))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(eyebrow, style: BText.label(13.5, color: BColors.goldDeep, weight: FontWeight.w600)),
+                      const SizedBox(height: 2),
+                      Text(title, style: BText.display(28, weight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+                if (linkLabel != null)
+                  TextButton.icon(
+                    onPressed: onLink,
+                    iconAlignment: IconAlignment.end,
+                    icon: const Icon(Icons.arrow_forward_rounded, size: 18, color: BColors.ink),
+                    label: Text(linkLabel!, style: BText.label(14, color: BColors.ink, weight: FontWeight.w600)),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            child,
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+/// The hero's side panel: how every Basirah answer is built, one coloured
+/// card per part. Opens the full legend.
+class _AnswerSample extends StatelessWidget {
+  const _AnswerSample();
+
+  @override
+  Widget build(BuildContext context) {
+    const tones = [Tones.principle, Tones.culture, Tones.guidance, Tones.evidence];
+    return Material(
+      color: BColors.surface,
+      borderRadius: BorderRadius.circular(28),
+      elevation: 0,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(28),
+        onTap: () => showToneLegend(context),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: const [BoxShadow(color: Color(0x1A141416), blurRadius: 40, offset: Offset(0, 18), spreadRadius: -22)],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(context.tr('كيف تُجيب بصيرة؟', 'How does Basirah answer?'), style: BText.title(16)),
+              Text(
+                context.tr('كل إجابة من أربع بطاقات، لكل بطاقة لون ومعنى ثابت', 'Every answer has four cards, each with a fixed colour and meaning'),
+                style: BText.label(13, weight: FontWeight.w400),
+              ),
+              const SizedBox(height: 14),
+              for (final t in tones)
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [t.top, t.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(t.icon, size: 20, color: t.accent),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(t.titleFor(context.lang), style: BText.label(14, color: t.accent, weight: FontWeight.w600)),
+                            Text(t.explainFor(context.lang), style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w400)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:basirah_core/basirah_core.dart';
 import 'package:basirah_server/basirah_server.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -14,6 +15,8 @@ import 'package:shelf_router/shelf_router.dart';
 ///   KB_DIR             default ../assets/kb
 ///   QURAN_FILE         default data/quran.json (built on first start if missing)
 ///   ALLOWED_ORIGIN     CORS origin, default *
+///   WEB_DIR            optional: the web app's build, served on the same link
+///   METRICS_FILE       anonymous usage + ratings (default cache/metrics.jsonl)
 ///   PORT               default 8080
 Future<void> main() async {
   final env = loadEnv();
@@ -22,7 +25,7 @@ Future<void> main() async {
 
   final quranFile = env['QURAN_FILE'] ?? 'data/quran.json';
   if (!File(quranFile).existsSync()) {
-    stdout.writeln('Quran dataset missing — downloading it once from api.quran.com …');
+    stdout.writeln('Quran dataset missing — downloading it once from QuranEnc and Quranpedia …');
     try {
       stdout.writeln(await fetchQuranDataset(quranFile));
     } on Exception catch (e) {
@@ -33,28 +36,51 @@ Future<void> main() async {
 
   final llms = llmsFromEnv(env);
   final llm = llms.firstOrNull;
-  final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran);
+  final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran, hadith: HadeethEnc(), cache: AnswerCache());
   final limiter = RateLimiter();
+  final recitation = RecitationSource();
   final origin = env['ALLOWED_ORIGIN'] ?? '*';
+  final metrics = Metrics(file: env['METRICS_FILE'] ?? 'cache/metrics.jsonl');
 
   final app = Router()
-    ..get('/health', (Request _) => _json({
-          'ok': true,
-          'kbVersion': kb.version,
-          'entries': kb.entries.length,
-          'evidence': kb.evidence.length,
-          'ai': pipeline.aiEnabled,
-          'provider': llm?.provider,
-          'model': llm?.model,
-          'models': [for (final m in llms) m.model],
-          'quranVerses': quran?.length ?? 0,
-          'tafsir': quran == null ? null : ['تفسير الطبري'],
-        }))
+    ..get(
+      '/health',
+      (Request _) => _json({
+        'ok': true,
+        'kbVersion': kb.version,
+        'entries': kb.entries.length,
+        'evidence': kb.evidence.length,
+        'ai': pipeline.aiEnabled,
+        'provider': llm?.provider,
+        'model': llm?.model,
+        'models': [for (final m in llms) m.model],
+        'quranVerses': quran?.length ?? 0,
+        'tafsir': quran == null ? null : ['موسوعة التفسير — الدرر السنية'],
+      }),
+    )
+    // A verse's recitation: GET /api/recitation?key=60:8&read=118
+    ..get('/api/recitation', (Request req) async {
+      final q = req.url.queryParameters;
+      final key = quran?.parseRef(q['key'] ?? '');
+      if (key == null) return _json({'error': 'unknown verse'}, status: 400);
+      final parts = key.split(':');
+      final audio = await recitation.verse(
+        int.parse(parts[0]),
+        int.parse(parts[1]),
+        read: int.tryParse(q['read'] ?? '') ?? reciters.first.read,
+      );
+      if (audio == null) return _json({'error': 'unavailable'}, status: 503);
+      return _json({
+        ...audio.toJson(),
+        'reciters': [
+          for (final r in reciters) {'read': r.read, 'ar': r.ar, 'en': r.en},
+        ],
+      });
+    })
     ..post('/api/ask', (Request req) async {
-      final ip = req.headers['x-forwarded-for']?.split(',').first.trim() ??
-          (req.context['shelf.io.connection_info'] as HttpConnectionInfo?)
-              ?.remoteAddress
-              .address ??
+      final ip =
+          req.headers['x-forwarded-for']?.split(',').first.trim() ??
+          (req.context['shelf.io.connection_info'] as HttpConnectionInfo?)?.remoteAddress.address ??
           'unknown';
       if (!limiter.allow(ip)) {
         return _json({'error': 'rate_limited'}, status: 429);
@@ -77,34 +103,82 @@ Future<void> main() async {
           if (t is Map<String, dynamic>) Turn.fromJson(t),
       ];
 
+      // «سياقي»: fixed choices only; unknown values are dropped. Not logged.
+      final asker = AskerContext.fromJson(body['context']);
+
       final started = DateTime.now();
       final result = await pipeline.ask(
         question,
         categoryId: kb.category(categoryId ?? '') == null ? null : categoryId,
         mode: mode,
         history: history,
+        asker: asker,
       );
 
       // Privacy: log metadata only — never the question text.
-      stdout.writeln(jsonEncode({
-        't': started.toUtc().toIso8601String(),
-        'via': result.via.name,
-        'kind': result.answer.kind.name,
-        'level': result.answer.level.code,
-        'entry': result.answer.entryId,
-        'verses': [for (final e in result.answer.evidence) if (e.isQuran) e.reference],
-        'research': result.answer.research.length,
-        'turns': history.length,
-        'ms': DateTime.now().difference(started).inMilliseconds,
-        'guard': result.guardActions,
-        'cacheRead': result.usage['cache_read_input_tokens'],
-      }));
+      stdout.writeln(
+        jsonEncode({
+          't': started.toUtc().toIso8601String(),
+          'via': result.via.name,
+          'kind': result.answer.kind.name,
+          'level': result.answer.level.code,
+          'entry': result.answer.entryId,
+          'verses': [
+            for (final e in result.answer.evidence)
+              if (e.isQuran) e.reference,
+          ],
+          'research': result.answer.research.length,
+          'turns': history.length,
+          'cached': result.guardActions.contains(AskPipeline.cachedAction),
+          'ms': DateTime.now().difference(started).inMilliseconds,
+          'guard': result.guardActions,
+          'cacheRead': result.usage['cache_read_input_tokens'],
+        }),
+      );
+      // «لوحة الأثر»: the same metadata, anonymous (see Metrics).
+      final a = result.answer;
+      metrics.recordAsk(
+        kind: a.kind.name,
+        via: result.via.name,
+        cached: result.guardActions.contains(AskPipeline.cachedAction),
+        ms: DateTime.now().difference(started).inMilliseconds,
+        verses: a.evidence.where((e) => e.isQuran).length,
+        hadith: a.evidence.where((e) => !e.isQuran).length,
+        guardCatches: result.guardActions.where((g) => g != AskPipeline.cachedAction).length,
+        lang: RegExp('[؀-ۿ]').hasMatch(question) ? 'ar' : 'en',
+        category: a.entryId == null ? null : kb.entry(a.entryId!)?.categoryId,
+      );
       return _json(result.toJson());
-    });
+    })
+    // A rating from the button under an answer: fixed choices only.
+    ..post('/api/feedback', (Request req) async {
+      final ip =
+          req.headers['x-forwarded-for']?.split(',').first.trim() ??
+          (req.context['shelf.io.connection_info'] as HttpConnectionInfo?)?.remoteAddress.address ??
+          'unknown';
+      if (!limiter.allow(ip)) return _json({'error': 'rate_limited'}, status: 429);
+      try {
+        final body = jsonDecode(await req.readAsString()) as Map<String, dynamic>;
+        final ok = metrics.recordFeedback(
+          helpful: body['helpful'] as bool,
+          reasons: [for (final r in body['reasons'] as List? ?? const []) r as String],
+          kind: body['kind'] as String,
+          lang: body['lang'] as String,
+          category: body['category'] as String?,
+        );
+        return ok ? _json({'ok': true}) : _json({'error': 'invalid'}, status: 400);
+      } on Object {
+        return _json({'error': 'invalid'}, status: 400);
+      }
+    })
+    // «لوحة الأثر»: totals only.
+    ..get('/api/stats', (Request _) => _json(metrics.summary()));
 
-  final handler = const Pipeline()
-      .addMiddleware(_cors(origin))
-      .addHandler(app.call);
+  // One deployment can serve the web app too (WEB_DIR = the Flutter web
+  // build): every path the API does not answer is a file of the app.
+  final webDir = env['WEB_DIR'];
+  final routes = webDir != null && Directory(webDir).existsSync() ? Cascade().add(app.call).add(webAppHandler(webDir)).handler : app.call;
+  final handler = const Pipeline().addMiddleware(_cors(origin)).addHandler(routes);
 
   final port = int.tryParse(env['PORT'] ?? '') ?? 8080;
   final server = await io.serve(handler, InternetAddress.anyIPv4, port);
@@ -115,11 +189,8 @@ Future<void> main() async {
   );
 }
 
-Response _json(Object body, {int status = 200}) => Response(
-  status,
-  body: jsonEncode(body),
-  headers: {'content-type': 'application/json; charset=utf-8'},
-);
+Response _json(Object body, {int status = 200}) =>
+    Response(status, body: jsonEncode(body), headers: {'content-type': 'application/json; charset=utf-8'});
 
 Middleware _cors(String origin) {
   final headers = {

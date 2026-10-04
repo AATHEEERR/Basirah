@@ -9,26 +9,39 @@ QuranLibrary loadFixtureQuran() => QuranLibrary.fromJson(
   jsonDecode(File('test/fixtures/quran_sample.json').readAsStringSync()) as Map<String, dynamic>,
 );
 
-class FakeTabari implements TafsirSource {
-  FakeTabari({this.unavailable = const {}});
+/// Stands in for [DorarTafsir]: passage text in its format, no network.
+class FakeTafsir implements TafsirSource {
+  FakeTafsir({this.unavailable = const {}});
 
   /// Verse keys for which the tafsir cannot be fetched.
   final Set<String> unavailable;
   final requested = <String>[];
 
   @override
-  String get name => 'تفسير الطبري';
+  String get name => 'موسوعة التفسير — الدرر السنية';
+
+  @override
+  String get nameEn => 'Dorar Tafsir Encyclopedia';
 
   @override
   Future<String?> forVerse(String key) async {
     requested.add(key);
     if (unavailable.contains(key)) return null;
-    return 'القول في تأويل قوله تعالى: …\nيقول تعالى ذكره: شرح الآية $key\n1234 - حدثنا فلان…';
+    return fakePassage(key);
   }
 
   @override
-  String urlFor(String key) => 'https://example.test/tabari/$key';
+  String urlFor(String key) => 'https://example.test/tafsir/$key';
+
+  @override
+  ({String label, String text})? shownUnder(String key, String? text, String verseSimple) =>
+      text == null ? null : (label: fakeLabel(key), text: 'شرح الآية $key');
 }
+
+String fakePassage(String key, [String extra = '']) =>
+    '[المعنى الإجمالي]\nالمعنى الإجمالي للآية $key\n[تفسير الآيات]\nشرح الآية $key$extra';
+
+String fakeLabel(String key) => 'موسوعة التفسير، الدرر السنية — تفسير الآية ${key.split(':').last}';
 
 /// A Messages API double that replays scripted assistant turns and records
 /// every request body.

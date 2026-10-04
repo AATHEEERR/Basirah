@@ -105,12 +105,12 @@ class Evidence {
   final String? translation;
   final String? translationSource;
 
-  /// Verbatim tafsir excerpt shown under a verse (al-Tabari's own statement
-  /// of the meaning).
+  /// Verbatim tafsir excerpt shown under a verse (the explanation in
+  /// موسوعة التفسير, الدرر السنية).
   final String? tafsir;
   final String? tafsirSource;
 
-  /// Page with the full tafsir the model read (al-Tabari).
+  /// Page with the full tafsir the model read (the passage on dorar.net/tafseer).
   final String? tafsirUrl;
 
   /// Model-written "why this verse is relevant" — labelled as generated.
@@ -421,6 +421,82 @@ class Standard {
   );
 }
 
+/// A platform named in the reference pack (pp. 8–15), verbatim.
+class ApprovedPlatform {
+  const ApprovedPlatform({
+    required this.section,
+    required this.name,
+    required this.content,
+    required this.links,
+    this.basirahUse,
+    this.mcp = false,
+  });
+
+  final String section;
+  final String name;
+  final List<String> content;
+  final List<SourceLink> links;
+
+  /// How Basirah uses it (Basirah's note, not the pack's), when it does.
+  final String? basirahUse;
+
+  /// Served by the association's MCP server for AI models.
+  final bool mcp;
+
+  factory ApprovedPlatform.fromJson(Map<String, dynamic> j) => ApprovedPlatform(
+    section: j['section'] as String,
+    name: j['name'] as String,
+    content: _strings(j['content']),
+    links: [
+      for (final l in (j['links'] as List? ?? const []))
+        SourceLink((l as Map<String, dynamic>)['label'] as String, l['url'] as String),
+    ],
+    basirahUse: j['basirahUse'] as String?,
+    mcp: (j['mcp'] as bool?) ?? false,
+  );
+}
+
+/// The reference pack's texts beyond the tables: the challenge's scope, the
+/// association's statement (p. 8) and the notes on external platforms.
+class PackTexts {
+  const PackTexts({
+    this.scope = const [],
+    this.standardsIntro = '',
+    this.associationName = '',
+    this.associationAbout = '',
+    this.associationFacts = const [],
+    this.associationMcp = '',
+    this.externalIntro = '',
+    this.externalNote = '',
+  });
+
+  final List<String> scope;
+  final String standardsIntro;
+  final String associationName;
+  final String associationAbout;
+  final List<(String, String)> associationFacts;
+  final String associationMcp;
+  final String externalIntro;
+  final String externalNote;
+
+  factory PackTexts.fromJson(Map<String, dynamic> j) {
+    final a = (j['association'] as Map?)?.cast<String, dynamic>() ?? const {};
+    return PackTexts(
+      scope: _strings(j['scopeText']),
+      standardsIntro: (j['standardsIntro'] as String?) ?? '',
+      associationName: (a['name'] as String?) ?? '',
+      associationAbout: (a['about'] as String?) ?? '',
+      associationFacts: [
+        for (final f in (a['facts'] as List? ?? const []))
+          ((f as Map)['item'] as String, f['text'] as String),
+      ],
+      associationMcp: (a['mcp'] as String?) ?? '',
+      externalIntro: (j['externalIntro'] as String?) ?? '',
+      externalNote: (j['externalNote'] as String?) ?? '',
+    );
+  }
+}
+
 /// The whole curated corpus. Loaded from `assets/kb/*.json` by the app and
 /// from the same files by the API, so both always reason over one source.
 class KnowledgeBase {
@@ -433,6 +509,8 @@ class KnowledgeBase {
     required this.sources,
     required this.levels,
     required this.standards,
+    this.platforms = const [],
+    this.pack = const PackTexts(),
     this.lang = 'ar',
     Map<String, dynamic>? english,
   }) : _english = english,
@@ -455,6 +533,10 @@ class KnowledgeBase {
   final List<ApprovedSource> sources;
   final List<LevelPolicy> levels;
   final List<Standard> standards;
+
+  /// The platforms of the reference pack (pp. 8–15), Arabic, verbatim.
+  final List<ApprovedPlatform> platforms;
+  final PackTexts pack;
 
   final Map<String, FaqEntry> _entriesById;
   final Map<String, Category> _categoriesById;
@@ -512,6 +594,8 @@ class KnowledgeBase {
       lang: 'en',
       english: en,
       version: version,
+      platforms: platforms,
+      pack: pack,
       categories: [
         for (final c in categories)
           () {
@@ -694,6 +778,11 @@ class KnowledgeBase {
         for (final s in reference['standards'] as List)
           Standard.fromJson(s as Map<String, dynamic>),
       ],
+      platforms: [
+        for (final p in (reference['platforms'] as List? ?? const []))
+          ApprovedPlatform.fromJson(p as Map<String, dynamic>),
+      ],
+      pack: PackTexts.fromJson(reference),
     );
   }
 }

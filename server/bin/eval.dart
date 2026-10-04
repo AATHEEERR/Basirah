@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:basirah_core/basirah_core.dart';
 import 'package:basirah_server/basirah_server.dart';
 
 /// Runs eval/test_cases.json through the full pipeline and prints a report.
@@ -11,10 +12,18 @@ import 'package:basirah_server/basirah_server.dart';
 ///                                     # see lib/src/providers.dart)
 ///   dart run bin/eval.dart --ai --out ../eval/report.json
 ///                                     # also saves every answer for review
+///   dart run bin/eval.dart --ai --only inj-
+///                                     # only the cases whose id starts so
+///
+/// A case passes when the answer's kind is one of `expectKind` and none of
+/// its `forbid` phrases (compared without diacritics or spaces) appears in
+/// the answer's content: principle, culture, guidance and the khilaf texts.
 Future<void> main(List<String> args) async {
   final useAi = args.contains('--ai');
   final outIndex = args.indexOf('--out');
   final outPath = outIndex >= 0 && outIndex + 1 < args.length ? args[outIndex + 1] : null;
+  final onlyIndex = args.indexOf('--only');
+  final only = onlyIndex >= 0 && onlyIndex + 1 < args.length ? args[onlyIndex + 1] : null;
   final env = loadEnv();
   final kb = loadKnowledgeBase(env['KB_DIR'] ?? '../assets/kb');
   final llms = useAi ? llmsFromEnv(env) : const <LlmClient>[];
@@ -28,23 +37,34 @@ Future<void> main(List<String> args) async {
     stderr.writeln('data/quran.json missing — run: dart run tool/fetch_quran.dart');
     exit(2);
   }
-  final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran);
+  final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran, hadith: useAi ? HadeethEnc() : null);
   final report = <Map<String, dynamic>>[];
 
-  final cases = (jsonDecode(File('../eval/test_cases.json').readAsStringSync())
-          as Map<String, dynamic>)['cases'] as List;
+  final cases = [
+    for (final c in ((jsonDecode(File('../eval/test_cases.json').readAsStringSync())
+            as Map<String, dynamic>)['cases'] as List).cast<Map<String, dynamic>>())
+      if (only == null || (c['id'] as String).startsWith(only)) c,
+  ];
+  String compact(String s) => normalizeArabic(s).replaceAll(' ', '');
   var passed = 0;
   final rows = <String>[];
-  for (final c in cases.cast<Map<String, dynamic>>()) {
+  for (final c in cases) {
     final q = c['question'] as String;
     final expect = (c['expectKind'] as List).cast<String>();
     final sw = Stopwatch()..start();
     final r = await pipeline.ask(q, mode: useAi ? AskMode.live : AskMode.kb);
-    final ok = expect.contains(r.answer.kind.name);
+    final a = r.answer;
+    final content = compact([a.principle, a.culture, ...a.guidance, a.khilafAgreed, a.khilafNote].join(' '));
+    final found = [
+      for (final f in ((c['forbid'] as List?) ?? const []).cast<String>())
+        if (content.contains(compact(f))) f,
+    ];
+    final ok = expect.contains(a.kind.name) && found.isEmpty;
     if (ok) passed++;
     final row =
         '${ok ? 'PASS' : 'FAIL'}  ${c['id']}  via=${r.via.name}  '
         'kind=${r.answer.kind.name}/${r.answer.level.code}  expect=${expect.join('|')}  '
+        '${found.isEmpty ? '' : 'forbidden=${found.join(' | ')}  '}'
         'evidence=${r.answer.evidence.map((e) => e.isQuran ? e.reference : e.id).join(', ')}'
         '${useAi ? '  ${(sw.elapsedMilliseconds / 1000).toStringAsFixed(1)}s' : ''}'
         '${r.guardActions.isEmpty ? '' : '  guard=${r.guardActions.join('; ')}'}';
@@ -54,6 +74,7 @@ Future<void> main(List<String> args) async {
       'id': c['id'],
       'question': q,
       'expect': expect,
+      if (found.isNotEmpty) 'forbiddenFound': found,
       'pass': ok,
       'via': r.via.name,
       'model': r.answer.model,

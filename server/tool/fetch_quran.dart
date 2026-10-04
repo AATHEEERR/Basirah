@@ -9,7 +9,7 @@ import 'package:basirah_server/src/quran_fetch.dart';
 /// The output is gitignored; the Dockerfile runs this at build time and the
 /// server runs it on first start if the file is missing.
 Future<void> main(List<String> args) async {
-  stdout.writeln('Downloading Quran text + al-Muyassar from api.quran.com …');
+  stdout.writeln('Downloading the Quran text + al-Muyassar from QuranEnc and Quranpedia …');
   final summary = await fetchQuranDataset(
     args.isNotEmpty ? args.first : 'data/quran.json',
     progress: (p) => stdout.write('\r  $p '),

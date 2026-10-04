@@ -26,7 +26,7 @@ class AskOutcome {
 }
 
 /// Question flow on the client. Every typed question gets a **live** answer:
-/// the Basirah API researches it (searches the Quran, reads Tafsir al-Tabari,
+/// the Basirah API researches it (searches the Quran, reads the tafsir in Dorar,
 /// cites only what it read) and the guard checks it. Answers come
 /// in the language of the question. Only when a live answer is impossible
 /// (no server, server without a key, network error) does the app fall back to
@@ -44,6 +44,7 @@ class AskService {
     String question, {
     String? categoryId,
     List<Map<String, String>> history = const [],
+    AskerContext context = AskerContext.none,
   }) async {
     final router = routers[questionLang(question)] ?? routers['ar']!;
     final previous = history.isEmpty ? null : history.last['q'];
@@ -64,6 +65,7 @@ class AskService {
               'categoryId': ?categoryId,
               'mode': 'live',
               if (history.isNotEmpty) 'history': history,
+              if (!context.isEmpty) 'context': context.toJson(),
             }),
           )
           .timeout(const Duration(seconds: 180));

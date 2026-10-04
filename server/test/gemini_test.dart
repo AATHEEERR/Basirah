@@ -89,7 +89,7 @@ void main() {
   final kb = loadKnowledgeBase('../assets/kb');
   final quran = loadFixtureQuran();
 
-  AskPipeline pipeline(ScriptedGemini g) => AskPipeline(kb, llm: g.client(), quran: quran, tabari: FakeTabari());
+  AskPipeline pipeline(ScriptedGemini g) => AskPipeline(kb, llm: g.client(), quran: quran, tafsir: FakeTafsir());
 
   test('full research loop on Gemini: search → read → submit, guarded', () async {
     final g = ScriptedGemini([
@@ -104,7 +104,7 @@ void main() {
     expect(r.answer.model, 'gemini-test-001');
     final verse = r.answer.evidence.first;
     expect(verse.text, quran.verse('60:8')!.uthmani); // text from the Mushaf dataset, not the model
-    expect(verse.tafsir, 'يقول تعالى ذكره: شرح الآية 60:8');
+    expect(verse.tafsir, 'شرح الآية 60:8');
     expect(r.usage['output_tokens'], 300);
 
     // Request shape
@@ -184,7 +184,7 @@ void main() {
         llm: first.client(model: 'model-a'),
         fallbacks: [second.client(model: 'model-b')],
         quran: quran,
-        tabari: FakeTabari(),
+        tafsir: FakeTafsir(),
         clock: () => now,
       );
 
@@ -222,7 +222,7 @@ void main() {
         llm: first.client(model: 'model-a'),
         fallbacks: [second.client(model: 'model-b')],
         quran: quran,
-        tabari: FakeTabari(),
+        tafsir: FakeTafsir(),
         clock: () => now,
       );
       final r1 = await p.ask('ما معنى التوحيد؟');
@@ -248,7 +248,7 @@ void main() {
         llm: first.client(model: 'model-a'),
         fallbacks: [second.client(model: 'model-b'), third.client(model: 'model-c')],
         quran: quran,
-        tabari: FakeTabari(),
+        tafsir: FakeTafsir(),
       );
       final r = await p.ask('ما معنى التوحيد؟');
       expect(r.via, Via.ai);
@@ -322,7 +322,11 @@ void main() {
     test('Claude when only its key is set', () {
       final llm = llmFromEnv({'ANTHROPIC_API_KEY': 'a'});
       expect(llm?.provider, 'claude');
-      expect(llm?.model, 'claude-sonnet-5');
+      expect(llm?.model, 'claude-opus-5-5');
+    });
+    test('CLAUDE_MODEL can be a chain tried in order', () {
+      final llms = llmsFromEnv({'ANTHROPIC_API_KEY': 'a', 'CLAUDE_MODEL': 'claude-opus-5-5, claude-sonnet-5-5'});
+      expect([for (final m in llms) m.model], ['claude-opus-5-5', 'claude-sonnet-5-5']);
     });
     test('AI_PROVIDER chooses when both keys are set', () {
       expect(llmFromEnv({'GEMINI_API_KEY': 'g', 'ANTHROPIC_API_KEY': 'a'})?.provider, 'gemini');

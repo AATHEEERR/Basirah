@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app/router.dart';
 import 'app/theme.dart';
 import 'core/lang.dart';
-import 'shared/phone_frame.dart';
+import 'shared/web_frame.dart';
 
 void main() {
   runApp(const ProviderScope(child: BasirahApp()));
@@ -28,7 +28,7 @@ class BasirahApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) => PhoneFrame(child: child ?? const SizedBox.shrink()),
+      builder: (context, child) => AdaptiveFrame(child: child ?? const SizedBox.shrink()),
       routerConfig: ref.watch(appRouterProvider),
     );
   }

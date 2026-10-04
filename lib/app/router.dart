@@ -10,9 +10,11 @@ import '../features/explore/explore_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/library/about_screen.dart';
 import '../features/library/glossary_screen.dart';
+import '../features/library/impact_screen.dart';
 import '../features/library/library_screen.dart';
 import '../features/library/sources_screen.dart';
 import '../features/splash/splash_screen.dart';
+import '../features/welcome/context_screen.dart';
 import '../features/welcome/welcome_screen.dart';
 import '../core/lang.dart';
 import 'shell.dart';
@@ -23,6 +25,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/splash', builder: (_, _) => const SplashScreen()),
       GoRoute(path: '/welcome', builder: (_, _) => const WelcomeScreen()),
+      GoRoute(
+        path: '/context',
+        builder: (_, s) => ContextScreen(firstRun: s.uri.queryParameters['first'] == '1'),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(shell: shell),
         branches: [
@@ -56,6 +62,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/glossary', builder: (_, _) => const GlossaryScreen()),
       GoRoute(path: '/sources', builder: (_, _) => const SourcesScreen()),
       GoRoute(path: '/about', builder: (_, _) => const AboutScreen()),
+      GoRoute(path: '/impact', builder: (_, _) => const ImpactScreen()),
     ],
     errorBuilder: (context, _) => Scaffold(body: Center(child: Text(context.tr('الصفحة غير موجودة', 'Page not found')))),
   );

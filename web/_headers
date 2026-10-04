@@ -1,0 +1,5 @@
+# Cloudflare Pages: always revalidate the app's entry files, so a visitor
+# who opened the link before an update gets the new version on reload
+# (Flutter's main.dart.js has no content hash in its name).
+/*
+  Cache-Control: no-cache

@@ -7,6 +7,7 @@ import '../../core/lang.dart';
 import '../../core/state.dart';
 import '../../shared/lang_toggle.dart';
 import '../../shared/patterns.dart';
+import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 
 class LibraryScreen extends ConsumerWidget {
@@ -15,6 +16,36 @@ class LibraryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final saved = ref.watch(savedProvider);
+    final tiles = [
+      _NavTile(
+        icon: Icons.person_pin_circle_outlined,
+        title: context.tr('سياقي', 'My context'),
+        route: '/context',
+        ink: BColors.goldDeep,
+        fill: Tones.principle.top,
+      ),
+      _NavTile(
+        icon: Icons.spellcheck_rounded,
+        title: context.tr('قاموس المصطلحات', 'Glossary'),
+        route: '/glossary',
+        ink: BColors.mintInk,
+        fill: BColors.mint,
+      ),
+      _NavTile(
+        icon: Icons.menu_book_rounded,
+        title: context.tr('المرجعية والمنهجية', 'References & method'),
+        route: '/sources',
+        ink: BColors.beigeInk,
+        fill: BColors.beige,
+      ),
+      _NavTile(
+        icon: Icons.info_outline_rounded,
+        title: context.tr('عن بصيرة', 'About Basirah'),
+        route: '/about',
+        ink: BColors.lilacInk,
+        fill: BColors.lilac,
+      ),
+    ];
     return Scaffold(
       body: Stack(
         children: [
@@ -29,7 +60,7 @@ class LibraryScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(context.tr('مكتبتي', 'My library'), style: BText.display(34)),
+                        Text(context.tr('مكتبتي', 'My library'), style: pageTitleStyle(context)),
                         Text(
                           context.tr('محفوظاتك، والمصطلحات، والمرجعية المعتمدة', 'Your saved answers, the glossary and the approved references'),
                           style: BText.label(14, weight: FontWeight.w400),
@@ -39,44 +70,21 @@ class LibraryScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 18, 16, 0),
-                sliver: SliverToBoxAdapter(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _NavTile(
-                          icon: Icons.spellcheck_rounded,
-                          title: context.tr('قاموس المصطلحات', 'Glossary'),
-                          route: '/glossary',
-                          ink: BColors.mintInk,
-                          fill: BColors.mint,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _NavTile(
-                          icon: Icons.menu_book_rounded,
-                          title: context.tr('المرجعية والمنهجية', 'References & method'),
-                          route: '/sources',
-                          ink: BColors.beigeInk,
-                          fill: BColors.beige,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _NavTile(
-                          icon: Icons.info_outline_rounded,
-                          title: context.tr('عن بصيرة', 'About Basirah'),
-                          route: '/about',
-                          ink: BColors.lilacInk,
-                          fill: BColors.lilac,
-                        ),
-                      ),
-                    ],
+              // Two rows of two on a phone; one row of four on the website.
+              for (final row in isWebsite(context) ? [tiles] : [tiles.sublist(0, 2), tiles.sublist(2)])
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16, row.first == tiles.first ? 18 : 12, 16, 0),
+                  sliver: SliverToBoxAdapter(
+                    child: Row(
+                      children: [
+                        for (final (i, t) in row.indexed) ...[
+                          if (i > 0) const SizedBox(width: 12),
+                          Expanded(child: t),
+                        ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                 sliver: SliverToBoxAdapter(
@@ -104,12 +112,49 @@ class LibraryScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                sliver: SliverToBoxAdapter(
+                  child: SoftCard(
+                    onTap: () => context.push('/impact'),
+                    glow: Tones.culture.top,
+                    padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                    child: Row(
+                      children: [
+                        IconBubble(icon: Icons.insights_rounded, color: Tones.culture.accent, fill: Tones.culture.top, size: 42),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(context.tr('لوحة الأثر', 'Impact board'), style: BText.title(14.5, weight: FontWeight.w500)),
+                              Text(
+                                context.tr('أرقام الاستخدام ورضا المستخدمين، دون حفظ أي سؤال', 'Usage and ratings in numbers, with no question stored'),
+                                style: BText.label(12, weight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: SectionHeader(
                   context.tr('المحفوظات', 'Saved'),
                   subtitle: saved.isEmpty
                       ? null
-                      : context.tr('${saved.length} إجابات محفوظة على جهازك', '${saved.length} answers saved on your device'),
+                      : context.tr(
+                          '${switch (saved.length) {
+                            1 => 'إجابة واحدة محفوظة',
+                            2 => 'إجابتان محفوظتان',
+                            >= 3 && <= 10 => '${saved.length} إجابات محفوظة',
+                            _ => '${saved.length} إجابة محفوظة',
+                          }} على جهازك',
+                          '${saved.length} ${saved.length == 1 ? 'answer' : 'answers'} saved on your device',
+                        ),
                 ),
               ),
               if (saved.isEmpty)

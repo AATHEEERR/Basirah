@@ -13,33 +13,33 @@ void main() {
   final kb = loadKnowledgeBase('../assets/kb');
   final quran = loadFixtureQuran();
 
-  AskPipeline pipeline(ScriptedClaude s, [FakeTabari? t]) =>
-      AskPipeline(kb, llm: s.client(), quran: quran, tabari: t ?? FakeTabari());
+  AskPipeline pipeline(ScriptedClaude s, [FakeTafsir? t]) =>
+      AskPipeline(kb, llm: s.client(), quran: quran, tafsir: t ?? FakeTafsir());
 
   test('live answer: search → read tafsir → submit, with verified verse text', () async {
-    final tabari = FakeTabari();
+    final tafsir = FakeTafsir();
     final s = ScriptedClaude([
       toolTurn([('search_quran', {'query': 'بر الأقارب غير المسلمين'})]),
       toolTurn([('read_tafsir', {'refs': ['60:8']})]),
       toolTurn([('submit_answer', submission())]),
     ]);
-    final r = await pipeline(s, tabari).ask('هل يمكنني زيارة عائلتي غير المسلمة؟');
+    final r = await pipeline(s, tafsir).ask('هل يمكنني زيارة عائلتي غير المسلمة؟');
 
     expect(r.via, Via.ai);
     expect(r.answer.origin, AnswerOrigin.ai);
     expect(r.answer.kind, AnswerKind.answer);
     final verse = r.answer.evidence.first;
     expect(verse.text, quran.verse('60:8')!.uthmani);
-    expect(verse.tafsirUrl, 'https://example.test/tabari/60:8');
-    // Shown under the verse: al-Tabari's own statement, not the narrations.
-    expect(verse.tafsir, 'يقول تعالى ذكره: شرح الآية 60:8');
-    expect(verse.tafsirSource, tabariLabel);
+    expect(verse.tafsirUrl, 'https://example.test/tafsir/60:8');
+    // Shown under the verse: the tafsir source's own words, with its label.
+    expect(verse.tafsir, 'شرح الآية 60:8');
+    expect(verse.tafsirSource, fakeLabel('60:8'));
     // The closest reference answer's verses were pre-read; reading one of
     // them again neither refetches nor repeats it in the trail.
-    expect(tabari.requested, ['60:8', '31:15']);
+    expect(tafsir.requested, ['60:8', '31:15']);
     expect(r.answer.research, [
-      'قراءة تفسير الطبري: الممتحنة 8',
-      'قراءة تفسير الطبري: لقمان 15',
+      'قراءة موسوعة التفسير — الدرر السنية: الممتحنة 8',
+      'قراءة موسوعة التفسير — الدرر السنية: لقمان 15',
       'بحث في القرآن الكريم: «بر الأقارب غير المسلمين»',
     ]);
     expect(r.usage['cache_read_input_tokens'], 27000);
@@ -47,7 +47,7 @@ void main() {
     // Request shape (first call)
     expect(s.requests, hasLength(3));
     final first = s.requests.first;
-    expect(first['model'], 'claude-sonnet-5');
+    expect(first['model'], 'claude-opus-5-5');
     expect([for (final t in first['tools'] as List) t['name']], ['search_quran', 'read_tafsir', 'submit_answer']);
     expect(first['tool_choice'], {'type': 'auto'});
     expect(first['fallbacks'], 'default');
@@ -69,7 +69,7 @@ void main() {
     // al-Muyassar only ranks search results; the model never reads it.
     expect(toolResult['content'], isNot(contains('muyassar')));
 
-    // Third call carries the tafsir the model read: al-Tabari only
+    // Third call carries the tafsir the model read (موسوعة التفسير) only
     final read = (((s.requests[2]['messages'] as List).last as Map)['content'] as List).single as Map;
     expect(read['content'], contains('شرح الآية 60:8'));
     expect(read['content'], isNot(contains('muyassar')));
@@ -86,7 +86,7 @@ void main() {
         ])),
       ]),
     ]);
-    final r = await pipeline(s, FakeTabari(unavailable: {'31:15'})).ask('Can I visit my non-Muslim parents?');
+    final r = await pipeline(s, FakeTafsir(unavailable: {'31:15'})).ask('Can I visit my non-Muslim parents?');
     expect([for (final e in r.answer.evidence) if (e.isQuran) e.surah], [60]);
     expect(r.guardActions.single, contains('31:15'));
     final result = (((s.requests[1]['messages'] as List).last as Map)['content'] as List).single as Map;
@@ -109,11 +109,11 @@ void main() {
   });
 
   test('pre-read tafsir: the closest reference answer\'s verses let the model answer in one request', () async {
-    final tabari = FakeTabari();
+    final tafsir = FakeTafsir();
     final s = ScriptedClaude([
       toolTurn([('submit_answer', submission())]),
     ]);
-    final r = await pipeline(s, tabari).ask('هل يمكنني زيارة عائلتي غير المسلمة؟');
+    final r = await pipeline(s, tafsir).ask('هل يمكنني زيارة عائلتي غير المسلمة؟');
     expect(s.requests, hasLength(1));
     final user = (s.requests.single['messages'] as List).first['content'] as String;
     expect(user, contains('<tafsir_already_read>'));
@@ -121,17 +121,17 @@ void main() {
     expect(user, contains('شرح الآية 60:8'));
     final verse = r.answer.evidence.first;
     expect(verse.surah, 60); // cited directly: it counts as read
-    expect(verse.tafsir, 'يقول تعالى ذكره: شرح الآية 60:8');
-    expect(r.answer.research, ['قراءة تفسير الطبري: الممتحنة 8', 'قراءة تفسير الطبري: لقمان 15']);
+    expect(verse.tafsir, 'شرح الآية 60:8');
+    expect(r.answer.research, ['قراءة موسوعة التفسير — الدرر السنية: الممتحنة 8', 'قراءة موسوعة التفسير — الدرر السنية: لقمان 15']);
   });
 
   test('no pre-read when no reference answer is close', () async {
-    final tabari = FakeTabari();
+    final tafsir = FakeTafsir();
     final s = ScriptedClaude([
       toolTurn([('submit_answer', submission(english: true, kind: 'abstain', quran: const [], hadithIds: const [], entries: const []))]),
     ]);
-    await pipeline(s, tabari).ask('How many angels carry the Throne on the Day of Judgement?');
-    expect(tabari.requested, isEmpty);
+    await pipeline(s, tafsir).ask('How many angels carry the Throne on the Day of Judgement?');
+    expect(tafsir.requested, isEmpty);
     final user = (s.requests.single['messages'] as List).first['content'] as String;
     expect(user, isNot(contains('<tafsir_already_read>')));
   });
@@ -193,7 +193,7 @@ void main() {
       apiKey: 'k',
       client: MockClient((_) async => http.Response('{"error":{"message":"overloaded"}}', 529)),
     );
-    final r = await AskPipeline(kb, llm: failing, quran: quran, tabari: FakeTabari())
+    final r = await AskPipeline(kb, llm: failing, quran: quran, tafsir: FakeTafsir())
         .ask('How many angels carry the Throne on the Day of Judgement?');
     expect(r.via, Via.offline);
     expect(r.notice, 'ai_busy');
@@ -248,8 +248,8 @@ void main() {
     final r = await pipeline(s).ask('Can I visit my non-Muslim parents?');
     final verse = r.answer.evidence.first;
     expect(verse.translation, isNotNull);
-    expect(verse.tafsir, isNull); // al-Tabari (Arabic) is linked, not shown, in English
-    expect(r.answer.research, everyElement(startsWith('Read Tafsir al-Tabari on')));
+    expect(verse.tafsir, isNull); // the Arabic tafsir is linked, not shown, in English
+    expect(r.answer.research, everyElement(startsWith('Read Dorar Tafsir Encyclopedia on')));
     final hadith = r.answer.evidence.firstWhere((e) => e.id == 'h_asma');
     expect(hadith.translation, contains('keep ties with your mother'));
   });

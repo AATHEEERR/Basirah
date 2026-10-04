@@ -9,7 +9,7 @@ import 'llm.dart';
 class ClaudeClient implements LlmClient {
   ClaudeClient({
     required this.apiKey,
-    this.model = 'claude-sonnet-5',
+    this.model = defaultModel,
     this.effort = 'high',
     this.useFallbacks = true,
     this.timeout = const Duration(seconds: 120),
@@ -17,6 +17,10 @@ class ClaudeClient implements LlmClient {
     http.Client? client,
   }) : _endpoint = Uri.parse('${baseUrl.replaceAll(RegExp(r'/+$'), '')}/v1/messages'),
        _http = client ?? http.Client();
+
+  /// The most capable Opus; the chain in `.env` can add a faster fallback
+  /// (`CLAUDE_MODEL=claude-opus-5-5,claude-sonnet-5-5`).
+  static const defaultModel = 'claude-opus-5-5';
 
   final String apiKey;
   @override

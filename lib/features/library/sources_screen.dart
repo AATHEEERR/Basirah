@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:basirah_core/basirah_core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
@@ -25,6 +26,16 @@ class SourcesScreen extends StatelessWidget {
         builder: (context, kb) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (kb.pack.scope.isNotEmpty) ...[
+              _Heading(context.tr('نطاق المحتوى المعتمد', 'Approved content scope'), _packNote(context)),
+              _Panel(
+                child: Text(
+                  kb.pack.scope.join('\n\n'),
+                  style: BText.body(14, height: 1.75),
+                  textDirection: TextDirection.rtl,
+                ),
+              ),
+            ],
             _Heading(
               context.tr('مستويات المحتوى وضبط الاستجابة', 'Content levels and response control'),
               context.tr(
@@ -108,6 +119,47 @@ class SourcesScreen extends StatelessWidget {
                   ],
                 ),
               ),
+            if (kb.pack.associationAbout.isNotEmpty) ...[
+              _Heading(
+                context.tr('المرجعيات العلمية للمحتوى الإسلامي باللغات', 'Scholarly references for Islamic content in languages'),
+                _packNote(context),
+              ),
+              _Panel(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(kb.pack.associationAbout, style: BText.body(14, height: 1.75), textDirection: TextDirection.rtl),
+                    const SizedBox(height: 8),
+                    for (final (item, text) in kb.pack.associationFacts) ...[
+                      _KV(item, text),
+                      const SizedBox(height: 4),
+                    ],
+                    const SizedBox(height: 6),
+                    Text(
+                      kb.pack.associationMcp,
+                      style: BText.label(12.5, color: BColors.goldDeep),
+                      textDirection: TextDirection.rtl,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+            for (final section in {for (final p in kb.platforms) p.section}) ...[
+              _Heading(section, null),
+              // The pack introduces the external platforms before their first
+              // section.
+              if (kb.platforms.firstWhere((p) => p.section == section).section == _firstExternal(kb) &&
+                  kb.pack.externalIntro.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(
+                    '${kb.pack.externalIntro}\n${kb.pack.externalNote}',
+                    style: BText.label(12.5, weight: FontWeight.w400),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+              for (final p in kb.platforms.where((p) => p.section == section)) _PlatformCard(p),
+            ],
             _Heading(
               context.tr('المعيار العلمي الملزم، وكيف نطبّقه', 'The binding scholarly standard, and how we apply it'),
               context.tr(
@@ -166,10 +218,12 @@ class SourcesScreen extends StatelessWidget {
                           'was prepared from the approved references above; every entry is marked “pending review” until it passes the team’s '
                           'human review against the approved sources. Every verse is checked against the King Fahd Complex Mushaf, and every hadith '
                           'and its grade against the Dorar.net hadith encyclopedia. English meanings of verses are from the Hilali & Khan '
-                          'translation (King Fahd Complex); English hadith meanings are the team’s translation, pending review.'
+                          'translation (King Fahd Complex, via QuranEnc). Live answers cite hadith from HadeethEnc, with its approved '
+                          'translation; the English meanings of the stored hadith are the team’s translation, pending review.'
                     : 'قاعدة المعرفة الحالية (${kb.entries.length} سؤالاً و${kb.evidence.length} دليلاً، الإصدار ${kb.version}) '
                           'أُعدّت من المراجع المعتمدة أعلاه، وكل مدخل فيها مُعلَّم «بانتظار المراجعة» حتى تتم مراجعته بشرياً مقابل المصادر المعتمدة. '
-                          'يُراجَع نص كل آية على مصحف مجمع الملك فهد، وكل حديث ودرجته على الموسوعة الحديثية في الدرر السنية.',
+                          'يُراجَع نص كل آية على مصحف مجمع الملك فهد، وكل حديث ودرجته على الموسوعة الحديثية في الدرر السنية. '
+                          'وفي الإجابات الحية تُؤخذ الأحاديث من موسوعة الأحاديث النبوية بنصها ومصدرها وحكمها.',
                 style: BText.body(14, color: BColors.textMuted),
               ),
             ),
@@ -178,6 +232,105 @@ class SourcesScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+String _packNote(BuildContext context) => context.tr(
+  'بنص «المرجعية والحزمة العلمية والبيانات» (نسخة 1448/3/20)',
+  'In the Arabic of the reference pack (edition 1448/3/20), verbatim',
+);
+
+/// The first section of platforms outside the association (p. 11 onwards).
+String? _firstExternal(KnowledgeBase kb) => kb.platforms
+    .map((p) => p.section)
+    .where((s) => s != kb.platforms.first.section && !s.contains('الحرمين'))
+    .firstOrNull;
+
+class _Panel extends StatelessWidget {
+  const _Panel({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    margin: const EdgeInsets.only(bottom: 12),
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(24)),
+    child: child,
+  );
+}
+
+class _PlatformCard extends StatelessWidget {
+  const _PlatformCard(this.p);
+  final ApprovedPlatform p;
+
+  @override
+  Widget build(BuildContext context) => _Panel(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(p.name, style: BText.title(15, color: BColors.goldDeep), textDirection: TextDirection.rtl),
+            ),
+            if (p.mcp) const _Tag('MCP'),
+          ],
+        ),
+        const SizedBox(height: 6),
+        for (final c in p.content)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              c,
+              style: BText.body(13.5, color: BColors.textMuted, height: 1.65),
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+        if (p.basirahUse != null)
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(color: Tones.guidance.top, borderRadius: BorderRadius.circular(12)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.check_circle_rounded, size: 16, color: Tones.guidance.accent),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    context.tr('تستخدمه بصيرة: ${p.basirahUse}', 'Used by Basirah: ${p.basirahUse}'),
+                    style: BText.body(13, color: Tones.guidance.accent, height: 1.6),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        Wrap(
+          spacing: 6,
+          children: [
+            for (final l in p.links)
+              TextButton.icon(
+                onPressed: () => launchUrl(Uri.parse(l.url), mode: LaunchMode.externalApplication),
+                icon: const Icon(Icons.open_in_new_rounded, size: 15),
+                label: Text(l.label, style: BText.label(12.5, color: BColors.gold)),
+                style: TextButton.styleFrom(foregroundColor: BColors.gold, visualDensity: VisualDensity.compact),
+              ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+class _Tag extends StatelessWidget {
+  const _Tag(this.text);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+    decoration: BoxDecoration(color: BColors.gold.withValues(alpha: .14), borderRadius: BorderRadius.circular(8)),
+    child: Text(text, style: BText.label(11.5, color: BColors.goldDeep, weight: FontWeight.w600)),
+  );
 }
 
 class _Heading extends StatelessWidget {

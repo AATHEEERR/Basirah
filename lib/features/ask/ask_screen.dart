@@ -12,8 +12,11 @@ import '../../core/config.dart';
 import '../../core/kb_provider.dart';
 import '../../core/state.dart';
 import '../../shared/brand.dart';
+import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
+import '../answer/feedback_bar.dart';
+import '../welcome/context_screen.dart';
 
 class AskScreen extends ConsumerStatefulWidget {
   const AskScreen({super.key, this.initialQuestion});
@@ -190,18 +193,22 @@ class _Header extends ConsumerWidget {
         : AppConfig.hasApi
         ? context.tr('يتصل بالخادم…', 'Connecting to the server…')
         : context.tr('دون خادم · إجابات محفوظة', 'No server · stored answers');
+    final web = isWebsite(context);
     return Container(
-      decoration: const BoxDecoration(
-        gradient: RadialGradient(
-          center: Alignment(1, -1),
-          radius: 2.4,
-          colors: [BColors.sand, BColors.bg],
-        ),
-      ),
+      // The website keeps a plain ground under its header.
+      decoration: web
+          ? null
+          : const BoxDecoration(
+              gradient: RadialGradient(
+                center: Alignment(1, -1),
+                radius: 2.4,
+                colors: [BColors.sand, BColors.bg],
+              ),
+            ),
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 14, 12, 14),
+          padding: web ? const EdgeInsets.fromLTRB(20, 30, 12, 18) : const EdgeInsets.fromLTRB(20, 14, 12, 14),
           child: Row(
             children: [
               const BrandLogo(size: 38),
@@ -210,7 +217,7 @@ class _Header extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(context.tr('بصيرة AI', 'Basirah AI'), style: BText.display(22)),
+                    Text(context.tr('بصيرة AI', 'Basirah AI'), style: web ? pageTitleStyle(context) : BText.display(22)),
                     Row(
                       children: [
                         Container(
@@ -225,6 +232,8 @@ class _Header extends ConsumerWidget {
                         Flexible(child: Text(status, style: BText.label(12, weight: FontWeight.w400))),
                       ],
                     ),
+                    const SizedBox(height: 6),
+                    _ContextChip(asker: ref.watch(askerContextProvider)),
                   ],
                 ),
               ),
@@ -235,6 +244,49 @@ class _Header extends ConsumerWidget {
               ),
               if (hasMessages)
                 _HeaderButton(icon: Icons.refresh_rounded, tooltip: context.tr('محادثة جديدة', 'New chat'), onTap: onClear),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// «سياقي» at a glance: what answers are fitted to, tap to change.
+class _ContextChip extends StatelessWidget {
+  const _ContextChip({required this.asker});
+
+  final AskerContext asker;
+
+  @override
+  Widget build(BuildContext context) {
+    final summary = contextSummary(context, asker);
+    return Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(99),
+        onTap: () => context.push('/context'),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: BColors.surface.withValues(alpha: .85),
+            borderRadius: BorderRadius.circular(99),
+            border: Border.all(color: BColors.goldDeep.withValues(alpha: .3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.person_pin_circle_outlined, size: 14, color: BColors.goldDeep),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  summary.isEmpty
+                      ? context.tr('سياقي: لم يُحدَّد · حدِّده', 'My context: not set · set it')
+                      : context.tr('سياقي: $summary', 'My context: $summary'),
+                  style: BText.label(11.5, color: BColors.goldDeep, weight: FontWeight.w600),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         ),
@@ -361,7 +413,7 @@ class _ThinkingState extends State<_Thinking> {
   static const _steps = [
     ('يفهم السؤال ويحدّد مستواه…', 'Understanding the question and its level…'),
     ('يبحث في القرآن الكريم والتفسير…', 'Searching the Quran and tafsir…'),
-    ('يقرأ تفسير الطبري…', 'Reading Tafsir al-Tabari…'),
+    ('يقرأ التفسير في الدرر السنية…', 'Reading the tafsir on Dorar…'),
     ('يختار الآية المناسبة ويتحقق منها…', 'Choosing the right verse and checking it…'),
     ('يُعدّ البطاقات…', 'Preparing the cards…'),
   ];
@@ -485,6 +537,7 @@ class _AssistantMessage extends ConsumerWidget {
           ],
           AnswerCards(answer: a, compact: true),
           if (a.research.isNotEmpty) ResearchTrail(steps: a.research),
+          FeedbackBar(answer: a),
           if (related.isNotEmpty) ...[
             Text(context.tr('أسئلة قريبة موثّقة', 'Related documented questions'), style: BText.label(12.5)),
             const SizedBox(height: 6),

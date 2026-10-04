@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../core/state.dart';
 import '../shared/patterns.dart';
+import '../shared/web_frame.dart';
 import 'theme.dart';
 import '../core/lang.dart';
 
@@ -25,6 +26,15 @@ class AppShell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final current = shell.currentIndex;
+    void askTab() {
+      ref.read(askDraftProvider.notifier).state = null;
+      shell.goBranch(2);
+    }
+
+    // Website layout (a computer): the website header above the app holds
+    // the navigation, so no bar here.
+    if (isWebsite(context)) return Scaffold(body: shell);
+
     return Scaffold(
       extendBody: true,
       body: shell,
@@ -50,13 +60,7 @@ class AppShell extends ConsumerWidget {
                     ),
                   ),
                 const SizedBox(width: 6),
-                _AiPill(
-                  active: current == 2,
-                  onTap: () {
-                    ref.read(askDraftProvider.notifier).state = null;
-                    shell.goBranch(2);
-                  },
-                ),
+                _AiPill(active: current == 2, onTap: askTab),
               ],
             ),
           ),

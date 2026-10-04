@@ -76,11 +76,18 @@ class AboutScreen extends StatelessWidget {
               _Block(
                 title: context.tr('المسار', 'Track'),
                 body: context.tr(
-                  'المسار الأول «الحوار المعرفي والإجابات الموثوقة» في تحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي: '
-                      'حل حواري يقدّم إجابات صحيحة واضحة موثقة ملائمة لسياق السائل، مستنداً إلى المصادر المعتمدة، مع الإحالة إلى المختص عند الحاجة أو عند تعذّر الإجابة الموثقة.',
-                  'Track 1, “Knowledge dialogue and trustworthy answers”, of the AI Challenge Serving Islamic Content: a conversational '
-                      'solution giving correct, clear, documented answers suited to the asker’s context, based on the approved sources, with '
-                      'referral to a specialist when needed or when no documented answer is available.',
+                  'المسار الأول «الحوار المعرفي والإجابات الموثوقة» في تحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي، '
+                      'وبنص دليل المشارك:\n'
+                      'وصف التحدي: تطوير حلول حوارية تقدم إجابات صحيحة، واضحة، موثقة، وملائمة لسياق السائل وخلفيته، مع الاستناد إلى '
+                      'المصادر المعتمدة، والإحالة إلى المختص عند الحاجة أو عند تعذر تقديم إجابة موثوقة.\n'
+                      'معيار النجاح في المشروع: هل يقدم الحل إجابة صحيحة وواضحة وملائمة للسائل، يمكن تتبعها إلى مصدر معتمد، '
+                      'ويمتنع عن الإجابة أو يحيل إلى المختص عندما لا تتوافر مرجعية كافية؟',
+                  'Track 1, “Knowledge dialogue and trustworthy answers”, of the AI Challenge Serving Islamic Content. In the '
+                      'participant guide’s words (our translation): develop conversational solutions that give correct, clear, documented '
+                      'answers suited to the asker’s context and background, based on the approved sources, referring to a specialist when '
+                      'needed or when a trustworthy answer cannot be given. Success criterion: does the solution give a correct, clear '
+                      'answer suited to the asker, traceable to an approved source, and abstain or refer to a specialist when there is no '
+                      'sufficient reference?',
                 ),
               ),
               _Block(

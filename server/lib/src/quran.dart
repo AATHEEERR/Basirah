@@ -27,7 +27,7 @@ class Verse {
 
   /// al-Tafsir al-Muyassar (King Fahd Complex) for this verse — used only
   /// to index the verse for search. It is never shown, cited or given to
-  /// the model: the tafsir Basirah reads and shows is al-Tabari.
+  /// the model: the tafsir Basirah reads and shows is موسوعة التفسير (الدرر السنية).
   final String muyassar;
 
   /// When al-Muyassar explains this verse together with earlier ones, the
@@ -51,7 +51,7 @@ class VerseHit {
 /// plain-language gloss of it (al-Muyassar). The gloss lets a concept
 /// («زيارة الأهل غير المسلمين») reach the verse that expresses it in Quranic
 /// wording («أن تبروهم وتقسطوا إليهم»). It is a search aid only: what the
-/// model reads, and what the app shows, is the verse and al-Tabari.
+/// model reads, and what the app shows, is the verse and Dorar's tafsir.
 class QuranLibrary {
   QuranLibrary._(this.verses, this.surahNames, this.source, [this.surahNamesEn = const {}]) {
     for (final v in verses) {
@@ -147,6 +147,67 @@ class QuranLibrary {
     ];
   }
 
+  late final List<_SurahText> _surahTexts = () {
+    final out = <_SurahText>[];
+    for (var i = 0; i < verses.length; i++) {
+      if (out.isEmpty || out.last.surah != verses[i].surah) out.add(_SurahText(verses[i].surah));
+      out.last.add(i, _compactSimple[i], _compactUthmani[i]);
+    }
+    return out;
+  }();
+
+  /// Where [quote] (ignoring diacritics and spacing) occurs as consecutive
+  /// Quran text — within one verse or running across neighbouring verses of
+  /// one surah: one span per surah that contains it.
+  List<({int surah, int from, int to})> locateSpan(String quote) {
+    final q = _compact(quote);
+    if (q.length < 6) return const [];
+    final spans = <({int surah, int from, int to})>[];
+    for (final s in _surahTexts) {
+      for (final (text, offsets) in [(s.simple.toString(), s.offSimple), (s.uthmani.toString(), s.offUthmani)]) {
+        final at = text.indexOf(q);
+        if (at < 0) continue;
+        int verseAt(int pos) {
+          var k = 0;
+          while (k + 1 < offsets.length && offsets[k + 1] <= pos) {
+            k++;
+          }
+          return verses[s.verseIndexes[k]].ayah;
+        }
+        spans.add((surah: s.surah, from: verseAt(at), to: verseAt(at + q.length - 1)));
+        break;
+      }
+    }
+    return spans;
+  }
+
+  /// Runs of at least [minWords] consecutive words that are Quran text
+  /// written without quotation marks (see [locateSpan]). `end` is exclusive.
+  List<({int start, int end, List<({int surah, int from, int to})> spans})> verseRuns(
+    List<String> words, {
+    int minWords = 6,
+  }) {
+    final runs = <({int start, int end, List<({int surah, int from, int to})> spans})>[];
+    var i = 0;
+    while (i + minWords <= words.length) {
+      var spans = locateSpan(words.sublist(i, i + minWords).join(' '));
+      if (spans.isEmpty) {
+        i++;
+        continue;
+      }
+      var end = i + minWords;
+      while (end < words.length) {
+        final longer = locateSpan(words.sublist(i, end + 1).join(' '));
+        if (longer.isEmpty) break;
+        spans = longer;
+        end++;
+      }
+      runs.add((start: i, end: end, spans: spans));
+      i = end;
+    }
+    return runs;
+  }
+
   // ─── Search: BM25 over stems + BM25 over character 4-grams ───────────────
 
   late final _Bm25 _stems;
@@ -183,6 +244,27 @@ class QuranLibrary {
     }
     final ranked = scores.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
     return [for (final e in ranked.take(limit)) VerseHit(verses[e.key], e.value)];
+  }
+}
+
+/// One surah's verses joined into a single compact string (simple and
+/// Uthmani), with each verse's start offset, so a quotation running across
+/// neighbouring verses can be located.
+class _SurahText {
+  _SurahText(this.surah);
+  final int surah;
+  final simple = StringBuffer();
+  final uthmani = StringBuffer();
+  final offSimple = <int>[];
+  final offUthmani = <int>[];
+  final verseIndexes = <int>[];
+
+  void add(int index, String compactSimple, String compactUthmani) {
+    verseIndexes.add(index);
+    offSimple.add(simple.length);
+    offUthmani.add(uthmani.length);
+    simple.write(compactSimple);
+    uthmani.write(compactUthmani);
   }
 }
 

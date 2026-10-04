@@ -30,8 +30,8 @@ void main() {
       report: report,
       quran: quran,
       readRefs: read,
-      tafsirText: (k) => 'القول في تأويل قوله تعالى: …\nيقول تعالى ذكره: شرح $k\n* ذكر من قال ذلك:',
-      tafsirUrl: (k) => 'https://example.test/$k',
+      tafsirText: fakePassage,
+      tafsirSource: FakeTafsir(),
     );
     return (a, report);
   }
@@ -43,8 +43,8 @@ void main() {
     expect(v.isQuran, isTrue);
     expect(v.reference, 'الممتحنة: 8');
     expect(v.text, quran.verse('60:8')!.uthmani);
-    expect(v.tafsir, 'يقول تعالى ذكره: شرح 60:8');
-    expect(v.tafsirSource, tabariLabel);
+    expect(v.tafsir, 'شرح الآية 60:8');
+    expect(v.tafsirSource, fakeLabel('60:8'));
     expect(v.note, contains('البر'));
     expect(a.evidence.map((e) => e.id), contains('h_asma'));
     expect(report.clean, isTrue);
@@ -158,13 +158,19 @@ void main() {
     });
   });
 
-  test('submit tool is strict and limits hadith to the registry', () {
+  test('submit tool is strict; hadith ids are checked by the guard, not trusted', () {
     final tool = submitAnswerTool(kb);
     expect(tool['strict'], isTrue);
-    final props = (tool['input_schema'] as Map)['properties'] as Map;
-    final hadithEnum = (((props['hadith'] as Map)['items'] as Map)['properties'] as Map)['id']['enum'] as List;
-    expect(hadithEnum, containsAll(['h_asma', 'h_hadm']));
-    expect(hadithEnum.any((id) => id.toString().startsWith('q_')), isFalse);
+    // An id that is neither in the registry nor read in this run is dropped.
+    final (a, report) = run({
+      ...submission(),
+      'hadith': [
+        {'id': 'he:999999', 'why': 'حديث لم يُقرأ في هذه الإجابة.'},
+        {'id': 'q_2_256', 'why': 'آية مكان حديث.'},
+      ],
+    });
+    expect(a.evidence.where((e) => !e.isQuran), isEmpty);
+    expect(report.actions, containsAll(['dropped unknown hadith id he:999999', 'dropped unknown hadith id q_2_256']));
   });
 
   group('Quran library', () {

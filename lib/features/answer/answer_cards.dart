@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
 import '../../core/lang.dart';
+import 'recitation_bar.dart';
 import '../../shared/patterns.dart';
 import '../../shared/widgets.dart';
 
@@ -237,6 +238,7 @@ class EvidenceView extends StatelessWidget {
               link,
             ],
           ),
+          RecitationBar(evidence: e),
           if (translation != null) ...[
             const SizedBox(height: 8),
             translation,
@@ -254,22 +256,17 @@ class EvidenceView extends StatelessWidget {
             const SizedBox(height: 8),
             note,
           ],
-          // Tafsir links: al-Tabari in full (when the model read it) and the
-          // surah in Dorar's tafsir encyclopedia (the reference pack's platform).
-          Wrap(
-            children: [
-              if (e.tafsirUrl != null)
+          // Tafsir in Dorar's encyclopedia (the reference pack's platform):
+          // the passage the model read, or the surah for a stored answer.
+          if ((e.tafsirUrl ?? e.dorarTafsirUrl) case final url?)
+            Wrap(
+              children: [
                 _TafsirLink(
-                  url: e.tafsirUrl!,
-                  label: context.tr('اقرأ تفسير الطبري كاملاً', 'Full Tafsir al-Tabari (Arabic)'),
+                  url: url,
+                  label: context.tr('اقرأ التفسير كاملاً في الدرر السنية', 'Full tafsir on Dorar.net (Arabic)'),
                 ),
-              if (e.dorarTafsirUrl != null)
-                _TafsirLink(
-                  url: e.dorarTafsirUrl!,
-                  label: context.tr('التفسير في الدرر السنية', 'Tafsir on Dorar.net (Arabic)'),
-                ),
-            ],
-          ),
+              ],
+            ),
         ],
       );
     }
@@ -278,15 +275,36 @@ class EvidenceView extends StatelessWidget {
       children: [
         if (e.narrator != null) Text(e.narrator!, style: BText.label(12.5), textDirection: textDirectionOf(e.narrator!)),
         const SizedBox(height: 4),
-        Text('«${e.text}»', style: BText.hadith(17.5), textDirection: TextDirection.rtl),
+        // HadeethEnc gives the whole narration («عن … قال: «…»»), already
+        // quoted; registry texts are the Prophet's words alone.
+        Text(e.text.contains('«') ? e.text : '«${e.text}»', style: BText.hadith(17.5), textDirection: TextDirection.rtl),
         if (translation != null) ...[
           const SizedBox(height: 8),
           translation,
+        ],
+        // The publisher's own explanation (HadeethEnc), labelled and linked.
+        if (e.tafsir != null) ...[
+          const SizedBox(height: 8),
+          _SourceBlock(
+            label: e.tafsirSource ?? context.tr('الشرح', 'Explanation'),
+            icon: Icons.menu_book_outlined,
+            text: e.tafsir!,
+            fill: Colors.white.withValues(alpha: .75),
+          ),
         ],
         if (note != null) ...[
           const SizedBox(height: 8),
           note,
         ],
+        if (e.tafsirUrl case final url?)
+          Wrap(
+            children: [
+              _TafsirLink(
+                url: url,
+                label: context.tr('الحديث وشرحه في موسوعة الأحاديث النبوية', 'The hadith and its explanation on HadeethEnc'),
+              ),
+            ],
+          ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -367,6 +385,14 @@ class _SourceBlock extends StatelessWidget {
   );
 }
 
+/// «خطوة بحث واحدة» / «خطوتا بحث» / «3 خطوات بحث» / «11 خطوة بحث».
+String _arSteps(int n) => switch (n) {
+  1 => 'خطوة بحث واحدة',
+  2 => 'خطوتا بحث',
+  >= 3 && <= 10 => '$n خطوات بحث',
+  _ => '$n خطوة بحث',
+};
+
 /// «كيف وصلت بصيرة إلى الأدلة؟» — the live research steps, collapsed by
 /// default.
 class ResearchTrail extends StatelessWidget {
@@ -392,7 +418,10 @@ class ResearchTrail extends StatelessWidget {
             style: BText.title(13.5, weight: FontWeight.w500),
           ),
           subtitle: Text(
-            context.tr('${steps.length} خطوات بحث في القرآن والتفسير', '${steps.length} research steps in the Quran and tafsir'),
+            context.tr(
+              '${_arSteps(steps.length)} في المصادر المعتمدة',
+              '${steps.length} research ${steps.length == 1 ? 'step' : 'steps'} in the approved sources',
+            ),
             style: BText.label(11.5, weight: FontWeight.w400),
           ),
           children: [

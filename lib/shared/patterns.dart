@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../app/theme.dart';
+import 'web_frame.dart';
 
 /// Star polygon {n/m} centred at [c]. When gcd(n, m) > 1 it is drawn as a
 /// compound of rotated sub-polygons (e.g. {8/2} = two squares).
@@ -91,6 +92,9 @@ class PatternBackdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The website keeps a plain ground: in its centred column the pattern
+    // would read as a box.
+    if (isWebsite(context)) return const SizedBox.shrink();
     Widget child = Stack(
       fit: StackFit.expand,
       children: [

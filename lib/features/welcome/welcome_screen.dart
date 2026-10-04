@@ -128,7 +128,7 @@ class WelcomeScreen extends StatelessWidget {
                   expand: true,
                   onTap: () async {
                     await Onboarding.markSeen();
-                    if (context.mounted) context.go('/home');
+                    if (context.mounted) context.go('/context?first=1');
                   },
                 ),
               ],

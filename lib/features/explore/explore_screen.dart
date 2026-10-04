@@ -7,6 +7,7 @@ import '../../core/lang.dart';
 import '../../core/kb_provider.dart';
 import '../../core/state.dart';
 import '../../shared/patterns.dart';
+import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../home/home_screen.dart';
 
@@ -50,7 +51,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(context.tr('استكشف', 'Explore'), style: BText.display(34)),
+                            Text(context.tr('استكشف', 'Explore'), style: pageTitleStyle(context)),
                             Text(
                               context.tr(
                                 '${kb.entries.length} سؤالاً موثقاً في ${kb.categories.length} تصنيفات',
@@ -138,13 +139,13 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     ),
                   if (q.isEmpty)
                     SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: isWebsite(context) ? 20 : 16),
                       sliver: SliverGrid(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isWebsite(context) ? 4 : 2,
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
-                          childAspectRatio: .98,
+                          childAspectRatio: isWebsite(context) ? 1.4 : .98,
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (_, i) => CategoryTile(category: kb.categories[i], kb: kb),

@@ -1,7 +1,9 @@
 import 'package:basirah_core/basirah_core.dart';
 
 import 'agent.dart';
+import 'answer_cache.dart';
 import 'guard.dart';
+import 'hadith.dart';
 import 'llm.dart';
 import 'prompt.dart';
 import 'quran.dart';
@@ -42,8 +44,8 @@ class PipelineResult {
 ///    the matching knowledge base (Arabic master or English overlay) is used.
 /// 2. Clearly non-Islamic questions are declined deterministically, before
 ///    any model call.
-/// 3. Live mode: the research agent (search the Quran, read al-Tabari's
-///    tafsir, cite only what it read, submit cards) → the guard. The model is
+/// 3. Live mode: the research agent (search the Quran, read the tafsir in
+///    موسوعة التفسير — الدرر السنية, cite only what it read, submit cards) → the guard. The model is
 ///    Claude or Gemini ([LlmClient]); everything around it is the same.
 /// 4. When a model's daily quota is exhausted (the Gemini free tier allows a
 ///    few requests per model per day), the question is asked again, from the
@@ -59,9 +61,11 @@ class AskPipeline {
     this.llm,
     this.fallbacks = const [],
     this.quran,
-    TafsirSource? tabari,
+    TafsirSource? tafsir,
+    this.hadith,
+    this.cache,
     DateTime Function()? clock,
-  }) : tabari = tabari ?? (quran == null ? null : QuranComTabari()),
+  }) : tafsir = tafsir ?? (quran == null ? null : DorarTafsir()),
        _clock = clock ?? DateTime.now,
        _routers = {
          'ar': OfflineRouter(kb),
@@ -69,7 +73,7 @@ class AskPipeline {
        } {
     _agents = [
       for (final c in [?llm, ...fallbacks])
-        (c, ResearchAgent(llm: c, kb: kb, quran: quran, tabari: this.tabari)),
+        (c, ResearchAgent(llm: c, kb: kb, quran: quran, tafsir: this.tafsir, hadith: hadith)),
     ];
   }
 
@@ -80,7 +84,14 @@ class AskPipeline {
   final LlmClient? llm;
   final List<LlmClient> fallbacks;
   final QuranLibrary? quran;
-  final TafsirSource? tabari;
+  final TafsirSource? tafsir;
+
+  /// Live hadith search (HadeethEnc); null = the registry only.
+  final HadeethEnc? hadith;
+
+  /// Saved live answers ([AnswerCache]); null = always research afresh
+  /// (as the evaluation does).
+  final AnswerCache? cache;
   final DateTime Function() _clock;
   final Map<String, OfflineRouter> _routers;
   late final List<(LlmClient, ResearchAgent)> _agents;
@@ -99,6 +110,9 @@ class AskPipeline {
 
   bool get aiEnabled => _agents.isNotEmpty;
 
+  /// The guard-actions entry of an answer served from the cache.
+  static const cachedAction = 'answered from cache';
+
   /// The first agent's model, for logs and `/health`.
   ResearchAgent? get agent => _agents.isEmpty ? null : _agents.first.$2;
 
@@ -109,6 +123,7 @@ class AskPipeline {
     String? categoryId,
     AskMode mode = AskMode.live,
     List<Turn> history = const [],
+    AskerContext asker = AskerContext.none,
   }) async {
     final lang = questionLang(question);
     final router = routerFor(lang);
@@ -128,6 +143,17 @@ class AskPipeline {
       );
     }
 
+    // A first question asked before (same words, category and asker
+    // context) is answered from the cache, without a model call.
+    final cache = this.cache;
+    final cacheKey = cache == null || history.isNotEmpty
+        ? null
+        : cache.keyFor(question: question, kbVersion: kb.version, categoryId: categoryId, context: asker.key);
+    if (cacheKey != null) {
+      final saved = cache!.get(cacheKey, question);
+      if (saved != null) return PipelineResult(answer: saved, via: Via.ai, guardActions: const [cachedAction]);
+    }
+
     // For follow-ups, retrieve with the previous question as context and
     // stay conservative: a personal case earlier in the chat still counts.
     final hits = previous == null
@@ -142,6 +168,7 @@ class AskPipeline {
       categoryTitle: categoryId == null ? null : kb.category(categoryId)?.title,
       history: history,
       lang: lang,
+      asker: asker,
     ) + (preread.isEmpty ? '' : buildPrereadBlock(quran!, preread, lang: lang));
 
     final skipped = <String>[];
@@ -151,6 +178,14 @@ class AskPipeline {
       try {
         final outcome = await agent.run(userTurn, lang: lang, preread: preread);
         final result = _finish(outcome, question, router, signals, hits);
+        // A personal case is never cached: its referral may restate the
+        // asker's situation, and the server does not keep that.
+        if (cacheKey != null &&
+            outcome.submitted != null &&
+            !signals.personalCase &&
+            result.answer.kind != AnswerKind.refer) {
+          cache!.put(cacheKey, result.answer);
+        }
         return skipped.isEmpty
             ? result
             : PipelineResult(
@@ -195,7 +230,7 @@ class AskPipeline {
     );
   }
 
-  /// Al-Tabari on the Quran verses (at most three) of the reference answer
+  /// The tafsir of the Quran verses (at most three) of the reference answer
   /// the question clearly matches — the same bar as answering from the
   /// curated base ([Retriever.isStrong]) — read before the model is called.
   /// Such answers then need one model request instead of three (the free
@@ -203,7 +238,7 @@ class AskPipeline {
   /// so unrelated verses are never put in front of the model.
   Future<Map<String, String>> _preread(List<RetrievalHit> hits) async {
     final q = quran;
-    final t = tabari;
+    final t = tafsir;
     if (q == null || t == null || !Retriever.isStrong(hits)) return const {};
     final keys = <String>[
       for (final id in hits.first.entry.evidenceIds)
@@ -259,7 +294,8 @@ class AskPipeline {
       quran: quran,
       readRefs: outcome.readRefs,
       tafsirText: (key) => outcome.tafsirRead[key],
-      tafsirUrl: tabari?.urlFor,
+      tafsirSource: tafsir,
+      hadithRead: outcome.hadithRead,
       research: outcome.research,
     );
     if (answer.related.isEmpty && answer.kind != AnswerKind.offTopic) {

@@ -12,7 +12,8 @@ import 'llm.dart';
 ///                    first is preferred, the others take over when it is
 ///                    out of daily quota (default [GeminiClient.defaultModel])
 ///   GEMINI_THINKING  optional thinking level: minimal | low | medium | high
-///   ANTHROPIC_API_KEY, CLAUDE_MODEL (default claude-sonnet-5),
+///   ANTHROPIC_API_KEY, CLAUDE_MODEL (one model id or several separated by
+///                    commas, tried in order; default claude-opus-5-5),
 ///   CLAUDE_EFFORT (default high), CLAUDE_FALLBACKS (`default` | `off`),
 ///   ANTHROPIC_BASE_URL
 ///
@@ -36,13 +37,15 @@ List<LlmClient> llmsFromEnv(Map<String, String> env) {
           GeminiClient(apiKey: geminiKey, model: model.trim(), thinkingLevel: value('GEMINI_THINKING')),
     ],
     'claude' when claudeKey != null => [
-      ClaudeClient(
-        apiKey: claudeKey,
-        model: value('CLAUDE_MODEL') ?? 'claude-sonnet-5',
-        effort: value('CLAUDE_EFFORT') ?? 'high',
-        useFallbacks: (value('CLAUDE_FALLBACKS') ?? 'default') != 'off',
-        baseUrl: value('ANTHROPIC_BASE_URL') ?? 'https://api.anthropic.com',
-      ),
+      for (final model in (value('CLAUDE_MODEL') ?? ClaudeClient.defaultModel).split(','))
+        if (model.trim().isNotEmpty)
+          ClaudeClient(
+            apiKey: claudeKey,
+            model: model.trim(),
+            effort: value('CLAUDE_EFFORT') ?? 'high',
+            useFallbacks: (value('CLAUDE_FALLBACKS') ?? 'default') != 'off',
+            baseUrl: value('ANTHROPIC_BASE_URL') ?? 'https://api.anthropic.com',
+          ),
     ],
     _ => const [],
   };

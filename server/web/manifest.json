@@ -1,0 +1,37 @@
+{
+    "name": "بصيرة · Basirah",
+    "short_name": "بصيرة",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#F2F2F4",
+    "theme_color": "#F2F2F4",
+    "lang": "ar",
+    "dir": "rtl",
+    "description": "إجابات موثقة لأسئلة المسلم الجديد، من المراجع المعتمدة فقط.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

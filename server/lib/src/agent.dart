@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:basirah_core/basirah_core.dart';
 
+import 'hadith.dart';
 import 'llm.dart';
 import 'prompt.dart';
 import 'quran.dart';
@@ -13,6 +14,7 @@ class AgentOutcome {
     required this.submitted,
     required this.readRefs,
     required this.tafsirRead,
+    this.hadithRead = const {},
     required this.research,
     required this.model,
     required this.usage,
@@ -26,8 +28,11 @@ class AgentOutcome {
   /// Verse keys whose tafsir the model actually read in this run.
   final Set<String> readRefs;
 
-  /// The al-Tabari text the model read, by verse key.
+  /// The tafsir text the model read, by verse key.
   final Map<String, String> tafsirRead;
+
+  /// Hadith returned by search_hadith in this run, by id («he:5361»).
+  final Map<String, HadithFound> hadithRead;
 
   /// Human-readable research trail (Arabic), shown in the app.
   final List<String> research;
@@ -38,7 +43,8 @@ class AgentOutcome {
 }
 
 /// Live research agent: the model (Claude or Gemini) searches the Quran,
-/// reads al-Tabari's tafsir of the verses it wants to cite, then submits a
+/// reads the tafsir (موسوعة التفسير, الدرر السنية) of the verses it wants to
+/// cite, then submits a
 /// card-shaped answer. A manual tool loop over raw HTTP; every assistant turn
 /// is echoed back unchanged so thinking blocks / thought signatures are
 /// preserved.
@@ -47,27 +53,38 @@ class ResearchAgent {
     required this.llm,
     required this.kb,
     this.quran,
-    this.tabari,
+    this.tafsir,
+    this.hadith,
     this.maxRounds = 6,
-  }) : _system = buildSystemPrompt(kb, quranTools: quran != null),
+  }) : _system = buildSystemPrompt(kb, quranTools: quran != null, hadithTool: hadith != null),
        _tools = [
          if (quran != null) searchQuranTool,
          if (quran != null) readTafsirTool,
+         if (hadith != null) searchHadithTool,
          submitAnswerTool(kb),
        ];
 
   final LlmClient llm;
   final KnowledgeBase kb;
   final QuranLibrary? quran;
-  final TafsirSource? tabari;
+  final TafsirSource? tafsir;
+  final HadeethEnc? hadith;
   final int maxRounds;
   final String _system;
   final List<Map<String, dynamic>> _tools;
 
+  /// The research-trail line for reading a verse's tafsir.
+  String _readLabel(Verse v, String lang) {
+    final q = quran!;
+    return lang == 'en'
+        ? 'Read ${tafsir?.nameEn ?? 'the tafsir'} on ${q.surahName(v.surah, lang: 'en')} ${v.ayah}'
+        : 'قراءة ${tafsir?.name ?? 'التفسير'}: ${q.surahName(v.surah)} ${v.ayah}';
+  }
+
   /// [lang] is the answer's language ('ar' or 'en'): it sets the language of
   /// the research trail and adds English verse meanings for English answers.
   ///
-  /// [preread]: al-Tabari text already given to the model in [userTurn]
+  /// [preread]: tafsir text already given to the model in [userTurn]
   /// (see `buildPrereadBlock`), by verse key; those verses count as read.
   Future<AgentOutcome> run(String userTurn, {String lang = 'ar', Map<String, String> preread = const {}}) async {
     final messages = <Map<String, dynamic>>[
@@ -75,12 +92,11 @@ class ResearchAgent {
     ];
     final readRefs = <String>{...preread.keys};
     final tafsirRead = <String, String>{...preread};
+    final hadithRead = <String, HadithFound>{};
     final research = <String>[
       for (final key in preread.keys)
         if (quran?.verse(key) case final v?)
-          lang == 'en'
-              ? 'Read Tafsir al-Tabari on ${quran!.surahName(v.surah, lang: 'en')} ${v.ayah}'
-              : 'قراءة تفسير الطبري: ${quran!.surahName(v.surah)} ${v.ayah}',
+          _readLabel(v, lang),
     ];
     final usage = <String, int>{};
     var model = llm.model;
@@ -91,6 +107,7 @@ class ResearchAgent {
       submitted: submitted,
       readRefs: readRefs,
       tafsirRead: tafsirRead,
+      hadithRead: hadithRead,
       research: research,
       model: model,
       usage: usage,
@@ -131,7 +148,7 @@ class ResearchAgent {
                             : 'مرفوض: السؤال بالعربية، فاكتب جميع الحقول النصية بالعربية، ثم استدعِ submit_answer مجدداً.',
                         'is_error': true,
                       }
-                    : await _execute(u, readRefs, tafsirRead, research, lang),
+                    : await _execute(u, readRefs, tafsirRead, hadithRead, research, lang),
             ],
           });
           continue;
@@ -151,7 +168,7 @@ class ResearchAgent {
       }
 
       final results = <Map<String, dynamic>>[
-        for (final u in uses) await _execute(u, readRefs, tafsirRead, research, lang),
+        for (final u in uses) await _execute(u, readRefs, tafsirRead, hadithRead, research, lang),
       ];
       final content = <Map<String, dynamic>>[
         ...results,
@@ -167,6 +184,7 @@ class ResearchAgent {
     Map<String, dynamic> use,
     Set<String> readRefs,
     Map<String, String> tafsirRead,
+    Map<String, HadithFound> hadithRead,
     List<String> research,
     String lang,
   ) async {
@@ -211,31 +229,52 @@ class ResearchAgent {
             continue;
           }
           final v = q.verse(key)!;
-          final tabariText = tafsirRead[key] ?? await tabari?.forVerse(key);
+          final tafsirText = tafsirRead[key] ?? await tafsir?.forVerse(key);
           // A verse counts as read only once its approved tafsir was read.
-          if (tabariText == null) {
+          if (tafsirText == null) {
             out.add({
               'ref': key,
               'verse': v.uthmani,
-              'tabari': 'unavailable right now — do not cite this verse',
+              'tafsir': 'unavailable right now — do not cite this verse',
             });
             continue;
           }
-          tafsirRead[key] = tabariText;
+          tafsirRead[key] = tafsirText;
           if (readRefs.add(key)) {
-            research.add(lang == 'en'
-                ? 'Read Tafsir al-Tabari on ${q.surahName(v.surah, lang: 'en')} ${v.ayah}'
-                : 'قراءة تفسير الطبري: ${q.surahName(v.surah)} ${v.ayah}');
+            research.add(_readLabel(v, lang));
           }
           out.add({
             'ref': key,
             'surah': q.surahName(v.surah),
             'verse': v.uthmani,
-            'tabari': excerpt(tabariText),
+            'tafsir_source': tafsir!.name,
+            'tafsir': tafsirForVerse(tafsirText, v.simple),
             if (lang == 'en' && v.english.isNotEmpty) 'english_meaning': v.english,
           });
         }
         return result({'verses': out});
+
+      case 'search_hadith' when hadith != null:
+        final query = (input['query'] as String?)?.trim() ?? '';
+        if (query.isEmpty) return result('query must be a non-empty Arabic string', error: true);
+        research.add(lang == 'en' ? 'Searched HadeethEnc: “$query”' : 'بحث في موسوعة الأحاديث النبوية: «$query»');
+        final found = await hadith!.find(query, lang: lang);
+        for (final f in found) {
+          hadithRead[f.id] = f;
+        }
+        return result({
+          'results': [
+            for (final f in found)
+              {
+                'id': f.id,
+                'text': f.arabic.text,
+                'source': f.arabic.attribution,
+                'grade': f.arabic.grade,
+                'explanation': excerpt(f.arabic.explanation, max: 700),
+              },
+          ],
+          if (found.isEmpty) 'note': 'No hadith with an accepted grade found. Try other words once, or cite no hadith for this point.',
+        });
 
       default:
         return result('Unknown or unavailable tool: ${use['name']}', error: true);

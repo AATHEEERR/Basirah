@@ -48,6 +48,43 @@ class SavedNotifier extends Notifier<List<BasirahAnswer>> {
 
 final savedProvider = NotifierProvider<SavedNotifier, List<BasirahAnswer>>(SavedNotifier.new);
 
+// ─── «سياقي»: the asker's context (stored on this device only) ─────────────
+
+class AskerContextNotifier extends Notifier<AskerContext> {
+  static const _key = 'basirah.context.v1';
+
+  @override
+  AskerContext build() {
+    _load();
+    return AskerContext.none;
+  }
+
+  Future<void> _load() async {
+    try {
+      final raw = (await SharedPreferences.getInstance()).getString(_key);
+      if (raw != null) state = AskerContext.fromJson(jsonDecode(raw));
+    } on Exception {
+      // Storage unavailable: no context.
+    }
+  }
+
+  Future<void> set(AskerContext value) async {
+    state = value;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (value.isEmpty) {
+        await prefs.remove(_key);
+      } else {
+        await prefs.setString(_key, jsonEncode(value.toJson()));
+      }
+    } on Exception {
+      // In-memory state is still correct for this session.
+    }
+  }
+}
+
+final askerContextProvider = NotifierProvider<AskerContextNotifier, AskerContext>(AskerContextNotifier.new);
+
 // ─── Onboarding flag ───────────────────────────────────────────────────────
 
 abstract final class Onboarding {
@@ -128,7 +165,12 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
       if (!retry) ChatMessage.user(q),
       ChatMessage.assistant(text: q, pending: true, categoryId: categoryId),
     ];
-    final outcome = await service.ask(q, categoryId: categoryId, history: history);
+    final outcome = await service.ask(
+      q,
+      categoryId: categoryId,
+      history: history,
+      context: ref.read(askerContextProvider),
+    );
     state = [
       for (final m in state)
         if (m.pending) ChatMessage.assistant(text: q, outcome: outcome, categoryId: categoryId) else m,
