@@ -147,7 +147,7 @@ Future<void> main() async {
         ms: DateTime.now().difference(started).inMilliseconds,
         verses: a.evidence.where((e) => e.isQuran).length,
         hadith: a.evidence.where((e) => !e.isQuran).length,
-        guardCatches: result.guardActions.where((g) => g != AskPipeline.cachedAction).length,
+        guardCatches: result.guardActions.where(isGuardIntervention).length,
         lang: RegExp('[؀-ۿ]').hasMatch(question) ? 'ar' : 'en',
         category: a.entryId == null ? null : kb.entry(a.entryId!)?.categoryId,
       );

@@ -1,6 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+/// Whether a guard-actions entry is the guard changing the answer (a verse
+/// dropped, a quotation replaced…), as opposed to a note on how the answer
+/// was produced: served from the cache, a model skipped (quota, outage),
+/// no model left, or the time budget reached.
+bool isGuardIntervention(String action) =>
+    action != 'answered from cache' && !RegExp(r'^(gemini|claude):|^no model available|^time budget reached').hasMatch(action);
+
 /// Anonymous usage and feedback for «لوحة الأثر» (the impact page).
 ///
 /// An event never holds the question text, an IP address or any user or

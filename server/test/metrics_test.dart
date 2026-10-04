@@ -70,6 +70,16 @@ void main() {
     });
   });
 
+  test('only the guard changing an answer counts as an intervention', () {
+    expect(isGuardIntervention('replaced Quran quotation with its reference'), isTrue);
+    expect(isGuardIntervention('dropped 60:8: cited without reading its tafsir'), isTrue);
+    expect(isGuardIntervention(AskPipeline.cachedAction), isFalse);
+    expect(isGuardIntervention('gemini:gemini-3.8-flash daily quota exhausted'), isFalse);
+    expect(isGuardIntervention('claude:claude-sonnet-5-5 unavailable (529)'), isFalse);
+    expect(isGuardIntervention('no model available'), isFalse);
+    expect(isGuardIntervention('time budget reached (75 s)'), isFalse);
+  });
+
   test('no file yet: an empty summary', () {
     final s = metrics.summary();
     expect(s['questions'], 0);
