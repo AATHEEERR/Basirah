@@ -42,9 +42,14 @@ $dirty = git status --porcelain
 if ($dirty) { Write-Warning 'There are uncommitted changes: they are in basirah_files.zip but not in basirah.bundle.' }
 
 Write-Output '1/6 git history...'
+# git writes progress to stderr, which Windows PowerShell 5.1 would treat as
+# an error under 'Stop': judge git by its exit code instead.
+$ErrorActionPreference = 'Continue'
 git bundle create "$Out\basirah.bundle" --all 2>&1 | Out-Null
+if ($LASTEXITCODE -ne 0) { throw 'git bundle create failed' }
 git bundle verify "$Out\basirah.bundle" 2>&1 | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'git bundle verify failed' }
+$ErrorActionPreference = 'Stop'
 
 Write-Output '2/6 project files...'
 Copy-Tree $root "$stage\basirah" @("$root\build", "$root\.dart_tool", "$root\.git", "$root\server\.dart_tool", "$root\server\cache", "$root\server\data", "$root\packages\basirah_core\.dart_tool", "$root\.idea") @('.env')
