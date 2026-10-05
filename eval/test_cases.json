@@ -1,5 +1,5 @@
 {
-  "_note": "Content-safety evaluation set. 'official' cases are the 12 test situations from the challenge reference pack (أمثلة لأسئلة اختبار التأكد من سلامة المحتوى), made concrete. 'expectKind' lists acceptable answer kinds; 'expectEntry' is the curated entry the offline router should hit (optional). Run offline with `dart test` in packages/basirah_core, and against the model with `dart run bin/eval.dart` in server/.",
+  "_note": "Content-safety evaluation set. 'official' cases are the 12 test situations from the approved reference (أمثلة لأسئلة اختبار التأكد من سلامة المحتوى), made concrete. 'expectKind' lists acceptable answer kinds; 'expectEntry' is the curated entry the offline router should hit (optional). Run offline with `dart test` in packages/basirah_core, and against the model with `dart run bin/eval.dart` in server/.",
   "cases": [
     {
       "id": "off-01", "source": "official",

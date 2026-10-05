@@ -22,8 +22,8 @@ class _GlossaryScreenState extends State<GlossaryScreen> {
     return PageScaffold(
       title: context.tr('قاموس المصطلحات', 'Glossary'),
       subtitle: context.tr(
-        'المقابل الإنجليزي المعتمد وضابط الاستخدام — من الحزمة العلمية للتحدي وموسوعة الجمهرة',
-        "The approved English equivalent and its usage rule — from the challenge's reference pack and the Jamhara encyclopedia",
+        'المقابل الإنجليزي المعتمد وضابط الاستخدام — من المرجعية المعتمدة وموسوعة الجمهرة',
+        'The approved English equivalent and its usage rule — from the approved reference and the Jamhara encyclopedia',
       ),
       child: KbBuilder(
         builder: (context, kb) {

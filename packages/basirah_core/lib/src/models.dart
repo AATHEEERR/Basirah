@@ -3,7 +3,7 @@
 library;
 
 /// How an answer is shaped. Mirrors the response-control rules of the
-/// challenge's reference pack (المرجعية والحزمة العلمية).
+/// approved reference.
 enum AnswerKind {
   /// A documented answer (levels A/B, or a constrained level-C answer).
   answer,
@@ -463,7 +463,7 @@ class ApprovedPlatform {
   );
 }
 
-/// The reference pack's texts beyond the tables: the challenge's scope, the
+/// The reference pack's texts beyond the tables: the scope, the
 /// association's statement (p. 8) and the notes on external platforms.
 class PackTexts {
   const PackTexts({

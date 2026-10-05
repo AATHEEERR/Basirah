@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 /// Builds the Quran dataset (`data/quran.json`) from the sources the
-/// challenge's reference pack names:
+/// approved reference names:
 ///
 /// * **QuranEnc** (quranenc.com, جمعية خدمة المحتوى الإسلامي باللغات):
 ///   the Mushaf text — King Fahd Complex, Hafs (`arabic_text`, what the app

@@ -11,7 +11,7 @@ import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 
 /// «سياقي»: three optional questions that let answers fit «سياق السائل
-/// وخلفيته» (participant guide, Track 1). Shown once after Welcome
+/// وخلفيته». Shown once after Welcome
 /// ([firstRun]) and editable later. Every answer can be skipped; the
 /// choices stay on this device and travel only with a question.
 class ContextScreen extends ConsumerStatefulWidget {

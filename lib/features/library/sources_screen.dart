@@ -19,8 +19,8 @@ class SourcesScreen extends StatelessWidget {
     return PageScaffold(
       title: context.tr('المرجعية والمنهجية', 'References & method'),
       subtitle: context.tr(
-        'مأخوذة من «المرجعية والحزمة العلمية والبيانات» لتحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي',
-        'Taken from the “Reference, scholarly package and data” document of the AI Challenge Serving Islamic Content',
+        'مستويات الاستجابة والمصادر والمعايير التي تعمل بها بصيرة، بنصها من المرجعية المعتمدة',
+        'The response levels, sources and standards Basirah works by, in the words of the approved reference',
       ),
       child: KbBuilder(
         builder: (context, kb) => Column(
@@ -163,8 +163,8 @@ class SourcesScreen extends StatelessWidget {
             _Heading(
               context.tr('المعيار العلمي الملزم، وكيف نطبّقه', 'The binding scholarly standard, and how we apply it'),
               context.tr(
-                'ثمانية معايير يشترطها التحدي في مخرجات الحلول، ومقابل كل معيار ما تفعله بصيرة فعلاً.',
-                'Eight standards the challenge requires of every solution’s output, and next to each one what Basirah actually does.',
+                'ثمانية معايير تلتزم بها بصيرة في كل ما تعرضه، ومقابل كل معيار ما تفعله فعلاً.',
+                'Eight standards Basirah holds every output to, and next to each one what it actually does.',
               ),
             ),
             for (final st in kb.standards)
@@ -235,8 +235,8 @@ class SourcesScreen extends StatelessWidget {
 }
 
 String _packNote(BuildContext context) => context.tr(
-  'بنص «المرجعية والحزمة العلمية والبيانات» (نسخة 1448/3/20)',
-  'In the Arabic of the reference pack (edition 1448/3/20), verbatim',
+  'بنص المرجعية المعتمدة',
+  'In the Arabic of the approved reference, verbatim',
 );
 
 /// The first section of platforms outside the association (p. 11 onwards).

@@ -1,9 +1,5 @@
 {
-  "_note": "Transcribed verbatim from «المرجعية والحزمة العلمية والبيانات» (updated edition, نسخة 1448/3/20) of the AI Challenge Serving Islamic Content, and checked character by character against the PDF with server/tool/verify_package_text.dart. 'applied' and 'basirahUse' are Basirah's own notes on how it applies each item.",
-  "scopeText": [
-    "يشمل نطاق التحدي: المحتوى الإسلامي وما يرتبط بخدمته وإدارته والوصول إليه والتحقق منه والبحث فيه وتقديمه وترجمته وإعادة توظيفه، إضافة إلى التعريف بالإسلام والتواصل الحضاري، والإجابة العلمية عن الأسئلة العامة والشبهات، وتمكين الباحثين والمترجمين والمحررين والمعرّفين وصناع المحتوى والجهات ذات العلاقة، والمسارات المعرفية المناسبة لمختلف المستفيدين",
-    "ولا يدخل في النطاق إصدار الفتوى الشخصية المستقلة، أو الحكم على الأشخاص والجماعات، أو معالجة النزاعات الخاصة، أو بناء أحكام شرعية على وقائع فردية غير متحققة."
-  ],
+  "_note": "Transcribed verbatim from the approved reference document (updated edition), and checked character by character against the PDF with server/tool/verify_package_text.dart. 'applied' and 'basirahUse' are the team's notes on how Basirah applies each item.",
   "levels": [
     {
       "level": "A",
@@ -139,7 +135,6 @@
       ]
     }
   ],
-  "standardsIntro": "يُشترط في الحلول والمخرجات المقدمة ضمن جميع المسارات، بحسب طبيعتها:",
   "standards": [
     {
       "title": "الموثوقية والإسناد",

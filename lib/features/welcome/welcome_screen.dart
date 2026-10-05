@@ -17,9 +17,9 @@ class WelcomeScreen extends StatelessWidget {
     (
       Tones.principle,
       'إجابات من مراجع معتمدة فقط',
-      'القرآن والسنة الصحيحة والمصادر العلمية المعتمدة في التحدي، مع رابط للتحقق من كل دليل.',
+      'القرآن والسنة الصحيحة والمصادر العلمية المعتمدة، مع رابط للتحقق من كل دليل.',
       'Answers from approved references only',
-      "The Quran, authentic Sunnah and the challenge's approved scholarly sources, with a link to verify every piece of evidence.",
+      'The Quran, authentic Sunnah and approved scholarly sources, with a link to verify every piece of evidence.',
     ),
     (
       Tones.culture,

@@ -1,5 +1,5 @@
 /// «سياقي»: what the asker chose to tell Basirah about themselves, so an
-/// answer can fit «سياق السائل وخلفيته» (participant guide, Track 1).
+/// answer can fit «سياق السائل وخلفيته».
 ///
 /// Every field is optional and comes from a fixed list — never free text —
 /// so it cannot carry instructions or personal details. It stays on the

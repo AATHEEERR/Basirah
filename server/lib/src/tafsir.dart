@@ -25,7 +25,7 @@ abstract class TafsirSource {
 }
 
 /// موسوعة التفسير في الدرر السنية (dorar.net/tafseer) — the tafsir platform
-/// the challenge's reference pack names («أي مصادر إسلامية في القرون الثلاثة
+/// the approved reference names («أي مصادر إسلامية في القرون الثلاثة
 /// الأولى أو منصة dorar.net/tafseer»). Each surah is divided into passages
 /// («الآيات (4-6)»); a verse is read from its passage page: the overall
 /// meaning (المعنى الإجمالي) and the verse-by-verse tafsir (تفسير الآيات),

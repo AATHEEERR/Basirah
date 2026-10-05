@@ -320,8 +320,8 @@ class OfflineRouter {
               'تجنّب الترجمة الحرفية التي قد تُضيّق المعنى أو تغيّره.',
             ],
       sourceNote: en
-          ? 'Glossary of core terms — the challenge\'s reference pack, and the al-Jamhara encyclopedia of Islamic-content terms (islamic-content.com/dictionary).'
-          : 'قاموس المصطلحات الأساسية — الحزمة العلمية للتحدي، وموسوعة الجمهرة لمفردات المحتوى الإسلامي (islamic-content.com/dictionary).',
+          ? 'Glossary of core terms — the approved reference, and the al-Jamhara encyclopedia of Islamic-content terms (islamic-content.com/dictionary).'
+          : 'قاموس المصطلحات الأساسية — المرجعية المعتمدة، وموسوعة الجمهرة لمفردات المحتوى الإسلامي (islamic-content.com/dictionary).',
       review: 'generated',
     );
   }

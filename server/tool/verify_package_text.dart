@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 /// Checks, character by character, that every text Basirah quotes from the
-/// challenge's reference pack («المرجعية والحزمة العلمية والبيانات», updated
-/// edition 1448/3/20) appears in it verbatim: assets/kb/reference.json
+/// approved reference document (its updated
+/// edition) appears in it verbatim: assets/kb/reference.json
 /// (levels, sources, standards, glossary, platforms) and the official test
 /// situations in eval/test_cases.json.
 ///

@@ -9,7 +9,7 @@
 #   runtime_data.zip      server/data (the Quran dataset) and server/cache
 #                         (tafsir, hadith, audio links, answers, usage statistics)
 #   secrets/server.env    the AI keys: keep private, never upload or share
-#   project_documents.zip the challenge files, decks, descriptions and images
+#   project_documents.zip the reference files, decks, descriptions and images
 #   tools/cloudflared.exe the public-link tool, if present
 #   RESTORE.md, SHA256SUMS.txt
 param([string]$Out)
