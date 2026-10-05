@@ -231,6 +231,8 @@ Middleware _cors(String origin) {
     'access-control-allow-methods': 'GET, POST, OPTIONS',
     'access-control-allow-headers': 'content-type',
     'access-control-max-age': '86400',
+    // Not for search engines: the link is shared by hand only.
+    'x-robots-tag': 'noindex, nofollow',
   };
   return (inner) => (req) async {
     if (req.method == 'OPTIONS') return Response.ok('', headers: headers);
