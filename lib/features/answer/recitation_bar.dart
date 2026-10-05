@@ -35,9 +35,14 @@ final recitersProvider = StateProvider<List<(String, String, String)>>((ref) => 
 /// repeat and a slower speed for learning to pronounce. Only the cited
 /// verses are played.
 class RecitationBar extends ConsumerStatefulWidget {
-  const RecitationBar({super.key, required this.evidence});
+  const RecitationBar({super.key, required this.evidence, this.answerLang});
 
   final Evidence evidence;
+
+  /// The language the answer is written in: when it has an approved
+  /// translation of the meanings (and is neither Arabic nor English), the
+  /// meaning is heard and shown in it until the asker picks another.
+  final String? answerLang;
 
   @override
   ConsumerState<RecitationBar> createState() => _RecitationBarState();
@@ -58,9 +63,16 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _loadMeaning(ref.read(meaningLangProvider));
+      if (mounted) _loadMeaning(_chosen(ref.read(meaningLangProvider)));
     });
   }
+
+  /// The asker's choice, else the answer's own language when it has one.
+  String? _chosen(String? picked) =>
+      picked ??
+      (widget.answerLang == 'ar' || widget.answerLang == 'en'
+          ? null
+          : meaningLanguages.where((l) => l.$2 == widget.answerLang).firstOrNull?.$1);
 
   Future<void> _loadMeaning(String? lang) async {
     if (lang == null) {
@@ -119,7 +131,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
           (r['id'] as String, r['ar'] as String, r['en'] as String),
       ];
       await player.stop();
-      final lang = ref.read(meaningLangProvider);
+      final lang = _chosen(ref.read(meaningLangProvider));
       if (lang != null) await _loadMeaning(lang);
       final meaning = lang == null ? null : _meaning;
       // One small file per verse, played in order; then, when a language is
@@ -150,8 +162,8 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
     final names = ref.watch(recitersProvider);
     final name = names.where((r) => r.$1 == read).map((r) => context.tr(r.$2, r.$3)).firstOrNull ??
         context.tr('الحصري', 'Al-Husary');
-    ref.listen<String?>(meaningLangProvider, (_, next) => _loadMeaning(next));
-    final lang = meaningLanguages.where((l) => l.$1 == ref.watch(meaningLangProvider)).firstOrNull;
+    ref.listen<String?>(meaningLangProvider, (_, next) => _loadMeaning(_chosen(next)));
+    final lang = meaningLanguages.where((l) => l.$1 == _chosen(ref.watch(meaningLangProvider))).firstOrNull;
     return StreamBuilder<PlayerState>(
       stream: player.playerStateStream,
       builder: (context, snap) {

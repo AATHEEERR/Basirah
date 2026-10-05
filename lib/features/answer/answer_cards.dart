@@ -100,7 +100,7 @@ class AnswerCards extends StatelessWidget {
             children: [
               for (final (i, e) in a.evidence.indexed) ...[
                 if (i > 0) Divider(height: 28, color: Tones.evidence.accent.withValues(alpha: .15)),
-                EvidenceView(e),
+                EvidenceView(e, answerLang: detectLanguage(a.question)),
               ],
               if (a.sourceNote.isNotEmpty) ...[
                 if (a.evidence.isNotEmpty) const Divider(height: 28),
@@ -188,9 +188,12 @@ class ToneCard extends StatelessWidget {
 /// A verse or hadith exactly as in the evidence registry, with a
 /// verification link to the approved platform.
 class EvidenceView extends StatelessWidget {
-  const EvidenceView(this.evidence, {super.key});
+  const EvidenceView(this.evidence, {super.key, this.answerLang});
 
   final Evidence evidence;
+
+  /// The answer's language (see [RecitationBar.answerLang]).
+  final String? answerLang;
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +277,7 @@ class EvidenceView extends StatelessWidget {
               link,
             ],
           ),
-          RecitationBar(evidence: e),
+          RecitationBar(evidence: e, answerLang: answerLang),
           if (translation != null) ...[
             const SizedBox(height: 8),
             translation,
