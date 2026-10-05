@@ -14,6 +14,7 @@ import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
+import '../guide/guide_screen.dart';
 import '../library/baseline_screen.dart';
 import '../library/impact_screen.dart';
 
@@ -81,6 +82,15 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: _AiCard(onTap: () => ask())),
+                SliverToBoxAdapter(
+                  child: SectionHeader(
+                    context.tr('حالتك في الطهارة: أجب بنعم أو لا', 'Your case in purification: answer yes or no'),
+                    eyebrow: context.tr('جديد · مرشد الحالة', 'New · Case guide'),
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: _GuideSection()),
+                ),
                 if (AppConfig.hasApi) ...[
                   SliverToBoxAdapter(
                     child: SectionHeader(
@@ -643,6 +653,11 @@ class _WideHome extends StatelessWidget {
             ),
           ),
         ),
+        _WideSection(
+          eyebrow: context.tr('جديد · مرشد الحالة', 'New · Case guide'),
+          title: context.tr('حالتك في الطهارة: أجب بنعم أو لا', 'Your case in purification: answer yes or no'),
+          child: const _GuideSection(),
+        ),
         if (AppConfig.hasApi)
           _WideSection(
             eyebrow: context.tr('الأثر بالأرقام', 'Impact in numbers'),
@@ -789,6 +804,27 @@ class _WideSection extends StatelessWidget {
         ),
       ),
     ),
+  );
+}
+
+/// «مرشد الحالة» on the home page: what it does in one line, and the guides.
+class _GuideSection extends StatelessWidget {
+  const _GuideSection();
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Text(
+        context.tr(
+          'أسئلة قصيرة عن حالتك. ما أجمع عليه العلماء أو اتفقت عليه المذاهب الأربعة تأخذ جوابه فوراً بنصه من الموسوعة الفقهية، وما اختلفوا فيه يصير «ملف حالتك» تُرسله إلى مختص شرعي بضغطة.',
+          'A few short questions about your case. Where scholars agree, you get the answer at once, quoted from the fiqh encyclopedia; where they differ, it becomes “your case file”, sent to a Sharia specialist in one tap.',
+        ),
+        style: BText.body(14.5, color: BColors.textMuted, height: 1.7),
+      ),
+      const SizedBox(height: 12),
+      const GuideTiles(),
+    ],
   );
 }
 

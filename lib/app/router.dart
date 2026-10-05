@@ -10,6 +10,7 @@ import '../features/explore/explore_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/library/about_screen.dart';
 import '../features/library/glossary_screen.dart';
+import '../features/guide/guide_screen.dart';
 import '../features/library/baseline_screen.dart';
 import '../features/library/impact_screen.dart';
 import '../features/specialist/specialist.dart';
@@ -67,6 +68,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/impact', builder: (_, _) => const ImpactScreen()),
       GoRoute(path: '/baseline', builder: (_, _) => const BaselineScreen()),
       GoRoute(path: '/referrals', builder: (_, _) => const MyReferralsScreen()),
+      GoRoute(path: '/guide/:id', builder: (_, s) => GuideScreen(id: s.pathParameters['id']!)),
       GoRoute(path: '/specialist', builder: (_, _) => const SpecialistPanelScreen()),
     ],
     errorBuilder: (context, _) => Scaffold(body: Center(child: Text(context.tr('الصفحة غير موجودة', 'Page not found')))),

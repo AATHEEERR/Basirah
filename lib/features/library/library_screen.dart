@@ -10,6 +10,7 @@ import '../../shared/lang_toggle.dart';
 import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
+import '../guide/guide_screen.dart';
 
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
@@ -168,6 +169,19 @@ class LibraryScreen extends ConsumerWidget {
                         const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
                       ],
                     ),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 18, 16, 0),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(context.tr('مرشد الحالة', 'Case guide'), style: BText.title(15.5)),
+                      const SizedBox(height: 8),
+                      const GuideTiles(),
+                    ],
                   ),
                 ),
               ),

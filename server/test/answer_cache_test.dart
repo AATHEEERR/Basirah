@@ -75,6 +75,23 @@ void main() {
     expect(cache.keyFor(question: 'سؤال', kbVersion: '2'), isNot(a));
     expect(cache.keyFor(question: 'سُؤالٌ!', kbVersion: '1'), a);
   });
+
+  test('questions in scripts the normaliser drops never share an entry', () {
+    final cache = AnswerCache(dir: dir.path, clock: () => now);
+    String key(String q) => cache.keyFor(question: q, kbVersion: '1');
+    final keys = {
+      key('为什么穆斯林崇拜克尔白？'),
+      key('なぜイスラム教徒はカアバを崇拝するのですか？'),
+      key('मुसलमान काबा की पूजा क्यों करते हैं?'),
+      key('முஸ்லிம்கள் ஏன் கஅபாவை வணங்குகிறார்கள்?'),
+      key('مسلمان کعبہ کی عبادت کیوں کرتے ہیں؟'),
+      key('کیا اسلام تلوار سے پھیلا؟'),
+      key("Müslümanlar neden Kâbe'ye tapıyor?"),
+    };
+    expect(keys, hasLength(7));
+    // The same question still finds its entry.
+    expect(key('为什么穆斯林崇拜克尔白？'), key('为什么穆斯林崇拜克尔白?'));
+  });
 }
 
 const submissionAnswerJson = <String, dynamic>{

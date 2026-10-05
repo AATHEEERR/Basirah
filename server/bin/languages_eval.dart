@@ -118,7 +118,12 @@ Future<void> main(List<String> args) async {
     for (var attempt = 0; attempt < 3 && body == null; attempt++) {
       try {
         final res = await http
-            .post(Uri.parse('$base/api/ask'), headers: {'content-type': 'application/json'}, body: jsonEncode({'question': q, 'mode': 'live'}))
+            .post(
+              Uri.parse('$base/api/ask'),
+              // A test run: not counted on the impact board.
+              headers: {'content-type': 'application/json', 'x-basirah-test': '1'},
+              body: jsonEncode({'question': q, 'mode': 'live'}),
+            )
             .timeout(const Duration(seconds: 150));
         if (res.statusCode == 429) {
           await Future<void>.delayed(const Duration(seconds: 20));
@@ -154,7 +159,7 @@ Future<void> main(List<String> args) async {
       'verses': verses.length,
       'versesTranslated': translated,
       'translationOk': !hasApproved || verses.isEmpty || translated == verses.length,
-      'translationSources': {for (final e in verses) e.translationSource},
+      'translationSources': {for (final e in verses) e.translationSource}.toList(),
       'hadith': a.evidence.where((e) => !e.isQuran).length,
       'via': body['via'],
       'notice': body['notice'],

@@ -624,6 +624,37 @@ class PipelineSteps extends StatelessWidget {
         ),
       ),
     ];
+    final fallback = Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: BColors.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: Tones.abstain.accent.withValues(alpha: .35)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.offline_bolt_rounded, size: 22, color: Tones.abstain.accent),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(context.tr('وإن تعذّر الذكاء الاصطناعي؟ لا تتوقف بصيرة', 'And if the AI is unavailable? Basirah keeps working'), style: BText.title(14.5, color: Tones.abstain.accent)),
+                const SizedBox(height: 3),
+                Text(
+                  context.tr(
+                    'إن تعطّل النموذج أو تجاوز وقته المحدد، تُعرض الإجابة الموثقة المحفوظة في قاعدة المعرفة بقواعد ثابتة في الكود (بلا نموذج)، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك. وقاعدة المعرفة و«مرشد الحالة» يعملان في التطبيق نفسه دون الحاجة إلى الخادم.',
+                    'If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base and the case guide work inside the app without the server.',
+                  ),
+                  style: BText.body(13.5, height: 1.65),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -667,6 +698,7 @@ class PipelineSteps extends StatelessWidget {
               ),
             ),
           ),
+        fallback,
       ],
     );
   }

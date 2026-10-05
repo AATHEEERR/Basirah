@@ -101,22 +101,25 @@ class SpecialistCta extends StatelessWidget {
   }
 }
 
-Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer answer) => showModalBottomSheet(
+/// [caseFile]: what is sent instead of the answer and the chat, e.g. a
+/// «ملف الحالة» from «مرشد الحالة».
+Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer answer, {String? caseFile}) => showModalBottomSheet(
   context: context,
   isScrollControlled: true,
   builder: (_) => DraggableScrollableSheet(
     expand: false,
     initialChildSize: .9,
     maxChildSize: .95,
-    builder: (_, controller) => _RequestForm(answer: answer, controller: controller),
+    builder: (_, controller) => _RequestForm(answer: answer, controller: controller, caseFile: caseFile),
   ),
 );
 
 class _RequestForm extends ConsumerStatefulWidget {
-  const _RequestForm({required this.answer, required this.controller});
+  const _RequestForm({required this.answer, required this.controller, this.caseFile});
 
   final BasirahAnswer answer;
   final ScrollController controller;
+  final String? caseFile;
 
   @override
   ConsumerState<_RequestForm> createState() => _RequestFormState();
@@ -144,6 +147,7 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
 
   /// This answer in short, and the questions asked before it in the chat.
   String _conversation(String lang) {
+    if (widget.caseFile case final file?) return file;
     final earlier = [
       for (final m in ref.read(chatProvider))
         if (m.fromUser && m.text != widget.answer.question) m.text,
@@ -272,7 +276,12 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
           contentPadding: EdgeInsets.zero,
           value: _withConversation,
           onChanged: (v) => setState(() => _withConversation = v),
-          title: Text(context.tr('أرسل معه إجابة بصيرة مختصرة وأسئلتك السابقة', 'Also send Basirah’s answer in short and your earlier questions'), style: BText.body(13.5, height: 1.4)),
+          title: Text(
+            widget.caseFile != null
+                ? context.tr('أرسل معه ملف حالتك (إجاباتك ونص المسألة من الموسوعة الفقهية)', 'Also send your case file (your answers and the matter from the fiqh encyclopedia)')
+                : context.tr('أرسل معه إجابة بصيرة مختصرة وأسئلتك السابقة', 'Also send Basirah’s answer in short and your earlier questions'),
+            style: BText.body(13.5, height: 1.4),
+          ),
         ),
         if (_withConversation)
           Container(

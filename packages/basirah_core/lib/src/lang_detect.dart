@@ -85,27 +85,28 @@ String _arabicScript(String t) {
 /// has approved translations for.
 const _latinWords = {
   'en': ['the', 'is', 'are', 'what', 'why', 'how', 'can', 'do', 'does', 'i', 'my', 'and', 'of', 'to', 'in', 'muslim', 'allowed'],
-  'fr': ['le', 'la', 'les', 'est', 'pourquoi', 'que', 'qui', 'je', 'mon', 'ma', 'des', 'du', 'et', 'pour', 'une', 'un', 'dans', 'musulman', 'musulmans', 'peut', 'est-ce'],
-  'es': ['el', 'los', 'las', 'es', 'por', 'qué', 'que', 'cómo', 'puedo', 'mi', 'y', 'de', 'una', 'un', 'en', 'musulmán', 'musulmanes', 'para', 'con'],
-  'pt': ['o', 'os', 'as', 'é', 'por', 'que', 'porque', 'posso', 'meu', 'minha', 'e', 'de', 'uma', 'um', 'em', 'muçulmano', 'muçulmanos', 'não', 'para', 'com'],
+  'fr': ['le', 'la', 'les', 'est', 'pourquoi', 'que', 'qui', 'je', 'mon', 'ma', 'des', 'du', 'et', 'pour', 'une', 'un', 'dans', 'musulman', 'musulmans', 'peut', 'est-ce', 'il', 'elle', 'ils', 'ne', 'pas', 'au', 'aux', 'ce', 'cette', 'ces', 'sont', 'sur', 'avec', 'plus', 'vous', 'nous', 'mais', 'ou', 'été', 'être', 'comme', 'leur'],
+  'es': ['el', 'los', 'las', 'es', 'por', 'qué', 'que', 'cómo', 'puedo', 'mi', 'y', 'de', 'una', 'un', 'en', 'musulmán', 'musulmanes', 'para', 'con', 'del', 'su', 'sus', 'pero', 'como', 'también', 'sobre', 'muy', 'más', 'porque', 'este', 'esta', 'al', 'lo'],
+  'pt': ['o', 'os', 'as', 'é', 'por', 'que', 'porque', 'posso', 'meu', 'minha', 'e', 'de', 'uma', 'um', 'em', 'muçulmano', 'muçulmanos', 'não', 'para', 'com', 'do', 'dos', 'das', 'no', 'na', 'seu', 'sua', 'mas', 'também', 'são', 'muito', 'mais', 'ao', 'foi', 'isso'],
   'de': ['der', 'die', 'das', 'ist', 'warum', 'was', 'wie', 'ich', 'mein', 'meine', 'und', 'von', 'zu', 'ein', 'eine', 'muslim', 'muslime', 'darf', 'nicht'],
   'nl': ['de', 'het', 'een', 'is', 'waarom', 'wat', 'hoe', 'ik', 'mijn', 'en', 'van', 'te', 'moslim', 'moslims', 'mag', 'niet'],
-  'tr': ['bir', 've', 'ne', 'neden', 'nasıl', 'mi', 'mı', 'mu', 'mü', 'ben', 'benim', 'için', 'müslüman', 'müslümanlar', 'bu', 'da', 'de'],
+  'tr': ['bir', 've', 'ne', 'neden', 'nasıl', 'mi', 'mı', 'mu', 'mü', 'ben', 'benim', 'için', 'müslüman', 'müslümanlar', 'bu', 'da', 'de', 'olan', 'olarak', 'ile', 'gibi', 'daha', 'çok', 'değil', 'her', 'kadar', 'sonra', 'ise', 'veya', 'ki'],
   'az': ['bir', 'və', 'nə', 'niyə', 'necə', 'mən', 'mənim', 'üçün', 'müsəlman', 'bu', 'da', 'də'],
   'id': ['apa', 'apakah', 'mengapa', 'kenapa', 'bagaimana', 'saya', 'yang', 'dan', 'di', 'ke', 'dari', 'boleh', 'muslim', 'tidak', 'untuk', 'itu', 'ini'],
   'tl': ['ang', 'ng', 'mga', 'bakit', 'ano', 'paano', 'ako', 'ko', 'sa', 'at', 'na', 'ba', 'muslim', 'hindi', 'pwede'],
   'sw': ['na', 'ya', 'wa', 'kwa', 'nini', 'kwa nini', 'je', 'mimi', 'yangu', 'ni', 'katika', 'muislamu', 'waislamu', 'si'],
   'so': ['waa', 'iyo', 'maxaa', 'maxay', 'sababta', 'sidee', 'aniga', 'ku', 'ka', 'la', 'u', 'waxa', 'waxaa', 'muslim', 'muslimiinta', 'muslimiintu', 'ma'],
   'ha': ['da', 'na', 'me', 'yaya', 'shin', 'ni', 'ina', 'a', 'musulmi', 'musulmai', 'ba', 'za', 'ya'],
-  'bs': ['je', 'li', 'zašto', 'šta', 'kako', 'ja', 'moj', 'moja', 'i', 'u', 'na', 'musliman', 'muslimani', 'da', 'se', 'ne'],
+  'bs': ['je', 'li', 'zašto', 'šta', 'kako', 'ja', 'moj', 'moja', 'i', 'u', 'na', 'musliman', 'muslimani', 'da', 'se', 'ne', 'su', 'od', 'za', 'koji', 'koja', 'što', 'sa', 'iz', 'ali', 'kao', 'nije'],
   'sq': ['është', 'pse', 'çfarë', 'si', 'unë', 'im', 'ime', 'dhe', 'në', 'të', 'një', 'mysliman', 'myslimanët', 'a', 'nuk'],
   'vi': ['là', 'tại', 'sao', 'gì', 'tôi', 'của', 'và', 'có', 'không', 'người', 'hồi', 'giáo'],
 };
 
 String _latinScript(String text) {
   final t = text.toLowerCase();
-  // Letters that point to one language.
-  if (RegExp('[ăâđêôơư]|[ạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]').hasMatch(t)) return 'vi';
+  // Letters only one language uses. (â ê ô also occur in French, Turkish
+  // and Portuguese, and đ in Bosnian: they do not point to Vietnamese.)
+  if (RegExp('[ơư]|[ạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]').hasMatch(t)) return 'vi';
   if (t.contains('ə')) return 'az';
   if (RegExp('[ıİğ]').hasMatch(t)) return 'tr';
   if (RegExp('[ñ¿¡]').hasMatch(t)) return 'es';

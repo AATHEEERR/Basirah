@@ -192,9 +192,10 @@ Future<void> main() async {
           'cacheRead': result.usage['cache_read_input_tokens'],
         }),
       );
-      // «لوحة الأثر»: the same metadata, anonymous (see Metrics).
+      // «لوحة الأثر»: the same metadata, anonymous (see Metrics). The team's
+      // own test runs (bin/languages_eval.dart) say so and are not counted.
       final a = result.answer;
-      metrics.recordAsk(
+      if (req.headers['x-basirah-test'] != '1') metrics.recordAsk(
         kind: a.kind.name,
         via: result.via.name,
         cached: result.guardActions.contains(AskPipeline.cachedAction),

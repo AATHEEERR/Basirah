@@ -120,10 +120,16 @@ String buildUserTurn({
     b.writeln('<asker_context>${asker.describe()}</asker_context>');
   }
   b.writeln(
-    '<signals>personal_case=${signals.personalCase}; '
-    'hadith_request=${signals.hadithRequest}; '
-    'hostile_tone=${signals.hostileTone}; '
-    'translation_request=${signals.translationRequest}</signals>',
+    answerLanguage != null
+        // The automatic checks read Arabic and English only: in another
+        // language the model judges the same points itself.
+        ? '<signals>not checked: the automatic checks read Arabic and English only. Judge them yourself from the question: '
+              'personal_case (the asker asks about their own situation — "may I…", "my marriage…", "I live in … can I…" — which is level D, kind "refer"), '
+              'hadith_request, hostile_tone, translation_request.</signals>'
+        : '<signals>personal_case=${signals.personalCase}; '
+              'hadith_request=${signals.hadithRequest}; '
+              'hostile_tone=${signals.hostileTone}; '
+              'translation_request=${signals.translationRequest}</signals>',
   );
   b.writeln(
     hits.isEmpty

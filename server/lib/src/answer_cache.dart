@@ -20,7 +20,7 @@ class AnswerCache {
     : _clock = clock ?? DateTime.now;
 
   /// Bump when the prompt, tools or guard change what a fresh answer would be.
-  static const version = 'v3-hadeethenc';
+  static const version = 'v4-languages';
 
   final String dir;
   final Duration ttl;
@@ -34,7 +34,16 @@ class AnswerCache {
     String context = '',
   }) {
     final normal = normalizeArabic(question).replaceAll(' ', '');
-    final material = '$version|$kbVersion|${categoryId ?? ''}|$context|$normal';
+    var material = '$version|$kbVersion|${categoryId ?? ''}|$context|$normal';
+    // The normaliser keeps Arabic and Latin letters only. A question in
+    // another language also keys on its language and on the letters the
+    // normaliser drops (Chinese, Devanagari, Urdu's ے…), so two different
+    // questions never share an answer. Arabic and English keys are unchanged.
+    final lang = detectLanguage(question);
+    final other = String.fromCharCodes(
+      question.toLowerCase().runes.where((r) => r > 0x24F && !(r >= 0x0621 && r <= 0x064A) && _letter.hasMatch(String.fromCharCode(r))),
+    );
+    if ((lang != 'ar' && lang != 'en') || other.isNotEmpty) material += '|$lang|$other';
     return '${_fnv1a(material, 0xcbf29ce484222325)}${_fnv1a(material, 0x84222325cbf29ce4)}';
   }
 
@@ -84,3 +93,6 @@ class AnswerCache {
     return h.toUnsigned(64).toRadixString(16).padLeft(16, '0');
   }
 }
+
+/// A letter in any script.
+final _letter = RegExp(r'\p{L}', unicode: true);

@@ -33,6 +33,13 @@ void main() {
       'Waarom aanbidden moslims de Kaaba?': 'nl',
       'মুছলমানসকলে কিয় কাবাক উপাসনা কৰে?': 'as',
       'මුස්ලිම්වරු කාබාව නමදින්නේ ඇයි?': 'si',
+      // â, ê, ô and đ are not Vietnamese here.
+      "Müslümanlar neden Kâbe'ye tapıyor?": 'tr',
+      'Âlimler arasında neden farklı hükümler var?': 'tr',
+      'Le Coran a-t-il été écrit par Muhammad ? Il faut être honnête : même les savants le disent.': 'fr',
+      'Os muçulmanos não adoram a Caaba; você também pode ler o Alcorão.': 'pt',
+      'Muslimani ne obožavaju Kabu, nego je ona kibla prema kojoj se okreću. Međutim…': 'bs',
+      'L’islam ne s’est pas répandu par l’épée : les savants rappellent que la foi ne peut être imposée.': 'fr',
       // A Latin-script language without a word list: answered in its own language.
       'Miksi muslimit palvovat Kaabaa?': 'und',
     };
