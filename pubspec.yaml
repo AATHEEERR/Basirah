@@ -43,6 +43,9 @@ flutter:
   assets:
     - assets/kb/
     - assets/brand/
+    # The Google fonts the app uses, shipped with it (OFL), so Arabic never
+    # waits on fonts.gstatic.com; google_fonts looks here before fetching.
+    - assets/google_fonts/
   fonts:
     # The King Fahd Complex's own Hafs font (fonts.qurancomplex.gov.sa,
     # V30), unmodified: it draws the Mushaf text's open tanween correctly.
