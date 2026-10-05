@@ -1,5 +1,6 @@
 import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
@@ -778,6 +779,20 @@ Future<void> showToneLegend(BuildContext context, {Tone? focus}) {
           Text(context.tr('كيف تُجيب بصيرة؟', 'How does Basirah answer?'), style: BText.display(24)),
           const SizedBox(height: 4),
           Text(context.tr('من سؤالك إلى الإجابة، في خمس خطوات', 'From your question to the answer, in five steps'), style: BText.label(13.5)),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: TextButton.icon(
+              onPressed: () {
+                Navigator.of(context).pop();
+                GoRouter.of(context).push('/pipeline');
+              },
+              icon: const Icon(Icons.account_tree_outlined, size: 16, color: BColors.goldDeep),
+              label: Text(
+                context.tr('المسار كاملاً بالرسم، والإثبات بالأرقام', 'The full path drawn, and the proof in numbers'),
+                style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600),
+              ),
+            ),
+          ),
           const SizedBox(height: 12),
           const PipelineSteps(),
           const SizedBox(height: 20),

@@ -83,15 +83,12 @@ class HomeScreen extends ConsumerWidget {
                 if (AppConfig.hasApi) ...[
                   SliverToBoxAdapter(
                     child: SectionHeader(
-                      context.tr('لوحة الأثر والمقارنة', 'Impact board and comparison'),
+                      context.tr('لوحة الأثر', 'Impact board'),
                       eyebrow: context.tr('الأثر بالأرقام', 'Impact in numbers'),
                     ),
                   ),
                   const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(children: [ImpactTeaser(), SizedBox(height: 10), BaselineTeaser()]),
-                    ),
+                    child: Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: ImpactTeaser()),
                   ),
                 ],
                 SliverToBoxAdapter(
@@ -145,6 +142,15 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: _ReferencesPromo(kb: kb)),
+                SliverToBoxAdapter(
+                  child: SectionHeader(
+                    context.tr('بصيرة ونموذج عام على الأسئلة نفسها', 'Basirah and a general model on the same questions'),
+                    eyebrow: context.tr('مقارنة', 'Comparison'),
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: ComparisonTable()),
+                ),
                 const SliverToBoxAdapter(child: _TrustLaurel()),
                 const SliverToBoxAdapter(child: SizedBox(height: 120)),
               ],
@@ -560,15 +566,8 @@ class _WideHome extends StatelessWidget {
         if (AppConfig.hasApi)
           _WideSection(
             eyebrow: context.tr('الأثر بالأرقام', 'Impact in numbers'),
-            title: context.tr('لوحة الأثر والمقارنة', 'Impact board and comparison'),
-            child: const Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 7, child: ImpactTeaser()),
-                SizedBox(width: 14),
-                Expanded(flex: 5, child: BaselineTeaser()),
-              ],
-            ),
+            title: context.tr('لوحة الأثر', 'Impact board'),
+            child: const ImpactTeaser(),
           ),
         _WideSection(
           eyebrow: context.tr('لماذا تثق ببصيرة؟', 'Why trust Basirah?'),
@@ -627,6 +626,11 @@ class _WideHome extends StatelessWidget {
               ),
             ],
           ),
+        ),
+        _WideSection(
+          eyebrow: context.tr('مقارنة', 'Comparison'),
+          title: context.tr('بصيرة ونموذج عام على الأسئلة نفسها', 'Basirah and a general model on the same questions'),
+          child: const ComparisonTable(),
         ),
         const SliverPadding(
           padding: EdgeInsets.only(bottom: 56),

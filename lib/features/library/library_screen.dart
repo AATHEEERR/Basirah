@@ -40,6 +40,13 @@ class LibraryScreen extends ConsumerWidget {
         fill: BColors.beige,
       ),
       _NavTile(
+        icon: Icons.account_tree_outlined,
+        title: context.tr('كيف تتحقق بصيرة؟', 'How Basirah checks'),
+        route: '/pipeline',
+        ink: Tones.guidance.accent,
+        fill: Tones.guidance.top,
+      ),
+      _NavTile(
         icon: Icons.info_outline_rounded,
         title: context.tr('عن بصيرة', 'About Basirah'),
         route: '/about',

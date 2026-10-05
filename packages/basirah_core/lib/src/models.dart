@@ -198,6 +198,26 @@ class Evidence {
     fullText: fullText,
   );
 
+  /// The same evidence without the Arabic tafsir passage (an English answer
+  /// shows the translation of the meaning instead, as live answers do).
+  Evidence withoutTafsir() => Evidence(
+    id: id,
+    kind: kind,
+    text: text,
+    surah: surah,
+    surahName: surahName,
+    ayah: ayah,
+    narrator: narrator,
+    source: source,
+    grade: grade,
+    search: search,
+    tafsirUrl: tafsirUrl,
+    note: note,
+    translation: translation,
+    translationSource: translationSource,
+    fullText: fullText,
+  );
+
   factory Evidence.fromJson(Map<String, dynamic> j) => Evidence(
     id: j['id'] as String,
     kind: EvidenceKind.parse(j['kind'] as String?),
@@ -665,12 +685,14 @@ class KnowledgeBase {
           ev.id: () {
             if (ev.isQuran) {
               final m = item('quran', ev.id);
-              return ev.copyWith(
-                text: m?['arabic'] as String?,
-                surahName: pick(m, 'surahName', ev.surahName ?? ''),
-                translation: m?['translation'] as String?,
-                translationSource: m?['translation'] == null ? null : quranTranslationSource,
-              );
+              return ev
+                  .copyWith(
+                    text: m?['arabic'] as String?,
+                    surahName: pick(m, 'surahName', ev.surahName ?? ''),
+                    translation: m?['translation'] as String?,
+                    translationSource: m?['translation'] == null ? null : quranTranslationSource,
+                  )
+                  .withoutTafsir();
             }
             final m = item('hadith', ev.id);
             return ev.copyWith(

@@ -1,5 +1,6 @@
 import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../app/theme.dart';
 import '../../core/lang.dart';
@@ -88,6 +89,17 @@ class _AnswerReceiptState extends State<AnswerReceipt> {
                         ],
                       ),
                     ],
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: TextButton.icon(
+                        onPressed: () => context.push('/pipeline'),
+                        icon: const Icon(Icons.account_tree_outlined, size: 16, color: BColors.goldDeep),
+                        label: Text(
+                          context.tr('المسار الكامل لكل إجابة بالرسم', 'The full path of every answer, drawn'),
+                          style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

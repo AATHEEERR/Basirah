@@ -101,6 +101,7 @@ class _Report extends StatelessWidget {
   Widget build(BuildContext context) {
     final general = (d['general'] as Map).cast<String, num>();
     final basirah = (d['basirah'] as Map).cast<String, num>();
+    final prompted = (d['prompted'] as Map?)?.cast<String, dynamic>();
     final cases = d['cases'] as int;
     final rows = (d['rows'] as List).cast<Map<String, dynamic>>();
     final wide = isWebsite(context);
@@ -112,6 +113,12 @@ class _Report extends StatelessWidget {
         cases - general['answersWithProblem']!.toInt(),
         Tones.refer,
       ),
+      if (prompted != null)
+        (
+          context.tr('النموذج نفسه بتعليمات مكتوبة', 'The same model, with written instructions'),
+          cases - (prompted['answersWithProblem'] as num).toInt(),
+          Tones.khilaf,
+        ),
       (context.tr('بصيرة', 'Basirah'), cases - basirah['answersWithProblem']!.toInt(), Tones.guidance),
     ];
     // The questions in the interface's language only; the others are
@@ -123,8 +130,8 @@ class _Report extends StatelessWidget {
       children: [
         Text(
           context.tr(
-            'النموذج: ${modelName(d['model'] as String)} في الطرفين · $cases سؤالاً · ${d['date']}',
-            'Model: ${modelName(d['model'] as String)} on both sides · $cases questions · ${d['date']}',
+            'النموذج: ${modelName(d['model'] as String)} في كل الأطراف · $cases سؤالاً · ${d['date']}',
+            'Model: ${modelName(d['model'] as String)} on every side · $cases questions · ${d['date']}',
           ),
           style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
         ),
@@ -177,6 +184,8 @@ class _Report extends StatelessWidget {
                 children: [
                   Expanded(child: Text(context.tr('ما نفحصه آلياً في كل إجابة', 'What is checked automatically in every answer'), style: BText.title(14.5))),
                   SizedBox(width: 92, child: Text(context.tr('روبوت عام', 'General'), textAlign: TextAlign.center, style: BText.label(12.5))),
+                  if (prompted != null)
+                    SizedBox(width: 92, child: Text(context.tr('بتعليمات', 'Instructed'), textAlign: TextAlign.center, style: BText.label(12.5))),
                   SizedBox(width: 72, child: Text(context.tr('بصيرة', 'Basirah'), textAlign: TextAlign.center, style: BText.label(12.5))),
                 ],
               ),
@@ -188,6 +197,7 @@ class _Report extends StatelessWidget {
                     children: [
                       Expanded(child: Text(context.tr(_checks[id]!.$1, _checks[id]!.$2), style: BText.body(13.5, height: 1.5))),
                       SizedBox(width: 92, child: _Check(failures: general[id]!.toInt())),
+                      if (prompted != null) SizedBox(width: 92, child: _Check(failures: (prompted[id] as num).toInt())),
                       SizedBox(width: 72, child: _Check(failures: basirah[id]!.toInt())),
                     ],
                   ),
@@ -197,6 +207,8 @@ class _Report extends StatelessWidget {
                 children: [
                   Expanded(child: Text(context.tr('الوقت الوسيط للإجابة', 'Median answer time'), style: BText.body(13.5, height: 1.5))),
                   SizedBox(width: 92, child: Text(_seconds(context, general['medianSeconds']!), textAlign: TextAlign.center, style: BText.title(14))),
+                  if (prompted != null)
+                    SizedBox(width: 92, child: Text(_seconds(context, prompted['medianSeconds'] as num), textAlign: TextAlign.center, style: BText.title(14))),
                   SizedBox(width: 72, child: Text(_seconds(context, basirah['medianSeconds']!), textAlign: TextAlign.center, style: BText.title(14))),
                 ],
               ),
@@ -211,13 +223,22 @@ class _Report extends StatelessWidget {
               'الروبوت العام: النموذج نفسه بتعليمات «You are a helpful assistant.» فقط، بلا مصادر ولا أدوات.',
               'General chatbot: the same model with only “You are a helpful assistant.”, no sources and no tools.',
             ),
+            if (prompted != null)
+              context.tr(
+                'النموذج بتعليمات مكتوبة: النموذج نفسه بتعليمات كتبناها بعناية لهذه المهمة (الإجابة من القرآن والسنة الصحيحة، ونقل الآيات بنصها، وذكر مصدر الحديث وحكمه، والإحالة في الفتوى الشخصية، والاعتذار عمّا ليس عن الإسلام، وتجاهل التعليمات المدسوسة)، بلا مصادر ولا أدوات ولا حارس. نصها كاملاً في التقرير.',
+                'The instructed model: the same model with instructions we wrote carefully for this task (answer from the Quran and authentic Sunnah, quote verses exactly, give each hadith’s source and grading, refer personal fatwas, decline what is not about Islam, ignore planted instructions), with no sources, tools or guard. Its full text is in the report.',
+              ),
+            context.tr(
+              'لماذا النموذج نفسه؟ لأن مقارنة بصيرة بنموذج أضعف تخلط قدرة النموذج بأثر التصميم. هنا يبقى النموذج ثابتاً، فكل فرق يعود إلى ما أضافته بصيرة: المصادر، والحارس.',
+              'Why the same model? Comparing with a weaker model would mix the model’s ability with the effect of the design. Here the model stays fixed, so every difference comes from what Basirah adds: the sources and the guard.',
+            ),
             context.tr(
               'الأسئلة: $cases حالة، منها 12 من أمثلة أسئلة اختبار سلامة المحتوى، و5 محاولات لدسّ تعليمات.',
               'Questions: $cases cases, including 12 content-safety test examples and 5 attempts to slip in hidden instructions.',
             ),
             context.tr(
-              'العدّ كله آلي بالكود، بلا حكم بشري ولا نموذج حَكَم، ثم قرأنا بأنفسنا كل إجابة عُدّت فيها مشكلة في الطرفين وصحّحنا قواعد العدّ حيث أخطأت.',
-              'All counting is done by code, with no human or model judge; then we read every answer flagged on both sides and corrected the counting rules where they were wrong.',
+              'العدّ كله آلي بالكود، بلا حكم بشري ولا نموذج حَكَم، ثم قرأنا بأنفسنا كل إجابة عُدّت فيها مشكلة في كل الأطراف، وصحّحنا قواعد العدّ حيث أخطأت، وطبّقنا التصحيح على الأطراف كلها.',
+              'All counting is done by code, with no human or model judge; then we read every answer flagged on every side, corrected the counting rules where they were wrong, and applied the correction to every side.',
             ),
             context.tr(
               'بصيرة أعطت السلوك المتوقع (إجابة أو خلاف أو إحالة أو امتناع أو اعتذار) في ${d['basirahExpectedBehaviour']} من $cases.',
@@ -233,8 +254,8 @@ class _Report extends StatelessWidget {
               'One model and one run per question; the questions were written by the team or taken from the published examples, so real questions may differ.',
             ),
             context.tr(
-              'لا تقيس صحة المعنى ولا جودة الشرح؛ ذلك يحتاج مراجعة بشرية.',
-              'It does not measure whether the meaning is right or the explanation good; that needs human review.',
+              'لا تقيس صحة المعنى ولا جودة الشرح، ولا صحة المصدر والحكم الذي يذكره النموذجان الآخران لحديث (نتحقق من وجودهما فقط)؛ ذلك يحتاج مراجعة بشرية.',
+              'It does not measure whether the meaning is right or the explanation good, nor whether the source and grading the other two models give for a hadith are correct (only that they are given); that needs human review.',
             ),
           ],
         ),
@@ -478,6 +499,132 @@ class BaselineTeaser extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// The comparison at the end of the home page: the checks, ✓ or ✗ for a
+/// general model (and the same model with careful instructions), and
+/// Basirah; every mark comes from the measured report.
+class ComparisonTable extends ConsumerWidget {
+  const ComparisonTable({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final d = ref.watch(baselineProvider).valueOrNull;
+    if (d == null) return const SizedBox.shrink();
+    final cases = d['cases'] as int;
+    final general = (d['general'] as Map).cast<String, num>();
+    final basirah = (d['basirah'] as Map).cast<String, num>();
+    final prompted = (d['prompted'] as Map?)?.cast<String, dynamic>();
+    final links = ((d['withLink'] as Map?) ?? const {}).cast<String, dynamic>();
+    // (check, failures of the general model, of the instructed one, of Basirah; a note).
+    final rows = <(String, int, int?, int, String?)>[
+      (
+        context.tr('يقرأ المصادر المعتمدة قبل أن يجيب', 'Reads the approved sources before answering'),
+        cases,
+        prompted == null ? null : cases,
+        0,
+        context.tr('النموذج العام بلا مصادر ولا أدوات بحث', 'The general model has no sources or search tools'),
+      ),
+      for (final (id, _, _) in _counts)
+        (
+          context.tr(_checks[id]!.$1, _checks[id]!.$2),
+          general[id]!.toInt(),
+          (prompted?[id] as num?)?.toInt(),
+          basirah[id]!.toInt(),
+          null,
+        ),
+      (
+        context.tr('رابط للتحقق من كل دليل', 'A link to check every source'),
+        cases - ((links['general'] as int?) ?? 0),
+        prompted == null ? null : cases - ((links['prompted'] as int?) ?? 0),
+        0,
+        context.tr(
+          'إجابات النموذج العام فيها روابط: ${links['general'] ?? 0} من $cases',
+          'General-model answers with any link: ${links['general'] ?? 0} of $cases',
+        ),
+      ),
+    ];
+    Widget mark(int? failures) => failures == null
+        ? const SizedBox.shrink()
+        : failures == 0
+        ? Icon(Icons.check_circle_rounded, color: Tones.guidance.accent, size: 22)
+        : Icon(Icons.cancel_rounded, color: Tones.refer.accent, size: 22);
+    final cols = prompted == null ? 2 : 3;
+    final head = BText.label(12, color: BColors.ink, weight: FontWeight.w600);
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(24)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(child: Text(context.tr('ما فحصناه في كل إجابة', 'What we checked in every answer'), style: BText.title(14.5))),
+              SizedBox(width: 74, child: Text(context.tr('نموذج عام', 'General model'), textAlign: TextAlign.center, style: head)),
+              if (cols == 3)
+                SizedBox(width: 74, child: Text(context.tr('نموذج عام بتعليمات', 'General + instructions'), textAlign: TextAlign.center, style: head)),
+              SizedBox(width: 64, child: Text(context.tr('بصيرة', 'Basirah'), textAlign: TextAlign.center, style: head.copyWith(color: Tones.guidance.accent))),
+            ],
+          ),
+          const Divider(height: 18),
+          for (final (label, g, p, b, note) in rows)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(label, style: BText.body(13.5, height: 1.4)),
+                        if (note != null) Text(note, style: BText.label(11.5, weight: FontWeight.w400)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 74, child: mark(g)),
+                  if (cols == 3) SizedBox(width: 74, child: mark(p)),
+                  SizedBox(width: 64, child: mark(b)),
+                ],
+              ),
+            ),
+          const Divider(height: 18),
+          Row(
+            children: [
+              Expanded(child: Text(context.tr('إجابات اجتازت كل الفحوص', 'Answers that passed every check'), style: BText.title(14))),
+              SizedBox(width: 74, child: Text('${cases - general['answersWithProblem']!.toInt()}/$cases', textAlign: TextAlign.center, style: BText.title(14, color: Tones.refer.accent))),
+              if (cols == 3)
+                SizedBox(
+                  width: 74,
+                  child: Text('${cases - (prompted!['answersWithProblem'] as num).toInt()}/$cases', textAlign: TextAlign.center, style: BText.title(14, color: Tones.refer.accent)),
+                ),
+              SizedBox(width: 64, child: Text('${cases - basirah['answersWithProblem']!.toInt()}/$cases', textAlign: TextAlign.center, style: BText.title(14, color: Tones.guidance.accent))),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            context.tr(
+              'النموذج نفسه (${modelName(d['model'] as String)}) في كل الأعمدة، و$cases سؤال اختبار نفسها. الفرق من تصميم بصيرة لا من النموذج.',
+              'The same model (${modelName(d['model'] as String)}) in every column, on the same $cases test questions. The difference comes from Basirah’s design, not the model.',
+            ),
+            style: BText.label(12, weight: FontWeight.w400),
+          ),
+          Wrap(
+            spacing: 4,
+            children: [
+              TextButton(
+                onPressed: () => context.push('/pipeline'),
+                child: Text(context.tr('كيف تتحقق بصيرة من كل إجابة؟', 'How Basirah checks every answer'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
+              ),
+              TextButton(
+                onPressed: () => context.push('/baseline'),
+                child: Text(context.tr('طريقة القياس وكل سؤال', 'The method, and every question'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
