@@ -65,11 +65,19 @@ class _Board extends StatelessWidget {
     final reasons = (fb['reasons'] as Map).cast<String, int>();
     final median = s['medianMs'] as int?;
     String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}٪';
-    final answered = (kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0);
+    // Answers given, and how many cite a verse or hadith from the approved
+    // sources (referrals and abstentions are not answers: they cite nothing).
+    final answered = s['answered'] as int? ?? ((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0));
+    final grounded = s['answeredWithEvidence'] as int? ?? 0;
+    final guard = s['guardCatches'] as int? ?? 0;
 
     final tiles = [
       (context.tr('سؤالاً طُرح', 'questions asked'), '$n', Tones.guidance),
-      (context.tr('أُجيبت من المصادر', 'answered from the sources'), pct(answered, n), Tones.principle),
+      (
+        context.tr('من إجاباتنا بدليل من المصادر المعتمدة ($grounded من $answered)', 'of our answers cite the approved sources ($grounded of $answered)'),
+        pct(grounded, answered),
+        Tones.principle,
+      ),
       (context.tr('أُحيلت إلى مختص', 'referred to a specialist'), pct(kinds['refer'] ?? 0, n), Tones.refer),
       (
         context.tr('رضا من قيّموا ($fbTotal)', 'helpful, of $fbTotal ratings'),
@@ -81,7 +89,6 @@ class _Board extends StatelessWidget {
         median == null ? '—' : context.tr('${(median / 1000).toStringAsFixed(1)} ث', '${(median / 1000).toStringAsFixed(1)} s'),
         Tones.evidence,
       ),
-      (context.tr('مرات تدخّل الحارس', 'guard interventions'), '${s['guardCatches']}', Tones.abstain),
     ];
 
     final kindRows = [
@@ -90,6 +97,7 @@ class _Board extends StatelessWidget {
       ('refer', context.tr('إحالة إلى مختص', 'Referred'), Tones.refer),
       ('abstain', context.tr('امتناع لعدم كفاية المرجع', 'Declined: not enough reference'), Tones.abstain),
       ('offTopic', context.tr('خارج النطاق', 'Out of scope'), Tones.offTopic),
+      ('clarify', context.tr('سؤال توضيحي قبل الإجابة', 'A clarifying question first'), Tones.clarify),
     ];
     final reasonRows = [
       for (final (id, ar, en) in helpfulReasons) (id, context.tr(ar, en), Tones.culture),
@@ -135,7 +143,34 @@ class _Board extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 12),
+        // What «the guard» is, and what it did.
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(18)),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.verified_user_rounded, color: Tones.guidance.accent, size: 22),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  guard == 0
+                      ? context.tr(
+                          'الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. لم يحتج إلى حذف شيء من أي إجابة حتى الآن: التزم النموذج بالقواعد في كل الإجابات.',
+                          'The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.',
+                        )
+                      : context.tr(
+                          'الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. تدخّل في $guard من $n إجابة قبل عرضها.',
+                          'The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on $guard of $n answers before they were shown.',
+                        ),
+                  style: BText.body(13.5, color: BColors.textMuted, height: 1.65),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
         _Bars(title: context.tr('كيف أجابت بصيرة', 'How Basirah answered'), total: n, rows: [for (final (id, label, tone) in kindRows) (label, kinds[id] ?? 0, tone)]),
         const SizedBox(height: 16),
         _Bars(
@@ -255,7 +290,11 @@ class ImpactTeaser extends ConsumerWidget {
     String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}٪';
     final tiles = [
       ('$n', context.tr('سؤالاً طُرح', 'questions asked'), Tones.guidance),
-      (pct((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0), n), context.tr('أُجيبت من المصادر', 'answered from the sources'), Tones.principle),
+      (
+        pct(s?['answeredWithEvidence'] as int? ?? 0, s?['answered'] as int? ?? ((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0))),
+        context.tr('من إجاباتنا بدليل من المصادر', 'of answers cite the sources'),
+        Tones.principle,
+      ),
       (pct(fb['helpful'] as int? ?? 0, fbTotal), context.tr('رضا من قيّموا', 'rated helpful'), Tones.culture),
     ];
     return Material(

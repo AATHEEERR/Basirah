@@ -108,7 +108,12 @@ class _WebHeader extends ConsumerWidget {
   const _WebHeader();
 
   // (path, Arabic label, English label).
-  static const _links = [('/home', 'الرئيسية', 'Home'), ('/explore', 'استكشف', 'Explore'), ('/library', 'مكتبتي', 'Library')];
+  static const _links = [
+    ('/home', 'الرئيسية', 'Home'),
+    ('/explore', 'استكشف', 'Explore'),
+    ('/library', 'مكتبتي', 'Library'),
+    ('/about', 'عن بصيرة', 'About'),
+  ];
 
   // Before the app is entered (splash, welcome, first «سياقي») only the brand
   // and the switches show.

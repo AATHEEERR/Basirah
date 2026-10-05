@@ -13,7 +13,6 @@
 | Hadith (curated) | Sahih al-Bukhari, Sahih Muslim and the Sunan with grading; verification on dorar.net/hadith | Short verbatim excerpts with source number and grading |
 | Recitation | Per-verse MP3s through the association's MCP server (`get_quran_audio`) | Played as published; only the cited verses |
 | Further reading | **IslamHouse** (دار الإسلام): the association scientific team's own publications in the asker's language, through the association's MCP server (`browse_library`), and the per-language library page | Titles and links as published, opened on islamcontent.com / islamhouse.com |
-| Fiqh («مرشد الحالة», ghusl and wudu) | **الموسوعة الفقهية — الدرر السنية** (dorar.net/feqhia), pages 397, 399, 422, 424, 446, 466, 471, 477, 479 | Each answer copied verbatim from the page's own question-and-answer summary by `server/tool/build_guides.dart`, with its link. Consensus or the agreement of the four schools → the answer is given; a stated difference → the views are quoted and the asker gets a case file for a Sharia specialist. English: the team's summary, labelled |
 | Creed, fiqh, history, FAQ | dorar.net, dawa.center, islamic-content.com | Informs the curated explanations (paraphrased, not copied) |
 | Terminology | islamic-content.com/dictionary (الجمهرة) and the approved glossary | `reference.json` glossary |
 | Levels, standards, test cases | The approved reference document | `reference.json`, `eval/test_cases.json` |

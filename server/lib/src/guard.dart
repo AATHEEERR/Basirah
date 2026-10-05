@@ -200,6 +200,10 @@ BasirahAnswer guardAnswer({
   var referReason = clean(raw['referReason']);
   var referTo = clean(raw['referTo']);
   var abstainReason = clean(raw['abstainReason']);
+  final clarifyQuestion = clean(raw['clarifyQuestion']);
+  final clarifyOptions = [
+    for (final o in (raw['clarifyOptions'] as List? ?? const [])) clean(o),
+  ].where((o) => o.isNotEmpty && o.length <= 80).toSet().take(4).toList();
 
   final evidence = [...quranEvidence, ...registryEvidence];
 
@@ -227,6 +231,12 @@ BasirahAnswer guardAnswer({
     kind = AnswerKind.refer;
     forcedRefer = true;
   }
+  // A personal case is referred at once, never clarified first.
+  if (signals.personalCase && kind == AnswerKind.clarify) {
+    report.add('personal case: clarifying question forced to refer');
+    kind = AnswerKind.refer;
+    forcedRefer = true;
+  }
   if (signals.personalCase && kind == AnswerKind.answer && entryIds.isEmpty) {
     report.add('personal case without curated backing forced to refer');
     kind = AnswerKind.refer;
@@ -236,6 +246,11 @@ BasirahAnswer guardAnswer({
     principle = '';
     guidance = const [];
     referReason = referTo = '';
+  }
+  // A clarifying question needs the question and at least two options.
+  if (kind == AnswerKind.clarify && (clarifyQuestion.isEmpty || clarifyOptions.length < 2)) {
+    report.add('clarifying question without options forced to abstain');
+    kind = AnswerKind.abstain;
   }
   if (kind == AnswerKind.answer && evidence.isEmpty && entryIds.isEmpty) {
     report.add('ungrounded answer forced to abstain');
@@ -249,7 +264,7 @@ BasirahAnswer guardAnswer({
   // No reliable answer, or a question that needs a specialist → no evidence:
   // whatever the model cited is dropped, so a verse or hadith never appears
   // to settle a question Basirah does not answer.
-  final citesNothing = kind == AnswerKind.abstain || kind == AnswerKind.refer;
+  final citesNothing = kind == AnswerKind.abstain || kind == AnswerKind.refer || kind == AnswerKind.clarify;
   if (citesNothing && evidence.isNotEmpty) {
     report.add('${kind.name}: dropped ${evidence.length} cited item(s)');
   }
@@ -272,6 +287,11 @@ BasirahAnswer guardAnswer({
       referReason = referTo = abstainReason = '';
     case AnswerKind.answer:
       khilafAgreed = khilafNote = referReason = referTo = abstainReason = '';
+    case AnswerKind.clarify:
+      // Only the question back and its options: nothing is answered yet.
+      principle = '';
+      guidance = const [];
+      khilafAgreed = khilafNote = referReason = referTo = abstainReason = '';
     case AnswerKind.offTopic:
       break; // handled above
   }
@@ -288,7 +308,7 @@ BasirahAnswer guardAnswer({
     },
     origin: AnswerOrigin.ai,
     principle: principle,
-    culture: kind == AnswerKind.abstain || forcedRefer ? '' : culture,
+    culture: kind == AnswerKind.abstain || kind == AnswerKind.clarify || forcedRefer ? '' : culture,
     guidance: guidance,
     khilafAgreed: khilafAgreed,
     khilafNote: khilafNote,
@@ -301,6 +321,8 @@ BasirahAnswer guardAnswer({
     review: 'generated',
     model: model,
     research: research,
+    clarifyQuestion: kind == AnswerKind.clarify ? clarifyQuestion : '',
+    clarifyOptions: kind == AnswerKind.clarify ? clarifyOptions : const [],
   );
 }
 

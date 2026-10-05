@@ -42,3 +42,7 @@ services:
       # in server/.env when Render asks.
       - key: SPECIALIST_KEY
         sync: false
+      # Optional: a Slack or Discord webhook told of every new request
+      # (its code only; the question is read in the panel).
+      - key: NOTIFY_WEBHOOK
+        sync: false

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:basirah_core/basirah_core.dart';
 import 'package:basirah_server/basirah_server.dart';
+import 'package:http/http.dart' as http;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
@@ -19,6 +21,7 @@ import 'package:shelf_router/shelf_router.dart';
 ///   METRICS_FILE       anonymous usage + ratings (default cache/metrics.jsonl)
 ///   REFERRALS_FILE     requests to a specialist (default cache/referrals.json)
 ///   SPECIALIST_KEY     opens the specialists' panel (16+ characters; closed without it)
+///   NOTIFY_WEBHOOK     optional Slack/Discord webhook told of each new request (code only)
 ///   PORT               default 8080
 Future<void> main() async {
   final env = loadEnv();
@@ -56,6 +59,8 @@ Future<void> main() async {
   final referrals = Referrals(file: env['REFERRALS_FILE'] ?? 'cache/referrals.json');
   // Without a key of at least 16 characters the specialists' panel is closed.
   final specialistKey = (env['SPECIALIST_KEY'] ?? '').length >= 16 ? env['SPECIALIST_KEY'] : null;
+  // Optional: a Slack or Discord webhook told of every new request.
+  final notifyWebhook = (env['NOTIFY_WEBHOOK'] ?? '').startsWith('https://') ? env['NOTIFY_WEBHOOK'] : null;
   // A new server (e.g. the first start on Render) continues the counts
   // gathered so far (METRICS_SEED: anonymous counts only, kept in git).
   if (env['METRICS_SEED'] case final seed? when metrics.seedFrom(seed)) {
@@ -248,6 +253,20 @@ Future<void> main() async {
         );
         if (r == null) return _json({'error': 'invalid'}, status: 400);
         stdout.writeln(jsonEncode({'t': DateTime.now().toUtc().toIso8601String(), 'referral': r['mode']}));
+        // Tell the team (NOTIFY_WEBHOOK: a Slack or Discord incoming webhook):
+        // the code and the kind only — the question stays on the server and
+        // is read in the panel.
+        if (notifyWebhook != null) {
+          final text =
+              'بصيرة: طلب جديد إلى مختص شرعي · ${r['id']} · ${r['mode']}${r['slot'] == null ? '' : ' · ${r['slot']}'}\n'
+              'افتح لوحة المختصين: ${req.requestedUri.origin}/#/specialist';
+          unawaited(
+            http
+                .post(Uri.parse(notifyWebhook), headers: {'content-type': 'application/json'}, body: jsonEncode({'text': text, 'content': text}))
+                .timeout(const Duration(seconds: 10))
+                .then((_) {}, onError: (Object e) => stderr.writeln('notify: $e')),
+          );
+        }
         return _json({'id': r['id'], 'token': r['token'], 'meetUrl': r['meetUrl'], 'slot': r['slot']});
       } on Object {
         return _json({'error': 'invalid'}, status: 400);

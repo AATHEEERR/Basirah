@@ -147,6 +147,8 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
         AnswerKind.khilaf => '${a.khilafAgreed} ${a.khilafNote}',
         AnswerKind.refer => a.referReason,
         AnswerKind.abstain || AnswerKind.offTopic => a.abstainReason,
+        // The question asked back, so the reply that follows makes sense.
+        AnswerKind.clarify => '${a.clarifyQuestion} (${a.clarifyOptions.join(' / ')})',
       };
       turns.add({'q': m.text, 'a': '[${a.kind.name}/${a.level.code}] ${gist.trim()}'});
     }
@@ -154,15 +156,17 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
   }
 
   /// Asks [question] live. With [retry], re-asks the last question in place
-  /// (after a stored fallback) instead of adding a new bubble.
-  Future<void> send(String question, {String? categoryId, bool retry = false}) async {
+  /// (after a stored fallback) instead of adding a new bubble. [display] is
+  /// what the asker's bubble shows when it differs from what is sent (a
+  /// tapped option of a clarifying question).
+  Future<void> send(String question, {String? categoryId, bool retry = false, String? display}) async {
     final q = question.trim();
     final service = ref.read(askServiceProvider);
     if (q.isEmpty || busy || service == null) return;
     final history = _history().where((t) => !(retry && t['q'] == q)).toList();
     state = [
       if (retry) ...state.take(state.length - 1) else ...state,
-      if (!retry) ChatMessage.user(q),
+      if (!retry) ChatMessage.user(display ?? q),
       ChatMessage.assistant(text: q, pending: true, categoryId: categoryId),
     ];
     final outcome = await service.ask(

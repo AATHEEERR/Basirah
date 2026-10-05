@@ -137,6 +137,7 @@ List<(String, String?)> receiptChecks(BasirahAnswer a, String lang) {
       AnswerKind.abstain => (t('لا مرجع كافياً: امتنعت بصيرة بدل التخمين، ولم تستشهد بشيء', 'Not enough reference: Basirah declined instead of guessing, citing nothing'), null),
       AnswerKind.khilaf => (t('مسألة خلافية: عُرض المتفق عليه وبيان الخلاف دون ترجيح', 'A matter of scholarly difference: what is agreed, with the difference stated and no side taken'), null),
       AnswerKind.offTopic => (t('خارج نطاق المحتوى الإسلامي: اعتذرت بصيرة دون أي استشهاد', 'Outside Islamic content: Basirah declined without citing anything'), null),
+      AnswerKind.clarify => (t('الجواب يختلف باختلاف حالتك: سألتك بصيرة سؤالاً توضيحياً قبل أن تجيب، ولم تستشهد بشيء بعد', 'The answer depends on your situation: Basirah asked one clarifying question before answering, citing nothing yet'), null),
       AnswerKind.answer => (t('سؤال عام (المستوى ${a.level.letterAr})، وليس حالة شخصية تحتاج مفتياً', 'A general question (level ${a.level.code}), not a personal case that needs a mufti'), null),
     },
     if (live) (t('الإجابة بلغة السؤال', 'The answer is in the language of the question'), null),

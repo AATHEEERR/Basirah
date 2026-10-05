@@ -301,9 +301,10 @@ class ResearchAgent {
   /// texts pass.
   static bool inLanguage(Map<String, dynamic> input, String lang) {
     final text = [
-      for (final k in const ['principle', 'culture', 'khilafAgreed', 'khilafNote', 'referReason', 'referTo', 'abstainReason'])
+      for (final k in const ['principle', 'culture', 'khilafAgreed', 'khilafNote', 'referReason', 'referTo', 'abstainReason', 'clarifyQuestion'])
         '${input[k] ?? ''}',
       for (final g in (input['guidance'] as List?) ?? const []) '$g',
+      for (final o in (input['clarifyOptions'] as List?) ?? const []) '$o',
     ].join(' ');
     var arabic = 0;
     var latin = 0;

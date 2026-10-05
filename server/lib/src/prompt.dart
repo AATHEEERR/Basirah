@@ -235,7 +235,7 @@ Map<String, dynamic> submitAnswerTool(KnowledgeBase kb) => {
     'properties': {
       'kind': {
         'type': 'string',
-        'enum': ['answer', 'khilaf', 'refer', 'abstain', 'offTopic'],
+        'enum': ['answer', 'khilaf', 'refer', 'abstain', 'offTopic', 'clarify'],
       },
       'level': {
         'type': 'string',
@@ -256,6 +256,15 @@ Map<String, dynamic> submitAnswerTool(KnowledgeBase kb) => {
       'referReason': {'type': 'string'},
       'referTo': {'type': 'string'},
       'abstainReason': {'type': 'string'},
+      'clarifyQuestion': {
+        'type': 'string',
+        'description': 'For "clarify" only: one short question back to the asker. Otherwise empty.',
+      },
+      'clarifyOptions': {
+        'type': 'array',
+        'description': 'For "clarify" only: 2 to 4 short, mutually exclusive answers the asker can tap, worded as they would answer. Otherwise empty.',
+        'items': {'type': 'string'},
+      },
       'quran': {
         'type': 'array',
         'description': 'Verses you read with read_tafsir and cite as evidence.',
@@ -303,7 +312,7 @@ Map<String, dynamic> submitAnswerTool(KnowledgeBase kb) => {
     },
     'required': [
       'kind', 'level', 'confidence', 'principle', 'culture', 'guidance', 'khilafAgreed',
-      'khilafNote', 'referReason', 'referTo', 'abstainReason', 'quran', 'hadith',
+      'khilafNote', 'referReason', 'referTo', 'abstainReason', 'clarifyQuestion', 'clarifyOptions', 'quran', 'hadith',
       'basedOnEntries',
     ],
     'additionalProperties': false,
@@ -335,13 +344,14 @@ Each question falls into one of the levels in <levels>. Handle it exactly as the
 - "refer": a personal case or fatwa request (level D), or anything needing a specialist's judgement of the facts.
 - "abstain": the question is about Islam but the sources do not support an answer with confidence, or it asks you to produce a quotation you cannot find. When unsure, abstain. An honest "I have no documented answer" is always better than a plausible guess.
 - "offTopic": the question is not about Islam (see Scope).
+- "clarify": before answering, ask ONE short question back when the correct answer in the sources depends on a detail the question leaves open, and the sources give different answers for the different cases (for example: the distance or length of a journey, for shortening prayer; what kind of discharge it was, for ghusl; whether something happened before or after embracing Islam). Put the question in clarifyQuestion and 2–4 short, mutually exclusive options in clarifyOptions, worded as the asker would answer (one may be «لا أعرف» / "I am not sure"). Do not clarify a clear question: answer it. Never clarify a personal case or fatwa request — a ruling on the asker's own contract, marriage, divorce, worship validity or dispute is level D, kind "refer". If <previous_turns> already holds two of your clarifying questions, do not ask a third: answer, stating the cases the sources distinguish. When <previous_turns> shows your clarifying question and the asker's reply, answer for that case from the sources, with the evidence, as general knowledge for that case — or refer, if the reply shows it is a personal case.
 
 ## Card fields (submit_answer)
 - principle (الأصل الشرعي): what Islam teaches on the point, in your own words, grounded in the evidence you cite. Foundation before details. Do not reproduce Quran or hadith text in any field — the app shows the verified text of every cited verse and hadith in its own card — and never use ﴿ ﴾ or « ».
 - culture (العرف والثقافة): when relevant, separate what is a religious requirement from what is custom, national habit, a translation nuance or an administrative procedure. Empty string when not relevant.
 - guidance (الإرشاد العملي): 2–4 short, practical next steps. When a step sends the asker to someone for a religious ruling or their own case, name a qualified Sharia specialist (مختص شرعي) or an official fatwa body — never just "a mosque imam", "an Islamic centre" or "someone you trust".
-- khilafAgreed / khilafNote only for "khilaf"; referReason / referTo only for "refer"; abstainReason only for "abstain" and "offTopic". Otherwise empty strings.
-- For "abstain", "refer" and "offTopic", cite nothing: quran and hadith must be empty. Never attach a verse or hadith to an answer you cannot give or to a question that needs a specialist.
+- khilafAgreed / khilafNote only for "khilaf"; referReason / referTo only for "refer"; abstainReason only for "abstain" and "offTopic"; clarifyQuestion / clarifyOptions only for "clarify". Otherwise empty strings (and an empty list).
+- For "abstain", "refer", "offTopic" and "clarify", cite nothing: quran and hadith must be empty. For "clarify", leave principle, culture and guidance empty too. Never attach a verse or hadith to an answer you cannot give or to a question that needs a specialist.
 - quran: the verses you cite, each with a one-sentence "why" that follows what the tafsir says. hadith: registry hadith you cite, each with a one-sentence "why" naming the exact point it supports. basedOnEntries: reference answers you relied on.
 - Relevance: cite a verse or hadith only if it speaks directly to the question asked and supports a specific statement in your answer. Never cite evidence about a different topic (for example a hadith about the pillars of Islam in an answer about Maryam) just to have evidence. Citing nothing is better than citing something loosely related.
 - confidence: "low" if you are unsure the sources really answer this question.

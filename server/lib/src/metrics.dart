@@ -150,6 +150,13 @@ class Metrics {
       'cached': asks.where((a) => a['cached'] == true).length,
       'withVerses': asks.where((a) => (a['verses'] as num? ?? 0) > 0).length,
       'withHadith': asks.where((a) => (a['hadith'] as num? ?? 0) > 0).length,
+      // Answers given (an answer or a scholarly difference), and how many of
+      // them cite at least one verse or hadith from the approved sources.
+      // Referrals and abstentions are not answers and cite nothing.
+      'answered': asks.where((a) => a['kind'] == 'answer' || a['kind'] == 'khilaf').length,
+      'answeredWithEvidence': asks
+          .where((a) => (a['kind'] == 'answer' || a['kind'] == 'khilaf') && ((a['verses'] as num? ?? 0) + (a['hadith'] as num? ?? 0)) > 0)
+          .length,
       'guardCatches': asks.where((a) => (a['guard'] as num? ?? 0) > 0).length,
       'medianMs': median,
       'p90Ms': pct(.9),

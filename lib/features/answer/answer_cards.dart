@@ -17,7 +17,14 @@ import '../../shared/widgets.dart';
 /// * abstain → لا تتوفر إجابة موثقة · الإرشاد العملي
 /// * offTopic → خارج نطاق بصيرة · الإرشاد العملي (example questions)
 class AnswerCards extends StatelessWidget {
-  const AnswerCards({super.key, required this.answer, this.compact = false, this.animate = true, this.specialist = true});
+  const AnswerCards({
+    super.key,
+    required this.answer,
+    this.compact = false,
+    this.animate = true,
+    this.specialist = true,
+    this.onOption,
+  });
 
   final BasirahAnswer answer;
   final bool compact;
@@ -25,6 +32,10 @@ class AnswerCards extends StatelessWidget {
 
   /// «تحدّث مع مختص شرعي» under a scholarly difference or a referral.
   final bool specialist;
+
+  /// A clarifying question's option was tapped (the chat sends it as the
+  /// asker's reply). Null where there is no conversation to continue.
+  final void Function(String option)? onOption;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +96,12 @@ class AnswerCards extends StatelessWidget {
         ),
         AnswerKind.abstain => ToneCard(contentDirection: dir, tone: Tones.abstain, compact: compact, child: _Para(a.abstainReason)),
         AnswerKind.offTopic => ToneCard(contentDirection: dir, tone: Tones.offTopic, compact: compact, child: _Para(a.abstainReason)),
+        AnswerKind.clarify => ToneCard(
+          contentDirection: dir,
+          tone: Tones.clarify,
+          compact: compact,
+          child: _Clarify(answer: a, onOption: onOption),
+        ),
       },
       if (a.culture.isNotEmpty)
         ToneCard(contentDirection: dir, tone: Tones.culture, compact: compact, child: _Para(a.culture)),
@@ -122,6 +139,47 @@ class AnswerCards extends StatelessWidget {
       ],
     );
   }
+}
+
+/// A clarifying question: the question back, and its options as buttons.
+class _Clarify extends StatelessWidget {
+  const _Clarify({required this.answer, required this.onOption});
+
+  final BasirahAnswer answer;
+  final void Function(String option)? onOption;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(answer.clarifyQuestion, style: BText.title(16.5, weight: FontWeight.w600)),
+      const SizedBox(height: 4),
+      Text(
+        context.tr(
+          'يختلف الجواب في المصادر باختلاف هذا التفصيل. اختر ما ينطبق عليك أو اكتبه بنفسك:',
+          'The sources give a different answer depending on this. Choose what applies to you, or write it yourself:',
+        ),
+        style: BText.label(12.5, weight: FontWeight.w400),
+      ),
+      const SizedBox(height: 10),
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          for (final o in answer.clarifyOptions)
+            FilledButton(
+              onPressed: onOption == null ? null : () => onOption!(o),
+              style: FilledButton.styleFrom(
+                backgroundColor: Tones.clarify.accent,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
+              ),
+              child: Text(o, style: BText.label(13.5, color: Colors.white, weight: FontWeight.w600)),
+            ),
+        ],
+      ),
+    ],
+  );
 }
 
 /// One colour-coded pastel card with its title, icon bubble and faint pattern.
@@ -644,8 +702,8 @@ class PipelineSteps extends StatelessWidget {
                 const SizedBox(height: 3),
                 Text(
                   context.tr(
-                    'إن تعطّل النموذج أو تجاوز وقته المحدد، تُعرض الإجابة الموثقة المحفوظة في قاعدة المعرفة بقواعد ثابتة في الكود (بلا نموذج)، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك. وقاعدة المعرفة و«مرشد الحالة» يعملان في التطبيق نفسه دون الحاجة إلى الخادم.',
-                    'If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base and the case guide work inside the app without the server.',
+                    'إن تعطّل النموذج أو تجاوز وقته المحدد، تُعرض الإجابة الموثقة المحفوظة في قاعدة المعرفة بقواعد ثابتة في الكود (بلا نموذج)، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك. وقاعدة المعرفة تعمل في التطبيق نفسه دون الحاجة إلى الخادم.',
+                    'If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.',
                   ),
                   style: BText.body(13.5, height: 1.65),
                 ),

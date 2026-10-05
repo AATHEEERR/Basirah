@@ -58,8 +58,8 @@ void main() {
           case AnswerKind.refer:
             expect(e.referReason, isNotEmpty, reason: e.id);
             expect(e.level, ContentLevel.d, reason: e.id);
-          case AnswerKind.abstain || AnswerKind.offTopic:
-            fail('curated entries should not be abstentions: ${e.id}');
+          case AnswerKind.abstain || AnswerKind.offTopic || AnswerKind.clarify:
+            fail('curated entries are answers, differences or referrals: ${e.id}');
         }
         expect(e.guidance, isNotEmpty, reason: e.id);
       }

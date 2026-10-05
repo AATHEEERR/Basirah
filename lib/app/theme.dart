@@ -184,7 +184,17 @@ abstract final class Tones {
     bottom: Color(0xFFDDE6EE),
   );
 
-  static const all = [principle, culture, guidance, evidence, khilaf, refer, abstain, offTopic];
+  static const clarify = Tone(
+    title: 'تفصيل واحد قبل الإجابة',
+    titleEn: 'One detail first',
+    explain: 'حين يختلف الجواب باختلاف حالتك، نسألك سؤالاً قصيراً لنعطيك الجواب الدقيق بدليله.',
+    explainEn: 'When the answer depends on your situation, we ask one short question to give you the exact answer with its evidence.',
+    icon: Icons.alt_route_rounded,
+    accent: Color(0xFF0F7C86),
+    top: Color(0xFFE3F6F6),
+    bottom: Color(0xFFCDEEEE),
+  );
+  static const all = [principle, culture, guidance, evidence, khilaf, clarify, refer, abstain, offTopic];
 }
 
 extension LevelStyle on ContentLevel {

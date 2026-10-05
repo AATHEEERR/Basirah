@@ -98,6 +98,18 @@ class _AskScreenState extends ConsumerState<AskScreen> {
     _scrollToQuestion();
   }
 
+  /// A tapped option of a clarifying question: the bubble shows the option,
+  /// the server gets it with the question it answers.
+  Future<void> _reply(BasirahAnswer clarify, String option) async {
+    FocusScope.of(context).unfocus();
+    final future = ref
+        .read(chatProvider.notifier)
+        .send('${clarify.clarifyQuestion} — $option', categoryId: _categoryId, display: option);
+    _scrollToEnd();
+    await future;
+    _scrollToQuestion();
+  }
+
   /// Once the answer arrives, its question goes to the top of the view so
   /// the answer is read from its first card, not from its end.
   void _scrollToQuestion() {
@@ -157,6 +169,8 @@ class _AskScreenState extends ConsumerState<AskScreen> {
                           message: m,
                           kb: kb,
                           onRetryLive: i == messages.length - 1 ? () => _send(m.text, true) : null,
+                          // Only the latest clarifying question can be answered.
+                          onOption: i == messages.length - 1 ? (o) => _reply(m.outcome!.answer, o) : null,
                         );
                       },
                     ),
@@ -461,10 +475,13 @@ class _ThinkingState extends State<_Thinking> {
 }
 
 class _AssistantMessage extends ConsumerWidget {
-  const _AssistantMessage({required this.message, required this.kb, this.onRetryLive});
+  const _AssistantMessage({required this.message, required this.kb, this.onRetryLive, this.onOption});
 
   final ChatMessage message;
   final KnowledgeBase kb;
+
+  /// A clarifying question's option was tapped.
+  final void Function(String option)? onOption;
 
   /// Offered when a stored answer was shown instead of a live one.
   final VoidCallback? onRetryLive;
@@ -537,9 +554,10 @@ class _AssistantMessage extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
           ],
-          AnswerCards(answer: a, compact: true),
-          if (!offTopic) AnswerReceipt(answer: a),
-          FeedbackBar(answer: a),
+          AnswerCards(answer: a, compact: true, onOption: onOption),
+          // A clarifying question is not an answer yet: no receipt, no rating.
+          if (!offTopic && a.kind != AnswerKind.clarify) AnswerReceipt(answer: a),
+          if (a.kind != AnswerKind.clarify) FeedbackBar(answer: a),
           if (related.isNotEmpty) ...[
             Text(context.tr('أسئلة قريبة موثّقة', 'Related documented questions'), style: BText.label(12.5)),
             const SizedBox(height: 6),
@@ -559,7 +577,7 @@ class _AssistantMessage extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
           ],
-          if (!offTopic)
+          if (!offTopic && a.kind != AnswerKind.clarify)
             Wrap(
               spacing: 8,
               runSpacing: 8,

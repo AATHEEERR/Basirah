@@ -14,7 +14,6 @@ import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
-import '../guide/guide_screen.dart';
 import '../library/baseline_screen.dart';
 import '../library/impact_screen.dart';
 
@@ -61,7 +60,6 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(child: _QuickRow(kb: kb)),
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     context.tr('ابدأ من هنا', 'Start here'),
@@ -75,22 +73,13 @@ class HomeScreen extends ConsumerWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: 4,
+                      itemCount: kb.categories.length,
                       separatorBuilder: (_, _) => const SizedBox(width: 12),
                       itemBuilder: (_, i) => _FeaturedCard(category: kb.categories[i], kb: kb),
                     ),
                   ),
                 ),
                 SliverToBoxAdapter(child: _AiCard(onTap: () => ask())),
-                SliverToBoxAdapter(
-                  child: SectionHeader(
-                    context.tr('حالتك في الطهارة: أجب بنعم أو لا', 'Your case in purification: answer yes or no'),
-                    eyebrow: context.tr('جديد · مرشد الحالة', 'New · Case guide'),
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: _GuideSection()),
-                ),
                 if (AppConfig.hasApi) ...[
                   SliverToBoxAdapter(
                     child: SectionHeader(
@@ -128,28 +117,6 @@ class HomeScreen extends ConsumerWidget {
                         onTap: () => context.push('/faq/${e.id}'),
                       ),
                   ],
-                ),
-                SliverToBoxAdapter(
-                  child: SectionHeader(
-                    context.tr('استكشف حسب الفئة', 'Explore by category'),
-                    linkLabel: context.tr('عرض الكل', 'See all'),
-                    onLink: () => context.go('/explore'),
-                  ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  sliver: SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: .98,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (_, i) => CategoryTile(category: kb.categories[i], kb: kb),
-                      childCount: kb.categories.length,
-                    ),
-                  ),
                 ),
                 SliverToBoxAdapter(
                   child: SectionHeader(
@@ -279,53 +246,6 @@ class _SearchPill extends StatelessWidget {
       ),
     ),
   );
-}
-
-/// Quick-access category icons (white rounded squares + label).
-class _QuickRow extends StatelessWidget {
-  const _QuickRow({required this.kb});
-
-  final KnowledgeBase kb;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 124,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-        itemCount: kb.categories.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 14),
-        itemBuilder: (_, i) {
-          final c = kb.categories[i];
-          return InkWell(
-            onTap: () => context.push('/category/${c.id}'),
-            borderRadius: BorderRadius.circular(22),
-            child: SizedBox(
-              width: 78,
-              child: Column(
-                children: [
-                  Container(
-                    width: 74,
-                    height: 70,
-                    decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(22)),
-                    child: Icon(c.iconData, size: 28, color: c.accent),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    c.title.split(' ').first,
-                    style: BText.label(13, color: BColors.ink, weight: FontWeight.w400),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 }
 
 /// Deep "photo" card with a black badge and white title (Nusuk content card).
@@ -628,22 +548,6 @@ class _WideHome extends StatelessWidget {
                       ),
                       const SizedBox(height: 22),
                       _SearchPill(onTap: () => ask()),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          for (final c in kb.categories)
-                            ActionChip(
-                              onPressed: () => context.push('/category/${c.id}'),
-                              avatar: Icon(c.iconData, size: 17, color: c.accent),
-                              label: Text(c.title, style: BText.label(13, color: BColors.ink)),
-                              backgroundColor: BColors.surface,
-                              side: BorderSide.none,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
-                            ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -652,11 +556,6 @@ class _WideHome extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        _WideSection(
-          eyebrow: context.tr('جديد · مرشد الحالة', 'New · Case guide'),
-          title: context.tr('حالتك في الطهارة: أجب بنعم أو لا', 'Your case in purification: answer yes or no'),
-          child: const _GuideSection(),
         ),
         if (AppConfig.hasApi)
           _WideSection(
@@ -681,17 +580,16 @@ class _WideHome extends StatelessWidget {
           title: context.tr('ابدأ من هنا', 'Start here'),
           linkLabel: context.tr('عرض الكل', 'See all'),
           onLink: () => context.go('/explore'),
-          child: SizedBox(
-            height: 290,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final (i, c) in kb.categories.take(4).indexed) ...[
-                  if (i > 0) const SizedBox(width: 14),
-                  Expanded(child: _FeaturedCard(category: c, kb: kb, width: null)),
-                ],
-              ],
-            ),
+          // Every category, four to a row.
+          child: GridView.count(
+            crossAxisCount: 4,
+            crossAxisSpacing: 14,
+            mainAxisSpacing: 14,
+            childAspectRatio: .95,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            children: [for (final c in kb.categories) _FeaturedCard(category: c, kb: kb, width: null)],
           ),
         ),
         _WideSection(
@@ -728,22 +626,6 @@ class _WideHome extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        _WideSection(
-          eyebrow: context.tr('استكشف', 'Explore'),
-          title: context.tr('حسب الفئة', 'By category'),
-          linkLabel: context.tr('عرض الكل', 'See all'),
-          onLink: () => context.go('/explore'),
-          child: GridView.count(
-            crossAxisCount: 4,
-            crossAxisSpacing: 14,
-            mainAxisSpacing: 14,
-            childAspectRatio: 1.55,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            children: [for (final c in kb.categories) CategoryTile(category: c, kb: kb)],
           ),
         ),
         const SliverPadding(
@@ -804,27 +686,6 @@ class _WideSection extends StatelessWidget {
         ),
       ),
     ),
-  );
-}
-
-/// «مرشد الحالة» on the home page: what it does in one line, and the guides.
-class _GuideSection extends StatelessWidget {
-  const _GuideSection();
-
-  @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      Text(
-        context.tr(
-          'أسئلة قصيرة عن حالتك. ما أجمع عليه العلماء أو اتفقت عليه المذاهب الأربعة تأخذ جوابه فوراً بنصه من الموسوعة الفقهية، وما اختلفوا فيه يصير «ملف حالتك» تُرسله إلى مختص شرعي بضغطة.',
-          'A few short questions about your case. Where scholars agree, you get the answer at once, quoted from the fiqh encyclopedia; where they differ, it becomes “your case file”, sent to a Sharia specialist in one tap.',
-        ),
-        style: BText.body(14.5, color: BColors.textMuted, height: 1.7),
-      ),
-      const SizedBox(height: 12),
-      const GuideTiles(),
-    ],
   );
 }
 

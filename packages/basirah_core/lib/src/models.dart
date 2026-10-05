@@ -21,7 +21,11 @@ enum AnswerKind {
 
   /// Not a question about Islam (restaurants, sport, another religion's
   /// doctrines for their own sake…): politely declined, never answered.
-  offTopic;
+  offTopic,
+
+  /// The right answer depends on a detail the asker did not give: one short
+  /// question back, with a few options to tap, before answering.
+  clarify;
 
   static AnswerKind parse(String? value) => AnswerKind.values.firstWhere(
     (k) => k.name == value,
@@ -830,7 +834,14 @@ class BasirahAnswer {
     this.model,
     this.research = const [],
     this.guard = const [],
+    this.clarifyQuestion = '',
+    this.clarifyOptions = const [],
   });
+
+  /// [AnswerKind.clarify]: the question back to the asker, and the answers
+  /// they can tap.
+  final String clarifyQuestion;
+  final List<String> clarifyOptions;
 
   /// How the answer was researched, e.g. «بحث: …», «قراءة تفسير: الممتحنة ٨».
   final List<String> research;
@@ -922,6 +933,8 @@ class BasirahAnswer {
     model: model,
     research: research,
     guard: guard ?? this.guard,
+    clarifyQuestion: clarifyQuestion,
+    clarifyOptions: clarifyOptions,
   );
 
   factory BasirahAnswer.fromJson(Map<String, dynamic> j) => BasirahAnswer(
@@ -948,6 +961,8 @@ class BasirahAnswer {
     model: j['model'] as String?,
     research: _strings(j['research']),
     guard: _strings(j['guard']),
+    clarifyQuestion: (j['clarifyQuestion'] as String?) ?? '',
+    clarifyOptions: _strings(j['clarifyOptions']),
   );
 
   Map<String, dynamic> toJson() => {
@@ -971,6 +986,8 @@ class BasirahAnswer {
     'model': model,
     'research': research,
     if (guard.isNotEmpty) 'guard': guard,
+    if (clarifyQuestion.isNotEmpty) 'clarifyQuestion': clarifyQuestion,
+    if (clarifyOptions.isNotEmpty) 'clarifyOptions': clarifyOptions,
   };
 }
 

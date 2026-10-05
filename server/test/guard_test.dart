@@ -186,4 +186,36 @@ void main() {
       expect(quran.search('الإكراه على الدخول في الإسلام').first.verse.key, '2:256');
     });
   });
+
+  group('a clarifying question', () {
+    Map<String, dynamic> clarify({List<String> options = const ['أقل من 80 كم', '80 كم أو أكثر', 'لا أعرف']}) => {
+      ...submission(kind: 'clarify', level: 'B'),
+      'clarifyQuestion': 'كم مسافة سفرك؟',
+      'clarifyOptions': options,
+    };
+
+    test('is kept with its options, and nothing is answered or cited yet', () {
+      final (a, _) = run(clarify());
+      expect(a.kind, AnswerKind.clarify);
+      expect(a.clarifyQuestion, 'كم مسافة سفرك؟');
+      expect(a.clarifyOptions, ['أقل من 80 كم', '80 كم أو أكثر', 'لا أعرف']);
+      expect(a.evidence, isEmpty);
+      expect(a.principle, isEmpty);
+      expect(a.guidance, isEmpty);
+    });
+
+    test('a personal case is referred at once instead', () {
+      const personal = SafetySignals(personalCase: true, hadithRequest: false, hostileTone: false, translationRequest: false, matched: ['هل يجوز لي']);
+      final (a, report) = run(clarify(), signals: personal);
+      expect(a.kind, AnswerKind.refer);
+      expect(a.clarifyOptions, isEmpty);
+      expect(report.actions, contains('personal case: clarifying question forced to refer'));
+    });
+
+    test('without at least two options it is not shown', () {
+      final (a, _) = run(clarify(options: const ['نعم']));
+      expect(a.kind, AnswerKind.abstain);
+      expect(a.clarifyQuestion, isEmpty);
+    });
+  });
 }

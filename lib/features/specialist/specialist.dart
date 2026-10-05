@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +12,7 @@ import '../../core/config.dart';
 import '../../core/lang.dart';
 import '../../core/referral.dart';
 import '../../core/state.dart';
+import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_screen.dart';
 import '../library/page_scaffold.dart';
@@ -91,7 +94,10 @@ class SpecialistCta extends StatelessWidget {
                 onPressed: () => showSpecialistRequest(context, answer),
                 style: FilledButton.styleFrom(backgroundColor: tone.accent, visualDensity: VisualDensity.compact),
                 icon: const Icon(Icons.forum_rounded, size: 18),
-                label: Text(context.tr('تحدّث مع مختص شرعي', 'Talk to a Sharia specialist'), style: BText.label(13, color: Colors.white, weight: FontWeight.w600)),
+                label: Text(
+                  context.tr('تحدّث مع مختص شرعي', 'Talk to a Sharia specialist'),
+                  style: BText.label(13, color: Colors.white, weight: FontWeight.w600),
+                ),
               ),
             ],
           ),
@@ -102,17 +108,36 @@ class SpecialistCta extends StatelessWidget {
 }
 
 /// [caseFile]: what is sent instead of the answer and the chat, e.g. a
-/// «ملف الحالة» from «مرشد الحالة».
-Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer answer, {String? caseFile}) => showModalBottomSheet(
-  context: context,
-  isScrollControlled: true,
-  builder: (_) => DraggableScrollableSheet(
-    expand: false,
-    initialChildSize: .9,
-    maxChildSize: .95,
-    builder: (_, controller) => _RequestForm(answer: answer, controller: controller, caseFile: caseFile),
-  ),
-);
+/// prepared case summary.
+Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer answer, {String? caseFile}) {
+  // The website: a centred window, whole on screen. A phone: a sheet.
+  if (isWebsite(context)) {
+    return showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.all(24),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 620, maxHeight: MediaQuery.of(context).size.height * .86),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 14),
+            child: _RequestForm(answer: answer, controller: ScrollController(), caseFile: caseFile),
+          ),
+        ),
+      ),
+    );
+  }
+  return showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    builder: (_) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: .92,
+      maxChildSize: .95,
+      builder: (_, controller) => _RequestForm(answer: answer, controller: controller, caseFile: caseFile),
+    ),
+  );
+}
 
 class _RequestForm extends ConsumerStatefulWidget {
   const _RequestForm({required this.answer, required this.controller, this.caseFile});
@@ -193,137 +218,182 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
     final asker = ref.watch(askerContextProvider);
     final summary = contextSummary(context, asker);
     final days = [for (var i = 1; i <= 7; i++) DateUtils.dateOnly(DateTime.now()).add(Duration(days: i))];
-    return ListView(
-      controller: widget.controller,
-      padding: const EdgeInsets.fromLTRB(20, 4, 20, 32),
+    final send = FilledButton.icon(
+      onPressed: _ready && !_sending ? _send : null,
+      style: FilledButton.styleFrom(backgroundColor: BColors.ink, padding: const EdgeInsets.symmetric(vertical: 14)),
+      icon: _sending
+          ? const SizedBox.square(dimension: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+          : const Icon(Icons.send_rounded, size: 18),
+      label: Text(
+        _mode == 'message' ? context.tr('أرسل إلى المختص', 'Send to the specialist') : context.tr('اطلب الموعد', 'Request the appointment'),
+        style: BText.title(14.5, color: Colors.white),
+      ),
+    );
+    // The title and the send button stay in view; the form scrolls between.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(context.tr('تحدّث مع مختص شرعي', 'Talk to a Sharia specialist'), style: BText.display(22)),
-        const SizedBox(height: 4),
-        Text(
-          context.tr(
-            'يصل طلبك إلى لوحة المختصين في بصيرة، وتجد الرد في «طلباتي مع المختص». بلا حساب ولا اسم.',
-            'Your request reaches the specialists’ panel in Basirah, and you find the reply in “My requests”. No account, no name.',
-          ),
-          style: BText.body(13.5, color: BColors.textMuted, height: 1.6),
-        ),
-        const SizedBox(height: 16),
-        Text(context.tr('كيف تحب أن تتواصل؟', 'How would you like to talk?'), style: BText.title(15)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            for (final m in const ['message', 'audio', 'video'])
-              ChoiceChip(
-                selected: _mode == m,
-                onSelected: (_) => setState(() => _mode = m),
-                avatar: Icon(_modeIcon(m), size: 18),
-                label: Text(_modeLabel(context, m)),
-              ),
-          ],
-        ),
-        if (_mode != 'message') ...[
-          const SizedBox(height: 14),
-          Text(context.tr('اختر اليوم', 'Pick a day'), style: BText.title(14)),
-          const SizedBox(height: 6),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 4, 8, 4),
+          child: Row(
             children: [
-              for (final d in days)
-                ChoiceChip(
-                  selected: _day == d,
-                  onSelected: (_) => setState(() => _day = d),
-                  label: Text('${context.isEn ? _weekdaysEn[d.weekday - 1] : _weekdaysAr[d.weekday - 1]} ${d.day}/${d.month}'),
+              Expanded(child: Text(context.tr('تحدّث مع مختص شرعي', 'Talk to a Sharia specialist'), style: BText.display(22))),
+              IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                tooltip: context.tr('إغلاق', 'Close'),
+                icon: const Icon(Icons.close_rounded),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView(
+            controller: widget.controller,
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+            children: [
+              Text(
+                context.tr(
+                  'يصل طلبك إلى لوحة المختصين في بصيرة، وتجد الرد في «طلباتي مع المختص». بلا حساب ولا اسم.',
+                  'Your request reaches the specialists’ panel in Basirah, and you find the reply in “My requests”. No account, no name.',
+                ),
+                style: BText.body(13.5, color: BColors.textMuted, height: 1.6),
+              ),
+              const SizedBox(height: 16),
+              Text(context.tr('كيف تحب أن تتواصل؟', 'How would you like to talk?'), style: BText.title(15)),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final m in const ['message', 'audio', 'video'])
+                    ChoiceChip(
+                      selected: _mode == m,
+                      onSelected: (_) => setState(() => _mode = m),
+                      avatar: Icon(_modeIcon(m), size: 18),
+                      label: Text(_modeLabel(context, m)),
+                    ),
+                ],
+              ),
+              if (_mode != 'message') ...[
+                const SizedBox(height: 14),
+                Text(context.tr('اختر اليوم', 'Pick a day'), style: BText.title(14)),
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    for (final d in days)
+                      ChoiceChip(
+                        selected: _day == d,
+                        onSelected: (_) => setState(() => _day = d),
+                        label: Text('${context.isEn ? _weekdaysEn[d.weekday - 1] : _weekdaysAr[d.weekday - 1]} ${d.day}/${d.month}'),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(context.tr('والساعة (بتوقيت جهازك)', 'And the time (your device’s time)'), style: BText.title(14)),
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    for (final h in _hours)
+                      ChoiceChip(
+                        selected: _hour == h,
+                        onSelected: (_) => setState(() => _hour = h),
+                        label: Text('${h.toString().padLeft(2, '0')}:00'),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  context.tr(
+                    'المكالمة في غرفة خاصة بطلبك تُفتح في المتصفح، بلا تطبيق ولا حساب. يؤكد المختص الموعد أو يقترح غيره في «طلباتي مع المختص».',
+                    'The call is in a private room for your request that opens in the browser, with no app or account. The specialist confirms the time, or suggests another, in “My requests”.',
+                  ),
+                  style: BText.label(12.5, weight: FontWeight.w400),
+                ),
+              ],
+              const SizedBox(height: 18),
+              Text(context.tr('ما الذي سيصل إلى المختص', 'What the specialist will receive'), style: BText.title(15)),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _question,
+                minLines: 2,
+                maxLines: 6,
+                maxLength: 1200,
+                onChanged: (_) => setState(() {}),
+                decoration: InputDecoration(
+                  labelText: context.tr(
+                    'سؤالك (يمكنك تعديله وإضافة تفاصيل حالتك)',
+                    'Your question (you can edit it and add details of your case)',
+                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                ),
+              ),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                value: _withConversation,
+                onChanged: (v) => setState(() => _withConversation = v),
+                title: Text(
+                  widget.caseFile != null
+                      ? context.tr(
+                          'أرسل معه ملف حالتك (إجاباتك ونص المسألة من الموسوعة الفقهية)',
+                          'Also send your case file (your answers and the matter from the fiqh encyclopedia)',
+                        )
+                      : context.tr(
+                          'أرسل معه إجابة بصيرة مختصرة وأسئلتك السابقة',
+                          'Also send Basirah’s answer in short and your earlier questions',
+                        ),
+                  style: BText.body(13.5, height: 1.4),
+                ),
+              ),
+              if (_withConversation)
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(12)),
+                  constraints: const BoxConstraints(maxHeight: 160),
+                  child: SingleChildScrollView(
+                    child: Text(_conversation(context.lang), style: BText.label(12, weight: FontWeight.w400)),
+                  ),
+                ),
+              if (summary.isNotEmpty)
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  value: _withContext,
+                  onChanged: (v) => setState(() => _withContext = v),
+                  title: Text(context.tr('أرسل «سياقي»: $summary', 'Send “My context”: $summary'), style: BText.body(13.5, height: 1.4)),
+                ),
+              CheckboxListTile(
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: _consent,
+                onChanged: (v) => setState(() => _consent = v ?? false),
+                title: Text(
+                  context.tr(
+                    'أوافق على إرسال ما سبق إلى المختص، ويُحذف من الخادم بعد 30 يوماً.',
+                    'I agree to send the above to the specialist; it is deleted from the server after 30 days.',
+                  ),
+                  style: BText.body(13.5, height: 1.5),
+                ),
+              ),
+              if (_failed)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    context.tr('تعذّر الإرسال الآن. حاول بعد قليل.', 'Could not send right now. Try again shortly.'),
+                    style: BText.label(13, color: Tones.refer.accent),
+                  ),
                 ),
             ],
           ),
-          const SizedBox(height: 10),
-          Text(context.tr('والساعة (بتوقيت جهازك)', 'And the time (your device’s time)'), style: BText.title(14)),
-          const SizedBox(height: 6),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              for (final h in _hours)
-                ChoiceChip(selected: _hour == h, onSelected: (_) => setState(() => _hour = h), label: Text('${h.toString().padLeft(2, '0')}:00')),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            context.tr(
-              'المكالمة في غرفة خاصة بطلبك تُفتح في المتصفح، بلا تطبيق ولا حساب. يؤكد المختص الموعد أو يقترح غيره في «طلباتي مع المختص».',
-              'The call is in a private room for your request that opens in the browser, with no app or account. The specialist confirms the time, or suggests another, in “My requests”.',
-            ),
-            style: BText.label(12.5, weight: FontWeight.w400),
-          ),
-        ],
-        const SizedBox(height: 18),
-        Text(context.tr('ما الذي سيصل إلى المختص', 'What the specialist will receive'), style: BText.title(15)),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _question,
-          minLines: 2,
-          maxLines: 6,
-          maxLength: 1200,
-          onChanged: (_) => setState(() {}),
-          decoration: InputDecoration(
-            labelText: context.tr('سؤالك (يمكنك تعديله وإضافة تفاصيل حالتك)', 'Your question (you can edit it and add details of your case)'),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-          ),
         ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          value: _withConversation,
-          onChanged: (v) => setState(() => _withConversation = v),
-          title: Text(
-            widget.caseFile != null
-                ? context.tr('أرسل معه ملف حالتك (إجاباتك ونص المسألة من الموسوعة الفقهية)', 'Also send your case file (your answers and the matter from the fiqh encyclopedia)')
-                : context.tr('أرسل معه إجابة بصيرة مختصرة وأسئلتك السابقة', 'Also send Basirah’s answer in short and your earlier questions'),
-            style: BText.body(13.5, height: 1.4),
+        Container(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
+          decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: BColors.stroke)),
           ),
-        ),
-        if (_withConversation)
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(12)),
-            constraints: const BoxConstraints(maxHeight: 160),
-            child: SingleChildScrollView(child: Text(_conversation(context.lang), style: BText.label(12, weight: FontWeight.w400))),
-          ),
-        if (summary.isNotEmpty)
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            value: _withContext,
-            onChanged: (v) => setState(() => _withContext = v),
-            title: Text(context.tr('أرسل «سياقي»: $summary', 'Send “My context”: $summary'), style: BText.body(13.5, height: 1.4)),
-          ),
-        CheckboxListTile(
-          contentPadding: EdgeInsets.zero,
-          controlAffinity: ListTileControlAffinity.leading,
-          value: _consent,
-          onChanged: (v) => setState(() => _consent = v ?? false),
-          title: Text(
-            context.tr(
-              'أوافق على إرسال ما سبق إلى المختص، ويُحذف من الخادم بعد 30 يوماً.',
-              'I agree to send the above to the specialist; it is deleted from the server after 30 days.',
-            ),
-            style: BText.body(13.5, height: 1.5),
-          ),
-        ),
-        if (_failed)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text(context.tr('تعذّر الإرسال الآن. حاول بعد قليل.', 'Could not send right now. Try again shortly.'), style: BText.label(13, color: Tones.refer.accent)),
-          ),
-        const SizedBox(height: 6),
-        FilledButton.icon(
-          onPressed: _ready && !_sending ? _send : null,
-          style: FilledButton.styleFrom(backgroundColor: BColors.ink, padding: const EdgeInsets.symmetric(vertical: 14)),
-          icon: _sending ? const SizedBox.square(dimension: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : const Icon(Icons.send_rounded, size: 18),
-          label: Text(
-            _mode == 'message' ? context.tr('أرسل إلى المختص', 'Send to the specialist') : context.tr('اطلب الموعد', 'Request the appointment'),
-            style: BText.title(14.5, color: Colors.white),
-          ),
+          child: SafeArea(top: false, child: send),
         ),
       ],
     );
@@ -343,7 +413,11 @@ class _Sent extends StatelessWidget {
     children: [
       Icon(Icons.check_circle_rounded, size: 52, color: Tones.guidance.accent),
       const SizedBox(height: 8),
-      Text(context.tr('وصل طلبك إلى المختصين', 'Your request reached the specialists'), textAlign: TextAlign.center, style: BText.display(21)),
+      Text(
+        context.tr('وصل طلبك إلى المختصين', 'Your request reached the specialists'),
+        textAlign: TextAlign.center,
+        style: BText.display(21),
+      ),
       const SizedBox(height: 6),
       SelectableText(
         context.tr('رمز الطلب: ${r.id}', 'Request code: ${r.id}'),
@@ -356,13 +430,22 @@ class _Sent extends StatelessWidget {
         if (r.meetUrl != null)
           _Line(
             icon: Icons.link_rounded,
-            text: context.tr('رابط المكالمة محفوظ في «طلباتي مع المختص»، ويعمل في الموعد بعد تأكيد المختص.', 'The call link is kept in “My requests”, and works at the time once the specialist confirms.'),
+            text: context.tr(
+              'رابط المكالمة محفوظ في «طلباتي مع المختص»، ويعمل في الموعد بعد تأكيد المختص.',
+              'The call link is kept in “My requests”, and works at the time once the specialist confirms.',
+            ),
           ),
       ] else
-        _Line(icon: Icons.mail_outline_rounded, text: context.tr('يصل الرد إلى «طلباتي مع المختص» على هذا الجهاز.', 'The reply arrives in “My requests” on this device.')),
+        _Line(
+          icon: Icons.mail_outline_rounded,
+          text: context.tr('يصل الرد إلى «طلباتي مع المختص» على هذا الجهاز.', 'The reply arrives in “My requests” on this device.'),
+        ),
       _Line(
         icon: Icons.lock_outline_rounded,
-        text: context.tr('الطلب مرتبط بهذا الجهاز وحده، ويُحذف من الخادم بعد 30 يوماً.', 'The request is tied to this device only, and is deleted from the server after 30 days.'),
+        text: context.tr(
+          'الطلب مرتبط بهذا الجهاز وحده، ويُحذف من الخادم بعد 30 يوماً.',
+          'The request is tied to this device only, and is deleted from the server after 30 days.',
+        ),
       ),
       const SizedBox(height: 16),
       PrimaryButton(
@@ -392,7 +475,9 @@ class _Line extends StatelessWidget {
       children: [
         Icon(icon, size: 18, color: BColors.goldDeep),
         const SizedBox(width: 8),
-        Expanded(child: Text(text, style: BText.body(13.5, color: BColors.textMuted, height: 1.6))),
+        Expanded(
+          child: Text(text, style: BText.body(13.5, color: BColors.textMuted, height: 1.6)),
+        ),
       ],
     ),
   );
@@ -495,16 +580,27 @@ class _ThreadState extends State<_Thread> {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-                decoration: BoxDecoration(color: (booked || status == 'answered' ? Tones.guidance : Tones.abstain).top, borderRadius: BorderRadius.circular(99)),
+                decoration: BoxDecoration(
+                  color: (booked || status == 'answered' ? Tones.guidance : Tones.abstain).top,
+                  borderRadius: BorderRadius.circular(99),
+                ),
                 child: Text(
                   _loading ? '…' : (_live == null ? context.tr('غير متاح', 'Unavailable') : _statusLabel(context, status)),
-                  style: BText.label(11.5, color: (booked || status == 'answered' ? Tones.guidance : Tones.abstain).accent, weight: FontWeight.w600),
+                  style: BText.label(
+                    11.5,
+                    color: (booked || status == 'answered' ? Tones.guidance : Tones.abstain).accent,
+                    weight: FontWeight.w600,
+                  ),
                 ),
               ),
               IconButton(onPressed: _refresh, icon: const Icon(Icons.refresh_rounded, size: 20), tooltip: context.tr('تحديث', 'Refresh')),
             ],
           ),
-          Text(r.question, style: BText.title(14.5, weight: FontWeight.w500), textDirection: textDirectionOf(r.question)),
+          Text(
+            r.question,
+            style: BText.title(14.5, weight: FontWeight.w500),
+            textDirection: textDirectionOf(r.question),
+          ),
           Text(context.tr('رمز الطلب: ${r.id}', 'Request code: ${r.id}'), style: BText.label(11.5, weight: FontWeight.w400)),
           for (final m in messages)
             Container(
@@ -519,9 +615,17 @@ class _ThreadState extends State<_Thread> {
                 children: [
                   Text(
                     m['from'] == 'specialist' ? context.tr('المختص', 'Specialist') : context.tr('أنت', 'You'),
-                    style: BText.label(11.5, color: m['from'] == 'specialist' ? Tones.guidance.accent : BColors.textMuted, weight: FontWeight.w600),
+                    style: BText.label(
+                      11.5,
+                      color: m['from'] == 'specialist' ? Tones.guidance.accent : BColors.textMuted,
+                      weight: FontWeight.w600,
+                    ),
                   ),
-                  SelectableText(m['text'] as String, style: BText.body(13.5, height: 1.65), textDirection: textDirectionOf(m['text'] as String)),
+                  SelectableText(
+                    m['text'] as String,
+                    style: BText.body(13.5, height: 1.65),
+                    textDirection: textDirectionOf(m['text'] as String),
+                  ),
                 ],
               ),
             ),
@@ -534,7 +638,9 @@ class _ThreadState extends State<_Thread> {
                 FilledButton.icon(
                   onPressed: booked ? () => launchUrl(Uri.parse(r.meetUrl!), mode: LaunchMode.externalApplication) : null,
                   icon: Icon(r.mode == 'video' ? Icons.videocam_rounded : Icons.call_rounded, size: 18),
-                  label: Text(booked ? context.tr('ادخل المكالمة', 'Join the call') : context.tr('يُفتح بعد تأكيد الموعد', 'Opens once confirmed')),
+                  label: Text(
+                    booked ? context.tr('ادخل المكالمة', 'Join the call') : context.tr('يُفتح بعد تأكيد الموعد', 'Opens once confirmed'),
+                  ),
                 ),
                 OutlinedButton.icon(
                   onPressed: () => Clipboard.setData(ClipboardData(text: r.meetUrl!)),
@@ -581,6 +687,7 @@ class SpecialistPanelScreen extends StatefulWidget {
 
 class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
   final _key = TextEditingController();
+  final _find = TextEditingController();
   List<Map<String, dynamic>>? _items;
   bool _denied = false;
   bool _loading = false;
@@ -588,6 +695,7 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
   @override
   void dispose() {
     _key.dispose();
+    _find.dispose();
     super.dispose();
   }
 
@@ -632,7 +740,10 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
             if (_denied)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Text(context.tr('المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم.', 'Wrong key, or the panel is closed on this server.'), style: BText.label(13, color: Tones.refer.accent)),
+                child: Text(
+                  context.tr('المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم.', 'Wrong key, or the panel is closed on this server.'),
+                  style: BText.label(13, color: Tones.refer.accent),
+                ),
               ),
           ] else ...[
             Row(
@@ -646,12 +757,51 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
                     style: BText.title(15),
                   ),
                 ),
-                IconButton(onPressed: _loading ? null : _load, icon: const Icon(Icons.refresh_rounded), tooltip: context.tr('تحديث', 'Refresh')),
+                IconButton(
+                  onPressed: _loading ? null : _load,
+                  icon: const Icon(Icons.refresh_rounded),
+                  tooltip: context.tr('تحديث', 'Refresh'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            if (items.isEmpty) Text(context.tr('لا طلبات الآن.', 'No requests right now.'), style: BText.body(14, color: BColors.textMuted)),
-            for (final r in items) _PanelItem(r: r, panelKey: _key.text.trim(), onChanged: _load),
+            // Find a request by the code the asker was given.
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _find,
+                    onChanged: (_) => setState(() {}),
+                    textCapitalization: TextCapitalization.characters,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      prefixIcon: const Icon(Icons.search_rounded),
+                      hintText: context.tr('ابحث برمز الطلب أو بكلمة من السؤال', 'Find by request code or a word of the question'),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                OutlinedButton.icon(
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: const JsonEncoder.withIndent('  ').convert(items)));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(context.tr('نُسخت كل الطلبات (JSON)', 'All requests copied (JSON)'))),
+                    );
+                  },
+                  icon: const Icon(Icons.copy_all_rounded, size: 18),
+                  label: Text(context.tr('انسخ كل الطلبات', 'Copy all requests')),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            if (items.isEmpty)
+              Text(context.tr('لا طلبات الآن.', 'No requests right now.'), style: BText.body(14, color: BColors.textMuted)),
+            for (final r in items)
+              if (_find.text.trim().isEmpty ||
+                  (r['id'] as String).contains(_find.text.trim().toUpperCase()) ||
+                  (r['question'] as String).contains(_find.text.trim()))
+                _PanelItem(r: r, panelKey: _key.text.trim(), onChanged: _load),
           ],
         ],
       ),
@@ -715,9 +865,16 @@ class _PanelItemState extends State<_PanelItem> {
             style: BText.label(12, color: BColors.goldDeep, weight: FontWeight.w600),
           ),
           const SizedBox(height: 6),
-          SelectableText(question, style: BText.title(15, weight: FontWeight.w500), textDirection: textDirectionOf(question)),
+          SelectableText(
+            question,
+            style: BText.title(15, weight: FontWeight.w500),
+            textDirection: textDirectionOf(question),
+          ),
           if ((r['context'] as String).isNotEmpty)
-            Text(context.tr('سياق السائل: ${r['context']}', 'Asker’s context: ${r['context']}'), style: BText.label(12.5, weight: FontWeight.w400)),
+            Text(
+              context.tr('سياق السائل: ${r['context']}', 'Asker’s context: ${r['context']}'),
+              style: BText.label(12.5, weight: FontWeight.w400),
+            ),
           if ((r['conversation'] as String).isNotEmpty)
             Container(
               margin: const EdgeInsets.only(top: 8),
@@ -760,8 +917,14 @@ class _PanelItemState extends State<_PanelItem> {
               children: [
                 FilledButton(onPressed: _busy ? null : () => _reply(), child: Text(context.tr('أرسل الرد', 'Send reply'))),
                 if (mode != 'message')
-                  OutlinedButton(onPressed: _busy ? null : () => _reply(status: 'booked'), child: Text(context.tr('أكّد الموعد', 'Confirm the time'))),
-                TextButton(onPressed: _busy ? null : () => _reply(status: 'closed'), child: Text(context.tr('أغلق الطلب', 'Close'))),
+                  OutlinedButton(
+                    onPressed: _busy ? null : () => _reply(status: 'booked'),
+                    child: Text(context.tr('أكّد الموعد', 'Confirm the time')),
+                  ),
+                TextButton(
+                  onPressed: _busy ? null : () => _reply(status: 'closed'),
+                  child: Text(context.tr('أغلق الطلب', 'Close')),
+                ),
               ],
             ),
           ],
