@@ -7,6 +7,8 @@ services:
     runtime: docker
     dockerfilePath: ./server/Dockerfile
     dockerContext: .
+    # The closest region to the users in Saudi Arabia (fixed at creation).
+    region: frankfurt
     # The smallest paid instance (0.5 CPU, 512 MB): always on, and it can
     # keep a disk. The free plan spins down after 15 minutes without
     # traffic, and the next visitor waits about a minute.
@@ -45,7 +47,6 @@ services:
       # in server/.env when Render asks.
       - key: SPECIALIST_KEY
         sync: false
-      # Optional: a Slack or Discord webhook told of every new request
-      # (its code only; the question is read in the panel).
-      - key: NOTIFY_WEBHOOK
-        sync: false
+      # Optional, added later in the dashboard (Environment): NOTIFY_WEBHOOK,
+      # a Slack or Discord webhook told of every new request (its code only;
+      # the question is read in the panel).
