@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
 import '../../core/lang.dart';
+import '../specialist/specialist.dart';
 import 'recitation_bar.dart';
 import '../../shared/patterns.dart';
 import '../../shared/widgets.dart';
@@ -16,11 +17,14 @@ import '../../shared/widgets.dart';
 /// * abstain → لا تتوفر إجابة موثقة · الإرشاد العملي
 /// * offTopic → خارج نطاق بصيرة · الإرشاد العملي (example questions)
 class AnswerCards extends StatelessWidget {
-  const AnswerCards({super.key, required this.answer, this.compact = false, this.animate = true});
+  const AnswerCards({super.key, required this.answer, this.compact = false, this.animate = true, this.specialist = true});
 
   final BasirahAnswer answer;
   final bool compact;
   final bool animate;
+
+  /// «تحدّث مع مختص شرعي» under a scholarly difference or a referral.
+  final bool specialist;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +57,7 @@ class AnswerCards extends StatelessWidget {
                 ),
                 tone: Tones.khilaf,
               ),
+              if (specialist) SpecialistCta(answer: a, tone: Tones.khilaf),
             ],
           ),
         ),
@@ -74,6 +79,7 @@ class AnswerCards extends StatelessWidget {
                 _SubLabel(context.tr('إلى من تتوجّه؟', 'Who to ask'), Tones.refer),
                 _Para(a.referTo),
               ],
+              if (specialist) SpecialistCta(answer: a, tone: Tones.refer),
             ],
           ),
         ),
@@ -195,7 +201,9 @@ class EvidenceView extends StatelessWidget {
       onPressed: () => launchUrl(Uri.parse(e.urlFor(context.lang)), mode: LaunchMode.externalApplication),
       icon: const Icon(Icons.open_in_new_rounded, size: 15),
       label: Text(
-        context.tr('تحقّق في $platform', 'Verify on $platform'),
+        e.isQuran
+            ? context.tr('تحقّق من نص الآية في $platform', 'Check this verse on $platform')
+            : context.tr('تحقّق من الحديث في $platform', 'Check this hadith on $platform'),
         style: BText.label(12, color: BColors.goldDeep, weight: FontWeight.w600),
       ),
       style: TextButton.styleFrom(
@@ -226,10 +234,38 @@ class EvidenceView extends StatelessWidget {
             italic: true,
           );
     if (e.isQuran) {
+      // A cited part of a verse is shown inside the whole verse, highlighted.
+      final full = e.fullText;
+      final at = full == null ? -1 : full.indexOf(e.text);
+      final verse = at < 0
+          ? Text('﴿${e.text}﴾', style: BText.quran(19.5), textAlign: TextAlign.center, textDirection: TextDirection.rtl)
+          : Text.rich(
+              TextSpan(
+                style: BText.quran(19.5, color: const Color(0xFF7A6A52)),
+                children: [
+                  const TextSpan(text: '﴿'),
+                  TextSpan(text: full!.substring(0, at)),
+                  TextSpan(
+                    text: e.text,
+                    style: BText.quran(19.5).copyWith(backgroundColor: BColors.gold.withValues(alpha: .22)),
+                  ),
+                  TextSpan(text: full.substring(at + e.text.length)),
+                  const TextSpan(text: '﴾'),
+                ],
+              ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
+            );
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('﴿${e.text}﴾', style: BText.quran(19.5), textAlign: TextAlign.center, textDirection: TextDirection.rtl),
+          verse,
+          if (at >= 0)
+            Text(
+              context.tr('المظلَّل موضع الاستشهاد من الآية', 'The highlighted words are the part cited'),
+              textAlign: TextAlign.center,
+              style: BText.label(11, weight: FontWeight.w400),
+            ),
           const SizedBox(height: 6),
           Row(
             children: [
@@ -531,7 +567,109 @@ class _Steps extends StatelessWidget {
   );
 }
 
-/// Legend explaining the card colours.
+/// The path of a live answer, as the server runs it (pipeline, agent and
+/// guard), in five plain steps.
+class PipelineSteps extends StatelessWidget {
+  const PipelineSteps({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final steps = [
+      (
+        Icons.rule_rounded,
+        Tones.refer,
+        context.tr('فحص السؤال قبل النموذج', 'The question is checked first'),
+        context.tr(
+          'قواعد ثابتة في الكود: هل السؤال عن الإسلام؟ هل هو حالة شخصية تحتاج مختصاً (المستوى د)؟ هل فيه تعليمات مدسوسة؟ الحالة الشخصية تُحال ولا يُفتى فيها.',
+          'Fixed rules in code: is it about Islam? Is it a personal case that needs a specialist (level D)? Does it hide instructions? A personal case is referred, never ruled on.',
+        ),
+      ),
+      (
+        Icons.travel_explore_rounded,
+        Tones.evidence,
+        context.tr('البحث في المصادر المعتمدة', 'Research in the approved sources'),
+        context.tr(
+          'يبحث النموذج في نص المصحف، ويقرأ تفسير الآية في موسوعة التفسير (الدرر السنية) قبل أن يستشهد بها، ويبحث عن الأحاديث في موسوعة الأحاديث النبوية عبر خادم MCP لجمعية خدمة المحتوى الإسلامي باللغات.',
+          'The model searches the Mushaf text, reads a verse’s tafsir in Dorar.net’s encyclopedia before citing it, and looks up hadith on HadeethEnc through the MCP server of the association serving Islamic content in languages.',
+        ),
+      ),
+      (
+        Icons.edit_note_rounded,
+        Tones.principle,
+        context.tr('الكتابة من المصادر فقط', 'Writing from the sources only'),
+        context.tr(
+          'يكتب النموذج الشرح في بطاقات، ويشير إلى الآية برقمها والحديث بمعرّفه، ولا يكتب نصهما بنفسه.',
+          'The model writes the explanation as cards and points to a verse by its number and a hadith by its id; it never types their text.',
+        ),
+      ),
+      (
+        Icons.verified_user_rounded,
+        Tones.guidance,
+        context.tr('الحارس يتحقق', 'The guard checks'),
+        context.tr(
+          'كود ثابت بعد النموذج: يأخذ نص كل آية من المصحف، ويحذف الآية التي لم يُقرأ تفسيرها والحديث الذي لم يُقرأ من مصدره، ويقبل الصحيح والحسن فقط، ويستبدل أي نص قرآني كتبه النموذج بموضعه، ويحوّل الحالة الشخصية إلى إحالة.',
+          'Fixed code after the model: every verse text comes from the Mushaf; a verse whose tafsir was not read, or a hadith not read from its source, is dropped; only sahih and hasan are accepted; any Quran wording the model typed is replaced by its reference; a personal case becomes a referral.',
+        ),
+      ),
+      (
+        Icons.receipt_long_rounded,
+        Tones.culture,
+        context.tr('إيصال بصيرة', 'The Basirah receipt'),
+        context.tr(
+          'تحت كل إجابة إيصال يبيّن ما فُحص فيها، ومع كل دليل رابط للتحقق منه بنفسك.',
+          'Under every answer, a receipt shows what was checked, and every piece of evidence has a link to check it yourself.',
+        ),
+      ),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final (i, (icon, tone, title, body)) in steps.indexed)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 30,
+                    height: 30,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(color: tone.accent, shape: BoxShape.circle),
+                    child: Text('${i + 1}', style: BText.label(13, color: Colors.white, weight: FontWeight.w700)),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(icon, size: 17, color: tone.accent),
+                            const SizedBox(width: 6),
+                            Flexible(child: Text(title, style: BText.title(14.5, color: tone.accent))),
+                          ],
+                        ),
+                        const SizedBox(height: 3),
+                        Text(body, style: BText.body(13.5, height: 1.65)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// Legend: how an answer is made, and what the card colours mean.
 Future<void> showToneLegend(BuildContext context, {Tone? focus}) {
   return showModalBottomSheet(
     context: context,
@@ -545,7 +683,13 @@ Future<void> showToneLegend(BuildContext context, {Tone? focus}) {
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
         children: [
           Text(context.tr('كيف تُجيب بصيرة؟', 'How does Basirah answer?'), style: BText.display(24)),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
+          Text(context.tr('من سؤالك إلى الإجابة، في خمس خطوات', 'From your question to the answer, in five steps'), style: BText.label(13.5)),
+          const SizedBox(height: 12),
+          const PipelineSteps(),
+          const SizedBox(height: 20),
+          Text(context.tr('ألوان البطاقات', 'The card colours'), style: BText.title(17)),
+          const SizedBox(height: 4),
           Text(
             context.tr(
               'كل إجابة تُعرض في بطاقات ملوّنة؛ لكل لون معنى ثابت، حتى تعرف مباشرة: ما الذي يقرّره الدين؟ وما الذي هو عادة؟ وماذا تفعل بعد ذلك؟',

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:basirah_core/basirah_core.dart';
 import 'package:basirah_server/basirah_server.dart';
@@ -17,6 +19,40 @@ void main() {
 
   AskPipeline pipeline(ScriptedClaude s, [FakeTafsir? t]) =>
       AskPipeline(kb, llm: s.client(), quran: quran, tafsir: t ?? FakeTafsir());
+
+  test('a question in another language is answered in it, with the approved translation of the verse', () async {
+    final s = ScriptedClaude([
+      toolTurn([('read_tafsir', {'refs': ['60:8']})]),
+      toolTurn([
+        (
+          'submit_answer',
+          submission(principle: 'Oui : l’islam ordonne la bonté envers les parents, même s’ils ne sont pas musulmans.', hadithIds: const []),
+        ),
+      ]),
+    ]);
+    final tmp = Directory.systemTemp.createTempSync('basirah_meaning');
+    addTearDown(() => tmp.deleteSync(recursive: true));
+    final meaning = MeaningSource(
+      cacheDir: tmp.path,
+      client: MockClient((req) async {
+        if (req.url.path.contains('/translations/list/')) {
+          return http.Response.bytes(utf8.encode(jsonEncode({'translations': [{'key': 'french_rashid', 'title': 'French Translation - Rashid Maash'}]})), 200);
+        }
+        expect(req.url.toString(), 'https://quranenc.com/api/v1/translation/aya/french_rashid/60/8');
+        return http.Response.bytes(utf8.encode(jsonEncode({'result': {'translation': '8. Allah ne vous défend pas'}})), 200);
+      }),
+    );
+    final r = await AskPipeline(kb, llm: s.client(), quran: quran, tafsir: FakeTafsir(), meaning: meaning)
+        .ask('Est-ce que je peux rendre visite à ma famille non musulmane ?');
+    // Not declined as off-topic for lack of Arabic or English words.
+    expect(r.via, Via.ai);
+    expect(r.answer.kind, AnswerKind.answer);
+    expect(jsonEncode(s.requests.first['messages']), contains('<answer_language>French</answer_language>'));
+    final verse = r.answer.evidence.firstWhere((e) => e.isQuran);
+    expect(verse.text, quran.verse('60:8')!.uthmani);
+    expect(verse.translation, 'Allah ne vous défend pas');
+    expect(verse.translationSource, 'French Translation - Rashid Maash');
+  });
 
   test('live answer: search → read tafsir → submit, with verified verse text', () async {
     final tafsir = FakeTafsir();

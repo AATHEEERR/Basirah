@@ -64,7 +64,6 @@ class CategoryScreen extends ConsumerWidget {
                         child: CategoryBackdrop(
                           category: category,
                           radius: 28,
-                          patternSize: 240,
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: Column(

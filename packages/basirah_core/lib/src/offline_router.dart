@@ -42,8 +42,8 @@ class RouterTexts {
         'يسمع التفاصيل كاملة. بصيرة تقدّم المعلومات العامة الموثقة فقط، ولا تُصدر '
         'فتوى شخصية.',
     referTo:
-        'مفتٍ مؤهل أو جهة إفتاء رسمية في بلدك، أو إمام مسجد موثوق، أو مركز إسلامي '
-        'معتمد يرعى المسلمين الجدد.',
+        'مفتٍ مؤهل أو جهة إفتاء رسمية في بلدك، أو مختص شرعي في مركز إسلامي معتمد '
+        'يرعى المسلمين الجدد.',
     referGuidance: [
       'اكتب سؤالك مع تفاصيله كاملة قبل التواصل مع المختص.',
       'اذكر بلدك وظروفك؛ فالحكم قد يختلف باختلاف الأحوال.',
@@ -83,8 +83,8 @@ class RouterTexts {
         'mufti who hears all the details. Basirah only gives general, documented '
         'information and does not issue personal fatwas.',
     referTo:
-        'A qualified mufti or an official fatwa body in your country, a trusted mosque '
-        'imam, or a recognised Islamic centre that cares for new Muslims.',
+        'A qualified mufti or an official fatwa body in your country, or a Sharia '
+        'specialist at a recognised Islamic centre that cares for new Muslims.',
     referGuidance: [
       'Write down your question with all its details before contacting the specialist.',
       'Mention your country and circumstances; the answer can differ with the situation.',

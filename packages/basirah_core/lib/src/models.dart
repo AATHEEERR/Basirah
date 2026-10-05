@@ -92,6 +92,7 @@ class Evidence {
     this.note,
     this.translation,
     this.translationSource,
+    this.fullText,
   });
 
   final String id;
@@ -99,6 +100,10 @@ class Evidence {
 
   /// The Arabic text, always shown as is.
   final String text;
+
+  /// The whole verse (or verses, joined by « ۝ ») when [text] cites only
+  /// part of it: shown complete, with [text] highlighted inside it.
+  final String? fullText;
 
   /// English meaning (Quran: King Fahd Complex's Hilali–Khan translation;
   /// hadith: team translation of the meaning, pending review).
@@ -134,14 +139,18 @@ class Evidence {
       isQuran ? '${surahName ?? ''}: ${ayah ?? ''}' : (source ?? '');
 
   /// Link to the approved platform where the text can be verified: for a
-  /// verse, its own page (the first verse of a range) on the association's
-  /// موسوعة المحتوى الإسلامي باللغات, with the Mushaf text and the approved
-  /// translation.
+  /// verse, its own page (the first verse of a range) on QuranEnc
+  /// (موسوعة القرآن الكريم), with the Mushaf text and an approved
+  /// translation: التفسير الميسر in Arabic, Rowwad's English, or
+  /// [quranEncKey] (the asker's language) when given.
   String get url => urlFor('ar');
 
-  String urlFor(String lang) => isQuran
-      ? 'https://islamenc.com/${lang == 'en' ? 'en' : 'ar'}/quran/${surah ?? 1}/${_firstAyah ?? 1}'
-      : 'https://dorar.net/hadith/search?q=${Uri.encodeQueryComponent(search ?? text)}';
+  String urlFor(String lang, {String? quranEncKey}) {
+    if (!isQuran) return 'https://dorar.net/hadith/search?q=${Uri.encodeQueryComponent(search ?? text)}';
+    final key = quranEncKey ?? (lang == 'en' ? 'english_rwwad' : 'arabic_moyassar');
+    final site = lang == 'ar' ? 'ar' : 'en';
+    return 'https://quranenc.com/$site/browse/$key/${surah ?? 1}/${_firstAyah ?? 1}';
+  }
 
   int? get _firstAyah => int.tryParse((ayah ?? '').split(RegExp('[–-]')).first.trim());
 
@@ -149,10 +158,10 @@ class Evidence {
   /// tafsir platform named by the reference pack.
   String? get dorarTafsirUrl => isQuran && surah != null ? 'https://dorar.net/tafseer/$surah' : null;
 
-  String get platformName => isQuran ? 'موسوعة المحتوى الإسلامي' : 'الدرر السنية';
+  String get platformName => isQuran ? 'موسوعة القرآن الكريم' : 'الدرر السنية';
 
   String platformNameFor(String lang) =>
-      lang == 'en' ? (isQuran ? 'IslamEnc' : 'Dorar.net') : platformName;
+      lang == 'en' ? (isQuran ? 'QuranEnc' : 'Dorar.net') : platformName;
 
   Evidence copyWith({
     String? text,
@@ -182,6 +191,7 @@ class Evidence {
     note: note ?? this.note,
     translation: translation ?? this.translation,
     translationSource: translationSource ?? this.translationSource,
+    fullText: fullText,
   );
 
   factory Evidence.fromJson(Map<String, dynamic> j) => Evidence(
@@ -201,6 +211,7 @@ class Evidence {
     note: j['note'] as String?,
     translation: j['translation'] as String?,
     translationSource: j['translationSource'] as String?,
+    fullText: j['full'] as String?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -220,6 +231,7 @@ class Evidence {
     if (note != null) 'note': note,
     if (translation != null) 'translation': translation,
     if (translationSource != null) 'translationSource': translationSource,
+    if (fullText != null) 'full': fullText,
   };
 
   /// Verse keys covered by a Quran item («60:8», or «53:3»,«53:4» for a range).
@@ -888,6 +900,7 @@ class BasirahAnswer {
     List<String>? related,
     List<String>? guidance,
     List<String>? guard,
+    List<Evidence>? evidence,
   }) => BasirahAnswer(
     question: question ?? this.question,
     kind: kind,
@@ -901,7 +914,7 @@ class BasirahAnswer {
     referReason: referReason,
     referTo: referTo,
     abstainReason: abstainReason,
-    evidence: evidence,
+    evidence: evidence ?? this.evidence,
     sourceNote: sourceNote,
     entryId: entryId,
     related: related ?? this.related,

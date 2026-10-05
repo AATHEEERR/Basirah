@@ -56,7 +56,7 @@ git clone "backups\Basirah_Backup_<التاريخ>\basirah.bundle" basirah_resto
    git remote add origin https://github.com/<الحساب>/basirah.git
    git push -u origin main
    ```
-2. في render.com: New ← Blueprint ← اختر المستودع. يقرأ Render ملف `render.yaml` ويطلب `ANTHROPIC_API_KEY` و`GEMINI_API_KEY`. الصقهما هناك فقط.
+2. في render.com: New ← Blueprint ← اختر المستودع. يقرأ Render ملف `render.yaml` ويطلب `ANTHROPIC_API_KEY` و`GEMINI_API_KEY` و`SPECIALIST_KEY` (مفتاح لوحة المختصين، وهو نفسه في `server/.env`). الصقها هناك فقط.
 3. قبل كل نشر جديد ابنِ نسخة الموقع: `powershell -File tool\build_web_for_deploy.ps1`، ثم اعمل commit وpush.
 
 ## ملاحظات

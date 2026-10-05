@@ -2,12 +2,14 @@
 
 > «قُلْ هَٰذِهِ سَبِيلِي أَدْعُو إِلَى اللَّهِ ۚ عَلَىٰ بَصِيرَةٍ» — يوسف: 108
 
-**Basirah** answers the questions of people in their first year of Islam, in Arabic or English, **only from approved references**. Every answer separates what Islam teaches from what is culture, shows its evidence with a way to check it, refers personal cases to a scholar, and says so plainly when there is no documented answer.
+**Basirah** answers the questions of people in their first year of Islam, in their own language, **only from approved references**. Every answer separates what Islam teaches from what is culture, shows its evidence with a way to check it, refers personal cases to a scholar, and says so plainly when there is no documented answer.
 
 ## How an answer is made
 
 ```
-question ─► scope check (not about Islam? polite refusal, no model call)
+question ─► language: Arabic and English use the curated knowledge base; any other
+             language is answered in that language, with approved translations
+         ─► scope check (not about Islam? polite refusal, no model call)
          ─► safety signals (personal case, request to produce a hadith, hostile tone)
          ─► research by the model, with tools only:
                search_quran   the whole Quran (King Fahd Complex Mushaf text)
@@ -25,10 +27,14 @@ The model chooses a verse by its number only; its text is copied from the Mushaf
 
 * Colour-coded answer cards: principle, culture, practical guidance, evidence; scholarly difference, referral and abstention cards.
 * «سياقي»: optional, on-device context (who is asking, since when, answer style) that adapts the explanation, never the ruling.
-* Verse recitation by real reciters (repeat, slower speed, the teaching recitation), and «اسمعها بلغتك»: the approved translation of the meaning in a recorded voice, in 13 languages.
+* Ask in your language: the answer is written in it, and each cited verse shows QuranEnc's approved translation of its meaning in that language (25 languages) and each HadeethEnc hadith its approved translation when there is one. `server/bin/languages_eval.dart` checks this on the test questions ([eval/LANGUAGES_REPORT.md](eval/LANGUAGES_REPORT.md)).
+* Verse recitation by real reciters (repeat, slower speed), and «اسمعها بلغتك»: the approved translation of the meaning in 25 languages, 13 of them in a recorded voice, with the association's own introductions to Islam on IslamHouse in that language (through its MCP server).
+* A partly cited verse is shown whole, with the cited words highlighted; every verse links to its own page on QuranEnc.
+* «تحدّث مع مختص شرعي»: under a scholarly difference or a referral, the asker sends their question and conversation (only what they approve) as a message, or books a voice or video call; specialists reply from a panel (`/#/specialist`, opened with `SPECIALIST_KEY`). Requests are deleted after 30 days.
 * «إيصال بصيرة»: under each answer, the checks that ran, what the guard removed and why, and the research steps.
 * A share card with the Mushaf text and a QR code to the verse's own page.
 * Anonymous ratings and an impact board (counts only; no question text, IP or user id is stored).
+* The baseline comparison in the app: the same model as a general chatbot and inside Basirah, on the same 31 questions ([eval/BASELINE_COMPARISON.md](eval/BASELINE_COMPARISON.md)).
 
 ## Run it
 
@@ -46,6 +52,6 @@ Deploy: `render.yaml` (one service: the API and the web app), built by `server/D
 
 ## Sources
 
-Quran text and approved translations of the meanings: QuranEnc and Quranpedia. Tafsir: dorar.net/tafseer. Hadith: HadeethEnc (graded), verified on dorar.net. Recitation: mp3quran.net and the association's MCP server. Details and licences: [docs/SOURCES_AND_LICENSES.md](docs/SOURCES_AND_LICENSES.md).
+Quran text and approved translations of the meanings: QuranEnc and Quranpedia. Tafsir: dorar.net/tafseer. Hadith: HadeethEnc (graded), verified on dorar.net. Recitation and the IslamHouse library: the association's MCP server. Details and licences: [docs/SOURCES_AND_LICENSES.md](docs/SOURCES_AND_LICENSES.md).
 
 Basirah is an AI tool, not a mufti. Code: MIT.

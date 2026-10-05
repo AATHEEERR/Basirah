@@ -13,12 +13,24 @@ class GoldText extends StatelessWidget {
   final TextStyle style;
   final TextAlign? textAlign;
 
+  /// The gradient is the text's own paint, not a mask over its box: a mask
+  /// stops at the line box, so the dots below it (as in «سياقي») stayed dark.
   @override
-  Widget build(BuildContext context) => ShaderMask(
-    blendMode: BlendMode.srcIn,
-    shaderCallback: (b) => BColors.goldGradient.createShader(b),
-    child: Text(text, style: style, textAlign: textAlign),
-  );
+  Widget build(BuildContext context) {
+    final size = style.fontSize ?? 14;
+    final line = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: Directionality.of(context),
+      maxLines: 1,
+    )..layout();
+    final bounds = Rect.fromLTWH(0, -size * .4, line.width, size * 2.2);
+    line.dispose();
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: style.copyWith(foreground: Paint()..shader = BColors.goldGradient.createShader(bounds)),
+    );
+  }
 }
 
 /// White rounded card — the basic Nusuk surface.
@@ -67,22 +79,20 @@ class SoftCard extends StatelessWidget {
   }
 }
 
-/// A category's card background, styled like the answer cards: a soft
-/// two-colour wash in the category's hue with a faint star lattice in the
-/// top corner.
+/// A category's card background: a soft two-colour wash in the category's
+/// hue with a faint star lattice over the whole card. Always given a bounded
+/// size: the content fills the card, so a tap or hover covers all of it.
 class CategoryBackdrop extends StatelessWidget {
   const CategoryBackdrop({
     super.key,
     required this.category,
     required this.child,
     this.radius = 26,
-    this.patternSize = 180,
   });
 
   final Category category;
   final Widget child;
   final double radius;
-  final double patternSize;
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +109,10 @@ class CategoryBackdrop extends StatelessWidget {
       child: ClipRRect(
         borderRadius: r,
         child: Stack(
+          fit: StackFit.expand,
           children: [
-            PositionedDirectional(
-              top: -patternSize / 4,
-              end: -patternSize / 4,
-              width: patternSize,
-              height: patternSize,
-              child: CustomPaint(painter: StarLatticePainter(color: category.accent, opacity: .10, cell: 56)),
+            RepaintBoundary(
+              child: CustomPaint(painter: StarLatticePainter(color: category.accent, opacity: .09, cell: 56)),
             ),
             child,
           ],

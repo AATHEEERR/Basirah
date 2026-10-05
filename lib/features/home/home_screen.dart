@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/theme.dart';
+import '../../core/config.dart';
 import '../../core/lang.dart';
 import '../../core/kb_provider.dart';
 import '../../core/state.dart';
@@ -13,7 +14,15 @@ import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
+import '../library/baseline_screen.dart';
 import '../library/impact_screen.dart';
+
+/// The home title: what Basirah is, in plain words. On a phone it breaks
+/// after the comma.
+String _heroTitle(BuildContext context, {bool twoLines = false}) => context.tr(
+  twoLines ? 'اسأل عن الإسلام،\nوالجواب بدليله' : 'اسأل عن الإسلام، والجواب بدليله',
+  twoLines ? 'Ask about Islam,\nget the answer with its evidence' : 'Ask about Islam, and get the answer with its evidence',
+);
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -43,8 +52,8 @@ class HomeScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.label(15, weight: FontWeight.w400)),
-                        Text(context.tr('اسأل على بصيرة', 'Ask with insight'), style: BText.display(34, weight: FontWeight.w500)),
+                        Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.display(17, color: BColors.goldDeep)),
+                        Text(_heroTitle(context, twoLines: true), style: BText.display(28, weight: FontWeight.w600)),
                         const SizedBox(height: 16),
                         _SearchPill(onTap: () => ask()),
                       ],
@@ -72,6 +81,20 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: _AiCard(onTap: () => ask())),
+                if (AppConfig.hasApi) ...[
+                  SliverToBoxAdapter(
+                    child: SectionHeader(
+                      context.tr('لوحة الأثر والمقارنة', 'Impact board and comparison'),
+                      eyebrow: context.tr('الأثر بالأرقام', 'Impact in numbers'),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(children: [ImpactTeaser(), SizedBox(height: 10), BaselineTeaser()]),
+                    ),
+                  ),
+                ],
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     context.tr('أربعة وعود في كل إجابة', 'Four promises in every answer'),
@@ -145,9 +168,6 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: _ReferencesPromo(kb: kb)),
-                const SliverToBoxAdapter(
-                  child: Padding(padding: EdgeInsets.fromLTRB(16, 14, 16, 0), child: ImpactTeaser()),
-                ),
                 const SliverToBoxAdapter(child: _TrustLaurel()),
                 const SliverToBoxAdapter(child: SizedBox(height: 120)),
               ],
@@ -186,7 +206,7 @@ class _TopBar extends StatelessWidget {
               children: [
                 const BrandLogo(size: 36),
                 const SizedBox(width: 8),
-                Text(context.tr('بصيرة', 'Basirah'), style: BText.brand(context.isEn ? 21 : 24)),
+                Wordmark(style: BText.brand(context.isEn ? 21 : 24)),
               ],
             ),
           ],
@@ -315,7 +335,6 @@ class _FeaturedCard extends StatelessWidget {
       width: width,
       child: CategoryBackdrop(
         category: category,
-        patternSize: 220,
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
@@ -380,7 +399,6 @@ class CategoryTile extends StatelessWidget {
     return CategoryBackdrop(
       category: category,
       radius: 24,
-      patternSize: 150,
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
@@ -584,9 +602,9 @@ class _WideHome extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.label(15, color: BColors.goldDeep, weight: FontWeight.w600)),
-                      const SizedBox(height: 6),
-                      Text(context.tr('اسأل على بصيرة', 'Ask with insight'), style: BText.brand(context.isEn ? 46 : 54)),
+                      Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.display(22, color: BColors.goldDeep)),
+                      const SizedBox(height: 4),
+                      Text(_heroTitle(context), style: BText.display(context.isEn ? 34 : 40, weight: FontWeight.w600)),
                       const SizedBox(height: 14),
                       ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 560),
@@ -625,6 +643,19 @@ class _WideHome extends StatelessWidget {
             ),
           ),
         ),
+        if (AppConfig.hasApi)
+          _WideSection(
+            eyebrow: context.tr('الأثر بالأرقام', 'Impact in numbers'),
+            title: context.tr('لوحة الأثر والمقارنة', 'Impact board and comparison'),
+            child: const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(flex: 7, child: ImpactTeaser()),
+                SizedBox(width: 14),
+                Expanded(flex: 5, child: BaselineTeaser()),
+              ],
+            ),
+          ),
         _WideSection(
           eyebrow: context.tr('لماذا تثق ببصيرة؟', 'Why trust Basirah?'),
           title: context.tr('أربعة وعود في كل إجابة', 'Four promises in every answer'),
@@ -677,8 +708,6 @@ class _WideHome extends StatelessWidget {
                 child: Column(
                   children: [
                     _AiCard(onTap: () => ask(), padding: EdgeInsets.zero),
-                    const SizedBox(height: 14),
-                    const ImpactTeaser(),
                     _ReferencesPromo(kb: kb, padding: const EdgeInsets.only(top: 14)),
                   ],
                 ),
@@ -862,8 +891,8 @@ List<(Tone, String, String, String, String, String, String)> _promises() => cons
     'Refers, never rules',
     'الحالة الشخصية لأهل العلم',
     'Personal cases go to scholars',
-    'بصيرة أداة ذكاء اصطناعي وليست مفتياً؛ تعطي المعلومة العامة وتحيل الحالة الشخصية إلى مختص.',
-    'Basirah is an AI tool, not a mufti: it gives general information and refers personal cases to a specialist.',
+    'بصيرة أداة ذكاء اصطناعي وليست مفتياً؛ تعطي المعلومة العامة وتحيل الحالة الشخصية إلى مختص شرعي، تراسله أو تحجز معه مكالمة من داخل بصيرة.',
+    'Basirah is an AI tool, not a mufti: it gives general information and refers personal cases to a Sharia specialist, whom you can message or book a call with inside Basirah.',
   ),
 ];
 

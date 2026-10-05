@@ -154,7 +154,7 @@ class _WebHeader extends ConsumerWidget {
                               children: [
                                 const BrandLogo(size: 36, tile: true),
                                 const SizedBox(width: 10),
-                                Text(context.tr('بصيرة', 'Basirah'), style: BText.brand(context.isEn ? 23 : 27)),
+                                Wordmark(style: BText.brand(context.isEn ? 23 : 27)),
                               ],
                             ),
                           ),
@@ -295,10 +295,10 @@ class _ViewSwitch extends StatelessWidget {
   );
 }
 
-/// A page title: the brand face on the website (as the website's hero),
-/// the display face on a phone.
+/// A page title, in the same face as the rest of the text (the brand face
+/// is kept for the wordmark only), larger on the website.
 TextStyle pageTitleStyle(BuildContext context, {double phone = 34}) =>
-    isWebsite(context) ? BText.brand(context.isEn ? 38 : 44) : BText.display(phone);
+    isWebsite(context) ? BText.display(context.isEn ? 36 : 40, weight: FontWeight.w600) : BText.display(phone);
 
 /// Keeps a reading page (an answer, the references, «سياقي») to a
 /// comfortable line length on a wide screen; no effect on a phone.

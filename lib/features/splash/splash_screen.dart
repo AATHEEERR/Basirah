@@ -49,7 +49,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 const SizedBox(height: 26),
                 Reveal(
                   delay: const Duration(milliseconds: 900),
-                  child: Text(context.tr('بصيرة', 'Basirah'), style: BText.brand(context.isEn ? 46 : 54)),
+                  child: Wordmark(style: BText.brand(context.isEn ? 46 : 54)),
                 ),
                 const SizedBox(height: 4),
                 Reveal(

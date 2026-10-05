@@ -19,7 +19,7 @@ final recitationPlayerProvider = Provider<AudioPlayer>((ref) {
   return player;
 });
 
-/// What is loaded in the player (a verse key, or «teacher:60»).
+/// What is loaded in the player (a verse range key).
 final nowPlayingProvider = StateProvider<String?>((ref) => null);
 
 /// The chosen reciter (the MCP server's reciter name) for this session.
@@ -32,9 +32,8 @@ final recitersProvider = StateProvider<List<(String, String, String)>>((ref) => 
 
 /// Listen to a verse: one MP3 per verse from the association's MCP server
 /// (`get_quran_audio`), real reciters only — never a synthetic voice — with
-/// repeat and a slower speed for learning to pronounce, and «المصحف
-/// المعلّم» (the teaching recitation) for the whole surah from المكتبة
-/// الصوتية للقرآن الكريم (mp3quran.net).
+/// repeat and a slower speed for learning to pronounce. Only the cited
+/// verses are played.
 class RecitationBar extends ConsumerStatefulWidget {
   const RecitationBar({super.key, required this.evidence});
 
@@ -48,7 +47,6 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
   bool _loading = false;
   bool _repeat = false;
   bool _slow = false;
-  String? _teacherUrl;
   String? _error;
 
   /// «اسمعها بلغتك»: the approved translation of this verse (range) in the
@@ -120,7 +118,6 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
         for (final r in (a['reciters'] as List).cast<Map<String, dynamic>>())
           (r['id'] as String, r['ar'] as String, r['en'] as String),
       ];
-      _teacherUrl = a['teacherUrl'] as String?;
       await player.stop();
       final lang = ref.read(meaningLangProvider);
       if (lang != null) await _loadMeaning(lang);
@@ -130,7 +127,8 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
       await player.setAudioSources([
         for (final v in (a['verses'] as List).cast<Map<String, dynamic>>()) AudioSource.uri(Uri.parse(v['url'] as String)),
         if (meaning != null)
-          for (final v in (meaning['verses'] as List).cast<Map<String, dynamic>>()) AudioSource.uri(Uri.parse(v['audio'] as String)),
+          for (final v in (meaning['verses'] as List).cast<Map<String, dynamic>>())
+            if (v['audio'] case final String audio) AudioSource.uri(Uri.parse(audio)),
       ]);
       await player.setSpeed(_slow ? .75 : 1);
       await player.setLoopMode(_repeat ? LoopMode.all : LoopMode.off);
@@ -143,24 +141,11 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
     }
   }
 
-  Future<void> _teacher() async {
-    final url = _teacherUrl ?? 'https://cdn.mp3quran.net/audio/muhammad-minshawi/r3/${widget.evidence.surah.toString().padLeft(3, '0')}.mp3';
-    final player = ref.read(recitationPlayerProvider);
-    await player.stop();
-    await player.setAudioSource(AudioSource.uri(Uri.parse(url)));
-    await player.setSpeed(1);
-    await player.setLoopMode(LoopMode.off);
-    ref.read(nowPlayingProvider.notifier).state = 'teacher:${widget.evidence.surah}';
-    player.play();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     if (!AppConfig.hasApi || widget.evidence.surah == null) return const SizedBox.shrink();
     final player = ref.watch(recitationPlayerProvider);
     final mine = ref.watch(nowPlayingProvider) == _key;
-    final teacherMine = ref.watch(nowPlayingProvider) == 'teacher:${widget.evidence.surah}';
     final read = ref.watch(reciterProvider);
     final names = ref.watch(recitersProvider);
     final name = names.where((r) => r.$1 == read).map((r) => context.tr(r.$2, r.$3)).firstOrNull ??
@@ -170,7 +155,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
     return StreamBuilder<PlayerState>(
       stream: player.playerStateStream,
       builder: (context, snap) {
-        final playing = (mine || teacherMine) && (snap.data?.playing ?? false) &&
+        final playing = mine && (snap.data?.playing ?? false) &&
             snap.data?.processingState != ProcessingState.completed;
         return Padding(
           padding: const EdgeInsets.only(top: 8),
@@ -188,7 +173,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                         : (playing && mine ? Icons.pause_rounded : Icons.play_arrow_rounded),
                     label: playing && mine
                         ? context.tr('إيقاف', 'Pause')
-                        : lang == null
+                        : lang == null || !lang.$6
                         ? context.tr('استمع للآية', 'Listen')
                         : context.tr('استمع للآية ثم معناها', 'Listen, then the meaning'),
                     strong: true,
@@ -204,7 +189,12 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                     itemBuilder: (_) => [
                       PopupMenuItem(value: '', child: Text(context.tr('بدون ترجمة', 'No translation'))),
                       for (final l in meaningLanguages)
-                        PopupMenuItem(value: l.$1, child: Text(context.isEn ? l.$3 : '${l.$3} · ${l.$4}')),
+                        PopupMenuItem(
+                          value: l.$1,
+                          child: Text(
+                            '${context.isEn ? l.$3 : '${l.$3} · ${l.$4}'}${l.$6 ? '' : context.tr(' · نص', ' · text')}',
+                          ),
+                        ),
                     ],
                     child: _Pill(
                       icon: Icons.translate_rounded,
@@ -243,11 +233,6 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                       if (mine) player.setSpeed(_slow ? .75 : 1);
                     },
                   ),
-                  _Pill(
-                    icon: teacherMine && playing ? Icons.pause_rounded : Icons.school_outlined,
-                    label: context.tr('المصحف المعلّم · السورة كاملة', 'Teaching recitation · whole surah'),
-                    onTap: teacherMine && playing ? player.pause : _teacher,
-                  ),
                 ],
               ),
               if (_error != null)
@@ -259,8 +244,8 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
                   context.tr(
-                    'التلاوة آيةً آيةً عبر خادم جمعية خدمة المحتوى الإسلامي باللغات، والمصحف المعلّم من المكتبة الصوتية للقرآن الكريم',
-                    'Verse-by-verse recitation via the Islamic Content Service Association; the teaching recitation from the Quran audio library (mp3quran.net)',
+                    'التلاوة آيةً آيةً بأصوات القراء عبر خادم جمعية خدمة المحتوى الإسلامي باللغات',
+                    'Verse-by-verse recitation by real reciters, via the Islamic Content Service Association',
                   ),
                   style: BText.label(11, weight: FontWeight.w400),
                 ),
@@ -279,7 +264,7 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
 class _MeaningBox extends StatelessWidget {
   const _MeaningBox({required this.lang, required this.meaning});
 
-  final (String, String, String, String, bool) lang;
+  final (String, String, String, String, bool, bool) lang;
   final Map<String, dynamic> meaning;
 
   @override
@@ -294,7 +279,10 @@ class _MeaningBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            context.tr('ترجمة معاني معتمدة · ${lang.$4} · موسوعة القرآن الكريم', 'Approved translation of the meanings · ${lang.$3} · QuranEnc'),
+            context.tr(
+              'ترجمة معاني معتمدة · ${lang.$4} · موسوعة القرآن الكريم${lang.$6 ? '' : ' · نص فقط، بلا تسجيل صوتي'}',
+              'Approved translation of the meanings · ${lang.$3} · QuranEnc${lang.$6 ? '' : ' · text only, no recording'}',
+            ),
             style: BText.label(11.5, color: BColors.goldDeep, weight: FontWeight.w600),
           ),
           if (title != null) Text(title, style: BText.label(11, weight: FontWeight.w400), textDirection: TextDirection.ltr),
@@ -308,17 +296,91 @@ class _MeaningBox extends StatelessWidget {
                 style: BText.body(14, height: 1.6),
               ),
             ),
+          _LibraryItems(iso: lang.$2, rtl: lang.$5),
           Align(
             alignment: AlignmentDirectional.centerStart,
             child: TextButton.icon(
               onPressed: () => launchUrl(Uri.parse('https://islamhouse.com/${lang.$2}/main/'), mode: LaunchMode.externalApplication),
               icon: const Icon(Icons.local_library_outlined, size: 16, color: BColors.goldDeep),
               label: Text(
-                context.tr('تعلّم أكثر بلغتك: مكتبة دار الإسلام', 'Learn more in your language: IslamHouse library'),
+                context.tr('تعلّم أكثر بلغتك: مكتبة دار الإسلام كاملة', 'Learn more in your language: the whole IslamHouse library'),
                 style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The association's introductions to Islam on IslamHouse in a language
+/// (`/api/islamhouse`, through its MCP server).
+final _libraryProvider = FutureProvider.family<List<Map<String, dynamic>>, String>((ref, iso) async {
+  try {
+    final res = await http.get(Uri.parse('${AppConfig.apiBase}/api/islamhouse?lang=$iso')).timeout(const Duration(seconds: 30));
+    if (res.statusCode != 200) return const [];
+    return ((jsonDecode(utf8.decode(res.bodyBytes)) as Map)['items'] as List).cast<Map<String, dynamic>>();
+  } on Exception {
+    return const [];
+  }
+});
+
+class _LibraryItems extends ConsumerWidget {
+  const _LibraryItems({required this.iso, required this.rtl});
+
+  final String iso;
+  final bool rtl;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(_libraryProvider(iso)).valueOrNull ?? const [];
+    if (items.isEmpty) return const SizedBox.shrink();
+    return Container(
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 4),
+      decoration: BoxDecoration(color: BColors.sand.withValues(alpha: .5), borderRadius: BorderRadius.circular(12)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            context.tr(
+              'من مكتبة دار الإسلام بلغتك: إصدارات الفريق العلمي لجمعية خدمة المحتوى الإسلامي باللغات',
+              'From the IslamHouse library in your language: published by the scientific team of the association',
+            ),
+            style: BText.label(11.5, color: BColors.goldDeep, weight: FontWeight.w600),
+          ),
+          for (final i in items.take(3))
+            InkWell(
+              onTap: () => launchUrl(Uri.parse(i['url'] as String), mode: LaunchMode.externalApplication),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(
+                  children: [
+                    Icon(
+                      switch (i['type']) {
+                        'audios' => Icons.headphones_rounded,
+                        'videos' => Icons.ondemand_video_rounded,
+                        _ => Icons.menu_book_rounded,
+                      },
+                      size: 16,
+                      color: BColors.goldDeep,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        i['title'] as String,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+                        style: BText.body(13, height: 1.5).copyWith(decoration: TextDecoration.underline, decorationColor: BColors.goldDeep.withValues(alpha: .4)),
+                      ),
+                    ),
+                    const Icon(Icons.open_in_new_rounded, size: 14, color: BColors.textFaint),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

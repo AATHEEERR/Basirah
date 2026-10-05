@@ -7,6 +7,7 @@ import 'answer_cache.dart';
 import 'guard.dart';
 import 'hadith.dart';
 import 'llm.dart';
+import 'meaning.dart';
 import 'prompt.dart';
 import 'quran.dart';
 import 'tafsir.dart';
@@ -42,8 +43,12 @@ class PipelineResult {
 
 /// Question → answer.
 ///
-/// 1. The answer language is the question's language (Arabic or English);
-///    the matching knowledge base (Arabic master or English overlay) is used.
+/// 1. The answer language is the question's language ([detectLanguage]).
+///    Arabic and English use the matching knowledge base (Arabic master or
+///    English overlay); any other language is answered live in that
+///    language, from the English overlay, with each verse's approved
+///    translation in that language (QuranEnc) and each hadith's (HadeethEnc)
+///    when they exist.
 /// 2. Clearly non-Islamic questions are declined deterministically, before
 ///    any model call.
 /// 3. Live mode: the research agent (search the Quran, read the tafsir in
@@ -66,6 +71,7 @@ class AskPipeline {
     TafsirSource? tafsir,
     this.hadith,
     this.cache,
+    this.meaning,
     this.answerBudget = const Duration(seconds: 75),
     DateTime Function()? clock,
   }) : tafsir = tafsir ?? (quran == null ? null : DorarTafsir()),
@@ -95,6 +101,9 @@ class AskPipeline {
   /// Saved live answers ([AnswerCache]); null = always research afresh
   /// (as the evaluation does).
   final AnswerCache? cache;
+
+  /// Approved translations of the meanings, for answers in other languages.
+  final MeaningSource? meaning;
 
   /// The longest a live answer may take, all models included. Past it the
   /// stored answer is shown, with a notice, instead of a longer wait.
@@ -132,13 +141,19 @@ class AskPipeline {
     List<Turn> history = const [],
     AskerContext asker = AskerContext.none,
   }) async {
-    final lang = questionLang(question);
+    // Arabic and English answers use their own knowledge base; any other
+    // language is answered in that language from the English one.
+    final answerLang = detectLanguage(question);
+    final other = answerLang != 'ar' && answerLang != 'en';
+    final lang = other ? 'en' : questionLang(question);
     final router = routerFor(lang);
     final previous = history.isEmpty ? null : history.last.question;
     final routed = router.route(question, categoryId: categoryId, previousQuestion: previous);
 
-    // Clearly not about Islam: declined without calling the model.
-    if (routed.offTopic) {
+    // Clearly not about Islam: declined without calling the model. (The
+    // word lists are Arabic and English: in another language the model
+    // judges the scope, under the same rules.)
+    if (routed.offTopic && !other) {
       return PipelineResult(answer: routed.answer, via: Via.scope);
     }
 
@@ -175,6 +190,7 @@ class AskPipeline {
       categoryTitle: categoryId == null ? null : kb.category(categoryId)?.title,
       history: history,
       lang: lang,
+      answerLanguage: other ? languageName(answerLang) : null,
       asker: asker,
     ) + (preread.isEmpty ? '' : buildPrereadBlock(quran!, preread, lang: lang));
 
@@ -188,7 +204,7 @@ class AskPipeline {
       try {
         final AgentOutcome outcome;
         try {
-          outcome = await agent.run(userTurn, lang: lang, preread: preread).timeout(left);
+          outcome = await agent.run(userTurn, lang: lang, answerLang: other ? answerLang : null, preread: preread).timeout(left);
         } on TimeoutException {
           return PipelineResult(
             answer: routed.answer,
@@ -197,7 +213,16 @@ class AskPipeline {
             guardActions: [...skipped, 'time budget reached (${answerBudget.inSeconds} s)'],
           );
         }
-        final finished = _finish(outcome, question, router, signals, hits);
+        var finished = _finish(outcome, question, router, signals, hits);
+        if (other) {
+          finished = PipelineResult(
+            answer: await _localize(finished.answer, answerLang),
+            via: finished.via,
+            notice: finished.notice,
+            guardActions: finished.guardActions,
+            usage: finished.usage,
+          );
+        }
         // What the guard did travels with the answer («إيصال بصيرة»).
         final result = finished.guardActions.isEmpty
             ? finished
@@ -282,6 +307,42 @@ class AskPipeline {
       if (text != null) out[k] = text;
     }
     return out;
+  }
+
+  /// An answer in [iso] (neither Arabic nor English): each verse gets its
+  /// approved translation of the meaning in that language (QuranEnc) and
+  /// each HadeethEnc hadith its approved translation, when they exist;
+  /// otherwise the English ones stay.
+  Future<BasirahAnswer> _localize(BasirahAnswer a, String iso) async {
+    if (iso == 'und') return a;
+    final language = meaningLanguages.where((l) => l.iso == iso).firstOrNull;
+    final title = language == null ? null : await meaning?.title(language);
+    final evidence = <Evidence>[];
+    for (final e in a.evidence) {
+      if (e.isQuran && language != null && meaning != null && e.surah != null) {
+        final texts = <String>[];
+        for (final k in e.verseKeys) {
+          final v = await meaning!.verse(e.surah!, int.parse(k.split(':')[1]), language);
+          if (v == null) break;
+          texts.add(v.text);
+        }
+        evidence.add(
+          texts.length == e.verseKeys.length && texts.isNotEmpty
+              ? e.copyWith(translation: texts.join(' '), translationSource: title ?? 'QuranEnc · ${language.native}')
+              : e,
+        );
+      } else if (!e.isQuran && hadith != null && RegExp(r'^he:(d+)$').hasMatch(e.id)) {
+        final local = await hadith!.get(e.id.substring(3), iso);
+        evidence.add(
+          local == null || local.text.trim().isEmpty
+              ? e
+              : e.copyWith(translation: local.text, translationSource: 'Approved translation — HadeethEnc (${languageName(iso)})'),
+        );
+      } else {
+        evidence.add(e);
+      }
+    }
+    return a.copyWith(evidence: evidence);
   }
 
   /// A research outcome → the guarded answer.

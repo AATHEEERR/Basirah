@@ -51,8 +51,11 @@ class AskService {
     final local = router.route(question, categoryId: categoryId, previousQuestion: previous);
     AskOutcome stored(AskNotice notice) => AskOutcome(answer: local.answer, notice: notice);
 
-    // Clearly not about Islam: declined right away, same rule as the server.
-    if (local.offTopic) return AskOutcome(answer: local.answer);
+    // Clearly not about Islam: declined right away, same rule as the server
+    // (whose word lists are Arabic and English: a question in another
+    // language goes to the server, where the model judges the scope).
+    final otherLanguage = !const {'ar', 'en'}.contains(detectLanguage(question));
+    if (local.offTopic && !otherLanguage) return AskOutcome(answer: local.answer);
     if (!AppConfig.hasApi) return stored(AskNotice.noServer);
 
     try {
@@ -87,11 +90,20 @@ class AskService {
 
 /// Server capabilities from `/health`.
 class ServerStatus {
-  const ServerStatus({required this.reachable, required this.ai, this.model, this.quranVerses = 0});
+  const ServerStatus({
+    required this.reachable,
+    required this.ai,
+    this.model,
+    this.models = const [],
+    this.quranVerses = 0,
+  });
 
   final bool reachable;
   final bool ai;
   final String? model;
+
+  /// The models in the order they are tried (the first, then fallbacks).
+  final List<String> models;
   final int quranVerses;
 }
 
@@ -105,6 +117,7 @@ final serverStatusProvider = FutureProvider<ServerStatus>((ref) async {
       reachable: true,
       ai: j['ai'] == true,
       model: j['model'] as String?,
+      models: [for (final m in (j['models'] as List? ?? const [])) '$m'],
       quranVerses: (j['quranVerses'] as int?) ?? 0,
     );
   } on Exception {

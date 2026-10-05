@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/theme.dart';
 import '../../core/lang.dart';
+import '../../core/referral.dart';
 import '../../core/state.dart';
 import '../../shared/lang_toggle.dart';
 import '../../shared/patterns.dart';
@@ -130,6 +131,71 @@ class LibraryScreen extends ConsumerWidget {
                               Text(context.tr('لوحة الأثر', 'Impact board'), style: BText.title(14.5, weight: FontWeight.w500)),
                               Text(
                                 context.tr('أرقام الاستخدام ورضا المستخدمين، دون حفظ أي سؤال', 'Usage and ratings in numbers, with no question stored'),
+                                style: BText.label(12, weight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                sliver: SliverToBoxAdapter(
+                  child: SoftCard(
+                    onTap: () => context.push('/baseline'),
+                    glow: Tones.refer.top,
+                    padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                    child: Row(
+                      children: [
+                        IconBubble(icon: Icons.compare_arrows_rounded, color: Tones.refer.accent, fill: Tones.refer.top, size: 42),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(context.tr('المقارنة المرجعية', 'Baseline comparison'), style: BText.title(14.5, weight: FontWeight.w500)),
+                              Text(
+                                context.tr('نفس النموذج: روبوت عام مقابل بصيرة، على الأسئلة نفسها', 'Same model: a general chatbot vs Basirah, on the same questions'),
+                                style: BText.label(12, weight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                sliver: SliverToBoxAdapter(
+                  child: SoftCard(
+                    onTap: () => context.push('/referrals'),
+                    glow: Tones.guidance.top,
+                    padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                    child: Row(
+                      children: [
+                        IconBubble(icon: Icons.support_agent_rounded, color: Tones.guidance.accent, fill: Tones.guidance.top, size: 42),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(context.tr('طلباتي مع المختص', 'My requests to a specialist'), style: BText.title(14.5, weight: FontWeight.w500)),
+                              Text(
+                                context.tr(
+                                  ref.watch(myReferralsProvider).isEmpty
+                                      ? 'رسائلك ومواعيدك مع المختص الشرعي'
+                                      : '${ref.watch(myReferralsProvider).length} · رسائلك ومواعيدك مع المختص الشرعي',
+                                  ref.watch(myReferralsProvider).isEmpty
+                                      ? 'Your messages and appointments with a Sharia specialist'
+                                      : '${ref.watch(myReferralsProvider).length} · your messages and appointments with a Sharia specialist',
+                                ),
                                 style: BText.label(12, weight: FontWeight.w400),
                               ),
                             ],

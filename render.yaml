@@ -35,3 +35,10 @@ services:
       # The counts gathered on the temporary link, continued once.
       - key: METRICS_SEED
         value: /app/seed/metrics.jsonl
+      # Requests to a Sharia specialist, kept 30 days on the same disk.
+      - key: REFERRALS_FILE
+        value: /data/referrals.json
+      # Opens the specialists' panel (/#/specialist): paste the same key as
+      # in server/.env when Render asks.
+      - key: SPECIALIST_KEY
+        sync: false

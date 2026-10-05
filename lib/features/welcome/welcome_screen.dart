@@ -64,7 +64,7 @@ class WelcomeScreen extends StatelessWidget {
                 const Align(alignment: AlignmentDirectional.centerEnd, child: LangToggle(color: BColors.surface)),
                 const Center(child: BrandLogo(size: 88, tile: true)),
                 const SizedBox(height: 14),
-                Center(child: Text(context.tr('بصيرة', 'Basirah'), style: BText.brand(context.isEn ? 38 : 44))),
+                Center(child: Wordmark(style: BText.brand(context.isEn ? 38 : 44))),
                 const SizedBox(height: 2),
                 Text(
                   context.tr('رفيقك في أسئلة الإسلام الأولى', 'Your companion for your first questions about Islam'),

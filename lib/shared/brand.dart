@@ -126,6 +126,66 @@ class _BrandLogoState extends State<BrandLogo> with SingleTickerProviderStateMix
   }
 }
 
+/// The name «بصيرة» in the brand font ([style]), with the two dots of its
+/// last letter drawn one above the other: Reem Kufi joins them into a single
+/// dash. In English it is the plain word «Basirah».
+class Wordmark extends StatelessWidget {
+  const Wordmark({super.key, required this.style, this.lang});
+
+  final TextStyle style;
+
+  /// The language to write it in; the interface's when null.
+  final String? lang;
+
+  @override
+  Widget build(BuildContext context) {
+    if ((lang ?? context.lang) == 'en') return Text('Basirah', style: style);
+    // The word is a real Text (laid out again when the web font arrives);
+    // the dots are painted over it, measured at paint time, so they follow.
+    return Semantics(
+      label: 'بصيرة',
+      child: ExcludeSemantics(
+        child: Stack(
+          children: [
+            // «ه» is «ة» without its dots.
+            Text('بصيره', style: style, textDirection: TextDirection.rtl),
+            Positioned.fill(child: CustomPaint(painter: _DotsPainter(style))),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The two dots of the final «ة», one above the other.
+class _DotsPainter extends CustomPainter {
+  _DotsPainter(this.style);
+
+  final TextStyle style;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final text = TextPainter(text: TextSpan(text: 'بصيره', style: style), textDirection: TextDirection.rtl)..layout();
+    final fs = style.fontSize ?? 24;
+    final letter = text.getBoxesForSelection(const TextSelection(baseOffset: 4, extentOffset: 5)).first;
+    final baseline = text.computeDistanceToActualBaseline(TextBaseline.alphabetic);
+    text.dispose();
+    final side = fs * .118;
+    final gap = fs * .05;
+    final cx = (letter.left + letter.right) / 2;
+    final paint = Paint()..color = style.color ?? const Color(0xFF18171C);
+    final radius = Radius.circular(side * .18);
+    for (var i = 0; i < 2; i++) {
+      final bottom = baseline - fs * .6 - i * (side + gap);
+      canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(cx - side / 2, bottom - side, side, side), radius), paint);
+    }
+  }
+
+  /// Always: the font may have arrived since the last paint.
+  @override
+  bool shouldRepaint(_DotsPainter old) => true;
+}
+
 /// The sparkle mark in a square: a four-point star with concave sides
 /// (x = r·sgn(cos θ)|cos θ|ⁿ, y = r·sgn(sin θ)|sin θ|ⁿ) and two small
 /// companions, top-start and bottom-end, as in the original artwork.

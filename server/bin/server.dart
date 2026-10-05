@@ -17,6 +17,8 @@ import 'package:shelf_router/shelf_router.dart';
 ///   ALLOWED_ORIGIN     CORS origin, default *
 ///   WEB_DIR            optional: the web app's build, served on the same link
 ///   METRICS_FILE       anonymous usage + ratings (default cache/metrics.jsonl)
+///   REFERRALS_FILE     requests to a specialist (default cache/referrals.json)
+///   SPECIALIST_KEY     opens the specialists' panel (16+ characters; closed without it)
 ///   PORT               default 8080
 Future<void> main() async {
   final env = loadEnv();
@@ -36,12 +38,24 @@ Future<void> main() async {
 
   final llms = llmsFromEnv(env);
   final llm = llms.firstOrNull;
-  final pipeline = AskPipeline(kb, llm: llm, fallbacks: llms.skip(1).toList(), quran: quran, hadith: HadeethEnc(), cache: AnswerCache());
+  final meaning = MeaningSource();
+  final pipeline = AskPipeline(
+    kb,
+    llm: llm,
+    fallbacks: llms.skip(1).toList(),
+    quran: quran,
+    hadith: HadeethEnc(),
+    cache: AnswerCache(),
+    meaning: meaning,
+  );
   final limiter = RateLimiter();
   final verseAudio = VerseAudioSource();
-  final meaning = MeaningSource();
+  final library = IslamHouseLibrary();
   final origin = env['ALLOWED_ORIGIN'] ?? '*';
   final metrics = Metrics(file: env['METRICS_FILE'] ?? 'cache/metrics.jsonl');
+  final referrals = Referrals(file: env['REFERRALS_FILE'] ?? 'cache/referrals.json');
+  // Without a key of at least 16 characters the specialists' panel is closed.
+  final specialistKey = (env['SPECIALIST_KEY'] ?? '').length >= 16 ? env['SPECIALIST_KEY'] : null;
   // A new server (e.g. the first start on Render) continues the counts
   // gathered so far (METRICS_SEED: anonymous counts only, kept in git).
   if (env['METRICS_SEED'] case final seed? when metrics.seedFrom(seed)) {
@@ -86,6 +100,16 @@ Future<void> main() async {
         'title': await meaning.title(lang),
         'verses': [for (final v in verses) v!.toJson()],
         'languages': languages,
+      });
+    })
+    // «تعلّم أكثر بلغتك»: the association's own introductions to Islam on
+    // IslamHouse in a language, via its MCP server: GET /api/islamhouse?lang=fr
+    ..get('/api/islamhouse', (Request req) async {
+      final iso = req.url.queryParameters['lang'] ?? '';
+      final items = await library.forLanguage(iso);
+      return _json({
+        'items': [for (final i in items) i.toJson()],
+        'library': 'https://islamhouse.com/$iso/main/',
       });
     })
     // Verse recitation, one MP3 per verse from the association's MCP server:
@@ -205,7 +229,58 @@ Future<void> main() async {
       }
     })
     // «لوحة الأثر»: totals only.
-    ..get('/api/stats', (Request _) => _json(metrics.summary()));
+    ..get('/api/stats', (Request _) => _json(metrics.summary()))
+    // «تحدّث مع مختص شرعي»: the asker sends what they approved; they read
+    // the reply back with the token kept on their device.
+    ..post('/api/referral', (Request req) async {
+      if (!limiter.allow('referral:${_ip(req)}')) return _json({'error': 'rate_limited'}, status: 429);
+      try {
+        final b = jsonDecode(await req.readAsString()) as Map<String, dynamic>;
+        if (b['consent'] != true) return _json({'error': 'consent'}, status: 400);
+        final r = referrals.create(
+          question: b['question'] as String? ?? '',
+          conversation: b['conversation'] as String? ?? '',
+          context: b['context'] as String? ?? '',
+          lang: b['lang'] as String? ?? 'ar',
+          mode: b['mode'] as String? ?? 'message',
+          slot: b['slot'] == null ? null : DateTime.tryParse(b['slot'] as String),
+        );
+        if (r == null) return _json({'error': 'invalid'}, status: 400);
+        stdout.writeln(jsonEncode({'t': DateTime.now().toUtc().toIso8601String(), 'referral': r['mode']}));
+        return _json({'id': r['id'], 'token': r['token'], 'meetUrl': r['meetUrl'], 'slot': r['slot']});
+      } on Object {
+        return _json({'error': 'invalid'}, status: 400);
+      }
+    })
+    ..get('/api/referral/<id>', (Request req, String id) {
+      final r = referrals.forAsker(id, req.url.queryParameters['token'] ?? '');
+      return r == null ? _json({'error': 'not_found'}, status: 404) : _json(r);
+    })
+    ..post('/api/referral/<id>/message', (Request req, String id) async {
+      if (!limiter.allow('referral:${_ip(req)}')) return _json({'error': 'rate_limited'}, status: 429);
+      try {
+        final b = jsonDecode(await req.readAsString()) as Map<String, dynamic>;
+        final ok = referrals.askerMessage(id, b['token'] as String? ?? '', b['text'] as String? ?? '');
+        return ok ? _json({'ok': true}) : _json({'error': 'invalid'}, status: 400);
+      } on Object {
+        return _json({'error': 'invalid'}, status: 400);
+      }
+    })
+    // The specialists' panel: only with the SPECIALIST_KEY header.
+    ..get('/api/specialist/referrals', (Request req) {
+      if (!_specialist(req, specialistKey)) return _json({'error': 'forbidden'}, status: 403);
+      return _json({'referrals': referrals.all()});
+    })
+    ..post('/api/specialist/referrals/<id>', (Request req, String id) async {
+      if (!_specialist(req, specialistKey)) return _json({'error': 'forbidden'}, status: 403);
+      try {
+        final b = jsonDecode(await req.readAsString()) as Map<String, dynamic>;
+        final ok = referrals.reply(id, text: b['text'] as String? ?? '', status: b['status'] as String?);
+        return ok ? _json({'ok': true}) : _json({'error': 'invalid'}, status: 400);
+      } on Object {
+        return _json({'error': 'invalid'}, status: 400);
+      }
+    });
 
   // One deployment can serve the web app too (WEB_DIR = the Flutter web
   // build): every path the API does not answer is a file of the app.
@@ -222,6 +297,22 @@ Future<void> main() async {
   );
 }
 
+String _ip(Request req) =>
+    req.headers['x-forwarded-for']?.split(',').first.trim() ??
+    (req.context['shelf.io.connection_info'] as HttpConnectionInfo?)?.remoteAddress.address ??
+    'unknown';
+
+/// The specialists' panel sends the key in `x-specialist-key`.
+bool _specialist(Request req, String? key) {
+  final given = req.headers['x-specialist-key'] ?? '';
+  if (key == null || given.length != key.length) return false;
+  var diff = 0;
+  for (var i = 0; i < key.length; i++) {
+    diff |= key.codeUnitAt(i) ^ given.codeUnitAt(i);
+  }
+  return diff == 0;
+}
+
 Response _json(Object body, {int status = 200}) =>
     Response(status, body: jsonEncode(body), headers: {'content-type': 'application/json; charset=utf-8'});
 
@@ -229,7 +320,7 @@ Middleware _cors(String origin) {
   final headers = {
     'access-control-allow-origin': origin,
     'access-control-allow-methods': 'GET, POST, OPTIONS',
-    'access-control-allow-headers': 'content-type',
+    'access-control-allow-headers': 'content-type, x-specialist-key',
     'access-control-max-age': '86400',
     // Not for search engines: the link is shared by hand only.
     'x-robots-tag': 'noindex, nofollow',

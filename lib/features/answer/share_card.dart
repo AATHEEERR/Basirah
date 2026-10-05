@@ -151,7 +151,7 @@ class ShareCard extends StatelessWidget {
               children: [
                 const BrandLogo(size: 30, tile: true),
                 const SizedBox(width: 8),
-                Text(_t('بصيرة', 'Basirah'), style: BText.brand(22)),
+                Wordmark(style: BText.brand(22), lang: lang),
                 const Spacer(),
                 Text(_t('إجابة موثّقة المصدر', 'A sourced answer'), style: BText.label(11.5, color: BColors.goldDeep)),
               ],

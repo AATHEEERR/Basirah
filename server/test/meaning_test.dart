@@ -15,10 +15,26 @@ void main() {
 
   test('every language has its audio file name and IslamHouse page', () {
     expect(MeaningSource.audioUrl('tagalog_rwwad', 2, 186), 'https://d.quranenc.com/data/audio/tagalog_rwwad/002186.mp3');
-    expect(meaningLanguages.map((l) => l.key).toSet(), hasLength(13));
+    expect(meaningLanguages.map((l) => l.key).toSet(), hasLength(25));
+    expect(meaningLanguages.map((l) => l.iso).toSet(), hasLength(25));
+    // 13 with a recorded voice, 12 text only.
+    expect(meaningLanguages.where((l) => l.audio), hasLength(13));
     for (final l in meaningLanguages) {
       expect(l.toJson()['islamhouse'], 'https://islamhouse.com/${l.iso}/main/');
     }
+  });
+
+  test('a text-only language plays no voice', () async {
+    final tmp = Directory.systemTemp.createTempSync('basirah_meaning');
+    addTearDown(() => tmp.deleteSync(recursive: true));
+    final source = MeaningSource(
+      cacheDir: tmp.path,
+      client: MockClient((req) async => http.Response.bytes(utf8.encode(jsonEncode({'result': {'translation': 'Aur jab'}})), 200)),
+    );
+    final ur = meaningLanguages.firstWhere((l) => l.iso == 'ur');
+    final v = await source.verse(2, 186, ur);
+    expect(v!.audio, isNull);
+    expect(v.toJson().containsKey('audio'), isFalse);
   });
 
   test('reads the approved translation once, then from the cache', () async {

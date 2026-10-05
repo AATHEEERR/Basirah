@@ -45,7 +45,6 @@ class _AskScreenState extends ConsumerState<AskScreen> {
     'أسلمت وزوجي غير مسلم، ما حكم زواجنا؟',
     'هل تغطية الوجه واجبة؟',
     'أعطني حديثاً يثبت أن من أسلم يوم الجمعة يدخل الجنة',
-    'What does Sharia mean?',
   ];
 
   static const _suggestionsEn = [
@@ -55,7 +54,6 @@ class _AskScreenState extends ConsumerState<AskScreen> {
     'I became Muslim and my husband is not Muslim. What about our marriage?',
     'Is covering the face obligatory?',
     'Give me a hadith proving that whoever becomes Muslim on a Friday enters Paradise',
-    'ما معنى الشريعة؟',
   ];
 
   @override
@@ -242,8 +240,8 @@ class _Header extends ConsumerWidget {
                 ),
               ),
               _HeaderButton(
-                icon: Icons.palette_outlined,
-                tooltip: context.tr('كيف تُجيب بصيرة؟', 'How does Basirah answer?'),
+                icon: Icons.help_outline_rounded,
+                tooltip: context.tr('كيف تُجيب بصيرة؟ خطوات الإجابة ومعنى ألوان البطاقات', 'How does Basirah answer? The steps, and what the card colours mean'),
                 onTap: () => showToneLegend(context),
               ),
               if (hasMessages)
@@ -345,8 +343,8 @@ class _EmptyState extends StatelessWidget {
               const SizedBox(height: 6),
               Text(
                 context.tr(
-                  'اكتب سؤالك عن الإسلام بالعربية أو بالإنجليزية. ستصلك الإجابة بلغة سؤالك في بطاقات ملوّنة مع أدلتها، أو إحالة إلى أهل العلم إن كانت حالتك شخصية.',
-                  'Ask your question about Islam in English or Arabic. The answer comes in the language of your question, as colour-coded cards with their evidence — or a referral to scholars if your case is personal.',
+                  'اكتب سؤالك عن الإسلام بلغتك: العربية أو الإنجليزية أو الفرنسية أو الأردية أو الإندونيسية أو غيرها. ستصلك الإجابة بلغة سؤالك في بطاقات ملوّنة مع أدلتها، ومعنى كل آية بترجمة معتمدة بلغتك إن وُجدت، أو إحالة إلى مختص شرعي إن كانت حالتك شخصية.',
+                  'Ask your question about Islam in your language: English, Arabic, French, Urdu, Indonesian or another. The answer comes in the language of your question, as colour-coded cards with their evidence and each verse’s meaning in an approved translation in your language when there is one — or a referral to a Sharia specialist if your case is personal.',
                 ),
                 style: BText.body(14, color: BColors.textMuted),
               ),

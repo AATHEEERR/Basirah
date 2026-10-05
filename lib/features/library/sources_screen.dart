@@ -39,8 +39,8 @@ class SourcesScreen extends StatelessWidget {
             _Heading(
               context.tr('مستويات المحتوى وضبط الاستجابة', 'Content levels and response control'),
               context.tr(
-                'كل سؤال يُصنَّف في أحد أربعة مستويات، ولكل مستوى طريقة تعامل ملزمة.',
-                'Every question falls into one of four levels, and each level has a binding way of handling it.',
+                'كل سؤال يُصنَّف في أحد أربعة مستويات، ولكل مستوى طريقة تعامل ثابتة.',
+                'Every question falls into one of four levels, and each level has a fixed way of handling it.',
               ),
             ),
             for (final l in kb.levels)
@@ -134,18 +134,23 @@ class SourcesScreen extends StatelessWidget {
                       _KV(item, text),
                       const SizedBox(height: 4),
                     ],
-                    const SizedBox(height: 6),
-                    Text(
-                      kb.pack.associationMcp,
-                      style: BText.label(12.5, color: BColors.goldDeep),
-                      textDirection: TextDirection.rtl,
-                    ),
                   ],
                 ),
               ),
             ],
             for (final section in {for (final p in kb.platforms) p.section}) ...[
               _Heading(section, null),
+              // «المصادر الآتية من إنتاج الجمعية…» introduces the association's
+              // own platforms.
+              if (section == kb.platforms.first.section && kb.pack.associationMcp.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(
+                    kb.pack.associationMcp,
+                    style: BText.label(13, color: BColors.goldDeep),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
               // The pack introduces the external platforms before their first
               // section.
               if (kb.platforms.firstWhere((p) => p.section == section).section == _firstExternal(kb) &&
@@ -161,10 +166,10 @@ class SourcesScreen extends StatelessWidget {
               for (final p in kb.platforms.where((p) => p.section == section)) _PlatformCard(p),
             ],
             _Heading(
-              context.tr('المعيار العلمي الملزم، وكيف نطبّقه', 'The binding scholarly standard, and how we apply it'),
+              context.tr('المعايير التي نتبعها، وكيف نطبّقها', 'The standards we follow, and how we apply them'),
               context.tr(
-                'ثمانية معايير تلتزم بها بصيرة في كل ما تعرضه، ومقابل كل معيار ما تفعله فعلاً.',
-                'Eight standards Basirah holds every output to, and next to each one what it actually does.',
+                'ثمانية معايير نتبعها في كل ما تعرضه بصيرة، ومقابل كل معيار ما تفعله فعلاً.',
+                'Eight standards we follow in everything Basirah shows, and next to each one what it actually does.',
               ),
             ),
             for (final st in kb.standards)
@@ -205,28 +210,11 @@ class SourcesScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            _Heading(context.tr('حالة المحتوى', 'Content status'), null),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: BColors.surface,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Text(
-                context.isEn
-                    ? 'The current knowledge base (${kb.entries.length} questions and ${kb.evidence.length} texts, version ${kb.version}) '
-                          'was prepared from the approved references above; every entry is marked “pending review” until it passes the team’s '
-                          'human review against the approved sources. Every verse is checked against the King Fahd Complex Mushaf, and every hadith '
-                          'and its grade against the Dorar.net hadith encyclopedia. English meanings of verses are from the Hilali & Khan '
-                          'translation (King Fahd Complex, via QuranEnc). Live answers cite hadith from HadeethEnc, with its approved '
-                          'translation; the English meanings of the stored hadith are the team’s translation, pending review.'
-                    : 'قاعدة المعرفة الحالية (${kb.entries.length} سؤالاً و${kb.evidence.length} دليلاً، الإصدار ${kb.version}) '
-                          'أُعدّت من المراجع المعتمدة أعلاه، وكل مدخل فيها مُعلَّم «بانتظار المراجعة» حتى تتم مراجعته بشرياً مقابل المصادر المعتمدة. '
-                          'يُراجَع نص كل آية على مصحف مجمع الملك فهد، وكل حديث ودرجته على الموسوعة الحديثية في الدرر السنية. '
-                          'وفي الإجابات الحية تُؤخذ الأحاديث من موسوعة الأحاديث النبوية بنصها ومصدرها وحكمها.',
-                style: BText.body(14, color: BColors.textMuted),
-              ),
+            _Heading(
+              context.tr('حالة المحتوى', 'Content status'),
+              context.tr('من أين يأتي كل نص في بصيرة، وما الذي روجع منه', 'Where every text in Basirah comes from, and what has been reviewed'),
             ),
+            _ContentStatus(kb: kb),
           ],
         ),
       ),
@@ -244,6 +232,93 @@ String? _firstExternal(KnowledgeBase kb) => kb.platforms
     .map((p) => p.section)
     .where((s) => s != kb.platforms.first.section && !s.contains('الحرمين'))
     .firstOrNull;
+
+/// «حالة المحتوى»: one row per kind of text, with where it comes from and
+/// its review state, counted from the knowledge base itself.
+class _ContentStatus extends StatelessWidget {
+  const _ContentStatus({required this.kb});
+
+  final KnowledgeBase kb;
+
+  @override
+  Widget build(BuildContext context) {
+    final reviewed = kb.entries.where((e) => e.review == 'reviewed').length;
+    final total = kb.entries.length;
+    final rows = [
+      (
+        Icons.menu_book_rounded,
+        Tones.evidence,
+        context.tr('نص الآيات', 'Verse text'),
+        context.tr(
+          'يُنسخ نص كل آية من مصحف مجمع الملك فهد كما تنشره موسوعة القرآن الكريم. النموذج يختار رقم الآية فقط ولا يكتب نصها.',
+          'Every verse is copied from the King Fahd Complex Mushaf as published by QuranEnc. The model only picks the verse number; it never writes its text.',
+        ),
+      ),
+      (
+        Icons.translate_rounded,
+        Tones.culture,
+        context.tr('معاني الآيات بغير العربية', 'Verse meanings in other languages'),
+        context.tr(
+          'من ترجمات المعاني المعتمدة في موسوعة القرآن الكريم، بنصها وصوتها، ولا يترجم النموذج آية بنفسه.',
+          'From QuranEnc’s approved translations of the meanings, text and voice; the model never translates a verse itself.',
+        ),
+      ),
+      (
+        Icons.format_quote_rounded,
+        Tones.guidance,
+        context.tr('الأحاديث', 'Hadith'),
+        context.tr(
+          'في الإجابات الحية من موسوعة الأحاديث النبوية بنصها ومصدرها وحكمها، ولا يُقبل إلا الصحيح والحسن. والأحاديث المحفوظة في القاعدة مذكورة بمصدرها ودرجتها، ومع كل منها رابط للتحقق في الموسوعة الحديثية في الدرر السنية.',
+          'In live answers, from HadeethEnc with its text, source and grading; only sahih and hasan are accepted. The hadith stored in the knowledge base carry their source and grading, each with a link to check it on Dorar.net.',
+        ),
+      ),
+      (
+        Icons.auto_stories_rounded,
+        Tones.principle,
+        context.tr('التفسير', 'Tafsir'),
+        context.tr(
+          'لا تستشهد بصيرة بآية قبل أن تقرأ تفسيرها في موسوعة التفسير في الدرر السنية، وتعرض كلام المفسر منفصلاً عن الآية.',
+          'Basirah cites no verse before reading its tafsir in Dorar.net’s encyclopedia, and shows the mufassir’s words apart from the verse.',
+        ),
+      ),
+      (
+        Icons.fact_check_rounded,
+        Tones.refer,
+        context.tr('المراجعة البشرية', 'Human review'),
+        context.tr(
+          'قاعدة المعرفة (الإصدار ${String.fromCharCode(0x2066)}${kb.version}${String.fromCharCode(0x2069)}): $total سؤالاً و${kb.evidence.length} دليلاً، كتب الفريق شروحها من المراجع أعلاه. روجع منها بشرياً $reviewed من $total، والباقي يظهر عليه «بانتظار المراجعة» حتى يُراجَع.',
+          'Knowledge base (version ${kb.version}): $total questions and ${kb.evidence.length} texts, explained by the team from the references above. $reviewed of $total have been human-reviewed; the rest show “pending review” until they are.',
+        ),
+      ),
+    ];
+    return _Panel(
+      child: Column(
+        children: [
+          for (final (i, (icon, tone, title, body)) in rows.indexed) ...[
+            if (i > 0) const Divider(height: 22, color: BColors.stroke),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconBubble(icon: icon, color: tone.accent, fill: tone.top, size: 36),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title, style: BText.title(14.5, color: tone.accent)),
+                      const SizedBox(height: 2),
+                      Text(body, style: BText.body(13.5, color: BColors.textMuted, height: 1.7)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
 
 class _Panel extends StatelessWidget {
   const _Panel({required this.child});

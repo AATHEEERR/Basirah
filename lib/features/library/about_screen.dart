@@ -1,9 +1,13 @@
+import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/theme.dart';
+import '../../core/ask_service.dart';
 import '../../core/lang.dart';
 import '../../core/config.dart';
 import '../../core/kb_provider.dart';
+import '../../core/meaning.dart';
 import '../../shared/brand.dart';
 import '../../shared/widgets.dart';
 import 'page_scaffold.dart';
@@ -95,27 +99,143 @@ class AboutScreen extends StatelessWidget {
               _Block(
                 title: context.tr('الخصوصية', 'Privacy'),
                 body: context.tr(
-                  'لا تسجيل دخول ولا حسابات. لا يحفظ خادم بصيرة نص أسئلتك، ويسجّل فقط بيانات تشغيلية عامة (نوع الإجابة ومستواها وزمنها). '
-                      'لتوليد الإجابة الحية يُرسَل السؤال إلى مزوّد نموذج الذكاء الاصطناعي (Google Gemini أو Anthropic Claude) وفق شروطه؛ '
+                  'لا تسجيل دخول ولا حسابات. لا يحفظ خادم بصيرة نص أسئلتك، ويسجّل فقط أعداداً عامة (نوع الإجابة ومستواها وزمنها) لـ«لوحة الأثر». '
+                      'لتوليد الإجابة الحية يُرسَل السؤال إلى مزوّد النموذج: Anthropic (Claude)، ثم Google (Gemini) إن تعذّر الأول، وفق شروط كل منهما؛ '
                       'وفي الفئة المجانية من Gemini قد تستخدم Google المحتوى لتحسين منتجاتها. '
+                      'وإذا طلبت التحدث مع مختص شرعي، لا يُرسَل إلا ما توافق عليه وتراه قبل الإرسال، ويُحذف من الخادم بعد 30 يوماً. '
                       'المحفوظات تبقى على جهازك وحدك. لا تكتب بيانات شخصية في سؤالك.',
-                  'No sign-in and no accounts. The Basirah server does not store the text of your questions; it only logs general '
-                      'operational data (answer type, level and time). To produce a live answer, the question is sent to the AI model '
-                      'provider (Google Gemini or Anthropic Claude) under its terms; on the Gemini free tier, Google may use the content '
-                      'to improve its products. Saved answers stay on your device. Do not write personal data in your question.',
+                  'No sign-in and no accounts. The Basirah server does not store the text of your questions; it only keeps general '
+                      'counts (answer type, level and time) for the impact board. To produce a live answer, the question is sent to the '
+                      'model provider: Anthropic (Claude), then Google (Gemini) if the first is unavailable, under each one’s terms; on the '
+                      'Gemini free tier, Google may use the content to improve its products. If you ask to talk to a specialist, only what '
+                      'you approve, and see before sending, is sent, and it is deleted from the server after 30 days. Saved answers stay on '
+                      'your device. Do not write personal data in your question.',
                 ),
               ),
-              _Block(
-                title: context.tr('معلومات تقنية', 'Technical information'),
-                body: en
-                    ? 'Version ${AppConfig.version} · knowledge base ${kb.version} (${kb.entries.length} questions, ${kb.evidence.length} texts)\n'
-                          'Connection: ${AppConfig.hasApi ? 'Basirah server (AI model restricted to the references)' : 'local references on the device'}'
-                    : 'الإصدار ${AppConfig.version} · قاعدة المعرفة ${kb.version} (${kb.entries.length} سؤالاً، ${kb.evidence.length} دليلاً)\n'
-                          'وضع الاتصال: ${AppConfig.hasApi ? 'متصل بخادم بصيرة (نموذج ذكاء اصطناعي مقيّد بالمراجع)' : 'المراجع المحلية على الجهاز'}',
-              ),
+              _TechBlock(kb: kb),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+/// «Claude Sonnet 5.5» from `claude-sonnet-5-5`, «Gemini 3.5 Flash» from
+/// `gemini-3.5-flash`.
+String modelName(String id) {
+  final parts = id.split('-');
+  final words = <String>[];
+  final digits = <String>[];
+  for (final p in parts) {
+    if (RegExp(r'^\d+(\.\d+)?$').hasMatch(p)) {
+      digits.add(p);
+    } else {
+      if (digits.isNotEmpty) {
+        words.add(digits.join('.'));
+        digits.clear();
+      }
+      words.add(p.isEmpty ? p : p[0].toUpperCase() + p.substring(1));
+    }
+  }
+  if (digits.isNotEmpty) words.add(digits.join('.'));
+  return words.join(' ');
+}
+
+/// «معلومات تقنية»: what is actually running, read from the server's
+/// `/health` (models, verses) and from the app itself, so it always matches.
+class _TechBlock extends ConsumerWidget {
+  const _TechBlock({required this.kb});
+
+  final KnowledgeBase kb;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final server = ref.watch(serverStatusProvider).valueOrNull;
+    final reviewed = kb.entries.where((e) => e.review == 'reviewed').length;
+    // The version reads left to right inside Arabic text.
+    String ltr(String s) => '${String.fromCharCode(0x2066)}$s${String.fromCharCode(0x2069)}';
+    // Claude by name; the Gemini fallbacks as one last resort.
+    final ids = server?.models ?? const <String>[];
+    final models = [
+      for (final m in ids)
+        if (!m.startsWith('gemini')) modelName(m),
+      if (ids.any((m) => m.startsWith('gemini'))) 'Gemini',
+    ];
+    final rows = [
+      (context.tr('إصدار التطبيق', 'App version'), ltr(AppConfig.version)),
+      (
+        context.tr('قاعدة المعرفة', 'Knowledge base'),
+        context.tr(
+          'الإصدار ${ltr(kb.version)} · ${kb.entries.length} سؤالاً · ${kb.evidence.length} دليلاً · روجع بشرياً: $reviewed من ${kb.entries.length}',
+          'version ${kb.version} · ${kb.entries.length} questions · ${kb.evidence.length} texts · human-reviewed: $reviewed of ${kb.entries.length}',
+        ),
+      ),
+      if (server?.reachable ?? false) ...[
+        (
+          context.tr('نص المصحف', 'Mushaf text'),
+          context.tr(
+            '${server!.quranVerses} آية من موسوعة القرآن الكريم (مصحف مجمع الملك فهد)',
+            '${server.quranVerses} verses from QuranEnc (the King Fahd Complex Mushaf)',
+          ),
+        ),
+        if (models.isNotEmpty)
+          (
+            context.tr('نموذج الذكاء الاصطناعي', 'AI model'),
+            models.length == 1
+                ? ltr(models.first)
+                : context.tr(
+                    '${ltr(models.first)}، وعند تعذّره: ${models.skip(1).map(ltr).join(' ثم ')}',
+                    '${models.first}; if unavailable: ${models.skip(1).join(', then ')}',
+                  ),
+          ),
+        (
+          context.tr('المصادر الحية', 'Live sources'),
+          context.tr(
+            'خادم MCP لجمعية خدمة المحتوى الإسلامي باللغات (موسوعة القرآن الكريم، وموسوعة الأحاديث النبوية، ودار الإسلام)، وموسوعة التفسير في الدرر السنية',
+            'The MCP server of the association serving Islamic content in languages (QuranEnc, HadeethEnc, IslamHouse), and Dorar.net’s tafsir encyclopedia',
+          ),
+        ),
+      ],
+      (
+        context.tr('معنى الآية بلغتك', 'Verse meaning in your language'),
+        context.tr(
+          '${meaningLanguages.length} لغة من ترجمات موسوعة القرآن الكريم المعتمدة، منها ${meaningLanguages.where((l) => l.$6).length} بصوت مسجَّل',
+          '${meaningLanguages.length} languages from QuranEnc’s approved translations, ${meaningLanguages.where((l) => l.$6).length} with a recorded voice',
+        ),
+      ),
+      (
+        context.tr('الاتصال', 'Connection'),
+        !AppConfig.hasApi
+            ? context.tr('المراجع المحلية على الجهاز', 'Local references on the device')
+            : server == null
+            ? '…'
+            : server.reachable
+            ? context.tr('متصل بخادم بصيرة', 'Connected to the Basirah server')
+            : context.tr('الخادم غير متاح الآن: تُعرض الإجابات المحفوظة', 'Server unavailable: stored answers are shown'),
+      ),
+    ];
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(24)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(context.tr('معلومات تقنية', 'Technical information'), style: BText.title(15.5, color: BColors.goldDeep)),
+          const SizedBox(height: 8),
+          for (final (k, v) in rows)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: 132, child: Text(k, style: BText.label(13, color: BColors.ink, weight: FontWeight.w600))),
+                  Expanded(child: Text(v, style: BText.body(13.5, color: BColors.textMuted, height: 1.6))),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }

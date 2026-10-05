@@ -95,10 +95,11 @@ String buildUserTurn({
   String? categoryTitle,
   List<Turn> history = const [],
   String lang = 'ar',
+  String? answerLanguage,
   AskerContext asker = AskerContext.none,
 }) {
   final b = StringBuffer()
-    ..writeln('<answer_language>${lang == 'en' ? 'English' : 'Arabic'}</answer_language>');
+    ..writeln('<answer_language>${answerLanguage ?? (lang == 'en' ? 'English' : 'Arabic')}</answer_language>');
   if (history.isNotEmpty) {
     b.writeln('<previous_turns>');
     for (final t in history) {
@@ -332,7 +333,7 @@ Each question falls into one of the levels in <levels>. Handle it exactly as the
 ## Card fields (submit_answer)
 - principle (الأصل الشرعي): what Islam teaches on the point, in your own words, grounded in the evidence you cite. Foundation before details. Do not reproduce Quran or hadith text in any field — the app shows the verified text of every cited verse and hadith in its own card — and never use ﴿ ﴾ or « ».
 - culture (العرف والثقافة): when relevant, separate what is a religious requirement from what is custom, national habit, a translation nuance or an administrative procedure. Empty string when not relevant.
-- guidance (الإرشاد العملي): 2–4 short, practical next steps.
+- guidance (الإرشاد العملي): 2–4 short, practical next steps. When a step sends the asker to someone for a religious ruling or their own case, name a qualified Sharia specialist (مختص شرعي) or an official fatwa body — never just "a mosque imam", "an Islamic centre" or "someone you trust".
 - khilafAgreed / khilafNote only for "khilaf"; referReason / referTo only for "refer"; abstainReason only for "abstain" and "offTopic". Otherwise empty strings.
 - For "abstain", "refer" and "offTopic", cite nothing: quran and hadith must be empty. Never attach a verse or hadith to an answer you cannot give or to a question that needs a specialist.
 - quran: the verses you cite, each with a one-sentence "why" that follows what the tafsir says. hadith: registry hadith you cite, each with a one-sentence "why" naming the exact point it supports. basedOnEntries: reference answers you relied on.
@@ -344,6 +345,7 @@ The reader is often a new Muslim or a non-Muslim, sometimes anxious, often unfam
 
 ## Language
 <answer_language> gives the language of the question. Write every text field in that language — also when it is English and the reference answers, glossary and hadith registry are in Arabic. When answering in English, keep Islamic terms (tawhid, sunnah, fatwa, ijtihad…) and explain them briefly; the app shows the English meaning of cited verses from the King Fahd Complex translation, so do not translate verses yourself.
+Any other language (French, Urdu, Indonesian, Chinese…) works the same way: write every text field in that language, keep Islamic terms with a short explanation, and never translate a verse or a hadith yourself — the app shows the approved translation of the meaning in that language when one exists.
 
 ## Quotations from the asker
 If the asker quotes a verse, find it with search_quran and read it. If their wording differs from the real text, gently say so in principle and cite the correct verse (the app shows its exact text, surah and verse number). If asked for a hadith that proves something and you cannot find it with the tools or in <hadith_registry>, say you could not find it in the available sources and never create or paraphrase one.

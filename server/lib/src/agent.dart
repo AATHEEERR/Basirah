@@ -86,7 +86,15 @@ class ResearchAgent {
   ///
   /// [preread]: tafsir text already given to the model in [userTurn]
   /// (see `buildPrereadBlock`), by verse key; those verses count as read.
-  Future<AgentOutcome> run(String userTurn, {String lang = 'ar', Map<String, String> preread = const {}}) async {
+  ///
+  /// [answerLang]: the asker's language when it is neither Arabic nor
+  /// English (the answer is written in it; [lang] is then 'en').
+  Future<AgentOutcome> run(
+    String userTurn, {
+    String lang = 'ar',
+    String? answerLang,
+    Map<String, String> preread = const {},
+  }) async {
     final messages = <Map<String, dynamic>>[
       {'role': 'user', 'content': userTurn},
     ];
@@ -132,7 +140,7 @@ class ResearchAgent {
         final input = (submit['input'] as Map).cast<String, dynamic>();
         // Written in the wrong language (e.g. an Arabic answer to an English
         // question): rejected once, with a request to resubmit.
-        if (!languageCorrected && round < maxRounds && !inLanguage(input, lang)) {
+        if (!languageCorrected && round < maxRounds && answerLang == null && !inLanguage(input, lang)) {
           languageCorrected = true;
           messages.add({
             'role': 'user',
