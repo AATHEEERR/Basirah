@@ -29,7 +29,7 @@ Quran and hadith texts are scripture; excerpts are short and attributed, and eve
 | just_audio | MIT |
 | qr_flutter, qr | BSD-3-Clause |
 | google_fonts (package) | Apache-2.0 |
-| Fonts: Reem Kufi, IBM Plex Sans Arabic, Amiri | SIL Open Font License 1.1 |
+| Fonts: Reem Kufi, IBM Plex Sans Arabic, Amiri, Inter — bundled unmodified in `assets/google_fonts/` (files as served by fonts.gstatic.com) | SIL Open Font License 1.1 |
 | Font for the verses: KFGQPC Hafs V30 (King Fahd Glorious Qur'an Printing Complex, fonts.qurancomplex.gov.sa), bundled unmodified in `assets/fonts/` | Free to use, copy and distribute; not to be sold or modified. © KFGQPC |
 | Logo | Drawn by the team from geometry (`lib/shared/brand.dart`, `tool/make_logo.ps1`); no third-party artwork |
 | Claude API (Anthropic): Sonnet 5.5, then Haiku 4.5 | Commercial API, used under Anthropic's terms; key held server-side only |
