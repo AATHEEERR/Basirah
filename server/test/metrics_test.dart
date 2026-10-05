@@ -86,6 +86,17 @@ void main() {
     expect(isGuardIntervention('time budget reached (75 s)'), isFalse);
   });
 
+  test('a new server starts from the seed once, never over existing counts', () {
+    final seed = File('${tmp.path}/seed.jsonl')..writeAsStringSync('{"e":"ask","t":"2026-10-04T18:00Z","kind":"answer","via":"ai","cached":false,"ms":1000,"verses":1,"hadith":0,"guard":0,"lang":"ar"}\n');
+    final m = Metrics(file: '${tmp.path}/disk/metrics.jsonl');
+    expect(m.seedFrom(seed.path), isTrue);
+    expect(m.summary()['questions'], 1);
+    seed.writeAsStringSync('');
+    expect(m.seedFrom(seed.path), isFalse); // the disk file now exists
+    expect(m.summary()['questions'], 1);
+    expect(Metrics(file: '${tmp.path}/x.jsonl').seedFrom('${tmp.path}/missing'), isFalse);
+  });
+
   test('no file yet: an empty summary', () {
     final s = metrics.summary();
     expect(s['questions'], 0);

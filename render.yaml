@@ -1,25 +1,37 @@
 # Render blueprint: Basirah's API and web app as one service, one link.
-# Set the AI key in the Render dashboard when asked — never commit it.
+# Render asks for the two keys (sync: false) once, when the Blueprint is
+# created — never commit them.
 services:
   - type: web
     name: basirah
     runtime: docker
     dockerfilePath: ./server/Dockerfile
     dockerContext: .
-    # Always on. The free plan spins down after 15 minutes without traffic,
-    # and the next visitor waits about a minute.
-    plan: starter
+    # The smallest paid instance (0.5 CPU, 512 MB): always on, and it can
+    # keep a disk. The free plan spins down after 15 minutes without
+    # traffic, and the next visitor waits about a minute.
+    plan: 0.5c-512mb
     healthCheckPath: /health
+    # «لوحة الأثر» lives on this disk, so a deploy or a restart keeps it.
+    disk:
+      name: basirah-data
+      mountPath: /data
+      sizeGB: 1
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false
-      - key: AI_PROVIDER
-        value: claude
       - key: GEMINI_API_KEY
         sync: false
+      - key: AI_PROVIDER
+        value: claude
       - key: CLAUDE_MODEL
         value: claude-sonnet-5-5,claude-haiku-4-5
       - key: CLAUDE_EFFORT
         value: medium
       - key: ALLOWED_ORIGIN
         value: "*"
+      - key: METRICS_FILE
+        value: /data/metrics.jsonl
+      # The counts gathered on the temporary link, continued once.
+      - key: METRICS_SEED
+        value: /app/seed/metrics.jsonl

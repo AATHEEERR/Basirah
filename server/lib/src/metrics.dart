@@ -22,6 +22,18 @@ class Metrics {
   final String file;
   final DateTime Function() _clock;
 
+  /// Starts [file] from [seed] when [file] does not exist yet: the counts
+  /// gathered before moving to a new server carry over (once; afterwards the
+  /// file on the persistent disk is the only one). Returns true if it copied.
+  bool seedFrom(String seed) {
+    final target = File(file);
+    final source = File(seed);
+    if (target.existsSync() || !source.existsSync()) return false;
+    target.parent.createSync(recursive: true);
+    source.copySync(file);
+    return true;
+  }
+
   /// The only reasons a rating may carry (chosen from buttons, never typed).
   static const helpfulReasons = {'clear', 'answered', 'sources'};
   static const unhelpfulReasons = {'unclear', 'incomplete', 'evidence', 'misunderstood'};

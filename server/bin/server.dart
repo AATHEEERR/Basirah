@@ -42,6 +42,11 @@ Future<void> main() async {
   final meaning = MeaningSource();
   final origin = env['ALLOWED_ORIGIN'] ?? '*';
   final metrics = Metrics(file: env['METRICS_FILE'] ?? 'cache/metrics.jsonl');
+  // A new server (e.g. the first start on Render) continues the counts
+  // gathered so far (METRICS_SEED: anonymous counts only, kept in git).
+  if (env['METRICS_SEED'] case final seed? when metrics.seedFrom(seed)) {
+    stdout.writeln('«لوحة الأثر»: continued from $seed');
+  }
 
   final app = Router()
     ..get(

@@ -23,6 +23,7 @@ COPY --from=build /app/bin/server /app/bin/server
 COPY --from=build /app/data/quran.json /app/data/quran.json
 COPY assets/kb /app/assets/kb
 COPY server/web /app/web
+COPY server/seed /app/seed
 WORKDIR /app
 ENV KB_DIR=/app/assets/kb
 ENV QURAN_FILE=/app/data/quran.json

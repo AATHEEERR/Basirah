@@ -1,0 +1,10 @@
+{"e":"ask","t":"2026-10-04T18:00Z","kind":"answer","via":"ai","cached":false,"ms":75742,"verses":2,"hadith":0,"guard":0,"lang":"ar","category":"worship"}
+{"e":"ask","t":"2026-10-04T18:00Z","kind":"answer","via":"ai","cached":false,"ms":37532,"verses":1,"hadith":0,"guard":0,"lang":"ar"}
+{"e":"ask","t":"2026-10-04T19:00Z","kind":"answer","via":"ai","cached":false,"ms":48656,"verses":3,"hadith":2,"guard":0,"lang":"ar","category":"family"}
+{"e":"ask","t":"2026-10-04T19:00Z","kind":"answer","via":"ai","cached":false,"ms":22805,"verses":2,"hadith":3,"guard":0,"lang":"ar","category":"belief"}
+{"e":"ask","t":"2026-10-04T19:00Z","kind":"answer","via":"ai","cached":false,"ms":27202,"verses":2,"hadith":2,"guard":0,"lang":"ar","category":"family"}
+{"e":"ask","t":"2026-10-04T21:00Z","kind":"refer","via":"ai","cached":false,"ms":36577,"verses":0,"hadith":0,"guard":0,"lang":"ar","category":"family"}
+{"e":"feedback","t":"2026-10-04T21:00Z","helpful":true,"reasons":["sources"],"kind":"refer","lang":"ar"}
+{"e":"ask","t":"2026-10-04T21:00Z","kind":"answer","via":"ai","cached":false,"ms":26337,"verses":3,"hadith":1,"guard":0,"lang":"en","category":"belief"}
+{"e":"feedback","t":"2026-10-04T21:00Z","helpful":true,"reasons":["answered","sources","clear"],"kind":"answer","lang":"en"}
+{"e":"ask","t":"2026-10-04T22:00Z","kind":"answer","via":"ai","cached":false,"ms":12225,"verses":0,"hadith":1,"guard":0,"lang":"ar","category":"identity"}
