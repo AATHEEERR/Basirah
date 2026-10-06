@@ -1,7 +1,7 @@
 # One service for the whole of Basirah: the API and the web app on one link.
 # Build context: the repository root (so the shared core, the KB and the web
 # build are visible).
-#   docker build -f server/Dockerfile -t basirah .
+#   docker build -t basirah .        (from the repository root)
 # The web app in server/web is built by tool/build_web_for_deploy.ps1.
 FROM dart:stable AS build
 WORKDIR /app

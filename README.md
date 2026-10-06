@@ -51,7 +51,7 @@ powershell -ExecutionPolicy Bypass -File tool\start_live.ps1   # build, serve, p
 
 `server/bin/eval.dart` runs the evaluation set; `server/bin/baseline.dart` compares Basirah with a general chatbot on the same model.
 
-Deploy: `render.yaml` (one service: the API and the web app), built by `server/Dockerfile`; build the web app first with `tool\build_web_for_deploy.ps1`. Restore and backup: [docs/RESTORE.md](docs/RESTORE.md).
+Deploy: `render.yaml` (one service: the API and the web app), built by the root `Dockerfile`; build the web app first with `tool\build_web_for_deploy.ps1`. Restore and backup: [docs/RESTORE.md](docs/RESTORE.md).
 
 ## Sources
 

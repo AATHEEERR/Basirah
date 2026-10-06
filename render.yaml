@@ -5,7 +5,7 @@ services:
   - type: web
     name: basirah
     runtime: docker
-    dockerfilePath: ./server/Dockerfile
+    dockerfilePath: ./Dockerfile
     dockerContext: .
     # The closest region to the users in Saudi Arabia (fixed at creation).
     region: frankfurt
