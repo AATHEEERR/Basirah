@@ -9,6 +9,7 @@ import '../../app/theme.dart';
 import '../../core/lang.dart';
 import '../../shared/brand.dart';
 import '../../shared/save_image.dart';
+import '../../core/ui_strings.dart';
 
 /// Whether an answer can be shared as a card: it must say something and
 /// carry evidence to verify (abstentions, referrals and off-topic replies
@@ -107,7 +108,7 @@ class ShareCard extends StatelessWidget {
   final BasirahAnswer answer;
   final String lang;
 
-  String _t(String ar, String en) => lang == 'en' ? en : ar;
+  String _t(String ar, String en) => lang == 'en' ? UiStrings.fromEnglish(en) : ar;
 
   @override
   Widget build(BuildContext context) {

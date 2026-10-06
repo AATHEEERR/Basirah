@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:basirah_core/basirah_core.dart';
@@ -24,22 +25,20 @@ const _weekdaysEn = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sa
 /// «الخميس 8/10 · 16:00», in the device's time.
 String slotLabel(BuildContext context, DateTime slot) {
   final t = slot.toLocal();
-  final day = context.isEn ? _weekdaysEn[t.weekday - 1] : _weekdaysAr[t.weekday - 1];
+  final day = context.tr(_weekdaysAr[t.weekday - 1], _weekdaysEn[t.weekday - 1]);
   final hm = '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';
   return '$day ${t.day}/${t.month} · $hm';
 }
 
+/// How the asker talks to the specialist: a written message, or a call (in
+/// the call room each side chooses voice only or voice and video). 'audio'
+/// and 'video' are the older kinds of call, still read back.
 String _modeLabel(BuildContext context, String mode) => switch (mode) {
-  'audio' => context.tr('مكالمة صوتية', 'Voice call'),
-  'video' => context.tr('مكالمة فيديو', 'Video call'),
+  'call' || 'audio' || 'video' => context.tr('مكالمة', 'Call'),
   _ => context.tr('رسالة مكتوبة', 'Written message'),
 };
 
-IconData _modeIcon(String mode) => switch (mode) {
-  'audio' => Icons.call_rounded,
-  'video' => Icons.videocam_rounded,
-  _ => Icons.mail_outline_rounded,
-};
+IconData _modeIcon(String mode) => mode == 'message' ? Icons.mail_outline_rounded : Icons.call_rounded;
 
 String _statusLabel(BuildContext context, String status) => switch (status) {
   'answered' => context.tr('ردّ المختص', 'The specialist replied'),
@@ -80,8 +79,8 @@ class SpecialistCta extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             context.tr(
-              'أرسل سؤالك ومحادثتك برسالة، أو احجز مكالمة صوتية أو فيديو في الوقت الذي يناسبك. لا يُرسل إلا ما توافق عليه.',
-              'Send your question and this conversation as a message, or book a voice or video call at a time that suits you. Only what you approve is sent.',
+              'أرسل سؤالك ومحادثتك برسالة، أو احجز مكالمة في الوقت الذي يناسبك. لا يُرسل إلا ما توافق عليه.',
+              'Send your question and this conversation as a message, or book a call at a time that suits you. Only what you approve is sent.',
             ),
             style: BText.body(13, color: BColors.textMuted, height: 1.6),
           ),
@@ -265,7 +264,7 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  for (final m in const ['message', 'audio', 'video'])
+                  for (final m in const ['message', 'call'])
                     ChoiceChip(
                       selected: _mode == m,
                       onSelected: (_) => setState(() => _mode = m),
@@ -286,7 +285,7 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
                       ChoiceChip(
                         selected: _day == d,
                         onSelected: (_) => setState(() => _day = d),
-                        label: Text('${context.isEn ? _weekdaysEn[d.weekday - 1] : _weekdaysAr[d.weekday - 1]} ${d.day}/${d.month}'),
+                        label: Text('${context.tr(_weekdaysAr[d.weekday - 1], _weekdaysEn[d.weekday - 1])} ${d.day}/${d.month}'),
                       ),
                   ],
                 ),
@@ -308,8 +307,8 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
                 const SizedBox(height: 8),
                 Text(
                   context.tr(
-                    'المكالمة في غرفة خاصة بطلبك تُفتح في المتصفح، بلا تطبيق ولا حساب. يؤكد المختص الموعد أو يقترح غيره في «طلباتي مع المختص».',
-                    'The call is in a private room for your request that opens in the browser, with no app or account. The specialist confirms the time, or suggests another, in “My requests”.',
+                    'المكالمة في غرفة خاصة بطلبك تُفتح في المتصفح بلا تطبيق، بالصوت وحده أو بالصوت والصورة كما تختار. يؤكد المختص الموعد أو يقترح غيره في «طلباتي مع المختص»، ويفتح الغرفة في الموعد ثم تدخلها.',
+                    'The call is in a private room for your request that opens in the browser with no app, by voice only or with video, as you choose. The specialist confirms the time, or suggests another, in “My requests”, and opens the room at that time; then you join.',
                   ),
                   style: BText.label(12.5, weight: FontWeight.w400),
                 ),
@@ -523,22 +522,27 @@ class _ThreadState extends State<_Thread> {
   Map<String, dynamic>? _live;
   bool _loading = true;
   final _reply = TextEditingController();
+  Timer? _poll;
 
   @override
   void initState() {
     super.initState();
     _refresh();
+    // The specialist's reply appears without a reload.
+    _poll = Timer.periodic(const Duration(seconds: 30), (_) => _refresh());
   }
 
   @override
   void dispose() {
+    _poll?.cancel();
     _reply.dispose();
     super.dispose();
   }
 
   Future<void> _refresh() async {
     final live = await ReferralApi.read(widget.r);
-    if (mounted) {
+    // A missed refresh keeps what is on screen.
+    if (mounted && (live != null || _live == null)) {
       setState(() {
         _live = live;
         _loading = false;
@@ -637,7 +641,7 @@ class _ThreadState extends State<_Thread> {
               children: [
                 FilledButton.icon(
                   onPressed: booked ? () => launchUrl(Uri.parse(r.meetUrl!), mode: LaunchMode.externalApplication) : null,
-                  icon: Icon(r.mode == 'video' ? Icons.videocam_rounded : Icons.call_rounded, size: 18),
+                  icon: const Icon(Icons.call_rounded, size: 18),
                   label: Text(
                     booked ? context.tr('ادخل المكالمة', 'Join the call') : context.tr('يُفتح بعد تأكيد الموعد', 'Opens once confirmed'),
                   ),
@@ -686,31 +690,70 @@ class SpecialistPanelScreen extends StatefulWidget {
 }
 
 class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
-  final _key = TextEditingController();
+  /// The key, kept for this visit only (never stored on the device), so
+  /// leaving the panel and coming back does not ask again.
+  static String? _sessionKey;
+
+  final _key = TextEditingController(text: _sessionKey);
   final _find = TextEditingController();
   List<Map<String, dynamic>>? _items;
   bool _denied = false;
   bool _loading = false;
+  Timer? _poll;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_sessionKey != null) _load();
+    // New requests and the askers' follow-ups appear without a reload.
+    _poll = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (_items != null && !_loading) _load(quiet: true);
+    });
+  }
 
   @override
   void dispose() {
+    _poll?.cancel();
     _key.dispose();
     _find.dispose();
     super.dispose();
   }
 
-  Future<void> _load() async {
-    setState(() {
-      _loading = true;
-      _denied = false;
-    });
+  Future<void> _load({bool quiet = false}) async {
+    if (!quiet) {
+      setState(() {
+        _loading = true;
+        _denied = false;
+      });
+    }
     final items = await ReferralApi.all(_key.text.trim());
     if (!mounted) return;
+    // A missed refresh keeps what is on screen.
+    if (quiet && items == null) return;
+    if (items != null) _sessionKey = _key.text.trim();
     setState(() {
-      _items = items;
+      // Waiting requests first, then calls by their time, then the rest.
+      _items = items == null ? null : ([...items]..sort(_order));
       _denied = items == null;
       _loading = false;
     });
+  }
+
+  static int _order(Map<String, dynamic> a, Map<String, dynamic> b) {
+    int rank(Map<String, dynamic> r) => switch (r['status']) {
+      'new' => 0,
+      'booked' => 1,
+      'answered' => 2,
+      _ => 3,
+    };
+    final byStatus = rank(a).compareTo(rank(b));
+    if (byStatus != 0) return byStatus;
+    final sa = a['slot'] as String?;
+    final sb = b['slot'] as String?;
+    if (sa != null && sb != null) return sa.compareTo(sb);
+    if (sa != null) return -1;
+    if (sb != null) return 1;
+    return (b['created'] as String? ?? '').compareTo(a['created'] as String? ?? '');
   }
 
   @override
@@ -751,8 +794,8 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
                 Expanded(
                   child: Text(
                     context.tr(
-                      '${items.length} طلباً · ${items.where((r) => r['status'] == 'new').length} بانتظار الرد',
-                      '${items.length} requests · ${items.where((r) => r['status'] == 'new').length} waiting',
+                      '${items.length} طلباً · ${items.where((r) => r['status'] == 'new').length} بانتظار الرد · ${items.where((r) => r['status'] == 'booked').length} مكالمات مؤكَّدة',
+                      '${items.length} requests · ${items.where((r) => r['status'] == 'new').length} waiting · ${items.where((r) => r['status'] == 'booked').length} confirmed calls',
                     ),
                     style: BText.title(15),
                   ),
@@ -794,6 +837,8 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 10),
+            const _PanelGuide(),
             const SizedBox(height: 10),
             if (items.isEmpty)
               Text(context.tr('لا طلبات الآن.', 'No requests right now.'), style: BText.body(14, color: BColors.textMuted)),
@@ -891,12 +936,24 @@ class _PanelItemState extends State<_PanelItem> {
               ),
             ),
           if (r['meetUrl'] != null)
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: TextButton.icon(
-                onPressed: () => launchUrl(Uri.parse(r['meetUrl'] as String), mode: LaunchMode.externalApplication),
-                icon: const Icon(Icons.videocam_outlined, size: 18),
-                label: Text(context.tr('غرفة المكالمة', 'Call room')),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  FilledButton.icon(
+                    onPressed: () => launchUrl(Uri.parse(r['meetUrl'] as String), mode: LaunchMode.externalApplication),
+                    style: FilledButton.styleFrom(backgroundColor: Tones.guidance.accent),
+                    icon: const Icon(Icons.call_rounded, size: 18),
+                    label: Text(context.tr('افتح غرفة المكالمة', 'Open the call room')),
+                  ),
+                  Text(
+                    context.tr('افتحها أنت أولاً في الموعد، ثم يدخل السائل.', 'Open it first at the time; then the asker joins.'),
+                    style: BText.label(12, weight: FontWeight.w400),
+                  ),
+                ],
               ),
             ),
           if (status != 'closed') ...[
@@ -928,6 +985,52 @@ class _PanelItemState extends State<_PanelItem> {
               ],
             ),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+/// How to answer from the panel, in four steps.
+class _PanelGuide extends StatelessWidget {
+  const _PanelGuide();
+
+  @override
+  Widget build(BuildContext context) {
+    final steps = [
+      context.tr(
+        'اقرأ الطلب: السؤال، وما وافق السائل على إرساله من محادثته و«سياقه».',
+        'Read the request: the question, and what the asker agreed to send of the conversation and “context”.',
+      ),
+      context.tr(
+        'اكتب ردّك واضغط «أرسل الرد»: يظهر للسائل في «طلباتي مع المختص» على جهازه، ويستطيع أن يضيف تفصيلاً فيصلك هنا.',
+        'Write your reply and press “Send reply”: the asker sees it in “My requests” on their device, and can add a detail that reaches you here.',
+      ),
+      context.tr(
+        'للمكالمة: «أكّد الموعد»، أو اكتب موعداً آخر في ردّك. وفي الموعد افتح الغرفة أولاً؛ قد يطلب موقع Jitsi أن يسجّل منشئ الغرفة دخوله (Google أو GitHub أو Facebook).',
+        'For a call: “Confirm the time”, or suggest another in your reply. At the time, open the room first; Jitsi may ask whoever creates the room to sign in (Google, GitHub or Facebook).',
+      ),
+      context.tr(
+        '«أغلق الطلب» حين تنتهي. تُحذف الطلبات من الخادم بعد 30 يوماً، والقائمة تتحدّث وحدها كل 30 ثانية.',
+        '“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.',
+      ),
+    ];
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(color: Tones.guidance.top, borderRadius: BorderRadius.circular(18)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.tr('دور المختص في أربع خطوات', 'The specialist’s part, in four steps'),
+            style: BText.title(14.5, color: Tones.guidance.accent),
+          ),
+          const SizedBox(height: 6),
+          for (final (i, step) in steps.indexed)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text('${i + 1}. $step', style: BText.body(13, color: BColors.ink, height: 1.6)),
+            ),
         ],
       ),
     );

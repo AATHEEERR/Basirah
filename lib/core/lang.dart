@@ -2,19 +2,41 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Interface language: 'ar' (default) or 'en'. Remembered on the device.
+import 'meaning.dart';
+import 'ui_strings.dart';
+
+/// The interface languages: Arabic, and every language with an approved
+/// translation of the meanings on موسوعة القرآن الكريم (the same 25, in the
+/// same order): (ISO code, native name, right-to-left).
+final uiLanguages = <(String, String, bool)>[
+  ('ar', 'العربية', true),
+  for (final (_, iso, native, _, rtl, _) in meaningLanguages) (iso, native, rtl),
+];
+
+bool isUiLanguage(String code) => uiLanguages.any((l) => l.$1 == code);
+
+bool isRtlLanguage(String code) => uiLanguages.any((l) => l.$1 == code && l.$3);
+
+/// The language of the content the interface shows (the reviewed answers,
+/// the categories' questions): Arabic in the Arabic interface, English in
+/// every other one.
+String contentLang(String ui) => ui == 'ar' ? 'ar' : 'en';
+
+/// Interface language: 'ar' (default), 'en', or another of [uiLanguages].
+/// Remembered on the device.
 class LangNotifier extends Notifier<String> {
   static const _key = 'basirah.lang.v1';
 
   @override
   String build() {
-    // A link can choose the language, e.g. https://…/?lang=en (demos, sharing).
+    // A link can choose the language, e.g. https://…/?lang=fr (demos, sharing).
     final fromLink = Uri.base.queryParameters['lang'];
-    if (fromLink == 'ar' || fromLink == 'en') {
-      _save(fromLink!);
-      return fromLink;
+    if (fromLink != null && isUiLanguage(fromLink)) {
+      set(fromLink);
+    } else {
+      _load();
     }
-    _load();
+    UiStrings.current = 'ar';
     return 'ar';
   }
 
@@ -29,22 +51,35 @@ class LangNotifier extends Notifier<String> {
   Future<void> _load() async {
     try {
       final saved = (await SharedPreferences.getInstance()).getString(_key);
-      if (saved == 'en' || saved == 'ar') state = saved!;
+      if (saved != null && saved != 'ar' && isUiLanguage(saved)) await set(saved, save: false);
     } on Exception {
       // Storage unavailable: keep the default.
     }
   }
 
-  Future<void> set(String lang) async {
-    if (lang != 'ar' && lang != 'en') return;
+  /// Shows the interface in [lang] once its strings are loaded.
+  Future<void> set(String lang, {bool save = true}) async {
+    if (!isUiLanguage(lang)) return;
+    await UiStrings.ensure(lang);
+    UiStrings.current = lang;
     state = lang;
-    await _save(lang);
+    if (save) await _save(lang);
   }
 
   Future<void> toggle() => set(state == 'ar' ? 'en' : 'ar');
 }
 
 final langProvider = NotifierProvider<LangNotifier, String>(LangNotifier.new);
+
+/// The interface language for the widgets below it (placed by the app).
+class UiLangScope extends InheritedWidget {
+  const UiLangScope({super.key, required this.lang, required super.child});
+
+  final String lang;
+
+  @override
+  bool updateShouldNotify(UiLangScope oldWidget) => oldWidget.lang != lang;
+}
 
 /// Direction of a piece of text from its letters: Latin text reads
 /// left-to-right, Arabic right-to-left — e.g. an English answer shown in the
@@ -63,10 +98,18 @@ TextDirection textDirectionOf(String text) {
 }
 
 extension Tr on BuildContext {
-  /// Current interface language.
-  String get lang => Localizations.localeOf(this).languageCode == 'en' ? 'en' : 'ar';
+  /// The interface language: 'ar', 'en', or another of [uiLanguages].
+  String get uiLang {
+    final scope = dependOnInheritedWidgetOfExactType<UiLangScope>();
+    if (scope != null) return scope.lang;
+    return Localizations.maybeLocaleOf(this)?.languageCode == 'en' ? 'en' : 'ar';
+  }
+
+  /// The content language: 'ar' in the Arabic interface, 'en' otherwise.
+  String get lang => contentLang(uiLang);
   bool get isEn => lang == 'en';
 
-  /// Picks the Arabic or English string for the current interface language.
-  String tr(String ar, String en) => isEn ? en : ar;
+  /// The string for the interface language: the Arabic, the English, or the
+  /// English one's translation.
+  String tr(String ar, String en) => uiLang == 'ar' ? ar : UiStrings.fromEnglish(en);
 }

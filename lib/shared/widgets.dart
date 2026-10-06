@@ -13,24 +13,10 @@ class GoldText extends StatelessWidget {
   final TextStyle style;
   final TextAlign? textAlign;
 
-  /// The gradient is the text's own paint, not a mask over its box: a mask
-  /// stops at the line box, so the dots below it (as in «سياقي») stayed dark.
+  /// One solid deep gold, the interface's gold everywhere: the lighter
+  /// gradient read as pale yellow on the light canvas.
   @override
-  Widget build(BuildContext context) {
-    final size = style.fontSize ?? 14;
-    final line = TextPainter(
-      text: TextSpan(text: text, style: style),
-      textDirection: Directionality.of(context),
-      maxLines: 1,
-    )..layout();
-    final bounds = Rect.fromLTWH(0, -size * .4, line.width, size * 2.2);
-    line.dispose();
-    return Text(
-      text,
-      textAlign: textAlign,
-      style: style.copyWith(foreground: Paint()..shader = BColors.goldGradient.createShader(bounds)),
-    );
-  }
+  Widget build(BuildContext context) => Text(text, textAlign: textAlign, style: style.copyWith(color: BColors.goldDeep));
 }
 
 /// White rounded card — the basic Nusuk surface.

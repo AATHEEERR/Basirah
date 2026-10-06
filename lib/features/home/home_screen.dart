@@ -16,13 +16,7 @@ import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
 import '../library/baseline_screen.dart';
 import '../library/impact_screen.dart';
-
-/// The home title: what Basirah is, in plain words. On a phone it breaks
-/// after the comma.
-String _heroTitle(BuildContext context, {bool twoLines = false}) => context.tr(
-  twoLines ? 'اسأل عن الإسلام،\nوالجواب بدليله' : 'اسأل عن الإسلام، والجواب بدليله',
-  twoLines ? 'Ask about Islam,\nget the answer with its evidence' : 'Ask about Islam, and get the answer with its evidence',
-);
+import 'hero.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -49,15 +43,7 @@ class HomeScreen extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.display(17, color: BColors.goldDeep)),
-                        Text(_heroTitle(context, twoLines: true), style: BText.display(28, weight: FontWeight.w600)),
-                        const SizedBox(height: 16),
-                        _SearchPill(onTap: () => ask()),
-                      ],
-                    ),
+                    child: HomeHero(kb: kb, wide: false, search: _SearchPill(onTap: () => ask())),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -149,7 +135,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 const SliverToBoxAdapter(
-                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: ComparisonTable()),
+                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: ComparisonSection()),
                 ),
                 const SliverToBoxAdapter(child: _TrustLaurel()),
                 const SliverToBoxAdapter(child: SizedBox(height: 120)),
@@ -241,7 +227,7 @@ class _SearchPill extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                context.tr('اسأل عن أي شيء يشغلك في الإسلام…', 'Ask anything about Islam that is on your mind…'),
+                context.tr('ما الذي تودّ أن تعرفه عن الإسلام؟', 'What would you like to know about Islam?'),
                 style: BText.body(15, color: BColors.textFaint, height: 1.2),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -535,27 +521,7 @@ class _WideHome extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 6,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(context.tr('السلام عليكم', 'Assalamu alaikum'), style: BText.display(22, color: BColors.goldDeep)),
-                      const SizedBox(height: 4),
-                      Text(_heroTitle(context), style: BText.display(context.isEn ? 34 : 40, weight: FontWeight.w600)),
-                      const SizedBox(height: 14),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 560),
-                        child: Text(
-                          context.tr(
-                            'إجابات عن أسئلتك في الإسلام من المصادر المعتمدة: الآية من مصحف مجمع الملك فهد، والحديث بمصدره وحكمه، وما يحتاج إلى مختص يُحال إلى أهله.',
-                            'Answers to your questions about Islam from approved sources: the verse from the King Fahd Complex Mushaf, the hadith with its source and grading, and anything that needs a specialist is referred to one.',
-                          ),
-                          style: BText.body(17, color: BColors.textMuted, height: 1.75),
-                        ),
-                      ),
-                      const SizedBox(height: 22),
-                      _SearchPill(onTap: () => ask()),
-                    ],
-                  ),
+                  child: HomeHero(kb: kb, wide: true, search: _SearchPill(onTap: () => ask())),
                 ),
                 const SizedBox(width: 40),
                 const Expanded(flex: 5, child: _AnswerSample()),
@@ -630,7 +596,7 @@ class _WideHome extends StatelessWidget {
         _WideSection(
           eyebrow: context.tr('مقارنة', 'Comparison'),
           title: context.tr('بصيرة ونموذج عام على الأسئلة نفسها', 'Basirah and a general model on the same questions'),
-          child: const ComparisonTable(),
+          child: const ComparisonSection(),
         ),
         const SliverPadding(
           padding: EdgeInsets.only(bottom: 56),

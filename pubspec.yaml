@@ -43,6 +43,8 @@ flutter:
   assets:
     - assets/kb/
     - assets/brand/
+    # The interface in the other languages (server/tool/translate_ui.dart).
+    - assets/i18n/
     # The Google fonts the app uses, shipped with it (OFL), so Arabic never
     # waits on fonts.gstatic.com; google_fonts looks here before fetching.
     - assets/google_fonts/

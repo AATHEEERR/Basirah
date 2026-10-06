@@ -71,10 +71,9 @@ class AboutScreen extends StatelessWidget {
                 title: context.tr('نطاق الأسئلة', 'Scope'),
                 body: context.tr(
                   'تجيب بصيرة عن الأسئلة المتعلقة بالإسلام فقط. أما الأسئلة العامة (كالطعام والأخبار والتقنية) أو عن تعاليم الأديان الأخرى '
-                      'فتعتذر عنها بوضوح. وإن كان سؤالك عن حكم شيء في الإسلام — مثل «هل السوشي حلال؟» — فهو داخل النطاق.',
+                      'فتعتذر عنها بوضوح. وإن كان سؤالك عن حكم شيء في الإسلام فهو داخل النطاق.',
                   'Basirah only answers questions about Islam. General questions (food, news, technology) or questions about the teachings '
-                      'of other religions are politely declined. If you are asking what Islam says about something — e.g. “Is sushi halal?” — '
-                      'it is in scope.',
+                      'of other religions are politely declined. If you are asking what Islam says about something, it is in scope.',
                 ),
               ),
               _Block(
@@ -202,6 +201,13 @@ class _TechBlock extends ConsumerWidget {
         context.tr(
           '${meaningLanguages.length} لغة من ترجمات موسوعة القرآن الكريم المعتمدة، منها ${meaningLanguages.where((l) => l.$6).length} بصوت مسجَّل',
           '${meaningLanguages.length} languages from QuranEnc’s approved translations, ${meaningLanguages.where((l) => l.$6).length} with a recorded voice',
+        ),
+      ),
+      (
+        context.tr('لغات الواجهة', 'Interface languages'),
+        context.tr(
+          '${uiLanguages.length} لغة: العربية والإنجليزية كتبهما الفريق، والبقية مترجمة آلياً بـClaude ولم تُراجَع بشرياً بعد. الإجابات المراجَعة بالعربية والإنجليزية.',
+          '${uiLanguages.length} languages: Arabic and English written by the team, the others machine-translated with Claude and not yet human-reviewed. The reviewed answers are in Arabic and English.',
         ),
       ),
       (

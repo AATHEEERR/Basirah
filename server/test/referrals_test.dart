@@ -41,6 +41,10 @@ void main() {
     );
     final r = ref.create(question: 'q', conversation: '', context: '', lang: 'fr', mode: 'video', slot: now.add(const Duration(days: 2)), now: now)!;
     expect(r['meetUrl'] as String, startsWith('https://meet.jit.si/Basirah-${r['id']}-'));
+    // The one kind of call the app now offers.
+    expect(ref.create(question: 'q', conversation: '', context: '', lang: 'ar', mode: 'call', now: now), isNull);
+    final c = ref.create(question: 'q', conversation: '', context: '', lang: 'ar', mode: 'call', slot: now.add(const Duration(days: 1)), now: now)!;
+    expect(c['meetUrl'] as String, startsWith('https://meet.jit.si/Basirah-${c['id']}-'));
   });
 
   test('bad input is refused', () {

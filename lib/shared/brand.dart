@@ -126,8 +126,10 @@ class _BrandLogoState extends State<BrandLogo> with SingleTickerProviderStateMix
   }
 }
 
-/// The name «بصيرة» in the brand font ([style]), as the font draws it. In
-/// English it is the plain word «Basirah».
+/// The name «بصيرة» in the brand font ([style]). The logo draws the last
+/// letter without its two dots: in this font the stroke above the letter
+/// already stands for them (so it is written with ه; screen readers still
+/// read «بصيرة»). In other languages it is the plain word «Basirah».
 class Wordmark extends StatelessWidget {
   const Wordmark({super.key, required this.style, this.lang});
 
@@ -137,7 +139,9 @@ class Wordmark extends StatelessWidget {
   final String? lang;
 
   @override
-  Widget build(BuildContext context) => Text((lang ?? context.lang) == 'en' ? 'Basirah' : 'بصيرة', style: style);
+  Widget build(BuildContext context) => (lang ?? context.lang) == 'en'
+      ? Text('Basirah', style: style)
+      : Semantics(label: 'بصيرة', excludeSemantics: true, child: Text('بصيره', style: style));
 }
 
 /// The sparkle mark in a square: a four-point star with concave sides

@@ -67,12 +67,17 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
     });
   }
 
-  /// The asker's choice, else the answer's own language when it has one.
-  String? _chosen(String? picked) =>
-      picked ??
-      (widget.answerLang == 'ar' || widget.answerLang == 'en'
-          ? null
-          : meaningLanguages.where((l) => l.$2 == widget.answerLang).firstOrNull?.$1);
+  /// The asker's choice, else the answer's own language when it has one,
+  /// else the interface's (French interface: the French meaning).
+  String? _chosen(String? picked) {
+    if (picked != null) return picked;
+    for (final lang in [widget.answerLang, context.getInheritedWidgetOfExactType<UiLangScope>()?.lang]) {
+      if (lang == null || lang == 'ar' || lang == 'en') continue;
+      final key = meaningLanguages.where((l) => l.$2 == lang).firstOrNull?.$1;
+      if (key != null) return key;
+    }
+    return null;
+  }
 
   Future<void> _loadMeaning(String? lang) async {
     if (lang == null) {

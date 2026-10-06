@@ -249,7 +249,7 @@ class _AskButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.auto_awesome_rounded, size: 17, color: BColors.gold),
+              const Icon(Icons.auto_awesome_rounded, size: 17, color: BColors.goldOnInk),
               const SizedBox(width: 8),
               Text(
                 context.tr('اسأل بصيرة', 'Ask Basirah'),

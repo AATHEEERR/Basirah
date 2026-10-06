@@ -1,0 +1,107 @@
+{
+  "surah": 12,
+  "ayah": 108,
+  "source": "quranenc.com",
+  "meanings": {
+    "en": {
+      "key": "english_rwwad",
+      "text": "Say [O Prophet], “This is my way. I call to Allah with clear evidence – I and those who follow me. Glory be to Allah, and I am not one of those who associate partners with Him.”"
+    },
+    "tl": {
+      "key": "tagalog_rwwad",
+      "text": "Sabihin mo: “Ito ay landas ko. Nag-aanyaya ako tungo [sa pagsamba] kay Allāh batay sa isang pagkatalos, ako at ang sinumang sumunod sa akin. Kaluwalhatian kay Allāh! Hindi ako kabilang sa mga tagapagtambal.”"
+    },
+    "fr": {
+      "key": "french_rashid",
+      "text": "Dis : « Voici ma voie : j’appelle les hommes, avec la plus grande clairvoyance, à vouer un culte exclusif et sincère à Allah, imité en cela par ceux qui me suivent. Gloire à Allah ! Je ne suis point du nombre des païens. »"
+    },
+    "zh": {
+      "key": "chinese_suliman",
+      "text": "你说：“这是我的道路，我号召人们信仰安拉，我和随从我的人，都是依据明证的。赞颂安拉，超绝万物！我不是以物配主的。”"
+    },
+    "vi": {
+      "key": "vietnamese_rwwad",
+      "text": "Ngươi (hỡi Thiên Sứ Muhammad) hãy nói: “Đây là đường lối mà ta mời gọi mọi người đến với Allah dựa trên kiến thức rõ ràng và cũng là đường lối của những ai noi theo ta. Vinh quang và tối cao thay Allah, ta không phải là kẻ đa thần.”"
+    },
+    "si": {
+      "key": "sinhalese_mahir",
+      "text": "‘මෙය මාගේ මාර්ගයයි. අල්ලාහ් වෙත මම ඇරයුම් කරමි. මා හා මා අනුගමනය කළවුන් පැහැදිලි සාධක මත සිටින්නන් ය. තවද අල්ලාහ් සුපිවිතුරු ය. මම ආදේශ කරන්නන් අතරින් කෙනෙකු නො වෙමි’ යැයි (නබිවරය!) නුඹ පවසනු."
+    },
+    "ta": {
+      "key": "tamil_omar_brief",
+      "text": "(நபியே!) கூறுவீராக: “இது என் வழி. நானும் என்னைப் பின்பற்றியவர்களும் தெளிவான அறிவின் மீது இருந்து கொண்டு அல்லாஹ்வின் பக்கம் அழைக்கிறோம். அல்லாஹ் மிகப் பரிசுத்தமானவன். நான் இணைவைப்பவர்களில் இல்லை.”"
+    },
+    "so": {
+      "key": "somali_yacob",
+      "text": "108. Dheh: Kani (Islaamka) waa jidkayga; Waxaan ugu baaqaa dadka xagga Alle, Aniga iyo cid kastoo i raacdaba innagoo yaqiinsan oo ku sugan xujo cad. Xurmo oo dhanna waxaa iska leh oo (xumaan) ka Hufan Alle, aniguna ka mid ma ahi mushrikiinta."
+    },
+    "fa": {
+      "key": "persian_ih",
+      "text": "[ای پیامبر، به مردم] بگو: «این راه من است. من با دلیلی آشکار به سوی الله دعوت می‌کنم و کسانی‌ که از من پیروی کردند [نیز چنین می‌کنند]؛ و الله پاک و منزّه است و من از مشرکان نیستم»."
+    },
+    "pt": {
+      "key": "portuguese_nasr",
+      "text": "Dize: \"Este é o meu caminho: convoco-vos a Allah. Estou fundado sobre clarividência, eu e quem me segue. E Glorificado seja Allah! E não sou dos idólatras\""
+    },
+    "nl": {
+      "key": "dutch_center",
+      "text": "Zeg: “Dit is mijn weg, ik nodig jullie uit tot Allah met zekere kennis, ik en iedereen die mij volgt met zekere kennis. En verheerlijkt en uitmuntend is Allah. En ik behoor niet tot de afgodenaanbidders.\""
+    },
+    "az": {
+      "key": "azeri_musayev",
+      "text": "De: “Bu, mənim yolumdur. Mən və mənə tabe olanlar, bəsirət (elm və yəqinlik) üzərində, insanları Allaha çağırırıq. Allah pakdır, müqəddəsdir. Mən də müşriklərdən deyiləm”."
+    },
+    "as": {
+      "key": "assamese_rafeeq",
+      "text": "কোৱা, ‘এইটোৱেই হৈছে মোৰ পথ, মই আৰু মোৰ অনুসাৰীসকলে পূৰ্ণ বিশ্বাসৰ সৈতে জানি-বুজি আল্লাহৰ প্ৰতি আহ্বান কৰোঁ। আল্লাহ অতি পৱিত্ৰ, আৰু মই মুশ্বৰিকসকলৰ অন্তৰ্ভুক্ত নহয়’।"
+    },
+    "ur": {
+      "key": "urdu_junagarhi",
+      "text": "آپ کہہ دیجئے میری راه یہی ہے۔ میں اور میرے متبعین اللہ کی طرف بلا رہے ہیں، پورے یقین اور اعتماد کے ساتھ۔[1] اور اللہ پاک ہے[2] اور میں مشرکوں میں نہیں."
+    },
+    "id": {
+      "key": "indonesian_complex",
+      "text": "Katakanlah, \"Inilah jalan (agama)ku, aku dan orang-orang yang mengikutiku mengajak (kamu) kepada Allah dengan hujah yang nyata, Maha Suci Allah, dan aku tiada termasuk orang-orang yang musyrik\"."
+    },
+    "tr": {
+      "key": "turkish_rwwad",
+      "text": "De ki: Bu, benim yolumdur, ben ve bana uyanlar basiretle Allah’a davet ederiz. Allah’ı tenzih ederim. Ben müşriklerden değilim."
+    },
+    "es": {
+      "key": "spanish_garcia",
+      "text": "108. Di: “Éste es mi sendero, tanto yo como quienes me siguen invitamos a adorar a Dios con conocimiento. ¡Glorificado sea Dios! No soy de los que idolatran divinidades junto a Dios”."
+    },
+    "de": {
+      "key": "german_bubenheim",
+      "text": "Sag: Das ist mein Weg: Ich rufe zu Allah aufgrund eines sichtbaren Hinweises, ich und diejenigen, die mir folgen. Preis sei Allah! Und ich gehöre nicht zu den Götzendienern."
+    },
+    "hi": {
+      "key": "hindi_omari",
+      "text": "(ऐ नबी!) आप कह दें : यही मेरा रास्ता है। मैं और मेरा अनुसरण करने वाले पूर्ण अंतर्दृष्टि तथा स्पष्ट प्रमाण के साथ अल्लाह की ओर बुलाते हैं। तथा अल्लाह पवित्र है और मैं मुश्रिकों (बहुदेववादियों) में से नहीं हूँ।"
+    },
+    "sw": {
+      "key": "swahili_rwwad",
+      "text": "Sema: Hii ndiyo njia yangu - ninalingania kwa Mwenyezi Mungu kwa ufahamu mzuri - mimi na wale wanaonifuata. Na ametakasika Mwenyezi Mungu, na wala mimi si katika washirikina."
+    },
+    "ha": {
+      "key": "hausa_gummi",
+      "text": "Ka ce: \"Wannan ce hanyãta;[1] inã kira zuwa ga Allah a kan basĩra, nĩ da waɗanda suka bĩ ni, kuma tsarki ya tabbata ga Allah! Nĩ kuma, ban zama daga mãsu shirki ba.\""
+    },
+    "bs": {
+      "key": "bosnian_rwwad",
+      "text": "Reci: \"Ovo je put moj, ja pozivam k Allahu, imajući jasne dokaze, ja, i svaki onaj koji me slijedi, i neka je Uzvišen Allah, ja nisam od onih koji Mu druge pridružuju.\""
+    },
+    "sq": {
+      "key": "albanian_rwwad",
+      "text": "Thuaj (o Muhamed): \"Kjo është rruga ime: unë thërras për tek Allahu me prova të qarta, unë dhe ata që më pasojnë. I patëmeta është Allahu! Unë nuk jam prej idhujtarëve.\""
+    },
+    "ps": {
+      "key": "pashto_rwwad",
+      "text": "ورته وايه: همدغه زما لاره ده چې د الله په لور بلنه كوم، هم زه او هم زما ملګري په څرګند حقيقت (روان يو) او الله لره پاكي ده او زه له مشركانو څخه نه يم."
+    },
+    "ja": {
+      "key": "japanese_saeedsato",
+      "text": "（使徒*よ、）言え。「これは、我が道。私も、私に従った者たちも確証に基づき、アッラー*（のみへの崇拝*）へと招く。アッラー*に称え*あれ、私はシルク*の徒の類いではない」。"
+    }
+  }
+}

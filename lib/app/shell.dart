@@ -122,7 +122,7 @@ class _AiPill extends StatelessWidget {
             children: [
               Text(context.tr('بصيرة AI', 'Basirah AI'), style: BText.label(13.5, color: active ? BColors.onInk : BColors.ink)),
               const SizedBox(width: 8),
-              _Dots(color: active ? BColors.gold : BColors.ink),
+              _Dots(color: active ? BColors.goldOnInk : BColors.ink),
             ],
           ),
         ),

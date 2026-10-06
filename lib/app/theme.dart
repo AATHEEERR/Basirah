@@ -1,6 +1,7 @@
 import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../core/ui_strings.dart';
 
 /// Light, airy palette in the spirit of the Nusuk app: soft grey canvas,
 /// white rounded cards, a warm sand glow at the top, ink-black primary
@@ -20,8 +21,14 @@ abstract final class BColors {
   static const sand = Color(0xFFEBDBB8);
   static const sandSoft = Color(0xFFF7EFDF);
 
-  static const gold = Color(0xFFE6A935);
-  static const goldDeep = Color(0xFFB57D1E);
+  /// The one gold of the interface: deep enough to read on the light
+  /// canvas (the lighter amber looked washed out there).
+  static const gold = Color(0xFFB57D1E);
+  static const goldDeep = gold;
+
+  /// The lighter amber, only for marks on ink-black (the ask button, the
+  /// active tab's dots), where the deep gold would be too dark.
+  static const goldOnInk = Color(0xFFE6A935);
 
   // Pastel bubbles
   static const mint = Color(0xFFE2F3E7);
@@ -35,7 +42,7 @@ abstract final class BColors {
   static const goldGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
-    colors: [Color(0xFFF2C85E), gold, Color(0xFFA9711A)],
+    colors: [Color(0xFFC08B2C), gold, Color(0xFF94640F)],
   );
 
   /// Gold for marks drawn on the deep "photo" covers.
@@ -98,8 +105,8 @@ class Tone {
   final Color top;
   final Color bottom;
 
-  String titleFor(String lang) => lang == 'en' ? titleEn : title;
-  String explainFor(String lang) => lang == 'en' ? explainEn : explain;
+  String titleFor(String lang) => lang == 'en' ? UiStrings.fromEnglish(titleEn) : title;
+  String explainFor(String lang) => lang == 'en' ? UiStrings.fromEnglish(explainEn) : explain;
 }
 
 abstract final class Tones {
@@ -209,18 +216,18 @@ extension LevelStyle on ContentLevel {
   String letterFor(String lang) => lang == 'en' ? code : letterAr;
 
   String shortLabelFor(String lang) => switch (this) {
-    ContentLevel.a => lang == 'en' ? 'Settled' : 'أصلي مستقر',
-    ContentLevel.b => lang == 'en' ? 'Explanation' : 'شرح واستدلال',
-    ContentLevel.c => lang == 'en' ? 'Disputed or sensitive' : 'خلافي أو حساس',
-    ContentLevel.d => lang == 'en' ? 'Fatwa or personal case' : 'فتوى أو حالة شخصية',
+    ContentLevel.a => lang == 'en' ? UiStrings.fromEnglish('Settled') : 'أصلي مستقر',
+    ContentLevel.b => lang == 'en' ? UiStrings.fromEnglish('Explanation') : 'شرح واستدلال',
+    ContentLevel.c => lang == 'en' ? UiStrings.fromEnglish('Disputed or sensitive') : 'خلافي أو حساس',
+    ContentLevel.d => lang == 'en' ? UiStrings.fromEnglish('Fatwa or personal case') : 'فتوى أو حالة شخصية',
   };
 }
 
 extension OriginStyle on AnswerOrigin {
   String labelFor(String lang) => switch (this) {
-    AnswerOrigin.kb => lang == 'en' ? 'From the documented knowledge base' : 'من قاعدة المعرفة الموثقة',
-    AnswerOrigin.ai => lang == 'en' ? 'Live AI answer from approved sources' : 'مولَّدة بالذكاء الاصطناعي من المراجع المعتمدة',
-    AnswerOrigin.offline => lang == 'en' ? 'Local references mode' : 'وضع المراجع المحلية',
+    AnswerOrigin.kb => lang == 'en' ? UiStrings.fromEnglish('From the documented knowledge base') : 'من قاعدة المعرفة الموثقة',
+    AnswerOrigin.ai => lang == 'en' ? UiStrings.fromEnglish('Live AI answer from approved sources') : 'مولَّدة بالذكاء الاصطناعي من المراجع المعتمدة',
+    AnswerOrigin.offline => lang == 'en' ? UiStrings.fromEnglish('Local references mode') : 'وضع المراجع المحلية',
   };
 
   IconData get icon => switch (this) {
@@ -292,7 +299,7 @@ abstract final class BasirahTheme {
       ),
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: BColors.ink,
-        selectionColor: Color(0x55E6A935),
+        selectionColor: Color(0x40B57D1E),
         selectionHandleColor: BColors.gold,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(

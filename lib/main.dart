@@ -30,19 +30,32 @@ class BasirahApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ui = ref.watch(langProvider);
+    // Flutter's own texts (buttons, dates) in the interface language where
+    // Flutter has it, in English otherwise.
+    final material = GlobalMaterialLocalizations.delegate.isSupported(Locale(ui)) ? ui : 'en';
     return MaterialApp.router(
-      title: ref.watch(langProvider) == 'en' ? 'Basirah · بصيرة' : 'بصيرة · Basirah',
+      title: ui == 'ar' ? 'بصيرة · Basirah' : 'Basirah · بصيرة',
       debugShowCheckedModeBanner: false,
       theme: BasirahTheme.light(),
       themeMode: ThemeMode.light,
-      locale: Locale(ref.watch(langProvider)),
-      supportedLocales: const [Locale('ar'), Locale('en')],
+      locale: Locale(material),
+      supportedLocales: [
+        for (final (code, _, _) in uiLanguages)
+          if (GlobalMaterialLocalizations.delegate.isSupported(Locale(code))) Locale(code),
+      ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) => AdaptiveFrame(child: child ?? const SizedBox.shrink()),
+      builder: (context, child) => UiLangScope(
+        lang: ui,
+        child: Directionality(
+          textDirection: isRtlLanguage(ui) ? TextDirection.rtl : TextDirection.ltr,
+          child: AdaptiveFrame(child: child ?? const SizedBox.shrink()),
+        ),
+      ),
       routerConfig: ref.watch(appRouterProvider),
     );
   }

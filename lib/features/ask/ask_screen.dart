@@ -21,6 +21,7 @@ import '../answer/feedback_bar.dart';
 import '../answer/receipt.dart';
 import '../answer/share_card.dart';
 import '../welcome/context_screen.dart';
+import '../../core/ui_strings.dart';
 
 class AskScreen extends ConsumerStatefulWidget {
   const AskScreen({super.key, this.initialQuestion});
@@ -156,7 +157,11 @@ class _AskScreenState extends ConsumerState<AskScreen> {
             ),
             Expanded(
               child: messages.isEmpty
-                  ? _EmptyState(suggestions: context.isEn ? _suggestionsEn : _suggestionsAr, onPick: _send)
+                  ? _EmptyState(
+                      // In one language: the interface's.
+                      suggestions: context.isEn ? [for (final q in _suggestionsEn) UiStrings.fromEnglish(q)] : _suggestionsAr,
+                      onPick: _send,
+                    )
                   : ListView.builder(
                       controller: _scroll,
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),

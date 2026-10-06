@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:math';
 
 /// «تحدّث مع مختص شرعي»: requests from askers to a Sharia specialist, by
-/// written message or a booked voice or video call, answered from the
-/// specialists' panel.
+/// written message or a booked call (voice, with video if both choose),
+/// answered from the specialists' panel.
 ///
 /// Privacy: a request holds only what the asker saw and approved before
 /// sending (the question, a short form of the conversation, «سياقي»). It is
@@ -21,7 +21,8 @@ class Referrals {
   final Random _random;
   final _items = <String, Map<String, dynamic>>{};
 
-  static const modes = {'message', 'audio', 'video'};
+  // 'audio' and 'video' were the two kinds of call before they became one.
+  static const modes = {'message', 'call', 'audio', 'video'};
   static const statuses = {'new', 'answered', 'booked', 'closed'};
   static const maxQuestion = 1200;
   static const maxConversation = 6000;

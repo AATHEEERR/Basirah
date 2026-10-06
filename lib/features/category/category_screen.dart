@@ -9,6 +9,7 @@ import '../../core/state.dart';
 import '../../shared/patterns.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_screen.dart';
+import '../../core/ui_strings.dart';
 
 /// A category: a deep "photo" hero card, then its questions as rows.
 class CategoryScreen extends ConsumerWidget {
@@ -177,8 +178,8 @@ class CategoryScreen extends ConsumerWidget {
   }
 
   static String _kindLabel(String kind, String lang) => switch (kind) {
-    'khilaf' => lang == 'en' ? 'Scholarly difference' : 'مسألة خلافية',
-    'refer' => lang == 'en' ? 'Needs a specialist' : 'يحتاج إلى مختص',
-    _ => lang == 'en' ? 'Documented answer' : 'إجابة موثقة',
+    'khilaf' => lang == 'en' ? UiStrings.fromEnglish('Scholarly difference') : 'مسألة خلافية',
+    'refer' => lang == 'en' ? UiStrings.fromEnglish('Needs a specialist') : 'يحتاج إلى مختص',
+    _ => lang == 'en' ? UiStrings.fromEnglish('Documented answer') : 'إجابة موثقة',
   };
 }

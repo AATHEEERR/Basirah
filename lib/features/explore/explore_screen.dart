@@ -59,6 +59,29 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                               ),
                               style: BText.label(14, weight: FontWeight.w400),
                             ),
+                            // The interfaces beyond Arabic and English: where the
+                            // reviewed answers' language comes from.
+                            if (context.uiLang != 'ar' && context.uiLang != 'en')
+                              Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                                decoration: BoxDecoration(color: Tones.guidance.top, borderRadius: BorderRadius.circular(14)),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.translate_rounded, size: 18, color: Tones.guidance.accent),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        context.tr(
+                                          'الإجابات المراجَعة هنا بالإنجليزية. اسأل بلغتك في «اسأل بصيرة» تصلك الإجابة بها.',
+                                          'The reviewed answers here are in English. Ask in your language in “Ask Basirah” and the answer comes in it.',
+                                        ),
+                                        style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             const SizedBox(height: 18),
                             TextField(
                               controller: _query,

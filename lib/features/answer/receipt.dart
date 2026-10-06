@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/theme.dart';
 import '../../core/lang.dart';
 import '../../shared/web_frame.dart';
+import '../../core/ui_strings.dart';
 
 /// «إيصال بصيرة»: how Basirah checked this answer before showing it — the
 /// checks that ran on it, what the guard removed and why, and the research
@@ -121,7 +122,7 @@ String _arChecks(int n) => switch (n) {
 /// The checks that ran on [a], as (title, note): only what the system
 /// actually does for this kind of answer.
 List<(String, String?)> receiptChecks(BasirahAnswer a, String lang) {
-  String t(String ar, String en) => lang == 'en' ? en : ar;
+  String t(String ar, String en) => lang == 'en' ? UiStrings.fromEnglish(en) : ar;
   final verses = [for (final e in a.evidence) if (e.isQuran) e];
   final hadith = [for (final e in a.evidence) if (!e.isQuran) e];
   final live = a.origin == AnswerOrigin.ai;
@@ -159,7 +160,7 @@ List<(String, String?)> receiptChecks(BasirahAnswer a, String lang) {
 /// What a guard action means, for the reader; null for notes that are not
 /// a change to the answer.
 String? guardNote(String g, String lang) {
-  String t(String ar, String en) => lang == 'en' ? en : ar;
+  String t(String ar, String en) => lang == 'en' ? UiStrings.fromEnglish(en) : ar;
   RegExpMatch? m;
   if ((m = RegExp(r'^dropped (\S+): cited without reading its tafsir').firstMatch(g)) != null) {
     return t('حُذف الاستشهاد بالآية (${m![1]}) لأن تفسيرها لم يُقرأ في هذه الإجابة', 'Removed the verse (${m[1]}): its tafsir was not read for this answer');

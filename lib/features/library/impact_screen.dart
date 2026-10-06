@@ -61,35 +61,8 @@ class _Board extends StatelessWidget {
     final kinds = (s['kinds'] as Map).cast<String, int>();
     final fb = (s['feedback'] as Map).cast<String, dynamic>();
     final fbTotal = fb['total'] as int;
-    final helpful = fb['helpful'] as int;
     final reasons = (fb['reasons'] as Map).cast<String, int>();
-    final median = s['medianMs'] as int?;
-    String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}٪';
-    // Answers given, and how many cite a verse or hadith from the approved
-    // sources (referrals and abstentions are not answers: they cite nothing).
-    final answered = s['answered'] as int? ?? ((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0));
-    final grounded = s['answeredWithEvidence'] as int? ?? 0;
     final guard = s['guardCatches'] as int? ?? 0;
-
-    final tiles = [
-      (context.tr('سؤالاً طُرح', 'questions asked'), '$n', Tones.guidance),
-      (
-        context.tr('من إجاباتنا بدليل من المصادر المعتمدة ($grounded من $answered)', 'of our answers cite the approved sources ($grounded of $answered)'),
-        pct(grounded, answered),
-        Tones.principle,
-      ),
-      (context.tr('أُحيلت إلى مختص', 'referred to a specialist'), pct(kinds['refer'] ?? 0, n), Tones.refer),
-      (
-        context.tr('رضا من قيّموا ($fbTotal)', 'helpful, of $fbTotal ratings'),
-        pct(helpful, fbTotal),
-        Tones.culture,
-      ),
-      (
-        context.tr('الوقت الوسيط للإجابة', 'median answer time'),
-        median == null ? '—' : context.tr('${(median / 1000).toStringAsFixed(1)} ث', '${(median / 1000).toStringAsFixed(1)} s'),
-        Tones.evidence,
-      ),
-    ];
 
     final kindRows = [
       ('answer', context.tr('إجابة موثقة', 'Documented answer'), Tones.principle),
@@ -104,7 +77,6 @@ class _Board extends StatelessWidget {
       for (final (id, ar, en) in unhelpfulReasons) (id, context.tr(ar, en), Tones.refer),
     ];
 
-    final columns = isWebsite(context) ? 3 : 2;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -116,33 +88,7 @@ class _Board extends StatelessWidget {
               style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
             ),
           ),
-        GridView.count(
-          crossAxisCount: columns,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: columns == 3 ? 1.9 : 1.45,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          children: [
-            for (final (label, value, tone) in tiles)
-              Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(value, style: BText.brand(30, color: tone.accent)),
-                    Text(label, style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w500)),
-                  ],
-                ),
-              ),
-          ],
-        ),
+        ImpactTiles(s: s),
         const SizedBox(height: 12),
         // What «the guard» is, and what it did.
         Container(
@@ -274,8 +220,89 @@ class _Note extends StatelessWidget {
   );
 }
 
-/// «لوحة الأثر» on the home page: three numbers and the way to the board.
-/// Hidden without a server.
+/// The board's numbers, as tiles: the rows are full, and a last row that
+/// is not is centred.
+class ImpactTiles extends StatelessWidget {
+  const ImpactTiles({super.key, required this.s});
+
+  final Map<String, dynamic> s;
+
+  @override
+  Widget build(BuildContext context) {
+    final n = s['questions'] as int? ?? 0;
+    final kinds = ((s['kinds'] as Map?) ?? const {}).cast<String, int>();
+    final fb = ((s['feedback'] as Map?) ?? const {}).cast<String, dynamic>();
+    final fbTotal = fb['total'] as int? ?? 0;
+    final helpful = fb['helpful'] as int? ?? 0;
+    final median = s['medianMs'] as int?;
+    final sign = context.lang == 'ar' ? '٪' : '%';
+    String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}$sign';
+    // Answers given, and how many cite a verse or hadith from the approved
+    // sources (referrals and abstentions are not answers: they cite nothing).
+    final answered = s['answered'] as int? ?? ((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0));
+    final grounded = s['answeredWithEvidence'] as int? ?? 0;
+    final referred = kinds['refer'] ?? 0;
+
+    final tiles = [
+      (context.tr('سؤالاً طُرح', 'questions asked'), '$n', Tones.guidance),
+      (
+        context.tr('من إجاباتنا بدليل من المصادر المعتمدة ($grounded من $answered)', 'of our answers cite the approved sources ($grounded of $answered)'),
+        pct(grounded, answered),
+        Tones.principle,
+      ),
+      (
+        referred == 1
+            ? context.tr('حالة أُحيلت إلى مختص', 'case referred to a specialist')
+            : context.tr('حالات أُحيلت إلى مختص', 'cases referred to a specialist'),
+        '$referred',
+        Tones.refer,
+      ),
+      (context.tr('رضا من قيّموا ($fbTotal)', 'helpful, of $fbTotal ratings'), pct(helpful, fbTotal), Tones.culture),
+      (
+        context.tr('الوقت الوسيط للإجابة', 'median answer time'),
+        median == null ? '—' : context.tr('${(median / 1000).toStringAsFixed(1)} ث', '${(median / 1000).toStringAsFixed(1)} s'),
+        Tones.evidence,
+      ),
+    ];
+    final columns = isWebsite(context) ? 3 : 2;
+    const gap = 10.0;
+    return LayoutBuilder(
+      builder: (context, box) {
+        final width = (box.maxWidth - gap * (columns - 1)) / columns;
+        // Low tiles on the website; on a phone they keep their shape.
+        final height = columns == 3 ? 136.0 : width / 1.45;
+        return Wrap(
+          alignment: WrapAlignment.center,
+          spacing: gap,
+          runSpacing: gap,
+          children: [
+            for (final (label, value, tone) in tiles)
+              Container(
+                width: width,
+                height: height,
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(value, style: BText.brand(30, color: tone.accent)),
+                    Text(label, style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w500)),
+                  ],
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+/// «لوحة الأثر» on the home page: the board's numbers themselves, and the
+/// way to the details. Hidden without a server.
 class ImpactTeaser extends ConsumerWidget {
   const ImpactTeaser({super.key});
 
@@ -283,78 +310,32 @@ class ImpactTeaser extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (!AppConfig.hasApi) return const SizedBox.shrink();
     final s = ref.watch(statsProvider).valueOrNull;
-    final n = s?['questions'] as int? ?? 0;
-    final kinds = ((s?['kinds'] as Map?) ?? const {}).cast<String, int>();
-    final fb = ((s?['feedback'] as Map?) ?? const {}).cast<String, dynamic>();
-    final fbTotal = fb['total'] as int? ?? 0;
-    String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}٪';
-    final tiles = [
-      ('$n', context.tr('سؤالاً طُرح', 'questions asked'), Tones.guidance),
-      (
-        pct(s?['answeredWithEvidence'] as int? ?? 0, s?['answered'] as int? ?? ((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0))),
-        context.tr('من إجاباتنا بدليل من المصادر', 'of answers cite the sources'),
-        Tones.principle,
-      ),
-      (pct(fb['helpful'] as int? ?? 0, fbTotal), context.tr('رضا من قيّموا', 'rated helpful'), Tones.culture),
-    ];
-    return Material(
-      color: BColors.surface,
-      borderRadius: BorderRadius.circular(24),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(24),
-        onTap: () => context.push('/impact'),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.insights_rounded, color: Tones.culture.accent, size: 22),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(context.tr('لوحة الأثر', 'Impact board'), style: BText.title(15.5)),
-                        Text(
-                          context.tr('أرقام الاستخدام والرضا، دون حفظ أي سؤال', 'Usage and ratings in numbers, with no question stored'),
-                          style: BText.label(12, weight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
-                ],
+    if (s == null || (s['questions'] as int? ?? 0) == 0) return const SizedBox.shrink();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                [
+                  if (s['since'] != null) _since(context, s['since'] as String),
+                  context.tr('أعداد فقط، دون حفظ نص أي سؤال', 'counts only, with no question text stored'),
+                ].join(' · '),
+                style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
               ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  for (final (i, (value, label, tone)) in tiles.indexed) ...[
-                    if (i > 0) const SizedBox(width: 8),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(value, style: BText.brand(22, color: tone.accent)),
-                            Text(label, style: BText.label(11.5, color: BColors.ink, weight: FontWeight.w500), maxLines: 1, overflow: TextOverflow.ellipsis),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ],
-          ),
+            ),
+            TextButton.icon(
+              onPressed: () => context.push('/impact'),
+              iconAlignment: IconAlignment.end,
+              icon: const Icon(Icons.arrow_forward_rounded, size: 16, color: BColors.ink),
+              label: Text(context.tr('التفاصيل', 'Details'), style: BText.label(13, color: BColors.ink, weight: FontWeight.w600)),
+            ),
+          ],
         ),
-      ),
+        const SizedBox(height: 6),
+        ImpactTiles(s: s),
+      ],
     );
   }
 }
