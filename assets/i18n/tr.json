@@ -223,14 +223,12 @@
     "Related questions": "İlgili sorular",
     "Religion is not the same as custom": "Din ile âdet aynı şey değildir",
     "Remove from saved": "Kaydedilenlerden kaldır",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Modelin hafızasından yazdığı ve tek bir ayetle eşleşmeyen Kur'an ifadesi kaldırıldı",
     "Removed a hadith cited without saying what it supports": "Neyi desteklediği belirtilmeden zikredilen bir hadis kaldırıldı",
     "Removed a hadith not found in the approved sources": "Onaylı kaynaklarda bulunamayan bir hadis kaldırıldı",
     "Removed a reference to a verse that does not exist ({0})": "Var olmayan bir ayete yapılan atıf kaldırıldı ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Ayet kaldırıldı ({0}): tefsiri bu cevap için okunmadı",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} delil kaldırıldı: yönlendirme ve cevap vermekten kaçınma hiçbir şeye atıf yapmaz",
     "Repeat": "Tekrarla",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Modelin hafızasından yazdığı Kur'an ifadesi, ayet kaynağıyla değiştirildi",
     "Request code: {0}": "İstek kodu: {0}",
     "Request the appointment": "Randevu iste",
     "Research in the approved sources": "Onaylı kaynaklarda araştırma",
@@ -391,8 +389,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Tam rapor ve tüm cevapların tam metni proje deposundadır: eval/EVALUATION.md (yöntem ve sonuçlar), eval/baseline_report.json ve eval/prompted_report.json (her cevap ve sayımları), eval/test_cases.json (sorular ve beklenen davranış).",
     "The guard changed part of the answer": "Koruyucu cevabın bir kısmını değiştirdi",
     "The guard checks": "Koruyucu kontrol ediyor",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Koruyucu, her cevabı gösterilmeden önce denetleyen sabit bir koddur: tefsiri okunmamış ayeti, kabul edilmemiş hadisi ve modelin ezberinden yazdığı her Kuran metnini siler. Şimdiye kadar hiçbir cevaptan bir şey silmesi gerekmedi: model her seferinde kurallara uydu.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Koruyucu, her cevabı gösterilmeden önce denetleyen sabit bir koddur: tefsiri okunmamış ayeti, kabul edilmemiş hadisi ve modelin ezberinden yazdığı her Kuran metnini siler. {1} cevabın {0} tanesinde, gösterilmeden önce devreye girdi.",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "Üç tarafta da sorunlu olarak işaretlenen her cevabı kendimiz okuduk, sayım kurallarını yanlış oldukları yerlerde düzelttik ve her düzeltmeyi, soruyu yeniden sormadan, kayıtlı cevaplardan tüm taraflara uyguladık.",
     "Website view": "Web sitesi görünümü",
     "Wednesday": "Çarşamba",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Bir uzmandan fetva isteyin",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Kendi durumunuz için: sorunuzu ve ayrıntılarını yazın, bir şer'i ilimler uzmanı size mesajla veya telefonla cevap versin",
     "Your question and the details of your case": "Sorunuz ve durumunuzun ayrıntıları",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "İşiniz bittiğinde “Talebi kapat”a dokunun. Talepler 30 gün sonra sunucudan silinir; liste her 5 saniyede bir kendiliğinden yenilenir."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "İşiniz bittiğinde “Talebi kapat”a dokunun. Talepler 30 gün sonra sunucudan silinir; liste her 5 saniyede bir kendiliğinden yenilenir.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Açıklamadaki bir âyet: model yerini belirledi ve Mushaf'taki kaynağı verildi",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Açıklamadaki bir âyet: model yerini belirledi ve metni yalnızca Mushaf'tan aktarıldı",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Kur'an olarak sunulan, ancak Mushaf'taki hiçbir âyetle birebir eşleşmeyen ifade kaldırıldı",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Koruyucu, her cevap gösterilmeden önce onu denetleyen sabit bir koddur: tefsiri okunmamış âyeti ve kabul edilmemiş hadisi kaldırır, açıklamada Mushaf'tan aktarılmadıkça hiçbir âyet ifadesini bırakmaz. Şimdiye kadar hiçbir cevaptan bir şey kaldırması gerekmedi: model her seferinde kurallara uydu.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Koruyucu, her cevap gösterilmeden önce onu denetleyen sabit bir koddur: tefsiri okunmamış âyeti ve kabul edilmemiş hadisi kaldırır, açıklamada Mushaf'tan aktarılmadıkça hiçbir âyet ifadesini bırakmaz. {1} cevabın {0} tanesinde, cevaplar gösterilmeden önce devreye girdi."
   }
 }

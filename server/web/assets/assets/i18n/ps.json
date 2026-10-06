@@ -219,14 +219,12 @@
     "Related questions": "اړوندې پوښتنې",
     "Religion is not the same as custom": "دین له رواج سره یو شان نه دی",
     "Remove from saved": "له خوندي شويو لرې کول",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "د قرآن هغه عبارت لرې شو چې ماډل له حافظې لیکلی و او له هیڅ یوې آیت سره سمون نه درلود",
     "Removed a hadith cited without saying what it supports": "هغه حدیث لرې شو چې پرته له دې چې څه ثابتوي، یاد شوی و",
     "Removed a hadith not found in the approved sources": "هغه حدیث لرې شو چې په تایید شویو سرچینو کې و نه موندل شو",
     "Removed a reference to a verse that does not exist ({0})": "د یوې داسې آیت اشاره لرې شوه چې شتون نه لري ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "آیت ({0}) لرې شو: د دې ځواب لپاره یې تفسیر نه و لوستل شوی",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} یاد شوي دلیل/دلیلونه لرې شول: سپارنې او انکار هیڅ نه یادوي",
     "Repeat": "تکرار",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "د قرآن هغه عبارت چې ماډل له حافظې لیکلی و د آیت له مرجع سره بدل شو",
     "Request code: {0}": "د غوښتنې کوډ: {0}",
     "Request the appointment": "وخت وغواړئ",
     "Research in the approved sources": "په تایید شویو سرچینو کې څېړنه",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "بشپړ راپور او ټول ځوابونه په بشپړ متن د پروژې په ذخیره کې دي: eval/EVALUATION.md (طریقه او پایلې)، eval/baseline_report.json او eval/prompted_report.json (هر ځواب او شمېرنه یې)، eval/test_cases.json (پوښتنې او متوقع چلند).",
     "The guard changed part of the answer": "ساتونکي د ځواب یوه برخه بدله کړه",
     "The guard checks": "ساتونکی تصدیق کوي",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ساتونکی ثابت کوډ دی چې هر ځواب د ښودلو مخکې ګوري: هغه آیت لیرې کوي چې تفسیر یې نه وي لوستل شوی، نامنلی حدیث، او هر قرآني متن چې ماډل له حافظې لیکلی وي. تر اوسه یې اړتیا نه ده لیدلې چې له کوم ځواب څخه څه لیرې کړي: ماډل هر ځل په قاعدو پاتې شو.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "ساتونکی ثابت کوډ دی چې هر ځواب د ښودلو مخکې ګوري: هغه آیت لیرې کوي چې تفسیر یې نه وي لوستل شوی، نامنلی حدیث، او هر قرآني متن چې ماډل له حافظې لیکلی وي. د ښودلو مخکې یې له {1} ځوابونو څخه په {0} کې لاسوهنه وکړه.",
     "The hadith and its explanation on HadeethEnc": "حدیث او د هغه تشریح په HadeethEnc کې",
     "The highlighted words are the part cited": "رنګ شوي ټکي هغه برخه ده چې د استدلال لپاره راوړل شوې",
     "The impact board needs the Basirah server.": "د اغېز تخته د Basirah له سرور سره اړیکې ته اړتیا لري.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "له یو متخصص نه فتوا وغواړئ",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "ستاسو د خپل حالت لپاره: خپله پوښتنه او تفصيلات یې ولیکئ، او یو شرعي متخصص به درته په پیغام یا زنګ ځواب درکړي",
     "Your question and the details of your case": "ستاسو پوښتنه او د ستاسو د حالت تفصيلات",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "کله چې پای ته ورسیږي، «غوښتنه وتړئ». غوښتنې له ۳۰ ورځو وروسته له سرور څخه ړنګیږي؛ لیست پخپله هر ۵ ثانیې وروسته نوی کیږي."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "کله چې پای ته ورسیږي، «غوښتنه وتړئ». غوښتنې له ۳۰ ورځو وروسته له سرور څخه ړنګیږي؛ لیست پخپله هر ۵ ثانیې وروسته نوی کیږي.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "په شرحه کې یوه آیت: ماډل د هغه ځای وټاکه، او د مصحف مرجع یې ورکړل شوه",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "په شرحه کې یوه آیت: ماډل د هغه ځای وټاکه، او متن یې یوازې له مصحف څخه کاپي شو",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "هغه عبارت لیرې شو چې قرآن ته منسوب شوی و، خو په مصحف کې له هیڅ یوه ځانګړي آیت سره سمون نه خوری",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ساتونکی ثابت کوډ دی چې هره ځواب مخکې له ښودلو وڅاري: هغه آیت لیرې کوي چې تفسیر یې نه وي لوستل شوی، او نامنلې حدیث هم لیرې کوي، او په شرحه کې د آیت لفظ نه پریباسي مګر هغه چې له مصحف څخه کاپي شوی وي. تر اوسه د هیڅ ځواب څخه د څه لیرې کولو ته اړتیا نه ده پیښه شوې: ماډل هر ځل له قاعدو سره سم پاتې شو.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "ساتونکی ثابت کوډ دی چې هره ځواب مخکې له ښودلو وڅاري: هغه آیت لیرې کوي چې تفسیر یې نه وي لوستل شوی، او نامنلې حدیث هم لیرې کوي، او په شرحه کې د آیت لفظ نه پریباسي مګر هغه چې له مصحف څخه کاپي شوی وي. هغه د {1} ځوابونو له جملې څخه په {0} کې مخکې له ښودلو لاسوهنه وکړه."
   }
 }

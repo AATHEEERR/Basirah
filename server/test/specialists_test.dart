@@ -25,6 +25,13 @@ void main() {
     expect(accounts.user('made-up-token'), isNull);
   });
 
+  test('a pasted entry with line breaks and spaces still works', () {
+    final entry = SpecialistAccounts.entry('mufti', 'right', iterations: rounds);
+    final broken = ' ${entry.substring(0, 30)}\n${entry.substring(30)} \r\n';
+    final accounts = SpecialistAccounts(broken, iterations: rounds);
+    expect(accounts.signIn('mufti', 'right', from: 'a').error, isNull);
+  });
+
   test('no accounts: the panel is closed', () {
     final accounts = SpecialistAccounts('', iterations: rounds);
     expect(accounts.open, isFalse);

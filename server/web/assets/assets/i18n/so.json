@@ -283,14 +283,12 @@
     "Related questions": "Su'aalo la xiriira",
     "Religion is not the same as custom": "Diinta iyo caadadu isku mid ma aha",
     "Remove from saved": "Ka saar kuwa la kaydiyay",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Waxaa laga saaray qoraal Quraan ah oo moodelku xusuustiisa ka qoray kana mid ahayn aayad gaar ah",
     "Removed a hadith cited without saying what it supports": "Waxaa laga saaray hadiith la soo xigtay iyadoo aan la sheegin waxa uu caddeynayo",
     "Removed a hadith not found in the approved sources": "Waxaa laga saaray hadiith aan laga helin ilaha la oggol yahay",
     "Removed a reference to a verse that does not exist ({0})": "Waxaa laga saaray tixraac aayad aan jirin ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Waxaa laga saaray aayadda ({0}): tafsiirkeeda looma akhriyin jawaabtan",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Waxaa laga saaray {0} cadeyn: gudbinta iyo diidmadu waxba ma soo xigtaan",
     "Repeat": "Ku celi",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Qoraal Quraan ah oo moodelku xusuustiisa ka qoray waxaa lagu beddelay tixraaca aayadda",
     "Request code: {0}": "Koodhka codsiga: {0}",
     "Request the appointment": "Codso ballanta",
     "Research in the approved sources": "Cilmi-baaris ilaha la oggol yahay",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Warbixinta oo dhan iyo jawaab kasta oo dhammaystiran waxay ku jiraan kaydka mashruuca: eval/EVALUATION.md (habka iyo natiijooyinka), eval/baseline_report.json iyo eval/prompted_report.json (jawaab kasta iyo tirinteeda), eval/test_cases.json (su'aalaha iyo hab-dhaqanka la sugayo).",
     "The guard changed part of the answer": "Ilaaliyuhu wuxuu beddelay qayb ka mid ah jawaabta",
     "The guard checks": "Ilaaliyuhu wuu hubiyaa",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Ilaaliyuhu waa koodh go'an oo hubiya jawaab kasta intaan la muujin: wuxuu tirtiraa aayad aan tafsiirkeeda la akhriyin, hadiis aan la aqbalin, iyo qoraal Qur'aan ah oo moodelku xusuusta ka qoray. Illaa hadda uma baahan inuu wax ka tirtiro jawaab kasta: moodelku wuxuu ilaaliyay xeerarka mar kasta.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Ilaaliyuhu waa koodh go'an oo hubiya jawaab kasta intaan la muujin: wuxuu tirtiraa aayad aan tafsiirkeeda la akhriyin, hadiis aan la aqbalin, iyo qoraal Qur'aan ah oo moodelku xusuusta ka qoray. Wuu soo farageliyay {0} ka mid ah {1} jawaabood intaan la muujin.",
     "The hadith and its explanation on HadeethEnc": "Xadiiska iyo sharaxaaddiisa ee HadeethEnc",
     "The highlighted words are the part cited": "Erayada la calaamadiyey waa qaybta laga soo xigtay",
     "The impact board needs the Basirah server.": "Guddiga saamaynta wuxuu u baahan yahay server-ka Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Weydii khabiir fatwo",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Xaaladdaada gaarka ah: qor su'aashaada iyo faahfaahinteeda, khabiir Sharci ahna wuxuu kugu jawaabi doonaa farriin ama wicitaan",
     "Your question and the details of your case": "Su'aashaada iyo faahfaahinta xaaladdaada",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Marka aad dhammayso, riix “Xir”. Codsiyada waxaa laga tirtiraa server-ka kadib 30 maalmood; liiska wuxuu is-cusboonaysiiyaa 5 ilbiriqsi kasta."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Marka aad dhammayso, riix “Xir”. Codsiyada waxaa laga tirtiraa server-ka kadib 30 maalmood; liiska wuxuu is-cusboonaysiiyaa 5 ilbiriqsi kasta.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Aayad ku jirta sharaxaadda: moodelku wuxuu helay goorteeda, waxaana la bixiyay tixraaceeda Mushafka",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Aayad ku jirta sharaxaadda: moodelku wuxuu helay goorteeda, qoraalkeeduna waxaa laga guuriyay Mushafka oo keliya",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Waa laga saaray eray loo nisbeeyay Quranka oo aan waafaqsanayn hal aayad oo gaar ah oo ku jirta Mushafka",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Waardiyuhu waa koodh go'an oo hubiya jawaab kasta kahor intaan la muujin: wuxuu tirtiraa aayad aan tafsiirkeeda la akhriyin iyo hadiith aan la aqbalin, kamana joogsado sharaxaadda erayga aayad haddii aan laga guuriyay Mushafka. Ilaa hadda uma baahna inuu jawaab kasta waxba ka tirtiro: moodelku mar kasta wuxuu ilaaliyay xeerarka.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Waardiyuhu waa koodh go'an oo hubiya jawaab kasta kahor intaan la muujin: wuxuu tirtiraa aayad aan tafsiirkeeda la akhriyin iyo hadiith aan la aqbalin, kamana joogsado sharaxaadda erayga aayad haddii aan laga guuriyay Mushafka. Wuu dhexgalay {0} ka mid ah {1} jawaabood kahor intaan la muujin."
   }
 }

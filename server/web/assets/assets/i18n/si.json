@@ -223,14 +223,12 @@
     "Related questions": "සම්බන්ධ ප්‍රශ්න",
     "Religion is not the same as custom": "ආගම සහ සිරිත් විරිත් එකක් නොවේ",
     "Remove from saved": "සුරැකියවලින් ඉවත් කරන්න",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "ආකෘතිය මතකයෙන් ලියූ, කිසිදු එක් ආයතයකට නොගැලපුණු කුර්ආන් පාඨය ඉවත් කළා",
     "Removed a hadith cited without saying what it supports": "කුමක් සනාථ කරන්නේදැයි නොකියා දක්වා තිබූ හදීසයක් ඉවත් කළා",
     "Removed a hadith not found in the approved sources": "අනුමත මූලාශ්‍රවල හමු නොවූ හදීසයක් ඉවත් කළා",
     "Removed a reference to a verse that does not exist ({0})": "නොපවතින ආයතයක් ({0}) පිළිබඳ සඳහන ඉවත් කළා",
     "Removed the verse ({0}): its tafsir was not read for this answer": "ආයත ({0}) ඉවත් කළා: මෙම පිළිතුර සඳහා එහි තෆ්සීරය කියවා නොතිබුණි",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "දක්වා තිබූ සාක්ෂි {0} ක් ඉවත් කළා: යොමු කිරීම් සහ ප්‍රතික්ෂේප කිරීම් කිසිවක් උපුටා නොදක්වයි",
     "Repeat": "නැවත කරන්න",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "ආකෘතිය මතකයෙන් ලියූ කුර්ආන් පාඨය ආයතයේ යොමුවෙන් ප්‍රතිස්ථාපනය කළා",
     "Request code: {0}": "ඉල්ලීමේ කේතය: {0}",
     "Request the appointment": "නියමිත වේලාව ඉල්ලන්න",
     "Research in the approved sources": "අනුමත මූලාශ්‍රවල පර්යේෂණය",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "සම්පූර්ණ වාර්තාව සහ සියලු පිළිතුරු ඒවායේ සම්පූර්ණ පාඨයෙන් ව්‍යාපෘති ගබඩාවේ ඇත: eval/EVALUATION.md (ක්‍රමවේදය සහ ප්‍රතිඵල), eval/baseline_report.json සහ eval/prompted_report.json (සෑම පිළිතුරක්ම සහ එහි ගණන්), eval/test_cases.json (ප්‍රශ්න සහ අපේක්ෂිත හැසිරීම).",
     "The guard changed part of the answer": "ආරක්ෂකය පිළිතුරේ කොටසක් වෙනස් කළේය",
     "The guard checks": "ආරක්ෂකය පරීක්ෂා කරයි",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ආරක්ෂකය යනු සෑම පිළිතුරක්ම පෙන්වීමට පෙර පරීක්ෂා කරන ස්ථාවර කේතයකි: tafsir නොකියවූ ආයාතයක්, පිළිගත නොහැකි hadith එකක්, සහ ආකෘතිය මතකයෙන් ලියූ ඕනෑම Quran පාඨයක් එය ඉවත් කරයි. මෙතෙක් කිසිම පිළිතුරකින් කිසිවක් ඉවත් කිරීමට එයට අවශ්‍ය වී නැත: ආකෘතිය සෑම විටම නීතිවලට අනුකූල විය.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "ආරක්ෂකය යනු සෑම පිළිතුරක්ම පෙන්වීමට පෙර පරීක්ෂා කරන ස්ථාවර කේතයකි: tafsir නොකියවූ ආයාතයක්, පිළිගත නොහැකි hadith එකක්, සහ ආකෘතිය මතකයෙන් ලියූ ඕනෑම Quran පාඨයක් එය ඉවත් කරයි. පිළිතුරු {1} න් {0} කට ඒවා පෙන්වීමට පෙර එය මැදිහත් විය.",
     "The hadith and its explanation on HadeethEnc": "හදීසය සහ එහි විවරණය HadeethEnc හි",
     "The highlighted words are the part cited": "උද්දීපනය කළ වචන උපුටා දැක්වූ කොටස වේ",
     "The impact board needs the Basirah server.": "බලපෑම් පුවරුවට Basirah සේවාදායකය අවශ්‍ය වේ.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "විශේෂඥයෙකුගෙන් ෆත්වාවක් ඉල්ලන්න",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "ඔබේම තත්ත්වය සඳහා: ඔබේ ප්‍රශ්නය සහ එහි විස්තර ලියන්න, ෂරීආ විශේෂඥයෙක් පණිවිඩයකින් හෝ ඇමතුමකින් ඔබට පිළිතුරු දෙනු ඇත",
     "Your question and the details of your case": "ඔබේ ප්‍රශ්නය සහ ඔබේ තත්ත්වයේ විස්තර",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "අවසන් වූ පසු “වසන්න” ඔබන්න. ඉල්ලීම් දින 30කට පසු සේවාදායකයෙන් මකා දමනු ලැබේ; ලැයිස්තුව සෑම තත්පර 5කට වරක් තනිවම නැවුම් වේ."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "අවසන් වූ පසු “වසන්න” ඔබන්න. ඉල්ලීම් දින 30කට පසු සේවාදායකයෙන් මකා දමනු ලැබේ; ලැයිස්තුව සෑම තත්පර 5කට වරක් තනිවම නැවුම් වේ.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "පැහැදිලි කිරීමේ ඇති ආයතයක්: model එක එහි ස්ථානය හඳුනාගෙන, එහි Mushaf යොමුව ලබා දී ඇත",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "පැහැදිලි කිරීමේ ඇති ආයතයක්: model එක එහි ස්ථානය හඳුනාගෙන, එහි පාඨය Mushaf එකෙන් පමණක් පිටපත් කර ඇත",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Quran යැයි දක්වා තිබූ, නමුත් Mushaf එකේ කිසිදු එක් ආයතයකට නොගැළපුණු වදන් ඉවත් කරන ලදී",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ආරක්ෂකය යනු සෑම පිළිතුරක්ම පෙන්වීමට පෙර පරීක්ෂා කරන ස්ථාවර කේතයකි: tafsir කියවා නොමැති ආයතයක් සහ පිළිගත නොහැකි hadith එකක් එය ඉවත් කරයි; පැහැදිලි කිරීමේ ආයතයක වදන් Mushaf එකෙන් පිටපත් කර නොමැති නම් ඒවා තබා නොගනී. මෙතෙක් කිසිදු පිළිතුරකින් කිසිවක් ඉවත් කිරීමට අවශ්‍ය වී නැත: model එක සෑම විටම නීතිරීතිවලට අනුකූල විය.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "ආරක්ෂකය යනු සෑම පිළිතුරක්ම පෙන්වීමට පෙර පරීක්ෂා කරන ස්ථාවර කේතයකි: tafsir කියවා නොමැති ආයතයක් සහ පිළිගත නොහැකි hadith එකක් එය ඉවත් කරයි; පැහැදිලි කිරීමේ ආයතයක වදන් Mushaf එකෙන් පිටපත් කර නොමැති නම් ඒවා තබා නොගනී. පිළිතුරු {1} කින් {0} ක් පෙන්වීමට පෙර එය මැදිහත් විය."
   }
 }

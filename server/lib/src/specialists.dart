@@ -35,7 +35,8 @@ class SpecialistAccounts {
   static Map<String, ({Uint8List salt, Uint8List hash})> _parse(String? spec) {
     final out = <String, ({Uint8List salt, Uint8List hash})>{};
     for (final entry in (spec ?? '').split(';')) {
-      final parts = entry.trim().split(':');
+      // Spaces or line breaks a pasted value picked up (an entry never has any).
+      final parts = entry.replaceAll(RegExp(r'\s'), '').split(':');
       if (parts.length != 3 || parts[0].isEmpty) continue;
       try {
         out[parts[0].toLowerCase()] = (

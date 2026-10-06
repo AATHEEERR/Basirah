@@ -219,14 +219,12 @@
     "Related questions": "Câu hỏi liên quan",
     "Religion is not the same as custom": "Tôn giáo không giống với phong tục",
     "Remove from saved": "Xóa khỏi mục đã lưu",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Đã loại bỏ văn bản Quran do mô hình viết từ trí nhớ không khớp với bất kỳ câu nào",
     "Removed a hadith cited without saying what it supports": "Đã loại bỏ một hadith được trích dẫn mà không nêu nó chứng minh điều gì",
     "Removed a hadith not found in the approved sources": "Đã loại bỏ một hadith không tìm thấy trong các nguồn đã được duyệt",
     "Removed a reference to a verse that does not exist ({0})": "Đã loại bỏ một tham chiếu đến câu kinh không tồn tại ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Đã loại bỏ câu kinh ({0}): tafsir của câu này chưa được đọc cho câu trả lời này",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Đã loại bỏ {0} mục trích dẫn: việc chuyển tiếp và từ chối không trích dẫn gì",
     "Repeat": "Lặp lại",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Đã thay văn bản Quran do mô hình viết từ trí nhớ bằng tham chiếu câu kinh",
     "Request code: {0}": "Mã yêu cầu: {0}",
     "Request the appointment": "Yêu cầu đặt lịch hẹn",
     "Research in the approved sources": "Tìm kiếm trong các nguồn đã được duyệt",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Báo cáo đầy đủ và toàn văn mọi câu trả lời nằm trong kho mã của dự án: eval/EVALUATION.md (phương pháp và kết quả), eval/baseline_report.json và eval/prompted_report.json (mọi câu trả lời và số liệu đếm), eval/test_cases.json (các câu hỏi và hành vi mong đợi).",
     "The guard changed part of the answer": "Bộ bảo vệ đã chỉnh sửa một phần của câu trả lời",
     "The guard checks": "Bộ bảo vệ kiểm tra",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Bộ bảo vệ là mã cố định kiểm tra mọi câu trả lời trước khi hiển thị: nó loại bỏ câu kinh mà tafsir chưa được đọc, hadith không được chấp nhận, và bất kỳ văn bản Quran nào mô hình tự viết theo trí nhớ. Cho đến nay nó chưa phải loại bỏ gì khỏi câu trả lời nào: mô hình đã tuân thủ các quy tắc mọi lần.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Bộ bảo vệ là mã cố định kiểm tra mọi câu trả lời trước khi hiển thị: nó loại bỏ câu kinh mà tafsir chưa được đọc, hadith không được chấp nhận, và bất kỳ văn bản Quran nào mô hình tự viết theo trí nhớ. Nó đã can thiệp vào {0} trên {1} câu trả lời trước khi hiển thị.",
     "The hadith and its explanation on HadeethEnc": "Hadith và phần giải thích trên HadeethEnc",
     "The highlighted words are the part cited": "Phần được tô sáng là chỗ được dẫn làm bằng chứng",
     "The impact board needs the Basirah server.": "Bảng tác động cần kết nối với máy chủ của Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Nhờ chuyên gia đưa ra fatwa",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Dành cho trường hợp riêng của bạn: hãy viết câu hỏi cùng các chi tiết, và một chuyên gia về Sharia sẽ trả lời bạn bằng tin nhắn hoặc cuộc gọi",
     "Your question and the details of your case": "Câu hỏi của bạn và các chi tiết về trường hợp của bạn",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Hãy chọn “Đóng yêu cầu” khi bạn xong. Các yêu cầu sẽ bị xóa khỏi máy chủ sau 30 ngày; danh sách tự làm mới mỗi 5 giây."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Hãy chọn “Đóng yêu cầu” khi bạn xong. Các yêu cầu sẽ bị xóa khỏi máy chủ sau 30 ngày; danh sách tự làm mới mỗi 5 giây.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Một câu kinh trong phần giải thích: mô hình đã xác định vị trí của câu kinh, và đã ghi kèm tham chiếu từ Mushaf",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Một câu kinh trong phần giải thích: mô hình đã xác định vị trí của câu kinh, và văn bản chỉ được sao chép từ Mushaf",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Đã xóa phần lời được nêu là của Quran nhưng không khớp với bất kỳ câu kinh cụ thể nào trong Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Bộ kiểm soát là đoạn mã cố định, kiểm tra mọi câu trả lời trước khi hiển thị: nó loại bỏ câu kinh chưa được đọc tafsir và hadith không được chấp nhận, đồng thời không giữ lại trong phần giải thích lời văn của câu kinh nào trừ khi được sao chép từ Mushaf. Cho đến nay nó chưa phải xóa bất cứ điều gì khỏi câu trả lời nào: lần nào mô hình cũng tuân thủ các quy tắc.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Bộ kiểm soát là đoạn mã cố định, kiểm tra mọi câu trả lời trước khi hiển thị: nó loại bỏ câu kinh chưa được đọc tafsir và hadith không được chấp nhận, đồng thời không giữ lại trong phần giải thích lời văn của câu kinh nào trừ khi được sao chép từ Mushaf. Nó đã can thiệp vào {0} trong số {1} câu trả lời trước khi chúng được hiển thị."
   }
 }

@@ -118,10 +118,9 @@ BasirahAnswer guardAnswer({
   ];
 
   // ── Quotation check on prose ──
-  // Verse text is shown only in the evidence cards, copied from the Mushaf.
-  // A verse the model quotes in the prose is replaced by its reference (when
-  // the words belong to exactly one verse), so no verse wording typed by the
-  // model reaches the reader.
+  // No verse wording typed by the model reaches the reader: a verse it names
+  // in the prose is placed (the words must belong to exactly one verse) and
+  // its words are copied from the Mushaf, with the reference.
   final registryTexts = [
     for (final e in kb.evidence.values)
       if (!e.isQuran) normalizeArabic(e.text).replaceAll(' ', ''),
@@ -138,15 +137,27 @@ BasirahAnswer guardAnswer({
     return en ? '($name ${v.key})' : '($name: ${v.ayah})';
   }
 
-  String? verseRef(String inner) {
+  // A verse the model names in the prose: once it is placed in exactly one
+  // verse, its words are taken from the Mushaf, with the reference — when
+  // its tafsir was read in this run, as for any cited verse; otherwise the
+  // reference alone.
+  String? fromMushaf(String inner) {
     final keys = quran?.locateQuote(inner) ?? const <String>[];
-    return keys.length == 1 ? refOf(keys.single) : null;
+    if (keys.length != 1) return null;
+    final words = readRefs.contains(keys.single) ? quran!.mushafExcerpt(keys.single, inner) : null;
+    if (words == null) {
+      report.add('replaced Quran quotation with its reference');
+      return refOf(keys.single);
+    }
+    report.add('verse text taken from the Mushaf (${keys.single})');
+    return '﴿$words﴾ ${refOf(keys.single)}';
   }
 
-  // Quran text written without quotation marks — six or more words in a row,
-  // within a verse or across neighbouring verses, as when the model obeys
-  // «write the surah from memory» — is replaced by its reference, or removed
-  // when the same words occur in several surahs.
+  // Quran text written without quotation marks — six or more words in a row
+  // — is taken from the Mushaf when it lies within one verse. Across
+  // neighbouring verses, as when the model obeys «write the surah from
+  // memory», it becomes the reference, or is removed when the same words
+  // occur in several surahs.
   String stripVerseRuns(String s) {
     if (quran == null || s.isEmpty) return s;
     final words = s.split(RegExp(r'\s+'));
@@ -156,13 +167,23 @@ BasirahAnswer guardAnswer({
     var i = 0;
     for (final r in runs) {
       out.addAll(words.sublist(i, r.start));
-      if (r.spans.length == 1) {
+      final one = r.spans.length == 1 && r.spans.single.from == r.spans.single.to
+          ? '${r.spans.single.surah}:${r.spans.single.from}'
+          : null;
+      final excerpt = one == null || !readRefs.contains(one) ? null : quran.mushafExcerpt(one, words.sublist(r.start, r.end).join(' '));
+      if (excerpt != null) {
+        // Within one verse: its words from the Mushaf, with the reference.
+        out.add('﴿$excerpt﴾ ${refOf(one!)}');
+        report.add('verse text taken from the Mushaf ($one)');
+      } else if (r.spans.length == 1) {
         final sp = r.spans.single;
         final name = quran.surahName(sp.surah, lang: kb.lang);
         final ayat = sp.from == sp.to ? '${sp.from}' : '${sp.from}–${sp.to}';
         out.add(en ? '($name ${sp.surah}:$ayat)' : '($name: $ayat)');
       }
-      report.add('replaced unquoted Quran wording (${r.spans.map((sp) => '${sp.surah}:${sp.from}').join(', ')})');
+      if (excerpt == null) {
+        report.add('replaced unquoted Quran wording (${r.spans.map((sp) => '${sp.surah}:${sp.from}').join(', ')})');
+      }
       i = r.end;
     }
     out.addAll(words.sublist(i));
@@ -171,22 +192,30 @@ BasirahAnswer guardAnswer({
 
   String clean(Object? v) {
     var s = (v as String?)?.trim() ?? '';
+    // Verses go into placeholders first, so the run check below never reads
+    // the Mushaf's own words as text to replace.
+    final placed = <String>[];
+    String hold(String verse) {
+      placed.add(verse);
+      return '\u0000${placed.length - 1}\u0000';
+    }
+
     s = s.replaceAllMapped(_quranQuote, (m) {
-      final ref = verseRef(m[1]!);
-      report.add(ref == null ? 'removed Quran quotation' : 'replaced Quran quotation with its reference');
-      return ref ?? '';
+      final verse = fromMushaf(m[1]!);
+      if (verse == null) report.add('removed Quran quotation');
+      return verse == null ? '' : hold(verse);
     });
-    // Registry text keeps its « »; verse text becomes its reference; any
+    // Registry text keeps its « »; verse text is taken from the Mushaf; any
     // other text in « » stays as plain text, never as a quotation.
     s = s.replaceAllMapped(_guillemets, (m) {
       final inner = m[1]!;
       if (inner.trim().isEmpty) return '';
       if (inRegistry(inner)) return m[0]!;
-      final ref = verseRef(inner);
-      if (ref != null) report.add('replaced Quran quotation with its reference');
-      return ref ?? inner;
+      final verse = fromMushaf(inner);
+      return verse == null ? inner : hold(verse);
     });
     s = stripVerseRuns(s);
+    s = s.replaceAllMapped(RegExp('\u0000(\\d+)\u0000'), (m) => placed[int.parse(m[1]!)]);
     return s.replaceAll(RegExp(r'\s{2,}'), ' ').trim();
   }
 

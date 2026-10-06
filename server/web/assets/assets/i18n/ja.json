@@ -277,14 +277,12 @@
     "Related questions": "関連する質問",
     "Religion is not the same as custom": "宗教と習慣は同じではありません",
     "Remove from saved": "保存済みから削除",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "どの一節にも一致しない、モデルが記憶から書いたクルアーンの文言を削除しました",
     "Removed a hadith cited without saying what it supports": "何を裏付けるのか示さずに引用されたハディースを削除しました",
     "Removed a hadith not found in the approved sources": "承認された出典で見つからなかったハディースを削除しました",
     "Removed a reference to a verse that does not exist ({0})": "存在しない節への参照を削除しました({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "節({0})を削除しました:この回答ではそのタフシールが読み込まれていません",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "引用された{0}件を削除しました:紹介とお断りでは何も引用しません",
     "Repeat": "繰り返し",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "モデルが記憶から書いたクルアーンの文言を、節の参照に置き換えました",
     "Request code: {0}": "リクエストコード:{0}",
     "Request the appointment": "予約をリクエスト",
     "Research in the approved sources": "承認された出典での調査",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "完全なレポートとすべての回答の全文は、プロジェクトのリポジトリにあります:eval/EVALUATION.md(方法と結果)、eval/baseline_report.jsonとeval/prompted_report.json(各回答とその集計)、eval/test_cases.json(質問と期待される動作)。",
     "The guard changed part of the answer": "ガードが回答の一部を修正しました",
     "The guard checks": "ガードによる確認",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ガードは、回答を表示する前にすべて確認する固定コードです。タフシールを読んでいない節、受け入れられないハディース、モデルが記憶から書いたクルアーンの本文を削除します。これまでのところ、どの回答からも削除する必要はありませんでした。モデルは毎回規則を守りました。",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "ガードは、回答を表示する前にすべて確認する固定コードです。タフシールを読んでいない節、受け入れられないハディース、モデルが記憶から書いたクルアーンの本文を削除します。{1}件中{0}件の回答で、表示前に介入しました。",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "三者すべてで問題があると判定された回答を私たち自身がすべて読み、誤っていた集計ルールを修正し、保存された回答からそれぞれの修正をすべての側に再度質問することなく適用しました。",
     "Website view": "ウェブサイト表示",
     "Wednesday": "水曜日",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "専門家にファトワーを依頼する",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "あなた自身の状況について:質問とその詳細を書いてください。シャリーアの専門家がメッセージまたは通話でお答えします",
     "Your question and the details of your case": "あなたの質問と状況の詳細",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "終わったら「リクエストを閉じる」を押してください。リクエストは30日後にサーバーから削除されます。リストは5秒ごとに自動で更新されます。"
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "終わったら「リクエストを閉じる」を押してください。リクエストは30日後にサーバーから削除されます。リストは5秒ごとに自動で更新されます。",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "解説中の節:モデルが位置を特定し、Mushafの出典が示されました",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "解説中の節:モデルが位置を特定し、本文はMushafからのみ転記されました",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Quranの文言として示されたものの、Mushafのどの一節とも一致しなかった文言を削除しました",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ガードは、すべての回答を表示前に確認する固定コードです。tafsirが読まれていない節と、受け入れられていないハディースを削除し、解説中の節の文言は、Mushafから転記されたものでない限り残しません。これまでのところ、どの回答からも削除する必要はありませんでした。モデルは毎回、規則を守っていました。",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "ガードは、すべての回答を表示前に確認する固定コードです。tafsirが読まれていない節と、受け入れられていないハディースを削除し、解説中の節の文言は、Mushafから転記されたものでない限り残しません。表示前に、{1}件の回答のうち{0}件に介入しました。"
   }
 }

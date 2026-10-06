@@ -341,14 +341,12 @@
     "Related questions": "متعلقہ سوالات",
     "Religion is not the same as custom": "دین جو تقاضا کرتا ہے وہ اور ہے، اور کسی ملک کے لوگوں کا رواج اور",
     "Remove from saved": "محفوظات سے ہٹائیں",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "ماڈل کا اپنی یادداشت سے لکھا قرآنی متن حذف کیا گیا جو کسی ایک آیت سے مطابقت نہیں رکھتا تھا",
     "Removed a hadith cited without saying what it supports": "وہ حدیث حذف کی گئی جس کا حوالہ دیا گیا مگر یہ نہیں بتایا گیا کہ وہ کس بات کی دلیل ہے",
     "Removed a hadith not found in the approved sources": "وہ حدیث حذف کی گئی جو منظور شدہ مآخذ میں نہیں ملی",
     "Removed a reference to a verse that does not exist ({0})": "ایسی آیت کا حوالہ حذف کیا گیا جو موجود نہیں ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "آیت ({0}) حذف کی گئی: اس جواب کے لیے اس کی تفسیر نہیں پڑھی گئی",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} حوالہ شدہ دلائل حذف کیے گئے: رجوع کرانے اور معذرت کرنے والے جوابات کوئی حوالہ نہیں دیتے",
     "Repeat": "دہرائیں",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "ماڈل کا اپنی یادداشت سے لکھا قرآنی متن آیت کے حوالے سے بدل دیا گیا",
     "Request code: {0}": "درخواست کا کوڈ: {0}",
     "Request the appointment": "وقت طے کرنے کی درخواست کریں",
     "Research in the approved sources": "منظور شدہ مآخذ میں تحقیق",
@@ -425,8 +423,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "مکمل رپورٹ اور تمام جوابات اپنے پورے متن کے ساتھ پروجیکٹ کے ذخیرے میں موجود ہیں: eval/EVALUATION.md (طریقۂ کار اور نتائج)، eval/baseline_report.json اور eval/prompted_report.json (ہر جواب اور اس کا شمار)، eval/test_cases.json (سوالات اور متوقع رویہ)۔",
     "The guard changed part of the answer": "نگران نے جواب کا کچھ حصہ تبدیل کیا",
     "The guard checks": "نگران جانچتا ہے",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "نگران ایک مقررہ کوڈ ہے جو ہر جواب کو دکھانے سے پہلے جانچتا ہے: وہ ایسی آیت ہٹا دیتا ہے جس کی تفسیر نہیں پڑھی گئی، ناقابلِ قبول حدیث، اور قرآن کا وہ متن جو ماڈل نے اپنی یادداشت سے لکھا ہو۔ اب تک اسے کسی جواب سے کچھ ہٹانے کی ضرورت نہیں پڑی: ماڈل نے ہر بار قواعد کی پابندی کی۔",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "نگران ایک مقررہ کوڈ ہے جو ہر جواب کو دکھانے سے پہلے جانچتا ہے: وہ ایسی آیت ہٹا دیتا ہے جس کی تفسیر نہیں پڑھی گئی، ناقابلِ قبول حدیث، اور قرآن کا وہ متن جو ماڈل نے اپنی یادداشت سے لکھا ہو۔ اس نے {1} میں سے {0} جوابات میں انہیں دکھانے سے پہلے مداخلت کی۔",
     "The hadith and its explanation on HadeethEnc": "حدیث اور اس کی شرح HadeethEnc پر",
     "The highlighted words are the part cited": "نمایاں کیے گئے الفاظ آیت کا وہ حصہ ہیں جن سے استدلال کیا گیا ہے",
     "The impact board needs the Basirah server.": "اثر کے بورڈ کے لیے Basirah کے سرور سے رابطہ ضروری ہے۔",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "کسی ماہر سے فتویٰ طلب کریں",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "اپنے ذاتی معاملے کے لیے: اپنا سوال اور اس کی تفصیلات لکھیں، اور شریعت کے ایک ماہر پیغام یا فون کال کے ذریعے آپ کو جواب دیں گے",
     "Your question and the details of your case": "آپ کا سوال اور آپ کے معاملے کی تفصیلات",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "جب کام ختم ہو جائے تو «درخواست بند کریں» دبائیں۔ درخواستیں 30 دن کے بعد سرور سے حذف کر دی جاتی ہیں، اور فہرست ہر 5 سیکنڈ بعد خود بخود تازہ ہو جاتی ہے۔"
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "جب کام ختم ہو جائے تو «درخواست بند کریں» دبائیں۔ درخواستیں 30 دن کے بعد سرور سے حذف کر دی جاتی ہیں، اور فہرست ہر 5 سیکنڈ بعد خود بخود تازہ ہو جاتی ہے۔",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "شرح میں موجود آیت: ماڈل نے اس کا مقام متعین کیا، اور مصحف سے اس کا حوالہ دیا گیا",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "شرح میں موجود آیت: ماڈل نے اس کا مقام متعین کیا، اور اس کا متن صرف مصحف سے نقل کیا گیا",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "وہ عبارت حذف کر دی گئی جو قرآن کی طرف منسوب تھی مگر مصحف کی کسی ایک آیت سے مطابقت نہیں رکھتی تھی",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "گارڈ ایک مقررہ کوڈ ہے جو ہر جواب کو دکھائے جانے سے پہلے جانچتا ہے: وہ ایسی آیت کو حذف کر دیتا ہے جس کی تفسیر نہیں پڑھی گئی اور ایسی حدیث کو بھی جو قابلِ قبول نہ ہو، اور شرح میں آیت کے الفاظ صرف اسی صورت رہنے دیتا ہے جب وہ مصحف سے نقل کیے گئے ہوں۔ اب تک اسے کسی بھی جواب سے کچھ حذف کرنے کی ضرورت پیش نہیں آئی: ماڈل نے ہر بار قواعد کی پابندی کی۔",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "گارڈ ایک مقررہ کوڈ ہے جو ہر جواب کو دکھائے جانے سے پہلے جانچتا ہے: وہ ایسی آیت کو حذف کر دیتا ہے جس کی تفسیر نہیں پڑھی گئی اور ایسی حدیث کو بھی جو قابلِ قبول نہ ہو، اور شرح میں آیت کے الفاظ صرف اسی صورت رہنے دیتا ہے جب وہ مصحف سے نقل کیے گئے ہوں۔ اس نے {1} میں سے {0} جوابات میں انہیں دکھائے جانے سے پہلے مداخلت کی۔"
   }
 }

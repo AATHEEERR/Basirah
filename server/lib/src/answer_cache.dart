@@ -20,7 +20,7 @@ class AnswerCache {
     : _clock = clock ?? DateTime.now;
 
   /// Bump when the prompt, tools or guard change what a fresh answer would be.
-  static const version = 'v8-kb-edit';
+  static const version = 'v9-mushaf-prose';
 
   final String dir;
   final Duration ttl;

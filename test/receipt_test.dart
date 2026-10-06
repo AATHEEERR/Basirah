@@ -9,9 +9,7 @@ void main() {
     'dropped 2:256: cited without reading its tafsir': 'حُذف الاستشهاد بالآية (2:256) لأن تفسيرها لم يُقرأ في هذه الإجابة',
     'dropped unknown hadith id h_x': 'حُذف حديث لم يُعثر عليه في المصادر المعتمدة',
     'dropped h_asma: cited without a reason': 'حُذف حديث استُشهد به دون بيان ما يدل عليه',
-    'replaced unquoted Quran wording (112:1)': 'استُبدل نص قرآني كتبه النموذج من ذاكرته بمرجع الآية',
-    'removed Quran quotation': 'حُذف نص قرآني كتبه النموذج من ذاكرته ولم يطابق آية بعينها',
-    'replaced Quran quotation with its reference': 'استُبدل نص قرآني كتبه النموذج من ذاكرته بمرجع الآية',
+    'removed Quran quotation': 'حُذف نص نُسب إلى القرآن ولم يطابق آية بعينها في المصحف',
     'level D forced to refer': 'حالة شخصية: حُوّلت الإجابة إلى إحالة إلى مختص',
     'personal case without curated backing forced to refer': 'حالة شخصية: حُوّلت الإجابة إلى إحالة إلى مختص',
     'ungrounded answer forced to abstain': 'لا أدلة كافية: حُوّلت الإجابة إلى امتناع',
@@ -24,6 +22,18 @@ void main() {
     for (final raw in actions.keys) {
       expect(guardNote(raw, 'en'), isNot(contains('dropped')), reason: raw);
     }
+  });
+
+  test('a verse named in the prose reads as a check passed, not a removal', () {
+    const placed = {
+      'verse text taken from the Mushaf (2:286)': 'آية في الشرح: حدّد النموذج موضعها، ونُقل نصها من المصحف فقط',
+      'replaced unquoted Quran wording (112:1)': 'آية في الشرح: حدّد النموذج موضعها، ووُضع مرجعها من المصحف',
+      'replaced Quran quotation with its reference': 'آية في الشرح: حدّد النموذج موضعها، ووُضع مرجعها من المصحف',
+    };
+    placed.forEach((raw, ar) {
+      expect(guardDone(raw, 'ar'), ar, reason: raw);
+      expect(guardNote(raw, 'ar'), isNull, reason: raw);
+    });
   });
 
   test('notes that are not a change to the answer are left out', () {

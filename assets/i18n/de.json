@@ -277,14 +277,12 @@
     "Related questions": "Verwandte Fragen",
     "Religion is not the same as custom": "Religion ist nicht dasselbe wie Brauchtum",
     "Remove from saved": "Aus den Gespeicherten entfernen",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Quran-Wortlaut entfernt, den das Modell aus dem Gedächtnis geschrieben hat und der zu keinem einzelnen Vers passte",
     "Removed a hadith cited without saying what it supports": "Einen Hadith entfernt, der zitiert wurde, ohne zu sagen, wofür er ein Beleg ist",
     "Removed a hadith not found in the approved sources": "Einen Hadith entfernt, der in den anerkannten Quellen nicht gefunden wurde",
     "Removed a reference to a verse that does not exist ({0})": "Verweis auf einen nicht existierenden Vers entfernt ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Vers ({0}) entfernt: Sein Tafsir wurde für diese Antwort nicht gelesen",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} zitierte Belege entfernt: Verweise und Ablehnungen zitieren nichts",
     "Repeat": "Wiederholen",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Quran-Wortlaut, den das Modell aus dem Gedächtnis geschrieben hat, durch die Versangabe ersetzt",
     "Request code: {0}": "Anfragecode: {0}",
     "Request the appointment": "Termin anfragen",
     "Research in the approved sources": "Recherche in den anerkannten Quellen",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Der vollständige Bericht und jede Antwort im Wortlaut befinden sich im Projekt-Repository: eval/EVALUATION.md (Methode und Ergebnisse), eval/baseline_report.json und eval/prompted_report.json (jede Antwort und ihre Zählung), eval/test_cases.json (die Fragen und das erwartete Verhalten).",
     "The guard changed part of the answer": "Der Wächter hat einen Teil der Antwort geändert",
     "The guard checks": "Der Wächter prüft",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Der Wächter ist fester Code, der jede Antwort prüft, bevor sie angezeigt wird: Er entfernt einen Vers, dessen Tafsir nicht gelesen wurde, einen nicht anerkannten Hadith und jeden Qurantext, den das Modell aus dem Gedächtnis geschrieben hat. Bisher musste er bei keiner Antwort etwas entfernen: Das Modell hat sich jedes Mal an die Regeln gehalten.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Der Wächter ist fester Code, der jede Antwort prüft, bevor sie angezeigt wird: Er entfernt einen Vers, dessen Tafsir nicht gelesen wurde, einen nicht anerkannten Hadith und jeden Qurantext, den das Modell aus dem Gedächtnis geschrieben hat. Er hat bei {0} von {1} Antworten eingegriffen, bevor sie angezeigt wurden.",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "Wir haben jede Antwort, die auf allen drei Seiten beanstandet wurde, selbst gelesen, die Zählregeln dort korrigiert, wo sie falsch waren, und jede Korrektur ohne erneutes Nachfragen anhand der gespeicherten Antworten auf alle Seiten angewendet.",
     "Website view": "Webseitenansicht",
     "Wednesday": "Mittwoch",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Einen Fachgelehrten um ein Fatwa bitten",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Für deinen persönlichen Fall: Schreibe deine Frage mit allen Einzelheiten, und ein Scharia-Fachmann antwortet dir per Nachricht oder Anruf",
     "Your question and the details of your case": "Deine Frage und die Einzelheiten deines Falls",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Wähle „Anfrage schließen“, wenn du fertig bist. Anfragen werden nach 30 Tagen vom Server gelöscht; die Liste aktualisiert sich alle 5 Sekunden von selbst."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Wähle „Anfrage schließen“, wenn du fertig bist. Anfragen werden nach 30 Tagen vom Server gelöscht; die Liste aktualisiert sich alle 5 Sekunden von selbst.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Ein Vers in der Erklärung: Das Modell hat seine Stelle bestimmt, und sein Mushaf-Verweis wurde angegeben",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Ein Vers in der Erklärung: Das Modell hat seine Stelle bestimmt, und sein Text wurde ausschließlich aus dem Mushaf übernommen",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Entfernter Wortlaut, der als Quran ausgegeben wurde, aber mit keinem einzelnen Vers im Mushaf übereinstimmte",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Der Wächter ist fest programmierter Code, der jede Antwort prüft, bevor sie angezeigt wird: Er entfernt einen Vers, dessen Tafsir nicht gelesen wurde, sowie ein nicht anerkanntes Hadith und lässt in der Erklärung keinen Verswortlaut stehen, der nicht aus dem Mushaf übernommen wurde. Bisher musste er in keiner Antwort etwas entfernen: Das Modell hat sich jedes Mal an die Regeln gehalten.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Der Wächter ist fest programmierter Code, der jede Antwort prüft, bevor sie angezeigt wird: Er entfernt einen Vers, dessen Tafsir nicht gelesen wurde, sowie ein nicht anerkanntes Hadith und lässt in der Erklärung keinen Verswortlaut stehen, der nicht aus dem Mushaf übernommen wurde. Er hat bei {0} von {1} Antworten eingegriffen, bevor sie angezeigt wurden."
   }
 }

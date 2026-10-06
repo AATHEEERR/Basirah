@@ -223,14 +223,12 @@
     "Related questions": "Tambayoyi masu alaƙa",
     "Religion is not the same as custom": "Addini ba daya yake da al'ada ba",
     "Remove from saved": "Cire daga abubuwan da aka ajiye",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "An cire rubutun Alƙur'ani da samfurin ya rubuta daga ƙwaƙwalwarsa wanda bai dace da wata aya guda ba",
     "Removed a hadith cited without saying what it supports": "An cire hadisin da aka ambata ba tare da bayyana abin da yake tabbatarwa ba",
     "Removed a hadith not found in the approved sources": "An cire hadisin da ba a same shi a amintattun madogara ba",
     "Removed a reference to a verse that does not exist ({0})": "An cire ishara zuwa aya da babu ita ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "An cire ayar ({0}): ba a karanta tafsirinta ba a wannan amsa",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "An cire abubuwan da aka ambata guda {0}: mikawa da ƙin amsawa ba sa ambaton komai",
     "Repeat": "Maimaita",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "An maye gurbin rubutun Alƙur'ani da samfurin ya rubuta daga ƙwaƙwalwarsa da bayanin ayar",
     "Request code: {0}": "Lambar buƙata: {0}",
     "Request the appointment": "Nemi alƙawari",
     "Research in the approved sources": "Bincike a amintattun madogara",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Cikakken rahoto da dukan amsoshi cikakku suna a ma'ajiyar aikin: eval/EVALUATION.md (hanya da sakamako), eval/baseline_report.json da eval/prompted_report.json (kowace amsa da ƙirgenta), eval/test_cases.json (tambayoyi da halin da ake tsammani).",
     "The guard changed part of the answer": "Mai tsaron ya canza wani sashe na amsar",
     "The guard checks": "Mai tsaron yana dubawa",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mai tsaron lambar kwamfuta ce da aka tsayar wadda take duba kowace amsa kafin a nuna ta: tana cire aya da ba a karanta tafsirinta ba, hadisin da ba a karɓa ba, da duk wani rubutun Alƙur'ani da samfurin ya rubuta daga ƙwaƙwalwarsa. Ba ta buƙatar cire komai daga kowace amsa har yanzu: samfurin ya bi ƙa'idoji a kowane lokaci.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Mai tsaron lambar kwamfuta ce da aka tsayar wadda take duba kowace amsa kafin a nuna ta: tana cire aya da ba a karanta tafsirinta ba, hadisin da ba a karɓa ba, da duk wani rubutun Alƙur'ani da samfurin ya rubuta daga ƙwaƙwalwarsa. Ta shiga tsakani a amsoshi {0} daga cikin {1} kafin a nuna su.",
     "The hadith and its explanation on HadeethEnc": "Hadisi da bayaninsa a HadeethEnc",
     "The highlighted words are the part cited": "Kalmomin da aka yi wa launi su ne wurin da aka ambata a matsayin hujja",
     "The impact board needs the Basirah server.": "Allon tasiri yana bukatar haɗawa da sabar Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Ka nemi fatawa daga ƙwararre",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Don al'amarinka na kanka: rubuta tambayarka da cikakkun bayananta, sai wani ƙwararre a fannin Shari'a ya amsa maka ta saƙo ko kira",
     "Your question and the details of your case": "Tambayarka da cikakkun bayanan al'amarinka",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Ka/ki danna “Rufe buƙata” idan an gama. Ana goge buƙatu daga sabar bayan kwana 30; jerin kuma yana sabunta kansa da kansa a kowane daƙiƙa 5."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Ka/ki danna “Rufe buƙata” idan an gama. Ana goge buƙatu daga sabar bayan kwana 30; jerin kuma yana sabunta kansa da kansa a kowane daƙiƙa 5.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Aya a cikin bayani: samfurin ya gano inda take, kuma an bayar da makomarta daga Mushaf",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Aya a cikin bayani: samfurin ya gano inda take, kuma an kwafi rubutunta daga Mushaf kawai",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "An cire rubutun da aka danganta ga Alƙur'ani amma bai dace da wata aya guda ɗaya a cikin Mushaf ba",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mai tsaron kariya lambar kwamfuta ce ta tsayayye da ke duba kowace amsa kafin a nuna ta: tana cire ayar da ba a karanta tafsirinta ba da hadisin da ba a amince da shi ba, kuma ba ta barin lafazin aya a cikin bayani sai wanda aka kwafo daga Mushaf. Ba ta buƙatar cire wani abu daga kowace amsa har yanzu ba: samfurin ya bi ƙa'idojin a kowane lokaci.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Mai tsaron kariya lambar kwamfuta ce ta tsayayye da ke duba kowace amsa kafin a nuna ta: tana cire ayar da ba a karanta tafsirinta ba da hadisin da ba a amince da shi ba, kuma ba ta barin lafazin aya a cikin bayani sai wanda aka kwafo daga Mushaf. Ta shiga tsakani a amsoshi {0} daga cikin {1} kafin a nuna su."
   }
 }

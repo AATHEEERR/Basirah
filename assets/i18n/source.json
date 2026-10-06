@@ -133,6 +133,14 @@
       "ar": "إجابة موثّقة المصدر"
     },
     {
+      "en": "A verse in the explanation: the model located it, and its Mushaf reference was given",
+      "ar": "آية في الشرح: حدّد النموذج موضعها، ووُضع مرجعها من المصحف"
+    },
+    {
+      "en": "A verse in the explanation: the model located it, and its text was copied from the Mushaf only",
+      "ar": "آية في الشرح: حدّد النموذج موضعها، ونُقل نصها من المصحف فقط"
+    },
+    {
       "en": "A verse worded differently from the Mushaf",
       "ar": "آية بلفظ غير موجود في المصحف"
     },
@@ -1583,10 +1591,6 @@
       "ar": "إزالة من المحفوظات"
     },
     {
-      "en": "Removed Quran wording the model wrote from memory that matched no single verse",
-      "ar": "حُذف نص قرآني كتبه النموذج من ذاكرته ولم يطابق آية بعينها"
-    },
-    {
       "en": "Removed a hadith cited without saying what it supports",
       "ar": "حُذف حديث استُشهد به دون بيان ما يدل عليه"
     },
@@ -1603,16 +1607,16 @@
       "ar": "حُذف الاستشهاد بالآية ({0}) لأن تفسيرها لم يُقرأ في هذه الإجابة"
     },
     {
+      "en": "Removed wording given as Quran that matched no single verse in the Mushaf",
+      "ar": "حُذف نص نُسب إلى القرآن ولم يطابق آية بعينها في المصحف"
+    },
+    {
       "en": "Removed {0} cited item(s): referrals and refusals cite nothing",
       "ar": "حُذفت أدلة ({0}) لأن الإحالة والامتناع لا يستشهدان بشيء"
     },
     {
       "en": "Repeat",
       "ar": "تكرار"
-    },
-    {
-      "en": "Replaced Quran wording the model wrote from memory with the verse reference",
-      "ar": "استُبدل نص قرآني كتبه النموذج من ذاكرته بمرجع الآية"
     },
     {
       "en": "Request code: {0}",
@@ -1988,12 +1992,12 @@
       "ar": "الحارس يتحقق"
     },
     {
-      "en": "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.",
-      "ar": "الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. لم يحتج إلى حذف شيء من أي إجابة حتى الآن: التزم النموذج بالقواعد في كل الإجابات."
+      "en": "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.",
+      "ar": "الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها والحديث غير المقبول، ولا يُبقي في الشرح لفظ آية إلا منقولاً من المصحف. لم يحتج إلى حذف شيء من أي إجابة حتى الآن: التزم النموذج بالقواعد في كل الإجابات."
     },
     {
-      "en": "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.",
-      "ar": "الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. تدخّل في {0} من {1} إجابة قبل عرضها."
+      "en": "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.",
+      "ar": "الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها والحديث غير المقبول، ولا يُبقي في الشرح لفظ آية إلا منقولاً من المصحف. تدخّل في {0} من {1} إجابة قبل عرضها."
     },
     {
       "en": "The guard: fixed code checks every answer",

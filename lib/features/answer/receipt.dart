@@ -25,7 +25,10 @@ class _AnswerReceiptState extends State<AnswerReceipt> {
   @override
   Widget build(BuildContext context) {
     final a = widget.answer;
-    final checks = receiptChecks(a, context.lang);
+    final checks = [
+      ...receiptChecks(a, context.lang),
+      for (final d in {for (final g in a.guard) ?guardDone(g, context.lang)}) (d, null),
+    ];
     final removed = [for (final g in a.guard) ?guardNote(g, context.lang)];
     final open = _open ?? isWebsite(context);
     return Padding(
@@ -163,6 +166,19 @@ List<(String, String?)> receiptChecks(BasirahAnswer a, String lang) {
   ];
 }
 
+/// A verse named in the prose, placed and copied from the Mushaf by the
+/// code (a check passed, not a removal); null for other guard actions.
+String? guardDone(String g, String lang) {
+  String t(String ar, String en) => lang == 'en' ? UiStrings.fromEnglish(en) : ar;
+  if (g.startsWith('verse text taken from the Mushaf')) {
+    return t('آية في الشرح: حدّد النموذج موضعها، ونُقل نصها من المصحف فقط', 'A verse in the explanation: the model located it, and its text was copied from the Mushaf only');
+  }
+  if (g.startsWith('replaced unquoted Quran wording') || g == 'replaced Quran quotation with its reference') {
+    return t('آية في الشرح: حدّد النموذج موضعها، ووُضع مرجعها من المصحف', 'A verse in the explanation: the model located it, and its Mushaf reference was given');
+  }
+  return null;
+}
+
 /// What a guard action means, for the reader; null for notes that are not
 /// a change to the answer.
 String? guardNote(String g, String lang) {
@@ -180,11 +196,9 @@ String? guardNote(String g, String lang) {
   if (RegExp(r'^dropped \S+: cited without a reason').hasMatch(g)) {
     return t('حُذف حديث استُشهد به دون بيان ما يدل عليه', 'Removed a hadith cited without saying what it supports');
   }
-  if (g.startsWith('replaced unquoted Quran wording') || g == 'replaced Quran quotation with its reference') {
-    return t('استُبدل نص قرآني كتبه النموذج من ذاكرته بمرجع الآية', 'Replaced Quran wording the model wrote from memory with the verse reference');
-  }
+  if (guardDone(g, lang) != null) return null;
   if (g == 'removed Quran quotation') {
-    return t('حُذف نص قرآني كتبه النموذج من ذاكرته ولم يطابق آية بعينها', 'Removed Quran wording the model wrote from memory that matched no single verse');
+    return t('حُذف نص نُسب إلى القرآن ولم يطابق آية بعينها في المصحف', 'Removed wording given as Quran that matched no single verse in the Mushaf');
   }
   if (g == 'level D forced to refer' || g == 'personal case without curated backing forced to refer') {
     return t('حالة شخصية: حُوّلت الإجابة إلى إحالة إلى مختص', 'A personal case: the answer was turned into a referral');

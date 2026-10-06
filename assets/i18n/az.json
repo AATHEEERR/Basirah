@@ -283,14 +283,12 @@
     "Related questions": "Əlaqəli suallar",
     "Religion is not the same as custom": "İslamın tələb etdiyi bir şeydir, bir ölkədə insanların adət etdiyi isə başqa şeydir.",
     "Remove from saved": "Yadda saxlananlardan sil",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Modelin yaddaşından yazdığı və heç bir ayəyə uyğun gəlməyən Quran mətni silindi",
     "Removed a hadith cited without saying what it supports": "Nəyi təsdiqlədiyi deyilmədən gətirilən hadis silindi",
     "Removed a hadith not found in the approved sources": "Təsdiqlənmiş mənbələrdə tapılmayan hadis silindi",
     "Removed a reference to a verse that does not exist ({0})": "Mövcud olmayan ayəyə istinad silindi ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Ayə silindi ({0}): bu cavab üçün onun tafsiri oxunmayıb",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} istinad silindi: yönləndirmə və imtina heç nəyə istinad etmir",
     "Repeat": "Təkrarla",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Modelin yaddaşından yazdığı Quran mətni ayənin istinadı ilə əvəz olundu",
     "Request code: {0}": "Sorğu kodu: {0}",
     "Request the appointment": "Görüş üçün müraciət et",
     "Research in the approved sources": "Təsdiqlənmiş mənbələrdə araşdırma",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Tam hesabat və bütün cavabların tam mətni layihə anbarındadır: eval/EVALUATION.md (metod və nəticələr), eval/baseline_report.json və eval/prompted_report.json (hər cavab və onun sayı), eval/test_cases.json (suallar və gözlənilən davranış).",
     "The guard changed part of the answer": "Mühafizə cavabın bir hissəsini dəyişdi",
     "The guard checks": "Mühafizə yoxlayır",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mühafizə hər cavabı göstərilməzdən əvvəl yoxlayan sabit koddur: tafsiri oxunmamış ayəni, qəbul edilməmiş hadisi və modelin yaddan yazdığı hər hansı Quran mətnini silir. İndiyədək heç bir cavabdan heç nə silməyə ehtiyac olmayıb: model hər dəfə qaydalara riayət edib.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Mühafizə hər cavabı göstərilməzdən əvvəl yoxlayan sabit koddur: tafsiri oxunmamış ayəni, qəbul edilməmiş hadisi və modelin yaddan yazdığı hər hansı Quran mətnini silir. {1} cavabdan {0}-də göstərilməzdən əvvəl müdaxilə etdi.",
     "The hadith and its explanation on HadeethEnc": "Hədis və onun şərhi HadeethEnc-də",
     "The highlighted words are the part cited": "Seçilmiş sözlər istinad edilən hissədir",
     "The impact board needs the Basirah server.": "Təsir lövhəsi üçün Basirah serverinə qoşulmaq lazımdır.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Mütəxəssisdən fətva istəyin",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Öz vəziyyətiniz üçün: sualınızı və təfərrüatlarını yazın, şəri mütəxəssis sizə mesajla və ya zənglə cavab versin",
     "Your question and the details of your case": "Sualınız və vəziyyətinizin təfərrüatları",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Bitdikdə «Sorğunu bağla» seçin. Sorğular 30 gündən sonra serverdən silinir; siyahı hər 5 saniyədən bir özü yenilənir."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Bitdikdə «Sorğunu bağla» seçin. Sorğular 30 gündən sonra serverdən silinir; siyahı hər 5 saniyədən bir özü yenilənir.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Şərhdəki ayə: model onun yerini müəyyən etdi və Mushafdakı mənbəyi göstərildi",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Şərhdəki ayə: model onun yerini müəyyən etdi və mətni yalnız Mushafdan köçürüldü",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Quran kimi təqdim edilən, lakin Mushafdakı heç bir konkret ayəyə uyğun gəlməyən ifadə silindi",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mühafizə hər cavabı göstərilməzdən əvvəl yoxlayan sabit koddur: tafsiri oxunmamış ayəni və qəbul edilməmiş hədisi silir, şərhdə ayənin ifadəsini isə yalnız Mushafdan köçürülübsə saxlayır. İndiyədək heç bir cavabdan nəyisə silməyə ehtiyac qalmayıb: model hər dəfə qaydalara əməl edib.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Mühafizə hər cavabı göstərilməzdən əvvəl yoxlayan sabit koddur: tafsiri oxunmamış ayəni və qəbul edilməmiş hədisi silir, şərhdə ayənin ifadəsini isə yalnız Mushafdan köçürülübsə saxlayır. O, {1} cavabdan {0} qədərinə göstərilməzdən əvvəl müdaxilə edib."
   }
 }

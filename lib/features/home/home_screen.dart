@@ -33,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
         body: KbBuilder(
           builder: (context, kb) => Stack(
             children: [
-              const PatternBackdrop(height: 560),
+              const PatternBackdrop(height: 620, onWebsite: true),
               _WideHome(kb: kb, ask: ask),
             ],
           ),
@@ -487,14 +487,21 @@ class _WideHome extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 44, 20, 40),
           sliver: SliverToBoxAdapter(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   flex: 6,
                   child: HomeHero(kb: kb, wide: true, search: _SearchPill(onTap: () => ask())),
                 ),
                 const SizedBox(width: 40),
-                const Expanded(flex: 5, child: _AnswerSample()),
+                // Level with the verse, under the name.
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: context.isEn ? 78 : 92),
+                    child: const _AnswerSample(),
+                  ),
+                ),
               ],
             ),
           ),

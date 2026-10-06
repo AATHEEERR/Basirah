@@ -277,14 +277,12 @@
     "Related questions": "Pertanyaan terkait",
     "Religion is not the same as custom": "Agama tidak sama dengan adat",
     "Remove from saved": "Hapus dari tersimpan",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Menghapus teks Al-Quran yang ditulis model dari ingatannya dan tidak cocok dengan satu ayat pun",
     "Removed a hadith cited without saying what it supports": "Menghapus hadis yang dikutip tanpa menjelaskan apa yang didukungnya",
     "Removed a hadith not found in the approved sources": "Menghapus hadis yang tidak ditemukan dalam sumber-sumber yang disetujui",
     "Removed a reference to a verse that does not exist ({0})": "Menghapus rujukan ke ayat yang tidak ada ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Menghapus ayat ({0}): tafsirnya tidak dibaca untuk jawaban ini",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Menghapus {0} butir kutipan: rujukan kepada ahli dan penolakan tidak mengutip apa pun",
     "Repeat": "Ulangi",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Mengganti teks Al-Quran yang ditulis model dari ingatannya dengan rujukan ayat",
     "Request code: {0}": "Kode permintaan: {0}",
     "Request the appointment": "Minta janji temu",
     "Research in the approved sources": "Penelusuran di sumber-sumber yang disetujui",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Laporan lengkap dan semua jawaban secara utuh ada di repositori proyek: eval/EVALUATION.md (metode dan hasil), eval/baseline_report.json dan eval/prompted_report.json (setiap jawaban dan penghitungannya), eval/test_cases.json (pertanyaan dan perilaku yang diharapkan).",
     "The guard changed part of the answer": "Penjaga mengubah sebagian jawaban",
     "The guard checks": "Penjaga memeriksa",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Penjaga adalah kode tetap yang memeriksa setiap jawaban sebelum ditampilkan: ia menghapus ayat yang tafsirnya tidak dibaca, hadith yang tidak diterima, dan teks Al-Quran apa pun yang ditulis model dari ingatannya. Sejauh ini ia tidak perlu menghapus apa pun dari jawaban mana pun: model selalu mematuhi aturan.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Penjaga adalah kode tetap yang memeriksa setiap jawaban sebelum ditampilkan: ia menghapus ayat yang tafsirnya tidak dibaca, hadith yang tidak diterima, dan teks Al-Quran apa pun yang ditulis model dari ingatannya. Ia turun tangan pada {0} dari {1} jawaban sebelum ditampilkan.",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "Kami sendiri membaca setiap jawaban yang ditandai bermasalah di ketiga sisi, memperbaiki aturan penghitungan yang keliru, dan menerapkan setiap perbaikan pada semua sisi dari jawaban yang tersimpan, tanpa mengajukan pertanyaan lagi.",
     "Website view": "Tampilan situs web",
     "Wednesday": "Rabu",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Minta fatwa kepada seorang ahli",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Untuk kasus Anda sendiri: tuliskan pertanyaan beserta rinciannya, dan seorang ahli syariah akan menjawab melalui pesan atau panggilan",
     "Your question and the details of your case": "Pertanyaan Anda dan rincian kasus Anda",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Pilih “Tutup permintaan” bila sudah selesai. Permintaan akan dihapus dari server setelah 30 hari; daftar diperbarui sendiri setiap 5 detik."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Pilih “Tutup permintaan” bila sudah selesai. Permintaan akan dihapus dari server setelah 30 hari; daftar diperbarui sendiri setiap 5 detik.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Ayat dalam penjelasan: model menentukan letaknya, dan rujukannya dari Mushaf disertakan",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Ayat dalam penjelasan: model menentukan letaknya, dan teksnya hanya disalin dari Mushaf",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Redaksi yang disebut sebagai Al-Quran dihapus karena tidak cocok dengan satu ayat pun di dalam Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Penjaga adalah kode tetap yang memeriksa setiap jawaban sebelum ditampilkan: ia menghapus ayat yang tafsirnya belum dibaca dan hadis yang tidak diterima, serta tidak mempertahankan redaksi ayat dalam penjelasan kecuali disalin dari Mushaf. Sejauh ini ia belum perlu menghapus apa pun dari jawaban mana pun: model selalu mematuhi aturan.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Penjaga adalah kode tetap yang memeriksa setiap jawaban sebelum ditampilkan: ia menghapus ayat yang tafsirnya belum dibaca dan hadis yang tidak diterima, serta tidak mempertahankan redaksi ayat dalam penjelasan kecuali disalin dari Mushaf. Ia turun tangan pada {0} dari {1} jawaban sebelum ditampilkan."
   }
 }

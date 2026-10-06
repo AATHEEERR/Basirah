@@ -339,14 +339,12 @@
     "Related questions": "相关问题",
     "Religion is not the same as custom": "宗教要求不等于习俗",
     "Remove from saved": "从收藏中移除",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "已删除模型凭记忆写出、与任何单节经文都不吻合的古兰经文字",
     "Removed a hadith cited without saying what it supports": "已删除一段引用时未说明其论据的圣训",
     "Removed a hadith not found in the approved sources": "已删除一段在认可的资料来源中找不到的圣训",
     "Removed a reference to a verse that does not exist ({0})": "已删除对一节不存在的经文的引用({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "已删除对经文({0})的引用:本次回答并未阅读其塔夫西尔",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "已删除 {0} 项引用:转交和婉拒不引用任何内容",
     "Repeat": "重复",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "已将模型凭记忆写出的古兰经文字替换为经文出处",
     "Request code: {0}": "请求代码:{0}",
     "Request the appointment": "申请预约",
     "Research in the approved sources": "在认可的资料来源中查找",
@@ -443,8 +441,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "完整报告及所有回答的全文都在项目仓库中:eval/EVALUATION.md(方法与结果)、eval/baseline_report.json 和 eval/prompted_report.json(每个回答及其计数)、eval/test_cases.json(问题与预期行为)。",
     "The guard changed part of the answer": "守卫修改了回答的一部分",
     "The guard checks": "守卫的检查",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "守卫是在每个回答显示之前对其进行检查的固定代码:它会删除未读过经注的经文、不被接受的圣训,以及模型凭记忆写出的任何古兰经文本。到目前为止,它无需从任何回答中删除任何内容:模型每次都遵守了规则。",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "守卫是在每个回答显示之前对其进行检查的固定代码:它会删除未读过经注的经文、不被接受的圣训,以及模型凭记忆写出的任何古兰经文本。在显示之前,它对 {1} 个回答中的 {0} 个进行了干预。",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "我们亲自阅读了三方中每一条被标记为有问题的回答,纠正了计数规则中出错的地方,并根据已保存的回答将每项更正应用于所有各方,无需重新提问。",
     "Website view": "网站视图",
     "Wednesday": "星期三",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "向专业人士请教教法裁决（法特瓦）",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "针对您自己的情况：请写下您的问题和详细情形，一位伊斯兰教法专家将通过消息或电话为您解答",
     "Your question and the details of your case": "您的问题及您的情况详情",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "完成后请点击“关闭请求”。请求会在 30 天后从服务器删除;列表每 5 秒自动刷新一次。"
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "完成后请点击“关闭请求”。请求会在 30 天后从服务器删除;列表每 5 秒自动刷新一次。",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "解释中的一节经文:模型确定了它的位置,并给出了它在穆斯林圣书(Mushaf)中的出处",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "解释中的一节经文:模型确定了它的位置,其经文原文仅从穆斯林圣书(Mushaf)中摘录",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "已删除被说成是《古兰经》、但与穆斯林圣书(Mushaf)中任何单一经文都不吻合的措辞",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "守卫是一段固定的代码,会在每个回答显示之前进行检查:删除未读取其经注(tafsir)的经文和不被采纳的圣训,并且除非经文措辞是从穆斯林圣书(Mushaf)中摘录的,否则不会在解释中保留任何经文措辞。到目前为止,它还不需要从任何回答中删除任何内容:模型每次都遵守了规则。",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "守卫是一段固定的代码,会在每个回答显示之前进行检查:删除未读取其经注(tafsir)的经文和不被采纳的圣训,并且除非经文措辞是从穆斯林圣书(Mushaf)中摘录的,否则不会在解释中保留任何经文措辞。在 {1} 个回答中,它在 {0} 个回答显示之前进行了干预。"
   }
 }

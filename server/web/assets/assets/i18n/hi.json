@@ -101,14 +101,12 @@
     "Related questions": "संबंधित प्रश्न",
     "Religion is not the same as custom": "दीन और रिवाज एक चीज़ नहीं हैं",
     "Remove from saved": "सहेजे गए से हटाएं",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "मॉडल ने याददाश्त से जो क़ुरआनी पाठ लिखा था और जो किसी एक आयत से मेल नहीं खाता था, उसे हटा दिया गया",
     "Removed a hadith cited without saying what it supports": "एक हदीस हटाई गई जिसे यह बताए बिना उद्धृत किया गया था कि वह किस बात का प्रमाण है",
     "Removed a hadith not found in the approved sources": "एक हदीस हटाई गई जो मान्य स्रोतों में नहीं मिली",
     "Removed a reference to a verse that does not exist ({0})": "ऐसी आयत का हवाला हटाया गया जो मौजूद नहीं है ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "आयत ({0}) हटाई गई: इस जवाब के लिए उसकी तफ़्सीर नहीं पढ़ी गई थी",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} उद्धृत प्रमाण हटाए गए: विशेषज्ञ को भेजने और इनकार करने वाले जवाब कोई प्रमाण नहीं देते",
     "Repeat": "दोहराएं",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "मॉडल ने याददाश्त से जो क़ुरआनी पाठ लिखा था, उसे आयत के संदर्भ से बदल दिया गया",
     "Request code: {0}": "अनुरोध कोड: {0}",
     "Request the appointment": "अपॉइंटमेंट का अनुरोध करें",
     "Research in the approved sources": "मान्य स्रोतों में खोज",
@@ -391,8 +389,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "पूरी रिपोर्ट और हर जवाब अपने पूरे पाठ के साथ प्रोजेक्ट की रिपॉज़िटरी में हैं: eval/EVALUATION.md (पद्धति और नतीजे), eval/baseline_report.json और eval/prompted_report.json (हर जवाब और उसकी गिनती), eval/test_cases.json (सवाल और अपेक्षित व्यवहार)।",
     "The guard changed part of the answer": "रक्षक ने जवाब का एक हिस्सा बदल दिया",
     "The guard checks": "रक्षक जाँच करता है",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "रक्षक तय कोड है जो हर जवाब को दिखाए जाने से पहले जाँचता है: वह उस आयत को हटा देता है जिसकी तफ़सीर पढ़ी नहीं गई, अस्वीकृत हदीस को, और क़ुरआन का वह कोई भी पाठ जो मॉडल ने याद से लिखा। अब तक उसे किसी भी जवाब से कुछ हटाने की ज़रूरत नहीं पड़ी: मॉडल हर बार नियमों पर क़ायम रहा।",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "रक्षक तय कोड है जो हर जवाब को दिखाए जाने से पहले जाँचता है: वह उस आयत को हटा देता है जिसकी तफ़सीर पढ़ी नहीं गई, अस्वीकृत हदीस को, और क़ुरआन का वह कोई भी पाठ जो मॉडल ने याद से लिखा। उसने दिखाए जाने से पहले {1} में से {0} जवाबों में दख़ल दिया।",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "हमने तीनों पक्षों में चिह्नित हर उत्तर को स्वयं पढ़ा, जहाँ गिनती के नियम ग़लत थे वहाँ उन्हें सुधारा, और हर सुधार को सहेजे गए उत्तरों से सभी पक्षों पर लागू किया, दोबारा सवाल पूछे बिना।",
     "Website view": "वेबसाइट दृश्य",
     "Wednesday": "बुधवार",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "किसी विशेषज्ञ से फ़तवा पूछें",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "आपकी अपनी स्थिति के लिए: अपना प्रश्न और उसका विवरण लिखें, और शरीअत के एक विशेषज्ञ संदेश या कॉल के माध्यम से आपको उत्तर देंगे",
     "Your question and the details of your case": "आपका प्रश्न और आपकी स्थिति का विवरण",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "काम पूरा होने पर «अनुरोध बंद करें» दबाएँ। अनुरोध 30 दिन बाद सर्वर से हटा दिए जाते हैं; सूची हर 5 सेकंड में अपने आप अपडेट होती है।"
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "काम पूरा होने पर «अनुरोध बंद करें» दबाएँ। अनुरोध 30 दिन बाद सर्वर से हटा दिए जाते हैं; सूची हर 5 सेकंड में अपने आप अपडेट होती है।",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "स्पष्टीकरण में एक आयत: मॉडल ने उसका स्थान पहचाना और मुसहफ़ से उसका संदर्भ दिया गया",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "स्पष्टीकरण में एक आयत: मॉडल ने उसका स्थान पहचाना और उसका पाठ केवल मुसहफ़ से लिया गया",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "क़ुरआन के नाम पर दिया गया वह पाठ हटा दिया गया जो मुसहफ़ की किसी एक आयत से मेल नहीं खाता था",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "गार्ड एक स्थायी कोड है जो हर उत्तर को दिखाए जाने से पहले जाँचता है: वह उस आयत को हटा देता है जिसकी तफ़्सीर पढ़ी नहीं गई, और अस्वीकृत हदीस को भी हटा देता है; और स्पष्टीकरण में किसी आयत के शब्द तभी रखता है जब वे मुसहफ़ से लिए गए हों। अब तक उसे किसी भी उत्तर से कुछ हटाने की ज़रूरत नहीं पड़ी: मॉडल हर बार नियमों पर कायम रहा।",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "गार्ड एक स्थायी कोड है जो हर उत्तर को दिखाए जाने से पहले जाँचता है: वह उस आयत को हटा देता है जिसकी तफ़्सीर पढ़ी नहीं गई, और अस्वीकृत हदीस को भी हटा देता है; और स्पष्टीकरण में किसी आयत के शब्द तभी रखता है जब वे मुसहफ़ से लिए गए हों। उसने {1} में से {0} उत्तरों में उन्हें दिखाए जाने से पहले हस्तक्षेप किया।"
   }
 }

@@ -283,14 +283,12 @@
     "Related questions": "Maswali yanayohusiana",
     "Religion is not the same as custom": "Dini si sawa na desturi",
     "Remove from saved": "Ondoa kwenye vilivyohifadhiwa",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Imeondoa maandishi ya Quran ambayo modeli iliyaandika kutoka kumbukumbu na hayakulingana na aya yoyote moja",
     "Removed a hadith cited without saying what it supports": "Imeondoa hadithi iliyotajwa bila kueleza inachothibitisha",
     "Removed a hadith not found in the approved sources": "Imeondoa hadithi ambayo haikupatikana katika vyanzo vilivyoidhinishwa",
     "Removed a reference to a verse that does not exist ({0})": "Imeondoa rejea ya aya isiyokuwepo ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Imeondoa aya ({0}): tafsir yake haikusomwa kwa jibu hili",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Imeondoa vithibitisho {0} vilivyotajwa: uelekezaji na kukataa hakutaji chochote",
     "Repeat": "Rudia",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Imebadilisha maandishi ya Quran ambayo modeli iliyaandika kutoka kumbukumbu na rejea ya aya",
     "Request code: {0}": "Msimbo wa ombi: {0}",
     "Request the appointment": "Omba miadi",
     "Research in the approved sources": "Utafiti katika vyanzo vilivyoidhinishwa",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Ripoti kamili na kila jibu kwa ukamilifu viko katika hazina ya mradi: eval/EVALUATION.md (mbinu na matokeo), eval/baseline_report.json na eval/prompted_report.json (kila jibu na hesabu zake), eval/test_cases.json (maswali na tabia inayotarajiwa).",
     "The guard changed part of the answer": "Mlinzi alibadilisha sehemu ya jibu",
     "The guard checks": "Mlinzi anakagua",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mlinzi ni msimbo usiobadilika unaokagua kila jibu kabla halijaonyeshwa: huondoa aya ambayo tafsir yake haikusomwa, hadith isiyokubalika, na maandishi yoyote ya Quran ambayo modeli iliyaandika kutoka kumbukumbu. Hadi sasa hajahitaji kuondoa chochote katika jibu lolote: modeli ilifuata kanuni kila mara.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Mlinzi ni msimbo usiobadilika unaokagua kila jibu kabla halijaonyeshwa: huondoa aya ambayo tafsir yake haikusomwa, hadith isiyokubalika, na maandishi yoyote ya Quran ambayo modeli iliyaandika kutoka kumbukumbu. Aliingilia majibu {0} kati ya {1} kabla ya kuonyeshwa.",
     "The hadith and its explanation on HadeethEnc": "Hadith na maelezo yake katika HadeethEnc",
     "The highlighted words are the part cited": "Maneno yaliyotiwa rangi ni sehemu inayotumiwa kama ushahidi",
     "The impact board needs the Basirah server.": "Ubao wa athari unahitaji seva ya Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Mwombe mtaalamu fatwa",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Kwa hali yako mwenyewe: andika swali lako na maelezo yake, naye mtaalamu wa Sharia atakujibu kwa ujumbe au kwa simu",
     "Your question and the details of your case": "Swali lako na maelezo ya hali yako",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Bonyeza «Funga ombi» ukimaliza. Maombi hufutwa kwenye seva baada ya siku 30; orodha hujisasisha yenyewe kila baada ya sekunde 5."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Bonyeza «Funga ombi» ukimaliza. Maombi hufutwa kwenye seva baada ya siku 30; orodha hujisasisha yenyewe kila baada ya sekunde 5.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Aya katika maelezo: modeli iliibaini mahali pake, na rejea yake ya Mushaf ikatolewa",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Aya katika maelezo: modeli iliibaini mahali pake, na maandishi yake yalinakiliwa kutoka kwenye Mushaf pekee",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Maneno yaliyotajwa kuwa ni Quran yameondolewa kwa kuwa hayakulingana na aya yoyote moja katika Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mlinzi ni msimbo thabiti unaokagua kila jibu kabla halijaonyeshwa: huondoa aya ambayo tafsir yake haikusomwa na hadith isiyokubalika, na haubakizi katika maelezo maneno ya aya isipokuwa yamenakiliwa kutoka kwenye Mushaf. Hadi sasa haujahitaji kuondoa chochote katika jibu lolote: modeli ilizingatia kanuni kila mara.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Mlinzi ni msimbo thabiti unaokagua kila jibu kabla halijaonyeshwa: huondoa aya ambayo tafsir yake haikusomwa na hadith isiyokubalika, na haubakizi katika maelezo maneno ya aya isipokuwa yamenakiliwa kutoka kwenye Mushaf. Uliingilia kati katika majibu {0} kati ya {1} kabla ya kuonyeshwa."
   }
 }

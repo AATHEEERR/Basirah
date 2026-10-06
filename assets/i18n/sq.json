@@ -341,14 +341,12 @@
     "Related questions": "Pyetje të ngjashme",
     "Religion is not the same as custom": "Feja nuk është e njëjtë me zakonin",
     "Remove from saved": "Hiqe nga të ruajturat",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "U hoq tekst kuranor që modeli e shkroi nga kujtesa dhe nuk përputhej me asnjë ajet të vetëm",
     "Removed a hadith cited without saying what it supports": "U hoq një hadith i cituar pa treguar çfarë mbështet",
     "Removed a hadith not found in the approved sources": "U hoq një hadith që nuk u gjet në burimet e miratuara",
     "Removed a reference to a verse that does not exist ({0})": "U hoq një referencë për një ajet që nuk ekziston ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "U hoq ajeti ({0}): tefsiri i tij nuk u lexua për këtë përgjigje",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "U hoqën {0} dëshmi të cituara: drejtimet te specialistët dhe refuzimet nuk citojnë asgjë",
     "Repeat": "Përsërit",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Teksti kuranor që modeli e shkroi nga kujtesa u zëvendësua me referencën e ajetit",
     "Request code: {0}": "Kodi i kërkesës: {0}",
     "Request the appointment": "Kërko takimin",
     "Research in the approved sources": "Kërkim në burimet e miratuara",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Raporti i plotë dhe çdo përgjigje në tërësi gjenden në depon e projektit: eval/EVALUATION.md (metoda dhe rezultatet), eval/baseline_report.json dhe eval/prompted_report.json (çdo përgjigje dhe numërimet e saj), eval/test_cases.json (pyetjet dhe sjellja e pritur).",
     "The guard changed part of the answer": "Roja ndryshoi një pjesë të përgjigjes",
     "The guard checks": "Roja kontrollon",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Roja është kod i fiksuar që kontrollon çdo përgjigje përpara se të shfaqet: heq një ajet tefsiri i të cilit nuk është lexuar, një hadith të papranuar dhe çdo tekst kuranor që modeli e ka shkruar nga memoria. Deri tani nuk ka pasur nevojë të heqë asgjë nga asnjë përgjigje: modeli i ka respektuar rregullat çdo herë.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Roja është kod i fiksuar që kontrollon çdo përgjigje përpara se të shfaqet: heq një ajet tefsiri i të cilit nuk është lexuar, një hadith të papranuar dhe çdo tekst kuranor që modeli e ka shkruar nga memoria. Ndërhyri në {0} nga {1} përgjigje përpara se të shfaqeshin.",
     "The hadith and its explanation on HadeethEnc": "Hadithi dhe shpjegimi i tij në HadeethEnc",
     "The highlighted words are the part cited": "Fjalët e theksuara janë pjesa e cituar",
     "The impact board needs the Basirah server.": "Tabela e ndikimit kërkon lidhjen me serverin e Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Kërko një fetva nga një specialist",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Për rastin tënd: shkruaj pyetjen dhe detajet e saj, dhe një specialist i Sheriatit të përgjigjet me mesazh ose me telefonatë",
     "Your question and the details of your case": "Pyetja jote dhe detajet e rastit tënd",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Shtyp «Mbylle kërkesën» kur të përfundosh. Kërkesat fshihen nga serveri pas 30 ditësh; lista rifreskohet vetë çdo 5 sekonda."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Shtyp «Mbylle kërkesën» kur të përfundosh. Kërkesat fshihen nga serveri pas 30 ditësh; lista rifreskohet vetë çdo 5 sekonda.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Një ajet në shpjegim: modeli e përcaktoi vendndodhjen e tij dhe u dha referenca e tij nga Mushafi",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Një ajet në shpjegim: modeli e përcaktoi vendndodhjen e tij dhe teksti i tij u kopjua vetëm nga Mushafi",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "U hoq një formulim i paraqitur si Kuran, i cili nuk përputhej me asnjë ajet të vetëm në Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Mbrojtësi është kod i palëvizshëm që kontrollon çdo përgjigje përpara se të shfaqet: heq ajetin tefsiri i të cilit nuk është lexuar dhe hadithin e papranuar, dhe në shpjegim nuk lë formulim ajeti nëse nuk është kopjuar nga Mushafi. Deri tani nuk ka pasur nevojë të heqë asgjë nga asnjë përgjigje: modeli i është përmbajtur rregullave çdo herë.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Mbrojtësi është kod i palëvizshëm që kontrollon çdo përgjigje përpara se të shfaqet: heq ajetin tefsiri i të cilit nuk është lexuar dhe hadithin e papranuar, dhe në shpjegim nuk lë formulim ajeti nëse nuk është kopjuar nga Mushafi. Ai ka ndërhyrë te {0} nga {1} përgjigje para se ato të shfaqeshin."
   }
 }

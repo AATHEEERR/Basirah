@@ -105,12 +105,12 @@ class _Board extends StatelessWidget {
                 child: Text(
                   guard == 0
                       ? context.tr(
-                          'الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. لم يحتج إلى حذف شيء من أي إجابة حتى الآن: التزم النموذج بالقواعد في كل الإجابات.',
-                          'The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.',
+                          'الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها والحديث غير المقبول، ولا يُبقي في الشرح لفظ آية إلا منقولاً من المصحف. لم يحتج إلى حذف شيء من أي إجابة حتى الآن: التزم النموذج بالقواعد في كل الإجابات.',
+                          'The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.',
                         )
                       : context.tr(
-                          'الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. تدخّل في $guard من $n إجابة قبل عرضها.',
-                          'The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on $guard of $n answers before they were shown.',
+                          'الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها والحديث غير المقبول، ولا يُبقي في الشرح لفظ آية إلا منقولاً من المصحف. تدخّل في $guard من $n إجابة قبل عرضها.',
+                          'The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on $guard of $n answers before they were shown.',
                         ),
                   style: BText.body(13.5, color: BColors.textMuted, height: 1.65),
                 ),

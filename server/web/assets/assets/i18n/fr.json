@@ -341,14 +341,12 @@
     "Related questions": "Questions liées",
     "Religion is not the same as custom": "Ce que l'islam demande est une chose, ce que les gens ont coutume de faire dans un pays en est une autre.",
     "Remove from saved": "Retirer des favoris",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Texte coranique écrit de mémoire par le modèle, ne correspondant à aucun verset précis, supprimé",
     "Removed a hadith cited without saying what it supports": "Hadith cité sans préciser ce qu'il atteste, supprimé",
     "Removed a hadith not found in the approved sources": "Hadith introuvable dans les sources approuvées, supprimé",
     "Removed a reference to a verse that does not exist ({0})": "Référence à un verset inexistant ({0}) supprimée",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Verset ({0}) supprimé : son tafsir n'a pas été lu pour cette réponse",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} élément(s) cité(s) supprimé(s) : les renvois et les refus ne citent rien",
     "Repeat": "Répéter",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Texte coranique écrit de mémoire par le modèle remplacé par la référence du verset",
     "Request code: {0}": "Code de la demande : {0}",
     "Request the appointment": "Demander le rendez-vous",
     "Research in the approved sources": "Recherche dans les sources approuvées",
@@ -425,8 +423,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Le rapport complet et toutes les réponses intégrales se trouvent dans le dépôt du projet : eval/EVALUATION.md (méthode et résultats), eval/baseline_report.json et eval/prompted_report.json (chaque réponse et son décompte), eval/test_cases.json (les questions et le comportement attendu).",
     "The guard changed part of the answer": "Le garde-fou a modifié une partie de la réponse",
     "The guard checks": "Le garde-fou vérifie",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Le garde-fou est un code fixe qui vérifie chaque réponse avant son affichage : il retire un verset dont le tafsir n'a pas été lu, un hadith non retenu, et tout texte coranique que le modèle a écrit de mémoire. Il n'a eu à rien retirer d'aucune réponse jusqu'à présent : le modèle a respecté les règles à chaque fois.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Le garde-fou est un code fixe qui vérifie chaque réponse avant son affichage : il retire un verset dont le tafsir n'a pas été lu, un hadith non retenu, et tout texte coranique que le modèle a écrit de mémoire. Il est intervenu sur {0} réponses sur {1} avant leur affichage.",
     "of our answers cite the approved sources ({0} of {1})": "de nos réponses citent les sources approuvées ({0} sur {1})",
     "passed": "réussi",
     "questions asked": "questions posées",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Demander une fatwa à un spécialiste",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Pour votre cas personnel : écrivez votre question et ses détails, et un spécialiste de la Sharia vous répondra par message ou par appel",
     "Your question and the details of your case": "Votre question et les détails de votre situation",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "« Clôturer la demande » une fois terminé. Les demandes sont supprimées du serveur après 30 jours ; la liste s'actualise automatiquement toutes les 5 secondes."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "« Clôturer la demande » une fois terminé. Les demandes sont supprimées du serveur après 30 jours ; la liste s'actualise automatiquement toutes les 5 secondes.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Un verset dans l'explication : le modèle a identifié son emplacement, et sa référence dans le Mushaf a été indiquée",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Un verset dans l'explication : le modèle a identifié son emplacement, et son texte a été copié uniquement du Mushaf",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Formulation supprimée, présentée comme du Quran, qui ne correspondait à aucun verset précis du Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Le garde-fou est un code fixe qui vérifie chaque réponse avant son affichage : il supprime un verset dont le tafsir n'a pas été lu ainsi qu'un hadith non retenu, et ne conserve dans l'explication aucune formulation de verset qui ne soit pas copiée du Mushaf. Jusqu'à présent, il n'a eu besoin de rien supprimer dans aucune réponse : le modèle a respecté les règles à chaque fois.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Le garde-fou est un code fixe qui vérifie chaque réponse avant son affichage : il supprime un verset dont le tafsir n'a pas été lu ainsi qu'un hadith non retenu, et ne conserve dans l'explication aucune formulation de verset qui ne soit pas copiée du Mushaf. Il est intervenu sur {0} réponses sur {1} avant leur affichage."
   }
 }

@@ -83,6 +83,7 @@ class PatternBackdrop extends StatelessWidget {
     this.opacity = .07,
     this.glow = const Alignment(1, -1),
     this.fade = true,
+    this.onWebsite = false,
   });
 
   final double? height;
@@ -90,11 +91,15 @@ class PatternBackdrop extends StatelessWidget {
   final Alignment glow;
   final bool fade;
 
+  /// Drawn on the website too: the home page, whose opening spans the width
+  /// as on the phone.
+  final bool onWebsite;
+
   @override
   Widget build(BuildContext context) {
-    // The website keeps a plain ground: in its centred column the pattern
-    // would read as a box.
-    if (isWebsite(context)) return const SizedBox.shrink();
+    // Elsewhere the website keeps a plain ground: in its centred column the
+    // pattern would read as a box.
+    if (isWebsite(context) && !onWebsite) return const SizedBox.shrink();
     Widget child = Stack(
       fit: StackFit.expand,
       children: [

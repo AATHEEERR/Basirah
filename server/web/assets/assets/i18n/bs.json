@@ -361,14 +361,12 @@
     "Related questions": "Srodna pitanja",
     "Religion is not the same as custom": "Vjera nije isto što i običaj",
     "Remove from saved": "Ukloni iz sačuvanih",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Uklonjen kur'anski tekst koji je model napisao iz memorije, a ne odgovara nijednom određenom ajetu",
     "Removed a hadith cited without saying what it supports": "Uklonjen hadis naveden bez objašnjenja šta potvrđuje",
     "Removed a hadith not found in the approved sources": "Uklonjen hadis koji nije pronađen u odobrenim izvorima",
     "Removed a reference to a verse that does not exist ({0})": "Uklonjena referenca na ajet koji ne postoji ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Uklonjen ajet ({0}): njegov tefsir nije pročitan za ovaj odgovor",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Uklonjeno dokaza: {0}, jer upućivanje i odbijanje ne navode ništa",
     "Repeat": "Ponovi",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Kur'anski tekst koji je model napisao iz memorije zamijenjen je referencom na ajet",
     "Request code: {0}": "Šifra zahtjeva: {0}",
     "Request the appointment": "Zatraži termin",
     "Research in the approved sources": "Istraživanje u odobrenim izvorima",
@@ -507,8 +505,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Cijeli izvještaj i svi odgovori u cijelosti nalaze se u repozitoriju projekta: eval/EVALUATION.md (metoda i rezultati), eval/baseline_report.json i eval/prompted_report.json (svaki odgovor i njegovo brojanje), eval/test_cases.json (pitanja i očekivano ponašanje).",
     "The guard changed part of the answer": "Čuvar je izmijenio dio odgovora",
     "The guard checks": "Čuvar provjerava",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Čuvar je stalni kod koji provjerava svaki odgovor prije prikaza: uklanja ajet čiji tefsir nije pročitan, neprihvaćen hadis i svaki kuranski tekst koji je model napisao po sjećanju. Do sada nije morao ukloniti ništa ni iz jednog odgovora: model se svaki put držao pravila.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Čuvar je stalni kod koji provjerava svaki odgovor prije prikaza: uklanja ajet čiji tefsir nije pročitan, neprihvaćen hadis i svaki kuranski tekst koji je model napisao po sjećanju. Intervenirao je kod {0} od {1} odgovora prije njihovog prikaza.",
     "The hadith and its explanation on HadeethEnc": "Hadis i njegovo objašnjenje na HadeethEnc",
     "The highlighted words are the part cited": "Označene riječi su dio koji se navodi",
     "The impact board needs the Basirah server.": "Tabla utjecaja zahtijeva vezu sa serverom Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Zatraži fetvu od stručnjaka",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Za tvoj lični slučaj: napiši svoje pitanje i detalje, a stručnjak za šerijatsko pravo odgovorit će ti porukom ili pozivom",
     "Your question and the details of your case": "Tvoje pitanje i detalji tvog slučaja",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Kliknite „Zatvori zahtjev“ kada završite. Zahtjevi se brišu sa servera nakon 30 dana, a lista se sama osvježava svakih 5 sekundi."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Kliknite „Zatvori zahtjev“ kada završite. Zahtjevi se brišu sa servera nakon 30 dana, a lista se sama osvježava svakih 5 sekundi.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Ajet u objašnjenju: model je odredio njegovo mjesto, a naveden je i njegov izvor u Mushafu",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Ajet u objašnjenju: model je odredio njegovo mjesto, a njegov tekst je preuzet isključivo iz Mushafa",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Uklonjen je tekst naveden kao Quran koji ne odgovara nijednom pojedinačnom ajetu u Mushafu",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Čuvar je fiksni kod koji provjerava svaki odgovor prije nego što se prikaže: uklanja ajet čiji tefsir nije pročitan i hadis koji nije prihvaćen, a u objašnjenju ne ostavlja tekst ajeta osim ako je preuzet iz Mushafa. Do sada nije morao ukloniti ništa ni iz jednog odgovora: model se svaki put držao pravila.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Čuvar je fiksni kod koji provjerava svaki odgovor prije nego što se prikaže: uklanja ajet čiji tefsir nije pročitan i hadis koji nije prihvaćen, a u objašnjenju ne ostavlja tekst ajeta osim ako je preuzet iz Mushafa. Intervenisao je kod {0} od {1} odgovora prije nego što su prikazani."
   }
 }

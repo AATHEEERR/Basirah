@@ -141,6 +141,25 @@ void main() {
       expect(a.principle, 'قال تعالى وانتهى');
     });
 
+    test('a verse whose tafsir was read is copied from the Mushaf, whole words, with its reference', () {
+      final (a, report) = run(
+        submission(principle: 'قال تعالى ﴿لا إكراه في الدين﴾ فلا يُجبر أحد'),
+        read: const {'60:8', '2:256'},
+      );
+      final mushaf = quran.verse('2:256')!.uthmani.split(' ');
+      expect(a.principle, 'قال تعالى ﴿${mushaf.sublist(0, 4).join(' ')}﴾ (البقرة: 256) فلا يُجبر أحد');
+      expect(report.actions, contains('verse text taken from the Mushaf (2:256)'));
+    });
+
+    test('a verse written without quotation marks, in modern spelling, is copied from the Mushaf too', () {
+      final (a, _) = run(
+        submission(principle: 'والقاعدة قد تبين الرشد من الغي فمن يكفر بالطاغوت كما ترى'),
+        read: const {'60:8', '2:256'},
+      );
+      final mushaf = quran.verse('2:256')!.uthmani.split(' ');
+      expect(a.principle, 'والقاعدة ﴿${mushaf.sublist(4, 12).join(' ')}﴾ (البقرة: 256) كما ترى');
+    });
+
     test('a real verse in ﴿ ﴾ is replaced by its reference', () {
       final a = run(submission(principle: 'قال تعالى ﴿لَا إِكْرَاهَ فِي الدِّينِ﴾ وانتهى')).$1;
       expect(a.principle, 'قال تعالى (البقرة: 256) وانتهى');

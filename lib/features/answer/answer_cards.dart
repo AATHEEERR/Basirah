@@ -561,7 +561,22 @@ class _Para extends StatelessWidget {
   final Color? color;
 
   @override
-  Widget build(BuildContext context) => SelectableText(text, style: BText.body(size, color: color));
+  Widget build(BuildContext context) =>
+      SelectableText.rich(TextSpan(children: proseSpans(text, BText.body(size, color: color))));
+}
+
+/// [text] as spans, a verse in ﴿ ﴾ (copied from the Mushaf by the server) in
+/// the Mushaf's font and the rest in [base].
+List<TextSpan> proseSpans(String text, TextStyle base) {
+  final out = <TextSpan>[];
+  var at = 0;
+  for (final m in RegExp('﴿[^﴾]+﴾').allMatches(text)) {
+    if (m.start > at) out.add(TextSpan(text: text.substring(at, m.start), style: base));
+    out.add(TextSpan(text: m[0], style: BText.quran((base.fontSize ?? 15) + 2.5, color: base.color).copyWith(height: base.height)));
+    at = m.end;
+  }
+  if (at < text.length) out.add(TextSpan(text: text.substring(at), style: base));
+  return out;
 }
 
 class _SubLabel extends StatelessWidget {
@@ -625,7 +640,7 @@ class _Steps extends StatelessWidget {
                 child: Text('${i + 1}', style: BText.label(12, color: Colors.white, weight: FontWeight.w600)),
               ),
               const SizedBox(width: 10),
-              Expanded(child: Text(s, style: BText.body(15))),
+              Expanded(child: Text.rich(TextSpan(children: proseSpans(s, BText.body(15))))),
             ],
           ),
         ),

@@ -95,14 +95,12 @@
     "Related questions": "সম্পৰ্কীয় প্ৰশ্ন",
     "Religion is not the same as custom": "ধৰ্ম আৰু ৰীতি-নীতি একে নহয়",
     "Remove from saved": "সংৰক্ষিতৰ পৰা আঁতৰাওক",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "মডেলে স্মৃতিৰ পৰা লিখা আৰু কোনো এটা আয়াতৰ সৈতে নিমিলা কুৰআনৰ পাঠ আঁতৰোৱা হ'ল",
     "Removed a hadith cited without saying what it supports": "কিহৰ প্ৰমাণ সেয়া নকৈ উদ্ধৃত কৰা হাদীছ আঁতৰোৱা হ'ল",
     "Removed a hadith not found in the approved sources": "অনুমোদিত উৎসত নোপোৱা হাদীছ আঁতৰোৱা হ'ল",
     "Removed a reference to a verse that does not exist ({0})": "নথকা আয়াতৰ উল্লেখ আঁতৰোৱা হ'ল ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "আয়াতটো ({0}) আঁতৰোৱা হ'ল: এই উত্তৰৰ বাবে ইয়াৰ তাফছীৰ পঢ়া হোৱা নাছিল",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0}টা উদ্ধৃত বস্তু আঁতৰোৱা হ'ল: প্ৰেৰণ আৰু প্ৰত্যাখ্যানে একোৱেই উদ্ধৃত নকৰে",
     "Repeat": "পুনৰাবৃত্তি",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "মডেলে স্মৃতিৰ পৰা লিখা কুৰআনৰ পাঠ আয়াতৰ তথ্যসূত্ৰেৰে সলনি কৰা হ'ল",
     "Request code: {0}": "অনুৰোধৰ ক'ড: {0}",
     "Request the appointment": "এপইণ্টমেণ্টৰ অনুৰোধ কৰক",
     "Research in the approved sources": "অনুমোদিত উৎসত গৱেষণা",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "সম্পূৰ্ণ প্ৰতিবেদন আৰু প্ৰতিটো উত্তৰ সম্পূৰ্ণকৈ প্ৰকল্পৰ ৰিপজিটৰীত আছে: eval/EVALUATION.md (পদ্ধতি আৰু ফলাফল), eval/baseline_report.json আৰু eval/prompted_report.json (প্ৰতিটো উত্তৰ আৰু ইয়াৰ গণনা), eval/test_cases.json (প্ৰশ্ন আৰু প্ৰত্যাশিত আচৰণ)।",
     "The guard changed part of the answer": "ৰক্ষকে উত্তৰৰ কিছু অংশ সলনি কৰিলে",
     "The guard checks": "ৰক্ষকে পৰীক্ষা কৰে",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "ৰক্ষক এটা নিৰ্দিষ্ট ক'ড, যি প্ৰতিটো উত্তৰ দেখুওৱাৰ আগতে পৰীক্ষা কৰে: যি আয়াতৰ তাফসীৰ পঢ়া হোৱা নাই, গ্ৰহণযোগ্য নোহোৱা হাদীছ, আৰু মডেলে সোঁৱৰণিৰ পৰা লিখা যিকোনো কুৰআনৰ পাঠ ই আঁতৰায়। এতিয়ালৈকে কোনো উত্তৰৰ পৰা একো আঁতৰাব লগা হোৱা নাই: মডেলে প্ৰতিবাৰেই নিয়ম মানি চলিছে।",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "ৰক্ষক এটা নিৰ্দিষ্ট ক'ড, যি প্ৰতিটো উত্তৰ দেখুওৱাৰ আগতে পৰীক্ষা কৰে: যি আয়াতৰ তাফসীৰ পঢ়া হোৱা নাই, গ্ৰহণযোগ্য নোহোৱা হাদীছ, আৰু মডেলে সোঁৱৰণিৰ পৰা লিখা যিকোনো কুৰআনৰ পাঠ ই আঁতৰায়। দেখুওৱাৰ আগতে {1} টা উত্তৰৰ ভিতৰত {0} টাত ই হস্তক্ষেপ কৰিলে।",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "আমি নিজেই তিনিও পক্ষত চিহ্নিত কৰা প্ৰতিটো উত্তৰ পঢ়িছোঁ, গণনাৰ নিয়ম ভুল থকা ঠাইত সংশোধন কৰিছোঁ, আৰু প্ৰতিটো সংশোধন সংৰক্ষিত উত্তৰসমূহৰ পৰা সকলো পক্ষতে প্ৰয়োগ কৰিছোঁ, পুনৰ প্ৰশ্ন নকৰাকৈয়ে।",
     "Website view": "ৱেবছাইট দৃশ্য",
     "Wednesday": "বুধবাৰ",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "এজন বিশেষজ্ঞৰ পৰা ফতোৱা বিচাৰক",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "আপোনাৰ নিজৰ ক্ষেত্ৰৰ বাবে: আপোনাৰ প্ৰশ্ন আৰু ইয়াৰ বিৱৰণ লিখক, আৰু এজন শৰীয়ত বিশেষজ্ঞই বাৰ্তা বা কলৰ দ্বাৰা উত্তৰ দিব",
     "Your question and the details of your case": "আপোনাৰ প্ৰশ্ন আৰু আপোনাৰ ক্ষেত্ৰৰ বিৱৰণ",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "কাম শেষ হ'লে “অনুৰোধ বন্ধ কৰক” টিপক। অনুৰোধবোৰ ৩০ দিনৰ পিছত ছাৰ্ভাৰৰ পৰা মচি পেলোৱা হয়; তালিকাখন প্ৰতি ৫ ছেকেণ্ডত নিজে নিজে ৰিফ্ৰেচ হয়।"
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "কাম শেষ হ'লে “অনুৰোধ বন্ধ কৰক” টিপক। অনুৰোধবোৰ ৩০ দিনৰ পিছত ছাৰ্ভাৰৰ পৰা মচি পেলোৱা হয়; তালিকাখন প্ৰতি ৫ ছেকেণ্ডত নিজে নিজে ৰিফ্ৰেচ হয়।",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "ব্যাখ্যাত থকা এটা আয়াত: মডেলে ইয়াৰ স্থান চিনাক্ত কৰিছিল, আৰু মুছহাফৰ পৰা ইয়াৰ ৰেফাৰেন্স দিয়া হৈছিল",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "ব্যাখ্যাত থকা এটা আয়াত: মডেলে ইয়াৰ স্থান চিনাক্ত কৰিছিল, আৰু ইয়াৰ পাঠ কেৱল মুছহাফৰ পৰা কপি কৰা হৈছিল",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "কুৰআন বুলি দিয়া যিটো পাঠ মুছহাফৰ কোনো এটা নিৰ্দিষ্ট আয়াতৰ সৈতে মিলা নাছিল, সেয়া আঁতৰোৱা হৈছে",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "গাৰ্ড হৈছে এটা স্থিৰ ক'ড, যিয়ে প্ৰতিটো উত্তৰ দেখুওৱাৰ আগতে পৰীক্ষা কৰে: যি আয়াতৰ তাফসীৰ পঢ়া হোৱা নাই সেই আয়াত আৰু অগ্ৰহণযোগ্য হাদীছ ই আঁতৰাই দিয়ে, আৰু ব্যাখ্যাত মুছহাফৰ পৰা কপি কৰা নহ'লে কোনো আয়াতৰ শব্দ ৰাখিব নিদিয়ে। এতিয়ালৈকে কোনো উত্তৰৰ পৰা একো আঁতৰাব লগা হোৱা নাই: মডেলে প্ৰতিবাৰেই নিয়মবোৰ মানি চলিছে।",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "গাৰ্ড হৈছে এটা স্থিৰ ক'ড, যিয়ে প্ৰতিটো উত্তৰ দেখুওৱাৰ আগতে পৰীক্ষা কৰে: যি আয়াতৰ তাফসীৰ পঢ়া হোৱা নাই সেই আয়াত আৰু অগ্ৰহণযোগ্য হাদীছ ই আঁতৰাই দিয়ে, আৰু ব্যাখ্যাত মুছহাফৰ পৰা কপি কৰা নহ'লে কোনো আয়াতৰ শব্দ ৰাখিব নিদিয়ে। উত্তৰবোৰ দেখুওৱাৰ আগতে {1}টাৰ ভিতৰত {0}টা উত্তৰত ই হস্তক্ষেপ কৰিছিল।"
   }
 }

@@ -41,14 +41,12 @@
     "Related questions": "Mga kaugnay na tanong",
     "Religion is not the same as custom": "Hindi magkapareho ang hinihingi ng Islam at ang nakagawian ng mga tao sa isang bansa.",
     "Remove from saved": "Alisin sa mga naka-save",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Inalis ang tekstong Quraniko na isinulat ng modelo mula sa alaala na hindi tumugma sa alinmang talata",
     "Removed a hadith cited without saying what it supports": "Inalis ang isang hadith na binanggit nang hindi sinasabi kung ano ang pinagtitibay nito",
     "Removed a hadith not found in the approved sources": "Inalis ang isang hadith na hindi natagpuan sa mga aprubadong sanggunian",
     "Removed a reference to a verse that does not exist ({0})": "Inalis ang pagtukoy sa isang talatang hindi umiiral ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Inalis ang talata ({0}): hindi nabasa ang tafsir nito para sa sagot na ito",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Inalis ang {0} binanggit na patunay: ang mga rekomendasyon sa espesyalista at pagtanggi ay hindi nagbabanggit ng anuman",
     "Repeat": "Ulitin",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Pinalitan ng sanggunian ng talata ang tekstong Quraniko na isinulat ng modelo mula sa alaala",
     "Request code: {0}": "Code ng kahilingan: {0}",
     "Request the appointment": "Hilingin ang appointment",
     "Research in the approved sources": "Pananaliksik sa mga aprubadong sanggunian",
@@ -367,8 +365,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Ang buong ulat at ang bawat sagot nang buo ay nasa repository ng proyekto: eval/EVALUATION.md (pamamaraan at mga resulta), eval/baseline_report.json at eval/prompted_report.json (bawat sagot at ang bilang nito), eval/test_cases.json (ang mga tanong at inaasahang kilos).",
     "The guard changed part of the answer": "Binago ng bantay ang bahagi ng sagot",
     "The guard checks": "Sinusuri ng bantay",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Ang bantay ay nakapirming code na sumusuri sa bawat sagot bago ito ipakita: inaalis nito ang talatang hindi nabasa ang tafsir, ang hindi tinanggap na hadith, at anumang tekstong Quranic na isinulat ng modelo mula sa memorya. Wala pa itong kinailangang alisin sa alinmang sagot hanggang ngayon: sumunod ang modelo sa mga tuntunin sa bawat pagkakataon.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "Ang bantay ay nakapirming code na sumusuri sa bawat sagot bago ito ipakita: inaalis nito ang talatang hindi nabasa ang tafsir, ang hindi tinanggap na hadith, at anumang tekstong Quranic na isinulat ng modelo mula sa memorya. Namagitan ito sa {0} sa {1} sagot bago ipinakita ang mga ito.",
     "Copy all requests": "Kopyahin ang lahat ng kahilingan",
     "Copy answer": "Kopyahin ang sagot",
     "Copy the link": "Kopyahin ang link",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Humingi ng fatwa sa isang espesyalista",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Para sa sarili mong kaso: isulat ang iyong tanong at ang mga detalye nito, at sasagot sa iyo ang isang espesyalista sa Sharia sa pamamagitan ng mensahe o tawag",
     "Your question and the details of your case": "Ang iyong tanong at ang mga detalye ng iyong kaso",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "I-tap ang “Isara ang kahilingan” kapag tapos ka na. Binubura ang mga kahilingan mula sa server pagkatapos ng 30 araw; kusang nagre-refresh ang listahan tuwing 5 segundo."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "I-tap ang “Isara ang kahilingan” kapag tapos ka na. Binubura ang mga kahilingan mula sa server pagkatapos ng 30 araw; kusang nagre-refresh ang listahan tuwing 5 segundo.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Isang talata sa paliwanag: natukoy ng model ang kinalalagyan nito, at ibinigay ang sanggunian nito mula sa Mushaf",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Isang talata sa paliwanag: natukoy ng model ang kinalalagyan nito, at ang teksto nito ay kinopya mula lamang sa Mushaf",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Inalis ang pananalitang iniuugnay sa Quran na hindi tumutugma sa alinmang iisang talata sa Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "Ang guard ay nakapirming code na sumusuri sa bawat sagot bago ito ipakita: inaalis nito ang talatang hindi nabasa ang tafsir at ang hadith na hindi tinanggap, at hindi nito pinananatili sa paliwanag ang pananalita ng talata maliban kung kinopya ito mula sa Mushaf. Wala pa itong kinailangang alisin sa alinmang sagot hanggang ngayon: sinunod ng model ang mga patakaran sa bawat pagkakataon.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "Ang guard ay nakapirming code na sumusuri sa bawat sagot bago ito ipakita: inaalis nito ang talatang hindi nabasa ang tafsir at ang hadith na hindi tinanggap, at hindi nito pinananatili sa paliwanag ang pananalita ng talata maliban kung kinopya ito mula sa Mushaf. Namagitan ito sa {0} sa {1} sagot bago ipinakita ang mga ito."
   }
 }

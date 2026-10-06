@@ -219,14 +219,12 @@
     "Related questions": "Perguntas relacionadas",
     "Religion is not the same as custom": "A religião não é o mesmo que o costume",
     "Remove from saved": "Remover dos guardados",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Removido texto do Quran escrito de memória pelo modelo que não correspondia a nenhum versículo",
     "Removed a hadith cited without saying what it supports": "Removido um hadith citado sem indicar o que ele comprova",
     "Removed a hadith not found in the approved sources": "Removido um hadith não encontrado nas fontes aprovadas",
     "Removed a reference to a verse that does not exist ({0})": "Removida uma referência a um versículo que não existe ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Removido o versículo ({0}): o seu tafsir não foi lido para esta resposta",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "Removidos {0} item(ns) citado(s): encaminhamentos e recusas não citam nada",
     "Repeat": "Repetir",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Texto do Quran escrito de memória pelo modelo substituído pela referência do versículo",
     "Request code: {0}": "Código do pedido: {0}",
     "Request the appointment": "Pedir a marcação",
     "Research in the approved sources": "Pesquisa nas fontes aprovadas",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "O relatório completo e todas as respostas na íntegra estão no repositório do projeto: eval/EVALUATION.md (método e resultados), eval/baseline_report.json e eval/prompted_report.json (cada resposta e as suas contagens), eval/test_cases.json (as perguntas e o comportamento esperado).",
     "The guard changed part of the answer": "O guarda alterou parte da resposta",
     "The guard checks": "O guarda verifica",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "O guarda é código fixo que verifica cada resposta antes de ser mostrada: remove o versículo cujo tafsir não foi lido, o hadith não aceite e qualquer texto do Alcorão que o modelo tenha escrito de memória. Até agora não precisou de remover nada de nenhuma resposta: o modelo cumpriu as regras todas as vezes.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "O guarda é código fixo que verifica cada resposta antes de ser mostrada: remove o versículo cujo tafsir não foi lido, o hadith não aceite e qualquer texto do Alcorão que o modelo tenha escrito de memória. Interveio em {0} de {1} respostas antes de serem mostradas.",
     "The hadith and its explanation on HadeethEnc": "O hadith e a sua explicação no HadeethEnc",
     "The highlighted words are the part cited": "As palavras destacadas são a parte citada",
     "The impact board needs the Basirah server.": "O painel de impacto precisa do servidor da Basirah.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Peça uma fatwa a um especialista",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Para o seu caso pessoal: escreva a sua pergunta e os detalhes, e um especialista em Sharia responderá por mensagem ou chamada",
     "Your question and the details of your case": "A sua pergunta e os detalhes do seu caso",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "«Encerrar o pedido» quando terminar. Os pedidos são apagados do servidor após 30 dias; a lista é atualizada sozinha a cada 5 segundos."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "«Encerrar o pedido» quando terminar. Os pedidos são apagados do servidor após 30 dias; a lista é atualizada sozinha a cada 5 segundos.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Um versículo na explicação: o modelo identificou sua localização e foi indicada a sua referência no Mushaf",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Um versículo na explicação: o modelo identificou sua localização e seu texto foi copiado apenas do Mushaf",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Foi removida uma redação apresentada como Quran que não correspondia a nenhum versículo específico do Mushaf",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "O guardião é um código fixo que verifica cada resposta antes de ela ser exibida: remove o versículo cujo tafsir não foi lido e o hadith não aceito, e não mantém na explicação nenhuma redação de versículo, a menos que tenha sido copiada do Mushaf. Até agora, não precisou remover nada de nenhuma resposta: o modelo seguiu as regras todas as vezes.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "O guardião é um código fixo que verifica cada resposta antes de ela ser exibida: remove o versículo cujo tafsir não foi lido e o hadith não aceito, e não mantém na explicação nenhuma redação de versículo, a menos que tenha sido copiada do Mushaf. Ele interveio em {0} de {1} respostas antes de serem exibidas."
   }
 }

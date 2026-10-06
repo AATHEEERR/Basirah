@@ -219,14 +219,12 @@
     "Related questions": "Verwante vragen",
     "Religion is not the same as custom": "Godsdienst is niet hetzelfde als gewoonte",
     "Remove from saved": "Verwijderen uit opgeslagen",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "Quranwoorden verwijderd die het model uit het geheugen schreef en die met geen enkele vers overeenkwamen",
     "Removed a hadith cited without saying what it supports": "Een hadith verwijderd die werd aangehaald zonder te zeggen wat hij onderbouwt",
     "Removed a hadith not found in the approved sources": "Een hadith verwijderd die niet in de goedgekeurde bronnen is gevonden",
     "Removed a reference to a verse that does not exist ({0})": "Een verwijzing naar een niet-bestaand vers verwijderd ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "Het vers ({0}) verwijderd: de tafsir ervan is voor dit antwoord niet gelezen",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} aangehaalde bron(nen) verwijderd: bij doorverwijzingen en weigeringen wordt niets aangehaald",
     "Repeat": "Herhalen",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "Quranwoorden die het model uit het geheugen schreef vervangen door de versverwijzing",
     "Request code: {0}": "Verzoekcode: {0}",
     "Request the appointment": "Afspraak aanvragen",
     "Research in the approved sources": "Onderzoek in de goedgekeurde bronnen",
@@ -507,8 +505,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "Het volledige rapport en alle antwoorden in hun geheel staan in de projectrepository: eval/EVALUATION.md (methode en resultaten), eval/baseline_report.json en eval/prompted_report.json (elk antwoord en de tellingen), eval/test_cases.json (de vragen en het verwachte gedrag).",
     "The guard changed part of the answer": "De bewaker heeft een deel van het antwoord aangepast",
     "The guard checks": "De bewaker controleert",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "De bewaker is vaste code die elk antwoord controleert voordat het getoond wordt: hij verwijdert een vers waarvan de tafsir niet is gelezen, een niet-geaccepteerde hadith, en elke Qurantekst die het model uit het hoofd schreef. Tot nu toe hoefde hij nooit iets uit een antwoord te verwijderen: het model hield zich elke keer aan de regels.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "De bewaker is vaste code die elk antwoord controleert voordat het getoond wordt: hij verwijdert een vers waarvan de tafsir niet is gelezen, een niet-geaccepteerde hadith, en elke Qurantekst die het model uit het hoofd schreef. Hij greep in bij {0} van de {1} antwoorden voordat ze getoond werden.",
     "The hadith and its explanation on HadeethEnc": "De hadith en de uitleg ervan op HadeethEnc",
     "The highlighted words are the part cited": "De gemarkeerde woorden zijn het aangehaalde deel van de vers",
     "The impact board needs the Basirah server.": "Het impactoverzicht heeft verbinding met de Basirah-server nodig.",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "Vraag een specialist om een fatwa",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Voor jouw eigen situatie: schrijf je vraag en de details op, en een specialist in de Sharia antwoordt je per bericht of telefonisch",
     "Your question and the details of your case": "Je vraag en de details van jouw situatie",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Kies „Sluiten” wanneer je klaar bent. Verzoeken worden na 30 dagen van de server verwijderd; de lijst wordt elke 5 seconden automatisch vernieuwd."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Kies „Sluiten” wanneer je klaar bent. Verzoeken worden na 30 dagen van de server verwijderd; de lijst wordt elke 5 seconden automatisch vernieuwd.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "Een vers in de uitleg: het model heeft de plaats ervan bepaald en de verwijzing naar de Mushaf is erbij gegeven",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "Een vers in de uitleg: het model heeft de plaats ervan bepaald en de tekst is alleen uit de Mushaf overgenomen",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "Verwijderde tekst die als Quran werd gepresenteerd, maar met geen enkel afzonderlijk vers in de Mushaf overeenkwam",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "De bewaker is vaste code die elk antwoord controleert voordat het wordt getoond: hij verwijdert een vers waarvan de tafsir niet is gelezen en een niet-geaccepteerde hadith, en laat in de uitleg alleen verstekst staan als die uit de Mushaf is overgenomen. Tot nu toe hoefde hij nooit iets uit een antwoord te verwijderen: het model hield zich elke keer aan de regels.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "De bewaker is vaste code die elk antwoord controleert voordat het wordt getoond: hij verwijdert een vers waarvan de tafsir niet is gelezen en een niet-geaccepteerde hadith, en laat in de uitleg alleen verstekst staan als die uit de Mushaf is overgenomen. Hij greep in bij {0} van de {1} antwoorden voordat ze werden getoond."
   }
 }

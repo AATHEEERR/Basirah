@@ -219,14 +219,12 @@
     "Related questions": "தொடர்புடைய கேள்விகள்",
     "Religion is not the same as custom": "மார்க்கம் என்பது வழக்கத்திற்குச் சமமல்ல",
     "Remove from saved": "சேமித்தவற்றிலிருந்து நீக்கு",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "எந்த ஒரு வசனத்துடனும் பொருந்தாத, மாடல் தன் நினைவிலிருந்து எழுதிய குர்ஆன் வாசகம் நீக்கப்பட்டது",
     "Removed a hadith cited without saying what it supports": "எதை ஆதரிக்கிறது என்று கூறாமல் மேற்கோள் காட்டப்பட்ட ஹதீஸ் நீக்கப்பட்டது",
     "Removed a hadith not found in the approved sources": "அங்கீகரிக்கப்பட்ட ஆதாரங்களில் கிடைக்காத ஹதீஸ் நீக்கப்பட்டது",
     "Removed a reference to a verse that does not exist ({0})": "இல்லாத வசனத்திற்கான குறிப்பு நீக்கப்பட்டது ({0})",
     "Removed the verse ({0}): its tafsir was not read for this answer": "வசனம் ({0}) நீக்கப்பட்டது: இந்தப் பதிலுக்காக அதன் தஃப்சீர் படிக்கப்படவில்லை",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "மேற்கோள் காட்டப்பட்ட {0} உருப்படி(கள்) நீக்கப்பட்டன: அனுப்புதலும் மறுத்தலும் எதையும் மேற்கோள் காட்டுவதில்லை",
     "Repeat": "மீண்டும்",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "மாடல் தன் நினைவிலிருந்து எழுதிய குர்ஆன் வாசகம் வசனக் குறிப்பால் மாற்றப்பட்டது",
     "Request code: {0}": "கோரிக்கைக் குறியீடு: {0}",
     "Request the appointment": "நேரத்தைக் கோருங்கள்",
     "Research in the approved sources": "அங்கீகரிக்கப்பட்ட ஆதாரங்களில் ஆய்வு",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "முழு அறிக்கையும் ஒவ்வொரு பதிலும் முழுமையாக திட்டக் களஞ்சியத்தில் உள்ளன: eval/EVALUATION.md (முறையும் முடிவுகளும்), eval/baseline_report.json மற்றும் eval/prompted_report.json (ஒவ்வொரு பதிலும் அதன் எண்ணிக்கையும்), eval/test_cases.json (கேள்விகளும் எதிர்பார்க்கப்படும் நடத்தையும்).",
     "The guard changed part of the answer": "காவலன் பதிலின் ஒரு பகுதியை மாற்றினான்",
     "The guard checks": "காவலன் சரிபார்க்கிறான்",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "காவலன் என்பது ஒவ்வொரு பதிலையும் காட்டுவதற்கு முன் சரிபார்க்கும் நிலையான குறியீடு: தஃப்சீர் படிக்கப்படாத வசனத்தையும், ஏற்கப்படாத ஹதீஸையும், மாதிரி நினைவிலிருந்து எழுதிய எந்தக் குர்ஆன் உரையையும் அது நீக்குகிறது. இதுவரை எந்தப் பதிலிலிருந்தும் எதையும் நீக்க வேண்டிய அவசியம் ஏற்படவில்லை: மாதிரி ஒவ்வொரு முறையும் விதிகளைப் பின்பற்றியது.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "காவலன் என்பது ஒவ்வொரு பதிலையும் காட்டுவதற்கு முன் சரிபார்க்கும் நிலையான குறியீடு: தஃப்சீர் படிக்கப்படாத வசனத்தையும், ஏற்கப்படாத ஹதீஸையும், மாதிரி நினைவிலிருந்து எழுதிய எந்தக் குர்ஆன் உரையையும் அது நீக்குகிறது. காட்டப்படுவதற்கு முன் {1} பதில்களில் {0} பதில்களில் அது தலையிட்டது.",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "மூன்று தரப்புகளிலும் குறிக்கப்பட்ட ஒவ்வொரு பதிலையும் நாங்களே படித்தோம்; எண்ணிக்கை விதிகளில் தவறு இருந்த இடங்களைத் திருத்தினோம்; ஒவ்வொரு திருத்தத்தையும் மீண்டும் கேட்காமல், சேமிக்கப்பட்ட பதில்களிலிருந்து எல்லாத் தரப்புகளுக்கும் பயன்படுத்தினோம்.",
     "Website view": "இணையதளக் காட்சி",
     "Wednesday": "புதன்கிழமை",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "ஒரு நிபுணரிடம் ஃபத்வா கேளுங்கள்",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "உங்கள் சொந்த நிலைக்கு: உங்கள் கேள்வியையும் அதன் விவரங்களையும் எழுதுங்கள்; ஷரியா நிபுணர் ஒருவர் செய்தி மூலமாகவோ அழைப்பு மூலமாகவோ பதிலளிப்பார்",
     "Your question and the details of your case": "உங்கள் கேள்வியும் உங்கள் நிலையின் விவரங்களும்",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "முடிந்ததும் “கோரிக்கையை மூடுங்கள்”. கோரிக்கைகள் 30 நாட்களுக்குப் பிறகு சர்வரிலிருந்து நீக்கப்படும்; பட்டியல் ஒவ்வொரு 5 விநாடிகளுக்கும் தானாகவே புதுப்பிக்கப்படும்."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "முடிந்ததும் “கோரிக்கையை மூடுங்கள்”. கோரிக்கைகள் 30 நாட்களுக்குப் பிறகு சர்வரிலிருந்து நீக்கப்படும்; பட்டியல் ஒவ்வொரு 5 விநாடிகளுக்கும் தானாகவே புதுப்பிக்கப்படும்.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "விளக்கத்தில் உள்ள ஒரு வசனம்: மாடல் அதன் இடத்தைக் கண்டறிந்தது, அதன் மushaf குறிப்பும் வழங்கப்பட்டது",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "விளக்கத்தில் உள்ள ஒரு வசனம்: மாடல் அதன் இடத்தைக் கண்டறிந்தது, அதன் வாசகம் Mushaf-இலிருந்து மட்டுமே எடுக்கப்பட்டது",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "குர்ஆன் எனக் குறிப்பிடப்பட்டு, Mushaf-இல் எந்த ஒரு வசனத்துடனும் பொருந்தாத வாசகம் நீக்கப்பட்டது",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "காவலர் என்பது ஒவ்வொரு பதிலும் காட்டப்படுவதற்கு முன் சரிபார்க்கும் நிலையான குறியீடு: தஃப்சீர் படிக்கப்படாத வசனத்தையும் ஏற்கப்படாத ஹதீஸையும் அது நீக்கும்; விளக்கத்தில் Mushaf-இலிருந்து எடுக்கப்பட்டால் தவிர எந்த வசன வாசகத்தையும் அது வைத்திருக்காது. இதுவரை எந்தப் பதிலிலிருந்தும் எதையும் நீக்க வேண்டிய தேவை ஏற்படவில்லை: மாடல் ஒவ்வொரு முறையும் விதிகளைப் பின்பற்றியது.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "காவலர் என்பது ஒவ்வொரு பதிலும் காட்டப்படுவதற்கு முன் சரிபார்க்கும் நிலையான குறியீடு: தஃப்சீர் படிக்கப்படாத வசனத்தையும் ஏற்கப்படாத ஹதீஸையும் அது நீக்கும்; விளக்கத்தில் Mushaf-இலிருந்து எடுக்கப்பட்டால் தவிர எந்த வசன வாசகத்தையும் அது வைத்திருக்காது. {1} பதில்களில் {0} பதில்களில் அவை காட்டப்படுவதற்கு முன் அது தலையிட்டது."
   }
 }

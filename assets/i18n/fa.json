@@ -341,14 +341,12 @@
     "Related questions": "پرسش‌های مرتبط",
     "Religion is not the same as custom": "دین با عرف و عادت یکی نیست",
     "Remove from saved": "حذف از ذخیره‌شده‌ها",
-    "Removed Quran wording the model wrote from memory that matched no single verse": "متن قرآنی که مدل از حافظهٔ خود نوشته بود و با هیچ آیهٔ مشخصی مطابقت نداشت حذف شد",
     "Removed a hadith cited without saying what it supports": "حدیثی که بدون بیان آنچه بر آن دلالت می‌کند ذکر شده بود حذف شد",
     "Removed a hadith not found in the approved sources": "حدیثی که در منابع معتبر یافت نشد حذف شد",
     "Removed a reference to a verse that does not exist ({0})": "ارجاع به آیه‌ای که وجود ندارد ({0}) حذف شد",
     "Removed the verse ({0}): its tafsir was not read for this answer": "آیهٔ ({0}) حذف شد: تفسیر آن برای این پاسخ خوانده نشده بود",
     "Removed {0} cited item(s): referrals and refusals cite nothing": "{0} مورد استناد حذف شد: ارجاع و خودداری از پاسخ به چیزی استناد نمی‌کنند",
     "Repeat": "تکرار",
-    "Replaced Quran wording the model wrote from memory with the verse reference": "متن قرآنی که مدل از حافظهٔ خود نوشته بود با ارجاع آیه جایگزین شد",
     "Request code: {0}": "کد درخواست: {0}",
     "Request the appointment": "درخواست وقت",
     "Research in the approved sources": "پژوهش در منابع معتبر",
@@ -445,8 +443,6 @@
     "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).": "گزارش کامل و همه پاسخ‌ها با متن کامل در مخزن پروژه است: eval/EVALUATION.md (روش و نتایج)، eval/baseline_report.json و eval/prompted_report.json (هر پاسخ و شمارش آن)، و eval/test_cases.json (پرسش‌ها و رفتار مورد انتظار).",
     "The guard changed part of the answer": "نگهبان بخشی از پاسخ را تغییر داد",
     "The guard checks": "نگهبان بررسی می‌کند",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "نگهبان کدی ثابت است که هر پاسخ را پیش از نمایش بررسی می‌کند: آیه‌ای را که تفسیرش خوانده نشده، حدیث پذیرفته‌نشده، و هر متن قرآنی را که مدل از حافظه نوشته حذف می‌کند. تا کنون لازم نشده از هیچ پاسخی چیزی حذف کند: مدل هر بار به قواعد پایبند بوده است.",
-    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read, an unaccepted hadith, and any Quran text the model wrote from memory. It stepped in on {0} of {1} answers before they were shown.": "نگهبان کدی ثابت است که هر پاسخ را پیش از نمایش بررسی می‌کند: آیه‌ای را که تفسیرش خوانده نشده، حدیث پذیرفته‌نشده، و هر متن قرآنی را که مدل از حافظه نوشته حذف می‌کند. در {0} پاسخ از {1} پاسخ، پیش از نمایش دخالت کرد.",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "ما خودمان تک‌تک پاسخ‌هایی را که در هر سه طرف دارای مشکل شمرده شده بودند خواندیم، قواعد شمارش را آنجا که اشتباه بود اصلاح کردیم و هر اصلاح را بدون پرسش دوباره، بر پایهٔ پاسخ‌های ذخیره‌شده بر همهٔ طرف‌ها اعمال کردیم.",
     "Website view": "نمای وب‌سایت",
     "Wednesday": "چهارشنبه",
@@ -680,6 +676,11 @@
     "Ask a specialist for a fatwa": "درخواست فتوا از یک متخصص",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "برای مورد خاص خودتان: پرسش و جزئیات آن را بنویسید و یک متخصص شرعی با پیام یا تماس به شما پاسخ می‌دهد",
     "Your question and the details of your case": "پرسش شما و جزئیات وضعیتتان",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "پس از پایان کار، «بستن درخواست» را بزنید. درخواست‌ها پس از ۳۰ روز از سرور حذف می‌شوند و فهرست هر ۵ ثانیه خودبه‌خود به‌روزرسانی می‌شود."
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "پس از پایان کار، «بستن درخواست» را بزنید. درخواست‌ها پس از ۳۰ روز از سرور حذف می‌شوند و فهرست هر ۵ ثانیه خودبه‌خود به‌روزرسانی می‌شود.",
+    "A verse in the explanation: the model located it, and its Mushaf reference was given": "آیه‌ای در شرح: مدل جایگاه آن را مشخص کرده و مرجع آن از مصحف ذکر شده است",
+    "A verse in the explanation: the model located it, and its text was copied from the Mushaf only": "آیه‌ای در شرح: مدل جایگاه آن را مشخص کرده و متن آن فقط از مصحف نقل شده است",
+    "Removed wording given as Quran that matched no single verse in the Mushaf": "عبارتی که به‌عنوان قرآن آمده بود و با هیچ آیه‌ی مشخصی در مصحف مطابقت نداشت، حذف شد",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It has not needed to remove anything from any answer so far: the model kept to the rules every time.": "نگهبان کدی ثابت است که هر پاسخ را پیش از نمایش بررسی می‌کند: آیه‌ای را که تفسیرش خوانده نشده و حدیث نپذیرفته‌شده را حذف می‌کند، و عبارت هیچ آیه‌ای را در شرح باقی نمی‌گذارد مگر آنکه از مصحف نقل شده باشد. تاکنون لازم نشده است چیزی از هیچ پاسخی حذف کند: مدل هر بار به قواعد پایبند بوده است.",
+    "The guard is fixed code that checks every answer before it is shown: it removes a verse whose tafsir was not read and an unaccepted hadith, and keeps no verse wording in the explanation unless it is copied from the Mushaf. It stepped in on {0} of {1} answers before they were shown.": "نگهبان کدی ثابت است که هر پاسخ را پیش از نمایش بررسی می‌کند: آیه‌ای را که تفسیرش خوانده نشده و حدیث نپذیرفته‌شده را حذف می‌کند، و عبارت هیچ آیه‌ای را در شرح باقی نمی‌گذارد مگر آنکه از مصحف نقل شده باشد. در {0} پاسخ از {1} پاسخ، پیش از نمایش دخالت کرد."
   }
 }

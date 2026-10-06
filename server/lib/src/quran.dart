@@ -147,6 +147,41 @@ class QuranLibrary {
     ];
   }
 
+  /// The words of verse [key] in the Mushaf (King Fahd Complex, Hafs) that
+  /// [quote] covers, ignoring diacritics and spacing — whole words, from the
+  /// first to the last the quote touches; null when they cannot be placed.
+  String? mushafExcerpt(String key, String quote) {
+    final v = _byKey[key];
+    final q = _compact(quote);
+    if (v == null || q.length < 6) return null;
+    final words = v.uthmani.split(RegExp(r'\s+')).where((w) => _compact(w).isNotEmpty).toList();
+    List<int> ends(List<String> ws) {
+      var n = 0;
+      return [for (final w in ws) n += _compact(w).length];
+    }
+
+    // The quote's place in [ws], as word indexes, or null.
+    (int, int)? place(List<String> ws) {
+      final text = ws.map(_compact).join();
+      final at = text.indexOf(q);
+      if (at < 0) return null;
+      final e = ends(ws);
+      final first = e.indexWhere((end) => end > at);
+      final last = e.indexWhere((end) => end >= at + q.length);
+      return first < 0 || last < 0 ? null : (first, last);
+    }
+
+    var span = place(words);
+    if (span == null) {
+      // Written in modern spelling: placed in the Quranpedia text of the same
+      // Mushaf, whose words line up one to one with the Mushaf's.
+      final simple = v.simple.split(RegExp(r'\s+')).where((w) => _compact(w).isNotEmpty).toList();
+      if (simple.length == words.length) span = place(simple);
+    }
+    if (span == null) return null;
+    return words.sublist(span.$1, span.$2 + 1).join(' ');
+  }
+
   late final List<_SurahText> _surahTexts = () {
     final out = <_SurahText>[];
     for (var i = 0; i < verses.length; i++) {
