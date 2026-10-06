@@ -10,3 +10,4 @@
 {"e":"ask","t":"2026-10-04T22:00Z","kind":"answer","via":"ai","cached":false,"ms":12225,"verses":0,"hadith":1,"guard":0,"lang":"ar","category":"identity"}
 {"e":"ask","t":"2026-10-05T14:00Z","kind":"answer","via":"ai","cached":false,"ms":22465,"verses":0,"hadith":2,"guard":0,"lang":"ar","category":"identity"}
 {"e":"ask","t":"2026-10-05T19:00Z","kind":"refer","via":"ai","cached":false,"ms":21382,"verses":0,"hadith":0,"guard":0,"lang":"ar","category":"family"}
+{"e":"ask","t":"2026-10-06T08:00Z","kind":"abstain","via":"offline","cached":false,"ms":75277,"verses":0,"hadith":0,"guard":0,"lang":"ar"}
