@@ -18,6 +18,7 @@ Future<void> main() async {
     GoogleFonts.ibmPlexSansArabic(fontWeight: w);
   }
   GoogleFonts.reemKufi(fontWeight: FontWeight.w700);
+  GoogleFonts.reemKufi(fontWeight: FontWeight.w500);
   try {
     await GoogleFonts.pendingFonts().timeout(const Duration(seconds: 8));
   } catch (_) {

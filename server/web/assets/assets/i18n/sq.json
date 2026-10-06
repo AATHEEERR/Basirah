@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Tani nuk ka lidhje: kjo është kopja e fundit e ruajtur në pajisjen tënde.",
     "The comparison, and the proof in numbers": "Krahasimi dhe prova në shifra",
     "The full path, drawn": "E gjithë rruga, e vizatuar",
-    "The Basirah team gives the key to approved specialists.": "Ekipi i Basirah ua jep çelësin specialistëve të miratuar."
+    "The Basirah team gives the key to approved specialists.": "Ekipi i Basirah ua jep çelësin specialistëve të miratuar.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Serveri nuk u arrit dot tani. Kontrollo lidhjen dhe provo sërish pas pak."
   }
 }

@@ -577,6 +577,10 @@
       "ar": "تعذّر تحميل قاعدة المعرفة"
     },
     {
+      "en": "Could not reach the server right now. Check the connection and try again shortly.",
+      "ar": "تعذّر الوصول إلى الخادم الآن. تحقّق من الاتصال وحاول بعد قليل."
+    },
+    {
       "en": "Could not reach the server, so this answer comes from the stored documented content.",
       "ar": "تعذّر الاتصال بالخادم، فعُرضت إجابة من المحتوى الموثّق المحفوظ."
     },

@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "اوس اړیکه نشته: دا ستاسو په وسیله کې خوندي شوې وروستۍ نسخه ده.",
     "The comparison, and the proof in numbers": "پرتله، او په شمېرو کې ثبوت",
     "The full path, drawn": "بشپړه لار، په انځور کې",
-    "The Basirah team gives the key to approved specialists.": "د Basirah ټیم کیلي تایید شویو متخصصینو ته ورکوي."
+    "The Basirah team gives the key to approved specialists.": "د Basirah ټیم کیلي تایید شویو متخصصینو ته ورکوي.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "اوس سرور ته رسېدل ممکن نه شول. اړیکه وګورئ او لږ وروسته بیا هڅه وکړئ."
   }
 }

@@ -61,6 +61,11 @@ abstract final class BText {
   static TextStyle brand(double size, {Color? color}) =>
       GoogleFonts.reemKufi(fontSize: size, fontWeight: FontWeight.w700, color: color ?? BColors.ink, height: 1.2);
 
+  /// The brand font at a lighter weight, for a line that sits under the
+  /// wordmark (the home page's opening line).
+  static TextStyle brandLine(double size, {Color? color}) =>
+      GoogleFonts.reemKufi(fontSize: size, fontWeight: FontWeight.w500, color: color ?? BColors.ink, height: 1.45);
+
   static TextStyle display(double size, {Color? color, FontWeight weight = FontWeight.w500}) =>
       GoogleFonts.ibmPlexSansArabic(fontSize: size, fontWeight: weight, color: color ?? BColors.ink, height: 1.35);
 

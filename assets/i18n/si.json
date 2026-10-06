@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "දැන් සම්බන්ධතාවයක් නැත: මෙය ඔබේ උපාංගයේ සුරැකි අවසන් පිටපතයි.",
     "The comparison, and the proof in numbers": "සංසන්දනය, සහ සංඛ්‍යාවලින් සාක්ෂිය",
     "The full path, drawn": "සම්පූර්ණ මාර්ගය, රූපසටහනකින්",
-    "The Basirah team gives the key to approved specialists.": "Basirah කණ්ඩායම අනුමත විශේෂඥයින්ට යතුර ලබා දෙයි."
+    "The Basirah team gives the key to approved specialists.": "Basirah කණ්ඩායම අනුමත විශේෂඥයින්ට යතුර ලබා දෙයි.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "දැන් සේවාදායකයට ළඟා විය නොහැක. සම්බන්ධතාවය පරීක්ෂා කර ටික වේලාවකින් නැවත උත්සාහ කරන්න."
   }
 }

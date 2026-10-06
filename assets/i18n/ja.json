@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "現在接続がありません：これは端末に保存された最新のコピーです。",
     "The comparison, and the proof in numbers": "比較と、数字による証明",
     "The full path, drawn": "全体の流れを図で",
-    "The Basirah team gives the key to approved specialists.": "キーはBasirahチームが承認された専門家に渡します。"
+    "The Basirah team gives the key to approved specialists.": "キーはBasirahチームが承認された専門家に渡します。",
+    "Could not reach the server right now. Check the connection and try again shortly.": "現在サーバーに接続できません。接続を確認し、しばらくしてからもう一度お試しください。"
   }
 }

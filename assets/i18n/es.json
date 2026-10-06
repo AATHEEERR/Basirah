@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Sin conexión ahora: esta es la última copia guardada en tu dispositivo.",
     "The comparison, and the proof in numbers": "La comparación, y la prueba en cifras",
     "The full path, drawn": "El recorrido completo, en un diagrama",
-    "The Basirah team gives the key to approved specialists.": "El equipo de Basirah entrega la clave a los especialistas aprobados."
+    "The Basirah team gives the key to approved specialists.": "El equipo de Basirah entrega la clave a los especialistas aprobados.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "No se pudo contactar con el servidor ahora. Comprueba la conexión e inténtalo de nuevo en un momento."
   }
 }

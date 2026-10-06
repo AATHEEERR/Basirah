@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Hazırda əlaqə yoxdur: bu, cihazınızda saxlanmış son nüsxədir.",
     "The comparison, and the proof in numbers": "Müqayisə və rəqəmlərlə sübut",
     "The full path, drawn": "Tam yol, sxem şəklində",
-    "The Basirah team gives the key to approved specialists.": "Açarı təsdiqlənmiş mütəxəssislərə Basirah komandası verir."
+    "The Basirah team gives the key to approved specialists.": "Açarı təsdiqlənmiş mütəxəssislərə Basirah komandası verir.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Hazırda serverə qoşulmaq mümkün olmadı. Əlaqəni yoxlayın və bir azdan yenidən cəhd edin."
   }
 }

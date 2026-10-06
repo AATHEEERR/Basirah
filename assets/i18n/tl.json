@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Walang koneksiyon ngayon: ito ang huling kopyang naka-save sa iyong device.",
     "The comparison, and the proof in numbers": "Ang paghahambing, at ang patunay sa mga bilang",
     "The full path, drawn": "Ang buong landas, iginuhit",
-    "The Basirah team gives the key to approved specialists.": "Ibinibigay ng koponan ng Basirah ang susi sa mga aprubadong dalubhasa."
+    "The Basirah team gives the key to approved specialists.": "Ibinibigay ng koponan ng Basirah ang susi sa mga aprubadong dalubhasa.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Hindi maabot ang server ngayon. Suriin ang koneksiyon at subukan muli maya-maya."
   }
 }

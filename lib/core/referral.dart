@@ -181,13 +181,18 @@ abstract final class ReferralApi {
   }
 
   /// The specialists' panel: every request, or null when the key is wrong.
-  static Future<List<Map<String, dynamic>>?> all(String key) async {
+  /// Every request, for the specialists' panel. [unreachable] when the
+  /// server did not answer at all (not a wrong key).
+  static Future<({List<Map<String, dynamic>>? items, bool unreachable})> all(String key) async {
     try {
       final res = await http.get(_u('/api/specialist/referrals'), headers: {'x-specialist-key': key}).timeout(const Duration(seconds: 20));
-      if (res.statusCode != 200) return null;
-      return ((jsonDecode(utf8.decode(res.bodyBytes)) as Map)['referrals'] as List).cast<Map<String, dynamic>>();
+      if (res.statusCode != 200) return (items: null, unreachable: false);
+      return (
+        items: ((jsonDecode(utf8.decode(res.bodyBytes)) as Map)['referrals'] as List).cast<Map<String, dynamic>>(),
+        unreachable: false,
+      );
     } on Exception {
-      return null;
+      return (items: null, unreachable: true);
     }
   }
 

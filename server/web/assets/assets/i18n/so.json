@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Xiriir ma jiro hadda: tani waa nuqulkii ugu dambeeyay ee lagu kaydiyay qalabkaaga.",
     "The comparison, and the proof in numbers": "Isbarbardhigga, iyo caddaynta tirooyinka",
     "The full path, drawn": "Jidka oo dhan, sawir ahaan",
-    "The Basirah team gives the key to approved specialists.": "Kooxda Basirah ayaa furaha siisa khubarada la ansixiyay."
+    "The Basirah team gives the key to approved specialists.": "Kooxda Basirah ayaa furaha siisa khubarada la ansixiyay.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Hadda lama gaari karo server-ka. Hubi xiriirka oo mar kale isku day wax yar kadib."
   }
 }

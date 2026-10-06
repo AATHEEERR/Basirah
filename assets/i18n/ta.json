@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "இப்போது இணைப்பு இல்லை: இது உங்கள் சாதனத்தில் சேமிக்கப்பட்ட கடைசி நகல்.",
     "The comparison, and the proof in numbers": "ஒப்பீடு, மற்றும் எண்களில் சான்று",
     "The full path, drawn": "முழுப் பாதை, வரைபடமாக",
-    "The Basirah team gives the key to approved specialists.": "அங்கீகரிக்கப்பட்ட நிபுணர்களுக்கு Basirah குழு திறவுகோலை வழங்குகிறது."
+    "The Basirah team gives the key to approved specialists.": "அங்கீகரிக்கப்பட்ட நிபுணர்களுக்கு Basirah குழு திறவுகோலை வழங்குகிறது.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "இப்போது சேவையகத்தை அடைய முடியவில்லை. இணைப்பைச் சரிபார்த்து சிறிது நேரத்தில் மீண்டும் முயலவும்."
   }
 }

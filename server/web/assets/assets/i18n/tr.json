@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Şu an bağlantı yok: bu, cihazında kayıtlı son kopya.",
     "The comparison, and the proof in numbers": "Karşılaştırma ve rakamlarla kanıt",
     "The full path, drawn": "Tüm yol, şema hâlinde",
-    "The Basirah team gives the key to approved specialists.": "Anahtarı onaylı uzmanlara Basirah ekibi verir."
+    "The Basirah team gives the key to approved specialists.": "Anahtarı onaylı uzmanlara Basirah ekibi verir.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Şu an sunucuya ulaşılamadı. Bağlantını kontrol et ve biraz sonra yeniden dene."
   }
 }

@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Hakuna muunganisho sasa: hii ndiyo nakala ya mwisho iliyohifadhiwa kwenye kifaa chako.",
     "The comparison, and the proof in numbers": "Ulinganisho, na ushahidi kwa takwimu",
     "The full path, drawn": "Njia kamili, kwa mchoro",
-    "The Basirah team gives the key to approved specialists.": "Timu ya Basirah huwapa wataalamu walioidhinishwa ufunguo."
+    "The Basirah team gives the key to approved specialists.": "Timu ya Basirah huwapa wataalamu walioidhinishwa ufunguo.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Imeshindikana kufikia seva kwa sasa. Angalia muunganisho na ujaribu tena baada ya muda mfupi."
   }
 }

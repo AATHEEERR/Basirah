@@ -709,6 +709,9 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
   final _find = TextEditingController();
   List<Map<String, dynamic>>? _items;
   bool _denied = false;
+
+  /// The server did not answer (no connection), as opposed to a wrong key.
+  bool _unreachable = false;
   bool _loading = false;
   Timer? _poll;
 
@@ -737,7 +740,7 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
         _denied = false;
       });
     }
-    final items = await ReferralApi.all(_key.text.trim());
+    final (:items, :unreachable) = await ReferralApi.all(_key.text.trim());
     if (!mounted) return;
     // A missed refresh keeps what is on screen.
     if (quiet && items == null) return;
@@ -745,7 +748,8 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
     setState(() {
       // Waiting requests first, then calls by their time, then the rest.
       _items = items == null ? null : ([...items]..sort(_order));
-      _denied = items == null;
+      _denied = items == null && !unreachable;
+      _unreachable = unreachable;
       _loading = false;
     });
   }
@@ -792,11 +796,13 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
             ),
             const SizedBox(height: 10),
             PrimaryButton(label: context.tr('افتح اللوحة', 'Open the panel'), onTap: _load),
-            if (_denied)
+            if (_denied || _unreachable)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  context.tr('المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم.', 'Wrong key, or the panel is closed on this server.'),
+                  _unreachable
+                      ? context.tr('تعذّر الوصول إلى الخادم الآن. تحقّق من الاتصال وحاول بعد قليل.', 'Could not reach the server right now. Check the connection and try again shortly.')
+                      : context.tr('المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم.', 'Wrong key, or the panel is closed on this server.'),
                   style: BText.label(13, color: Tones.refer.accent),
                 ),
               ),

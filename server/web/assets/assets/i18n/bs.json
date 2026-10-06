@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "Trenutno nema veze: ovo je posljednja kopija sačuvana na tvom uređaju.",
     "The comparison, and the proof in numbers": "Poređenje i dokaz u brojkama",
     "The full path, drawn": "Cijeli put, nacrtan",
-    "The Basirah team gives the key to approved specialists.": "Tim Basirah daje ključ odobrenim stručnjacima."
+    "The Basirah team gives the key to approved specialists.": "Tim Basirah daje ključ odobrenim stručnjacima.",
+    "Could not reach the server right now. Check the connection and try again shortly.": "Server trenutno nije dostupan. Provjeri vezu i pokušaj ponovo za koji trenutak."
   }
 }

@@ -60,9 +60,9 @@ class HomeHero extends ConsumerWidget {
         ],
         if (verse != null) _Verse(verse: verse, meaning: meaning, wide: wide),
         SizedBox(height: wide ? 20 : 14),
-        // One scale for the block: the name, the verse, then this line a
-        // step smaller, its key words in the verse's gold.
-        Text.rich(_headline(context, BText.display(wide ? (context.isEn ? 25 : 27) : 21, weight: FontWeight.w500))),
+        // One block under the name: this line in the wordmark's own font,
+        // lighter and a step smaller, its key words in the verse's gold.
+        Text.rich(_headline(context, BText.brandLine(wide ? (context.isEn ? 25 : 28) : 22))),
         const SizedBox(height: 10),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),

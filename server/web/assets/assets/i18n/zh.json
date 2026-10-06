@@ -675,6 +675,7 @@
     "No connection right now: this is the last copy saved on your device.": "当前无网络连接：这是保存在你设备上的最新副本。",
     "The comparison, and the proof in numbers": "对比，以及数据证明",
     "The full path, drawn": "完整流程图",
-    "The Basirah team gives the key to approved specialists.": "Basirah 团队会向经认可的专家提供密钥。"
+    "The Basirah team gives the key to approved specialists.": "Basirah 团队会向经认可的专家提供密钥。",
+    "Could not reach the server right now. Check the connection and try again shortly.": "暂时无法连接服务器。请检查网络连接，稍后再试。"
   }
 }
