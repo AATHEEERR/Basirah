@@ -30,10 +30,10 @@ Quran and hadith texts are scripture; excerpts are short and attributed, and eve
 | qr_flutter, qr | BSD-3-Clause |
 | google_fonts (package) | Apache-2.0 |
 | Interface translations in 24 languages (`assets/i18n/`): machine-translated by Claude Sonnet 5.5 (Anthropic) from the app's own English strings; not human-reviewed | The project's own text |
-| Fonts: Reem Kufi, IBM Plex Sans Arabic, Amiri, Inter — bundled unmodified in `assets/google_fonts/` (files as served by fonts.gstatic.com) | SIL Open Font License 1.1 |
+| Fonts: Reem Kufi, Noto Kufi Arabic, IBM Plex Sans Arabic, Amiri, Inter — bundled unmodified in `assets/google_fonts/` (files as served by fonts.gstatic.com) | SIL Open Font License 1.1 |
 | Font for the verses: KFGQPC Hafs V30 (King Fahd Glorious Qur'an Printing Complex, fonts.qurancomplex.gov.sa), bundled unmodified in `assets/fonts/` | Free to use, copy and distribute; not to be sold or modified. © KFGQPC |
 | Logo | Drawn by the team from geometry (`lib/shared/brand.dart`, `tool/make_logo.ps1`); no third-party artwork |
-| Claude API (Anthropic): Sonnet 5.5, then Haiku 4.5 | Commercial API, used under Anthropic's terms; key held server-side only |
+| Claude API (Anthropic): Sonnet 5.5 | Commercial API, used under Anthropic's terms; key held server-side only |
 | Gemini API (Google): last fallback | Used under Google's Gemini API terms; key held server-side only. On the free tier Google may use submitted content to improve its products |
 | cloudflared (Cloudflare) | Apache-2.0; used only to open a temporary public link, not part of the app |
 | Jitsi Meet (meet.jit.si, 8x8) | Free public service; a booked call with a specialist opens in a private room there, in the browser. Not embedded; Basirah sends it nothing |

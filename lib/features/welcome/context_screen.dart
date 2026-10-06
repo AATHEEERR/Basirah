@@ -112,10 +112,6 @@ class _ContextScreenState extends ConsumerState<ContextScreen> {
                           'Learning about Islam',
                         ),
                       ),
-                      (
-                        AskerRole.bornMuslim,
-                        context.tr('نشأت مسلماً', 'I grew up Muslim'),
-                      ),
                     ],
                     selected: _c.role,
                     onSelected: (v) => setState(

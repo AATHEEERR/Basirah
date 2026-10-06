@@ -183,6 +183,12 @@ class _WebHeader extends ConsumerWidget {
                       const LangToggle(tooltip: false),
                       const SizedBox(width: 10),
                       _ViewSwitch(phone: false, onTap: () => ref.read(phoneViewProvider.notifier).state = true),
+                      const SizedBox(width: 10),
+                      TextButton.icon(
+                        onPressed: () => router.go('/specialist'),
+                        icon: const Icon(Icons.badge_outlined, size: 18, color: BColors.goldDeep),
+                        label: Text(context.tr('لوحة المختصين', 'Specialists’ panel'), style: BText.label(13.5, color: BColors.goldDeep, weight: FontWeight.w600)),
+                      ),
                     ],
                   ),
                 ),

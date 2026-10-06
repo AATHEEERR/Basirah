@@ -37,7 +37,7 @@ foreach ($line in Get-Content $envFile) {
     if ($v -ne '') { $vars[$Matches[1]] = $v }
   }
 }
-foreach ($k in 'ANTHROPIC_API_KEY', 'SPECIALIST_KEY') {
+foreach ($k in 'ANTHROPIC_API_KEY', 'SPECIALIST_ACCOUNTS') {
   if (-not $vars.ContainsKey($k)) { throw "$k is missing from server\.env" }
 }
 if (-not (Test-Path (Join-Path $root 'server\web\index.html'))) { throw 'server\web is empty: run tool\build_web_for_deploy.ps1 first' }
@@ -47,7 +47,7 @@ Run @('config', 'set', 'project', $Project)
 Run @('services', 'enable', 'run.googleapis.com', 'cloudbuild.googleapis.com', 'artifactregistry.googleapis.com', 'secretmanager.googleapis.com')
 
 Write-Output '2/5 secrets (values never printed)'
-$secrets = @{ 'ANTHROPIC_API_KEY' = 'basirah-anthropic-api-key'; 'SPECIALIST_KEY' = 'basirah-specialist-key' }
+$secrets = @{ 'ANTHROPIC_API_KEY' = 'basirah-anthropic-api-key'; 'SPECIALIST_ACCOUNTS' = 'basirah-specialist-accounts' }
 if ($vars.ContainsKey('GEMINI_API_KEY')) { $secrets['GEMINI_API_KEY'] = 'basirah-gemini-api-key' }
 $setSecrets = @()
 foreach ($k in $secrets.Keys) {
@@ -79,7 +79,7 @@ Write-Output '4/5 build and deploy (Cloud Build compiles the server; about 10 mi
 # counts gathered on the temporary link (once; the file is anonymous).
 $envVars = @(
   'AI_PROVIDER=claude',
-  'CLAUDE_MODEL=claude-sonnet-5-5,claude-haiku-4-5',
+  'CLAUDE_MODEL=claude-sonnet-5-5',
   'CLAUDE_EFFORT=medium',
   'CLAUDE_FALLBACKS=default',
   'GEMINI_MODEL=gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash,gemini-3-flash-preview,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.1-flash-lite-preview',
@@ -106,4 +106,4 @@ Run @('run', 'deploy', $Service,
 Write-Output '5/5 the link'
 $url = (& gcloud run services describe $Service --region $Region --format 'value(status.url)' 2>$null)
 Write-Output "Basirah is at: $url"
-Write-Output "Specialists' panel: $url/#/specialist?k=<SPECIALIST_KEY from server\.env>"
+Write-Output "Specialists' panel: $url/#/specialist (username and password from server\specialist_accounts.local.txt)"

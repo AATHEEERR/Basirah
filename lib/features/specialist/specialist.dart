@@ -534,7 +534,8 @@ class _ThreadState extends ConsumerState<_Thread> {
     super.initState();
     _refresh();
     // The specialist's reply appears without a reload.
-    _poll = Timer.periodic(const Duration(seconds: 30), (_) => _refresh());
+    // Live: the specialist's reply and status changes appear within seconds.
+    _poll = Timer.periodic(const Duration(seconds: 5), (_) => _refresh());
   }
 
   @override
@@ -692,51 +693,44 @@ class _ThreadState extends ConsumerState<_Thread> {
 }
 
 /// The specialists' panel (/specialist): every request, the conversation and
-/// context the asker approved, and the reply. Not linked from the app: each
-/// approved specialist opens it with the private sign-in link the team sends
-/// (…/#/specialist?k=…), so nothing is typed.
+/// context the asker approved, and the reply. A specialist signs in with the
+/// username and password of the account the team made for them (there is
+/// no sign-up).
 class SpecialistPanelScreen extends StatefulWidget {
-  const SpecialistPanelScreen({super.key, this.linkKey});
-
-  /// The key in the specialist's sign-in link.
-  final String? linkKey;
+  const SpecialistPanelScreen({super.key});
 
   @override
   State<SpecialistPanelScreen> createState() => _SpecialistPanelScreenState();
 }
 
 class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
-  /// The key, kept for this visit only (never stored on the device), so
+  /// The session, kept for this visit only (never stored on the device), so
   /// leaving the panel and coming back does not ask again.
-  static String? _sessionKey;
+  static String? _session;
 
-  final _key = TextEditingController(text: _sessionKey);
+  final _user = TextEditingController();
+  final _password = TextEditingController();
   final _find = TextEditingController();
   List<Map<String, dynamic>>? _items;
-  bool _denied = false;
 
-  /// The server did not answer (no connection), as opposed to a wrong key.
-  bool _unreachable = false;
+  /// Why the sign-in failed ('invalid', 'too_many', 'closed', 'unreachable').
+  String? _error;
   bool _loading = false;
   Timer? _poll;
-
-  /// The team's own way in: the key typed by hand.
-  bool _manual = false;
 
   @override
   void initState() {
     super.initState();
-    final fromLink = widget.linkKey?.trim() ?? '';
-    if (fromLink.isNotEmpty) _key.text = fromLink;
     // After the first frame: loading changes the state.
-    if (fromLink.isNotEmpty || _sessionKey != null) {
+    if (_session != null) {
       _loading = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _load(fromLink: fromLink.isNotEmpty);
+        if (mounted) _load();
       });
     }
-    // New requests and the askers' follow-ups appear without a reload.
-    _poll = Timer.periodic(const Duration(seconds: 30), (_) {
+    // Live: new requests, the askers' messages and status changes appear
+    // within seconds, with no reload.
+    _poll = Timer.periodic(const Duration(seconds: 5), (_) {
       if (_items != null && !_loading) _load(quiet: true);
     });
   }
@@ -744,32 +738,55 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
   @override
   void dispose() {
     _poll?.cancel();
-    _key.dispose();
+    _user.dispose();
+    _password.dispose();
     _find.dispose();
     super.dispose();
   }
 
-  Future<void> _load({bool quiet = false, bool fromLink = false}) async {
-    if (!quiet) {
+  Future<void> _signIn() async {
+    if (_user.text.trim().isEmpty || _password.text.isEmpty) return;
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    final (:token, :error) = await ReferralApi.signIn(_user.text.trim(), _password.text);
+    if (!mounted) return;
+    _password.clear();
+    if (token == null) {
       setState(() {
-        _loading = true;
-        _denied = false;
+        _loading = false;
+        _error = error;
       });
+      return;
     }
-    final (:items, :unreachable) = await ReferralApi.all(_key.text.trim());
+    _session = token;
+    await _load();
+  }
+
+  Future<void> _signOut() async {
+    final s = _session;
+    _session = null;
+    setState(() => _items = null);
+    if (s != null) await ReferralApi.signOut(s);
+  }
+
+  Future<void> _load({bool quiet = false}) async {
+    final session = _session;
+    if (session == null) return;
+    if (!quiet) setState(() => _loading = true);
+    final (:items, :unreachable) = await ReferralApi.all(session);
     if (!mounted) return;
     // A missed refresh keeps what is on screen.
-    if (quiet && items == null) return;
-    if (items != null) _sessionKey = _key.text.trim();
+    if (quiet && items == null && unreachable) return;
+    // Not unreachable and no list: the session ended; sign in again.
+    if (items == null && !unreachable) _session = null;
     setState(() {
       // Waiting requests first, then calls by their time, then the rest.
       _items = items == null ? null : ([...items]..sort(_order));
-      _denied = items == null && !unreachable;
-      _unreachable = unreachable;
+      _error = unreachable ? 'unreachable' : (items == null ? 'expired' : null);
       _loading = false;
     });
-    // Signed in from the link: the key leaves the address bar.
-    if (items != null && fromLink) GoRouter.of(context).replace('/specialist');
   }
 
   static int _order(Map<String, dynamic> a, Map<String, dynamic> b) {
@@ -802,57 +819,54 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (items == null) ...[
-            if (_loading && !_manual)
-              const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()))
-            else
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(18)),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.link_rounded, color: BColors.goldDeep),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        context.tr(
-                          'يدخل المختص المعتمد اللوحة برابط الدخول الخاص الذي يرسله له فريق بصيرة: افتح الرابط من رسالة الفريق، فتُفتح اللوحة مباشرة دون كتابة أي شيء.',
-                          'An approved specialist enters the panel with the private sign-in link the Basirah team sends them: open the link from the team’s message and the panel opens directly, with nothing to type.',
-                        ),
-                        style: BText.body(14, height: 1.7),
-                      ),
-                    ),
-                  ],
-                ),
+            Text(
+              context.tr(
+                'يدخل المختص المعتمد باسم المستخدم وكلمة المرور اللذين أنشأهما له فريق بصيرة. لا يوجد تسجيل ذاتي، وتُرفض أي محاولة دخول بغير حساب أنشأه الفريق.',
+                'An approved specialist signs in with the username and password the Basirah team made for them. There is no sign-up, and any sign-in without an account the team made is refused.',
               ),
-            const SizedBox(height: 8),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: TextButton(
-                onPressed: () => setState(() => _manual = !_manual),
-                child: Text(context.tr('دخول فريق بصيرة', 'Basirah team sign-in'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
+              style: BText.body(14, height: 1.7),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _user,
+              autocorrect: false,
+              enableSuggestions: false,
+              textInputAction: TextInputAction.next,
+              autofillHints: const [AutofillHints.username],
+              decoration: InputDecoration(
+                labelText: context.tr('اسم المستخدم', 'Username'),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
               ),
             ),
-            if (_manual) ...[
-              TextField(
-                controller: _key,
-                obscureText: true,
-                onSubmitted: (_) => _load(),
-                decoration: InputDecoration(
-                  labelText: context.tr('مفتاح اللوحة', 'Panel key'),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-                ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _password,
+              obscureText: true,
+              autocorrect: false,
+              enableSuggestions: false,
+              autofillHints: const [AutofillHints.password],
+              onSubmitted: (_) => _signIn(),
+              decoration: InputDecoration(
+                labelText: context.tr('كلمة المرور', 'Password'),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
               ),
-              const SizedBox(height: 10),
-              PrimaryButton(label: context.tr('افتح اللوحة', 'Open the panel'), onTap: _load),
-            ],
-            if (_denied || _unreachable)
+            ),
+            const SizedBox(height: 12),
+            if (_loading)
+              const Center(child: Padding(padding: EdgeInsets.all(12), child: CircularProgressIndicator()))
+            else
+              PrimaryButton(label: context.tr('دخول', 'Sign in'), onTap: _signIn),
+            if (_error != null)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  _unreachable
-                      ? context.tr('تعذّر الوصول إلى الخادم الآن. تحقّق من الاتصال وحاول بعد قليل.', 'Could not reach the server right now. Check the connection and try again shortly.')
-                      : context.tr('رابط الدخول أو المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم. اطلب من فريق بصيرة رابطاً جديداً.', 'The sign-in link or key is wrong, or the panel is closed on this server. Ask the Basirah team for a new link.'),
+                  switch (_error) {
+                    'unreachable' => context.tr('تعذّر الوصول إلى الخادم الآن. تحقّق من الاتصال وحاول بعد قليل.', 'Could not reach the server right now. Check the connection and try again shortly.'),
+                    'too_many' => context.tr('محاولات خاطئة كثيرة من هذا الجهاز. انتظر ربع ساعة ثم حاول مجدداً.', 'Too many wrong attempts from this device. Wait a quarter of an hour, then try again.'),
+                    'closed' => context.tr('لا توجد حسابات مختصين على هذا الخادم بعد.', 'There are no specialist accounts on this server yet.'),
+                    'expired' => context.tr('انتهت الجلسة. سجّل الدخول مجدداً.', 'The session ended. Please sign in again.'),
+                    _ => context.tr('اسم المستخدم أو كلمة المرور غير صحيحة.', 'The username or password is wrong.'),
+                  },
                   style: BText.label(13, color: Tones.refer.accent),
                 ),
               ),
@@ -872,6 +886,11 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
                   onPressed: _loading ? null : _load,
                   icon: const Icon(Icons.refresh_rounded),
                   tooltip: context.tr('تحديث', 'Refresh'),
+                ),
+                IconButton(
+                  onPressed: _signOut,
+                  icon: const Icon(Icons.logout_rounded),
+                  tooltip: context.tr('خروج', 'Sign out'),
                 ),
               ],
             ),
@@ -914,7 +933,7 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
               if (_find.text.trim().isEmpty ||
                   (r['id'] as String).contains(_find.text.trim().toUpperCase()) ||
                   (r['question'] as String).contains(_find.text.trim()))
-                _PanelItem(r: r, panelKey: _key.text.trim(), onChanged: _load),
+                _PanelItem(r: r, panelKey: _session ?? '', onChanged: _load),
           ],
         ],
       ),

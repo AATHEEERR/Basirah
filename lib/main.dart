@@ -19,6 +19,7 @@ Future<void> main() async {
   }
   GoogleFonts.reemKufi(fontWeight: FontWeight.w700);
   GoogleFonts.reemKufi(fontWeight: FontWeight.w500);
+  GoogleFonts.notoKufiArabic(fontWeight: FontWeight.w700);
   try {
     await GoogleFonts.pendingFonts().timeout(const Duration(seconds: 8));
   } catch (_) {

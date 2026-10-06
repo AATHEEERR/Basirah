@@ -54,3 +54,6 @@ packages/tool/
 # Built at startup / Docker build (Quran text + al-Muyassar) and tafsir cache
 server/data/
 server/cache/
+
+# Specialist accounts made by tool/specialist_account.dart (passwords).
+server/specialist_accounts.local.txt

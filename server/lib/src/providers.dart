@@ -18,8 +18,8 @@ import 'llm.dart';
 ///   ANTHROPIC_BASE_URL
 ///
 /// With both keys set, the chosen provider's models come first and the
-/// other provider's follow as the last resort (e.g. Claude Sonnet → Claude
-/// Haiku → the Gemini chain).
+/// other provider's follow as the last resort (e.g. Claude Sonnet → the
+/// Gemini chain).
 ///
 /// Returns an empty list when no usable key is configured — or when
 /// AI_PROVIDER names a provider without its key: the API then serves curated

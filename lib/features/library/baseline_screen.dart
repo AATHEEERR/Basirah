@@ -305,7 +305,7 @@ class _Report extends ConsumerWidget {
           title: context.tr('٢. تصميم التجربة ونتائجها', '2. The design and its results'),
           paragraphs: [
             context.tr(
-              'نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. الجدول الأول: ما يملكه كل طرف. والثاني: عدد الإجابات التي أخفقت في كل فحص من الفحوص الستة (من $cases).',
+              'نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. الجدول الأول: ما يملكه كل طرف. والثاني: عدد الإجابات التي لم تستوفِ كل فحص من الفحوص الستة (من $cases).',
               'The model is held fixed and only what surrounds it changes, so the effect of each component shows. The first table: what each side has. The second: how many answers failed each of the six checks (of $cases).',
             ),
           ],
@@ -362,8 +362,8 @@ class _Report extends ConsumerWidget {
           ),
           after: [
             context.tr(
-              'بجانب ✗ عدد الإجابات التي أخفقت. وفي الفحص الأول: كتب النموذج العام نصاً قرآنياً من ذاكرته في $memG إجابة (${data.total('general', 'quranFromMemory')} اقتباساً)${prompted == null ? '' : '، والنموذج المزوّد بالتعليمات في $memP إجابة ($quotesP اقتباساً)'}.',
-              'Next to ✗ is the number of answers that failed. In the first check, the general model wrote Quran text from memory in $memG answers (${data.total('general', 'quranFromMemory')} quotations)${prompted == null ? '' : ', and the instructed model in $memP answers ($quotesP quotations)'}.',
+              'بجانب ✗ عدد الإجابات التي لم تستوفِ الفحص. و✗ في الفحص الأول لا يعني أن الآية خاطئة: لم يخطئ أي طرف في لفظ آية واحدة، بل كُتب النص من ذاكرة النموذج فلا ضمان لصحته. كتب النموذج العام نصاً قرآنياً من ذاكرته في $memG إجابة (${data.total('general', 'quranFromMemory')} اقتباساً)${prompted == null ? '' : '، والنموذج المزوّد بالتعليمات في $memP إجابة ($quotesP اقتباساً)'}، وكان اللفظ صحيحاً في كل مرة.',
+              'Next to ✗ is the number of answers that did not meet the check. A ✗ in the first check does not mean a wrong verse: no side got the wording of a single verse wrong; the text was written from the model’s memory, so nothing guaranteed it. The general model wrote Quran text from memory in $memG answers (${data.total('general', 'quranFromMemory')} quotations)${prompted == null ? '' : ', and the instructed model in $memP answers ($quotesP quotations)'}, with the right wording every time.',
             ),
             context.tr(
               'رابط التحقق ميزة في تصميم بصيرة (الجدول الأول)، وليس من الفحوص الستة: لم تتضمن أي إجابة من الطرفين الآخرين رابطاً للتحقق (${links['general'] ?? 0} من $cases عند النموذج العام${prompted == null ? '' : '، و${links['prompted'] ?? 0} عند النموذج المزوّد بالتعليمات'}).',

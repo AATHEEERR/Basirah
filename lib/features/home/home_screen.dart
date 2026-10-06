@@ -29,7 +29,16 @@ class HomeScreen extends ConsumerWidget {
     }
 
     if (isWebsite(context)) {
-      return Scaffold(body: KbBuilder(builder: (context, kb) => _WideHome(kb: kb, ask: ask)));
+      return Scaffold(
+        body: KbBuilder(
+          builder: (context, kb) => Stack(
+            children: [
+              const PatternBackdrop(height: 560),
+              _WideHome(kb: kb, ask: ask),
+            ],
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -148,6 +157,19 @@ class _TopBar extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             const LangToggle(compact: true),
+            const SizedBox(width: 8),
+            Tooltip(
+              message: context.tr('لوحة المختصين', 'Specialists’ panel'),
+              child: Material(
+                color: BColors.surfaceMuted,
+                shape: const CircleBorder(),
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: () => context.push('/specialist'),
+                  child: const SizedBox.square(dimension: 44, child: Icon(Icons.badge_outlined, color: BColors.ink, size: 21)),
+                ),
+              ),
+            ),
           ],
         ),
       ),

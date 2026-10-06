@@ -180,12 +180,34 @@ abstract final class ReferralApi {
     }
   }
 
-  /// The specialists' panel: every request, or null when the key is wrong.
-  /// Every request, for the specialists' panel. [unreachable] when the
-  /// server did not answer at all (not a wrong key).
-  static Future<({List<Map<String, dynamic>>? items, bool unreachable})> all(String key) async {
+  /// Signs a specialist in with the account the team made: the session
+  /// token, or why not ('invalid', 'too_many', 'closed', 'unreachable').
+  static Future<({String? token, String? error})> signIn(String username, String password) async {
     try {
-      final res = await http.get(_u('/api/specialist/referrals'), headers: {'x-specialist-key': key}).timeout(const Duration(seconds: 20));
+      final res = await http
+          .post(_u('/api/specialist/login'), headers: _json, body: jsonEncode({'username': username, 'password': password}))
+          .timeout(const Duration(seconds: 30));
+      final body = jsonDecode(utf8.decode(res.bodyBytes)) as Map;
+      return res.statusCode == 200 ? (token: body['token'] as String, error: null) : (token: null, error: (body['error'] as String?) ?? 'invalid');
+    } on Exception {
+      return (token: null, error: 'unreachable');
+    }
+  }
+
+  static Future<void> signOut(String session) async {
+    try {
+      await http.post(_u('/api/specialist/logout'), headers: {'x-specialist-session': session}).timeout(const Duration(seconds: 10));
+    } on Exception {
+      // The session ends on its own.
+    }
+  }
+
+  /// Every request, for the specialists' panel, or null when the session
+  /// is not valid (signed out or expired). [unreachable] when the server did
+  /// not answer at all.
+  static Future<({List<Map<String, dynamic>>? items, bool unreachable})> all(String session) async {
+    try {
+      final res = await http.get(_u('/api/specialist/referrals'), headers: {'x-specialist-session': session}).timeout(const Duration(seconds: 20));
       if (res.statusCode != 200) return (items: null, unreachable: false);
       return (
         items: ((jsonDecode(utf8.decode(res.bodyBytes)) as Map)['referrals'] as List).cast<Map<String, dynamic>>(),
@@ -196,12 +218,12 @@ abstract final class ReferralApi {
     }
   }
 
-  static Future<bool> reply(String key, String id, {String text = '', String? status}) async {
+  static Future<bool> reply(String session, String id, {String text = '', String? status}) async {
     try {
       final res = await http
           .post(
             _u('/api/specialist/referrals/$id'),
-            headers: {..._json, 'x-specialist-key': key},
+            headers: {..._json, 'x-specialist-session': session},
             body: jsonEncode({'text': text, 'status': ?status}),
           )
           .timeout(const Duration(seconds: 20));

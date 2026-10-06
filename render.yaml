@@ -1,6 +1,6 @@
 # Render blueprint: Basirah's API and web app as one service, one link.
-# Render asks for the two keys (sync: false) once, when the Blueprint is
-# created — never commit them.
+# The keys and the specialists' accounts (sync: false) are entered in the
+# dashboard, never committed.
 services:
   - type: web
     name: basirah
@@ -27,7 +27,7 @@ services:
       - key: AI_PROVIDER
         value: claude
       - key: CLAUDE_MODEL
-        value: claude-sonnet-5-5,claude-haiku-4-5
+        value: claude-sonnet-5-5
       - key: CLAUDE_EFFORT
         value: medium
       # The last fallback, tried in order when Claude is unavailable.
@@ -43,9 +43,10 @@ services:
       # Requests to a Sharia specialist, kept 30 days on the same disk.
       - key: REFERRALS_FILE
         value: /data/referrals.json
-      # Opens the specialists' panel (/#/specialist): paste the same key as
-      # in server/.env when Render asks.
-      - key: SPECIALIST_KEY
+      # The specialists' accounts (sign-in to /#/specialist), made by the team
+      # with server/tool/specialist_account.dart: one username:salt:hash per
+      # account, joined with ";". Entered in the dashboard (Environment).
+      - key: SPECIALIST_ACCOUNTS
         sync: false
       # Optional, added later in the dashboard (Environment): NOTIFY_WEBHOOK,
       # a Slack or Discord webhook told of every new request (its code only;

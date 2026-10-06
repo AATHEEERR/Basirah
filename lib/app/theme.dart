@@ -66,6 +66,11 @@ abstract final class BText {
   static TextStyle brandLine(double size, {Color? color}) =>
       GoogleFonts.reemKufi(fontSize: size, fontWeight: FontWeight.w500, color: color ?? BColors.ink, height: 1.45);
 
+  /// The home page's promise line: a Kufi face like the wordmark's, whose
+  /// final ه reads clearly at every size.
+  static TextStyle headline(double size, {Color? color}) =>
+      GoogleFonts.notoKufiArabic(fontSize: size, fontWeight: FontWeight.w700, color: color ?? BColors.ink, height: 1.45);
+
   static TextStyle display(double size, {Color? color, FontWeight weight = FontWeight.w500}) =>
       GoogleFonts.ibmPlexSansArabic(fontSize: size, fontWeight: weight, color: color ?? BColors.ink, height: 1.35);
 

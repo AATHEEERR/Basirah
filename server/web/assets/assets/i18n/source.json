@@ -201,8 +201,8 @@
       "ar": "إجابة بلا دليل أو بثقة منخفضة"
     },
     {
-      "en": "An approved specialist enters the panel with the private sign-in link the Basirah team sends them: open the link from the team’s message and the panel opens directly, with nothing to type.",
-      "ar": "يدخل المختص المعتمد اللوحة برابط الدخول الخاص الذي يرسله له فريق بصيرة: افتح الرابط من رسالة الفريق، فتُفتح اللوحة مباشرة دون كتابة أي شيء."
+      "en": "An approved specialist signs in with the username and password the Basirah team made for them. There is no sign-up, and any sign-in without an account the team made is refused.",
+      "ar": "يدخل المختص المعتمد باسم المستخدم وكلمة المرور اللذين أنشأهما له فريق بصيرة. لا يوجد تسجيل ذاتي، وتُرفض أي محاولة دخول بغير حساب أنشأه الفريق."
     },
     {
       "en": "An approved translation of the meanings, from QuranEnc",
@@ -403,10 +403,6 @@
     {
       "en": "Basirah only cites what goes back to these sources, and every piece of evidence has a link to verify it.",
       "ar": "لا تستشهد بصيرة إلا بما يرجع إلى هذه المصادر، ومع كل دليل رابط للتحقق منه."
-    },
-    {
-      "en": "Basirah team sign-in",
-      "ar": "دخول فريق بصيرة"
     },
     {
       "en": "Basirah, home",
@@ -850,6 +846,10 @@
       "ar": "عرض كامل"
     },
     {
+      "en": "Gemini is asked, with the same tools and rules",
+      "ar": "يُسأل نموذج Gemini، بالأدوات والقواعد نفسها"
+    },
+    {
       "en": "General",
       "ar": "نموذج عام"
     },
@@ -1010,10 +1010,6 @@
     {
       "en": "I became Muslim and my husband is not Muslim. What about our marriage?",
       "ar": "أسلمت وزوجي غير مسلم، ما حكم زواجنا؟"
-    },
-    {
-      "en": "I grew up Muslim",
-      "ar": "نشأت مسلماً"
     },
     {
       "en": "Identity & name"
@@ -1279,8 +1275,8 @@
       "ar": "محادثة جديدة"
     },
     {
-      "en": "Next to ✗ is the number of answers that failed. In the first check, the general model wrote Quran text from memory in {0} answers ({1} quotations){2}.",
-      "ar": "بجانب ✗ عدد الإجابات التي أخفقت. وفي الفحص الأول: كتب النموذج العام نصاً قرآنياً من ذاكرته في {0} إجابة ({1} اقتباساً){2}."
+      "en": "Next to ✗ is the number of answers that did not meet the check. A ✗ in the first check does not mean a wrong verse: no side got the wording of a single verse wrong; the text was written from the model’s memory, so nothing guaranteed it. The general model wrote Quran text from memory in {0} answers ({1} quotations){2}, with the right wording every time.",
+      "ar": "بجانب ✗ عدد الإجابات التي لم تستوفِ الفحص. و✗ في الفحص الأول لا يعني أن الآية خاطئة: لم يخطئ أي طرف في لفظ آية واحدة، بل كُتب النص من ذاكرة النموذج فلا ضمان لصحته. كتب النموذج العام نصاً قرآنياً من ذاكرته في {0} إجابة ({1} اقتباساً){2}، وكان اللفظ صحيحاً في كل مرة."
     },
     {
       "en": "No",
@@ -1398,10 +1394,6 @@
       "ar": "افتح غرفة المكالمة"
     },
     {
-      "en": "Open the panel",
-      "ar": "افتح اللوحة"
-    },
-    {
       "en": "Opens once confirmed",
       "ar": "يُفتح بعد تأكيد الموعد"
     },
@@ -1438,8 +1430,8 @@
       "ar": "الصفحة غير موجودة"
     },
     {
-      "en": "Panel key",
-      "ar": "مفتاح اللوحة"
+      "en": "Password",
+      "ar": "كلمة المرور"
     },
     {
       "en": "Past 75 seconds, or every model failed",
@@ -1762,6 +1754,14 @@
       "ar": "مختصرة وبسيطة"
     },
     {
+      "en": "Sign in",
+      "ar": "دخول"
+    },
+    {
+      "en": "Sign out",
+      "ar": "خروج"
+    },
+    {
       "en": "Since when?",
       "ar": "منذ متى أسلمت؟"
     },
@@ -2029,7 +2029,7 @@
     },
     {
       "en": "The model is held fixed and only what surrounds it changes, so the effect of each component shows. The first table: what each side has. The second: how many answers failed each of the six checks (of {0}).",
-      "ar": "نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. الجدول الأول: ما يملكه كل طرف. والثاني: عدد الإجابات التي أخفقت في كل فحص من الفحوص الستة (من {0})."
+      "ar": "نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. الجدول الأول: ما يملكه كل طرف. والثاني: عدد الإجابات التي لم تستوفِ كل فحص من الفحوص الستة (من {0})."
     },
     {
       "en": "The model searches and reads",
@@ -2046,10 +2046,6 @@
     {
       "en": "The model writes the search words; the server sends the request",
       "ar": "النموذج يكتب عبارة البحث، والخادم يرسل الطلب"
-    },
-    {
-      "en": "The next model is asked: Claude Haiku 4.5, then Gemini",
-      "ar": "يُسأل النموذج التالي: Claude Haiku 4.5 ثم Gemini"
     },
     {
       "en": "The other two sides have no sources or search tools",
@@ -2120,8 +2116,8 @@
       "ar": "الخادم يعمل دون مفتاح الذكاء الاصطناعي، فعُرضت إجابة من المحتوى الموثّق المحفوظ."
     },
     {
-      "en": "The sign-in link or key is wrong, or the panel is closed on this server. Ask the Basirah team for a new link.",
-      "ar": "رابط الدخول أو المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم. اطلب من فريق بصيرة رابطاً جديداً."
+      "en": "The session ended. Please sign in again.",
+      "ar": "انتهت الجلسة. سجّل الدخول مجدداً."
     },
     {
       "en": "The six checks in every answer",
@@ -2152,6 +2148,10 @@
       "ar": "الأدوات الثلاث التي تستدعيها بصيرة"
     },
     {
+      "en": "The username or password is wrong.",
+      "ar": "اسم المستخدم أو كلمة المرور غير صحيحة."
+    },
+    {
       "en": "The verse from the King Fahd Complex Mushaf",
       "ar": "نص الآية من مصحف مجمع الملك فهد"
     },
@@ -2172,6 +2172,10 @@
       "ar": "النسخة المقيسة: قاس التقييم بصيرة كما كانت في {0}؛ وما عُدّل فيها بعد ذلك يقيسه اختبار اللغات لا هذه المقارنة."
     },
     {
+      "en": "There are no specialist accounts on this server yet.",
+      "ar": "لا توجد حسابات مختصين على هذا الخادم بعد."
+    },
+    {
       "en": "This evaluation measures the effect of Basirah’s design alone. We fixed the language model ({0}) and had it answer {1} questions in three settings: a general model, the same model with written task instructions, and Basirah with its sources and guard. Failures were counted automatically with six checks fixed before the run. Basirah passed all six checks in {2} of {3} answers, against {4} for the general model{5}.",
       "ar": "يقيس هذا التقييم أثر تصميم بصيرة وحده. ثبّتنا النموذج اللغوي ({0}) وأجاب عن {1} سؤالاً بثلاثة إعدادات: نموذج عام، والنموذج نفسه بتعليمات مكتوبة للمهمة، وبصيرة بمصادرها وحارسها. وعُدّت الإخفاقات آلياً بستة فحوص حُدّدت قبل التشغيل. اجتازت بصيرة الفحوص الستة في {2} من {3} إجابة، مقابل {4} للنموذج العام{5}."
     },
@@ -2182,6 +2186,10 @@
     {
       "en": "Thursday",
       "ar": "الخميس"
+    },
+    {
+      "en": "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.",
+      "ar": "محاولات خاطئة كثيرة من هذا الجهاز. انتظر ربع ساعة ثم حاول مجدداً."
     },
     {
       "en": "Tools to search the sources: the Mushaf, tafsir and hadith",
@@ -2250,6 +2258,10 @@
     {
       "en": "Used by Basirah: {0}",
       "ar": "تستخدمه بصيرة: {0}"
+    },
+    {
+      "en": "Username",
+      "ar": "اسم المستخدم"
     },
     {
       "en": "Verse meaning in your language",

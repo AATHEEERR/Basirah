@@ -54,7 +54,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 const SizedBox(height: 4),
                 Reveal(
                   delay: const Duration(milliseconds: 1300),
-                  child: Text('عَلَىٰ بَصِيرَةٍ', style: BText.quran(20, color: BColors.textMuted)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        Text(
+                          '﴿$splashVerse﴾',
+                          textAlign: TextAlign.center,
+                          textDirection: TextDirection.rtl,
+                          style: BText.quran(20, color: BColors.textMuted),
+                        ),
+                        Text('[يوسف: 108]', textDirection: TextDirection.rtl, style: BText.label(12, color: BColors.textFaint, weight: FontWeight.w400)),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -77,3 +90,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     );
   }
 }
+
+/// Yusuf 12:108 up to «عَلَىٰ بَصِيرَةٍ», the KFGQPC text of the Mushaf
+/// (the beginning of q_12_108 in assets/kb/evidence.json; a test keeps it so).
+const splashVerse = 'قُلۡ هَٰذِهِۦ سَبِيلِيٓ أَدۡعُوٓاْ إِلَى ٱللَّهِۚ عَلَىٰ بَصِيرَةٍ';

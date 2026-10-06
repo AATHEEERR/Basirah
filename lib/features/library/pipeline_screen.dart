@@ -118,7 +118,7 @@ List<_Step> _steps(BuildContext context) => [
     [
       (
         context.tr('خطأ من النموذج أو ضغط عليه', 'The model errors or is overloaded'),
-        context.tr('يُسأل النموذج التالي: Claude Haiku 4.5 ثم Gemini', 'The next model is asked: Claude Haiku 4.5, then Gemini'),
+        context.tr('يُسأل نموذج Gemini، بالأدوات والقواعد نفسها', 'Gemini is asked, with the same tools and rules'),
         Tones.clarify,
       ),
       (
@@ -194,7 +194,6 @@ class _PathStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (icon, title, body, detail, branches) = step;
-    final wide = isWebsite(context);
     final main = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -244,22 +243,14 @@ class _PathStep extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: wide && branches.isNotEmpty
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(flex: 3, child: main),
-                        const SizedBox(width: 14),
-                        Expanded(flex: 2, child: side),
-                      ],
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        main,
-                        if (branches.isNotEmpty) ...[const SizedBox(height: 8), side],
-                      ],
-                    ),
+              // The branches under their step, on every screen.
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  main,
+                  if (branches.isNotEmpty) ...[const SizedBox(height: 8), side],
+                ],
+              ),
             ),
           ),
         ],

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:basirah_core/basirah_core.dart';
 import 'package:basirah_server/basirah_server.dart';
+import 'package:basirah_server/src/specialists.dart';
 import 'package:http/http.dart' as http;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -20,7 +21,8 @@ import 'package:shelf_router/shelf_router.dart';
 ///   WEB_DIR            optional: the web app's build, served on the same link
 ///   METRICS_FILE       anonymous usage + ratings (default cache/metrics.jsonl)
 ///   REFERRALS_FILE     requests to a specialist (default cache/referrals.json)
-///   SPECIALIST_KEY     opens the specialists' panel (16+ characters; closed without it)
+///   SPECIALIST_ACCOUNTS the specialists' accounts, made by the team only
+///                      (tool/specialist_account.dart); the panel is closed without one
 ///   NOTIFY_WEBHOOK     optional Slack/Discord webhook told of each new request (code only)
 ///   PORT               default 8080
 Future<void> main() async {
@@ -57,8 +59,9 @@ Future<void> main() async {
   final origin = env['ALLOWED_ORIGIN'] ?? '*';
   final metrics = Metrics(file: env['METRICS_FILE'] ?? 'cache/metrics.jsonl');
   final referrals = Referrals(file: env['REFERRALS_FILE'] ?? 'cache/referrals.json');
-  // Without a key of at least 16 characters the specialists' panel is closed.
-  final specialistKey = (env['SPECIALIST_KEY'] ?? '').length >= 16 ? env['SPECIALIST_KEY'] : null;
+  // The specialists sign in with the accounts the team made; there is no
+  // sign-up, and without an account the panel is closed.
+  final specialists = SpecialistAccounts(env['SPECIALIST_ACCOUNTS']);
   // Optional: a Slack or Discord webhook told of every new request.
   final notifyWebhook = (env['NOTIFY_WEBHOOK'] ?? '').startsWith('https://') ? env['NOTIFY_WEBHOOK'] : null;
   // A new server (e.g. the first start on Render) continues the counts
@@ -286,13 +289,36 @@ Future<void> main() async {
         return _json({'error': 'invalid'}, status: 400);
       }
     })
-    // The specialists' panel: only with the SPECIALIST_KEY header.
+    // The specialists' panel: a sign-in with an account the team made, then
+    // the session in the x-specialist-session header.
+    ..post('/api/specialist/login', (Request req) async {
+      try {
+        final b = jsonDecode(await req.readAsString()) as Map<String, dynamic>;
+        final (:token, :error) = specialists.signIn(
+          (b['username'] as String? ?? '').trim(),
+          b['password'] as String? ?? '',
+          from: _ip(req),
+        );
+        if (token != null) return _json({'token': token, 'user': specialists.user(token)});
+        return _json({'error': error}, status: switch (error) {
+          'too_many' => 429,
+          'closed' => 403,
+          _ => 401,
+        });
+      } on Object {
+        return _json({'error': 'invalid'}, status: 400);
+      }
+    })
+    ..post('/api/specialist/logout', (Request req) {
+      specialists.signOut(req.headers['x-specialist-session']);
+      return _json({'ok': true});
+    })
     ..get('/api/specialist/referrals', (Request req) {
-      if (!_specialist(req, specialistKey)) return _json({'error': 'forbidden'}, status: 403);
+      if (specialists.user(req.headers['x-specialist-session']) == null) return _json({'error': 'forbidden'}, status: 403);
       return _json({'referrals': referrals.all()});
     })
     ..post('/api/specialist/referrals/<id>', (Request req, String id) async {
-      if (!_specialist(req, specialistKey)) return _json({'error': 'forbidden'}, status: 403);
+      if (specialists.user(req.headers['x-specialist-session']) == null) return _json({'error': 'forbidden'}, status: 403);
       try {
         final b = jsonDecode(await req.readAsString()) as Map<String, dynamic>;
         final ok = referrals.reply(id, text: b['text'] as String? ?? '', status: b['status'] as String?);
@@ -322,17 +348,6 @@ String _ip(Request req) =>
     (req.context['shelf.io.connection_info'] as HttpConnectionInfo?)?.remoteAddress.address ??
     'unknown';
 
-/// The specialists' panel sends the key in `x-specialist-key`.
-bool _specialist(Request req, String? key) {
-  final given = req.headers['x-specialist-key'] ?? '';
-  if (key == null || given.length != key.length) return false;
-  var diff = 0;
-  for (var i = 0; i < key.length; i++) {
-    diff |= key.codeUnitAt(i) ^ given.codeUnitAt(i);
-  }
-  return diff == 0;
-}
-
 Response _json(Object body, {int status = 200}) =>
     Response(status, body: jsonEncode(body), headers: {'content-type': 'application/json; charset=utf-8'});
 
@@ -340,7 +355,7 @@ Middleware _cors(String origin) {
   final headers = {
     'access-control-allow-origin': origin,
     'access-control-allow-methods': 'GET, POST, OPTIONS',
-    'access-control-allow-headers': 'content-type, x-specialist-key',
+    'access-control-allow-headers': 'content-type, x-specialist-session',
     'access-control-max-age': '86400',
     // Not for search engines: the link is shared by hand only.
     'x-robots-tag': 'noindex, nofollow',
