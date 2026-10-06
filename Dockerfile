@@ -10,7 +10,8 @@ COPY server/pubspec.yaml server/pubspec.lock* server/
 WORKDIR /app/server
 RUN dart pub get
 COPY server/ /app/server/
-RUN dart pub get --offline && dart compile exe bin/server.dart -o /app/bin/server
+# The output folders first: dart compile does not create them.
+RUN mkdir -p /app/bin /app/data && dart pub get --offline && dart compile exe bin/server.dart -o /app/bin/server
 # The Quran text (QuranEnc + Quranpedia, the package's sources) and al-Muyassar.
 RUN dart run tool/fetch_quran.dart /app/data/quran.json
 
