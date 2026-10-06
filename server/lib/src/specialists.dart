@@ -35,11 +35,25 @@ class SpecialistAccounts {
   /// How many accounts parsed (for /health: a count, never a name).
   int get count => _accounts.length;
 
+  /// The entries of a pasted value: a `KEY=` prefix, quotes, spaces and line
+  /// breaks dropped (an entry never has any), split on «;».
+  static List<String> entries(String? spec) {
+    var text = (spec ?? '').trim();
+    if (text.startsWith('SPECIALIST_ACCOUNTS=')) text = text.substring('SPECIALIST_ACCOUNTS='.length);
+    text = text.replaceAll(RegExp('[\\s"\'«»]'), '');
+    return [for (final e in text.split(';')) if (e.isNotEmpty) e];
+  }
+
+  /// The shape of a value, for /health: per entry, the length of each
+  /// «:»-separated part (a valid entry is three: name, 24, 44). Lengths only.
+  static List<List<int>> shape(String? spec) => [
+    for (final e in entries(spec)) [for (final p in e.split(':')) p.length],
+  ];
+
   static Map<String, ({Uint8List salt, Uint8List hash})> _parse(String? spec) {
     final out = <String, ({Uint8List salt, Uint8List hash})>{};
-    for (final entry in (spec ?? '').split(';')) {
-      // Spaces or line breaks a pasted value picked up (an entry never has any).
-      final parts = entry.replaceAll(RegExp(r'\s'), '').split(':');
+    for (final entry in entries(spec)) {
+      final parts = entry.split(':');
       if (parts.length != 3 || parts[0].isEmpty) continue;
       try {
         out[parts[0].toLowerCase()] = (

@@ -32,6 +32,16 @@ void main() {
     expect(accounts.signIn('mufti', 'right', from: 'a').error, isNull);
   });
 
+  test('a value pasted with its key, or in quotes, still works', () {
+    final entry = SpecialistAccounts.entry('mufti', 'right', iterations: rounds);
+    for (final pasted in ['SPECIALIST_ACCOUNTS=$entry', '"$entry"', "'$entry'\n", '«$entry»']) {
+      final accounts = SpecialistAccounts(pasted, iterations: rounds);
+      expect(accounts.signIn('mufti', 'right', from: 'a').error, isNull, reason: pasted);
+    }
+    expect(SpecialistAccounts.shape('"$entry"'), [[5, 24, 44]]);
+    expect(SpecialistAccounts.shape(''), isEmpty);
+  });
+
   test('no accounts: the panel is closed', () {
     final accounts = SpecialistAccounts('', iterations: rounds);
     expect(accounts.open, isFalse);

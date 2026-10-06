@@ -86,7 +86,12 @@ Future<void> main() async {
         'tafsir': quran == null ? null : ['موسوعة التفسير — الدرر السنية'],
         // Whether SPECIALIST_ACCOUNTS reached the process, and how many of
         // its entries parsed: counts only, so a misconfiguration shows.
-        'specialistAccounts': {'set': (env['SPECIALIST_ACCOUNTS'] ?? '').isNotEmpty, 'parsed': specialists.count},
+        'specialistAccounts': {
+          'set': (env['SPECIALIST_ACCOUNTS'] ?? '').isNotEmpty,
+          'length': (env['SPECIALIST_ACCOUNTS'] ?? '').length,
+          'shape': SpecialistAccounts.shape(env['SPECIALIST_ACCOUNTS']),
+          'parsed': specialists.count,
+        },
       }),
     )
     // «اسمعها بلغتك»: a verse's approved translation, text and recorded voice,
