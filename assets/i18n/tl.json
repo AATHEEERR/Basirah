@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Mali ang username o password.",
     "There are no specialist accounts on this server yet.": "Wala pang mga account ng espesyalista sa server na ito.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Masyadong maraming maling pagtatangka mula sa device na ito. Maghintay ng labinlimang minuto, pagkatapos ay subukan muli.",
-    "Username": "Username"
+    "Username": "Username",
+    "Ask a specialist for a fatwa": "Humingi ng fatwa sa isang espesyalista",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Para sa sarili mong kaso: isulat ang iyong tanong at ang mga detalye nito, at sasagot sa iyo ang isang espesyalista sa Sharia sa pamamagitan ng mensahe o tawag",
+    "Your question and the details of your case": "Ang iyong tanong at ang mga detalye ng iyong kaso"
   }
 }

@@ -677,6 +677,9 @@
     "The username or password is wrong.": "De gebruikersnaam of het wachtwoord is onjuist.",
     "There are no specialist accounts on this server yet.": "Er zijn nog geen specialistenaccounts op deze server.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Te veel foute pogingen vanaf dit apparaat. Wacht een kwartier en probeer het daarna opnieuw.",
-    "Username": "Gebruikersnaam"
+    "Username": "Gebruikersnaam",
+    "Ask a specialist for a fatwa": "Vraag een specialist om een fatwa",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Voor jouw eigen situatie: schrijf je vraag en de details op, en een specialist in de Sharia antwoordt je per bericht of telefonisch",
+    "Your question and the details of your case": "Je vraag en de details van jouw situatie"
   }
 }

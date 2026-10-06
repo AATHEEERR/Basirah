@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Korisničko ime ili lozinka nisu ispravni.",
     "There are no specialist accounts on this server yet.": "Na ovom serveru još nema računa stručnjaka.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Previše pogrešnih pokušaja s ovog uređaja. Pričekajte petnaest minuta, pa pokušajte ponovo.",
-    "Username": "Korisničko ime"
+    "Username": "Korisničko ime",
+    "Ask a specialist for a fatwa": "Zatraži fetvu od stručnjaka",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Za tvoj lični slučaj: napiši svoje pitanje i detalje, a stručnjak za šerijatsko pravo odgovorit će ti porukom ili pozivom",
+    "Your question and the details of your case": "Tvoje pitanje i detalji tvog slučaja"
   }
 }

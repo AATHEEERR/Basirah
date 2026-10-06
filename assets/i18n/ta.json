@@ -677,6 +677,9 @@
     "The username or password is wrong.": "பயனர்பெயர் அல்லது கடவுச்சொல் தவறானது.",
     "There are no specialist accounts on this server yet.": "இந்தச் சேவையகத்தில் இதுவரை நிபுணர் கணக்குகள் எதுவும் இல்லை.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "இந்தச் சாதனத்திலிருந்து பல தவறான முயற்சிகள் செய்யப்பட்டன. கால் மணி நேரம் காத்திருந்து மீண்டும் முயலவும்.",
-    "Username": "பயனர்பெயர்"
+    "Username": "பயனர்பெயர்",
+    "Ask a specialist for a fatwa": "ஒரு நிபுணரிடம் ஃபத்வா கேளுங்கள்",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "உங்கள் சொந்த நிலைக்கு: உங்கள் கேள்வியையும் அதன் விவரங்களையும் எழுதுங்கள்; ஷரியா நிபுணர் ஒருவர் செய்தி மூலமாகவோ அழைப்பு மூலமாகவோ பதிலளிப்பார்",
+    "Your question and the details of your case": "உங்கள் கேள்வியும் உங்கள் நிலையின் விவரங்களும்"
   }
 }

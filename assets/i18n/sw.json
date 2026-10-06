@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Jina la mtumiaji au nenosiri si sahihi.",
     "There are no specialist accounts on this server yet.": "Bado hakuna akaunti za wataalamu kwenye seva hii.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Majaribio mengi yasiyo sahihi kutoka kwenye kifaa hiki. Subiri robo saa, kisha jaribu tena.",
-    "Username": "Jina la mtumiaji"
+    "Username": "Jina la mtumiaji",
+    "Ask a specialist for a fatwa": "Mwombe mtaalamu fatwa",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Kwa hali yako mwenyewe: andika swali lako na maelezo yake, naye mtaalamu wa Sharia atakujibu kwa ujumbe au kwa simu",
+    "Your question and the details of your case": "Swali lako na maelezo ya hali yako"
   }
 }

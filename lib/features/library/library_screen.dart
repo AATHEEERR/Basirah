@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/theme.dart';
+import '../../core/config.dart';
 import '../../core/lang.dart';
 import '../../core/referral.dart';
 import '../../core/state.dart';
@@ -10,6 +11,7 @@ import '../../shared/lang_toggle.dart';
 import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
+import '../specialist/specialist.dart';
 
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
@@ -178,6 +180,39 @@ class LibraryScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              if (AppConfig.hasApi)
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  sliver: SliverToBoxAdapter(
+                    child: SoftCard(
+                      onTap: () => showSpecialistRequest(context, null),
+                      glow: Tones.refer.top,
+                      padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                      child: Row(
+                        children: [
+                          IconBubble(icon: Icons.record_voice_over_rounded, color: Tones.refer.accent, fill: Tones.refer.top, size: 42),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(context.tr('اطلب فتوى من مختص', 'Ask a specialist for a fatwa'), style: BText.title(14.5, weight: FontWeight.w500)),
+                                Text(
+                                  context.tr(
+                                    'لحالتك أنت: اكتب سؤالك وتفاصيله، ويجيبك مختص شرعي برسالة أو مكالمة',
+                                    'For your own case: write your question and its details, and a Sharia specialist answers by message or call',
+                                  ),
+                                  style: BText.label(12, weight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(Icons.chevron_right_rounded, color: BColors.textFaint),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                 sliver: SliverToBoxAdapter(
@@ -268,7 +303,7 @@ class LibraryScreen extends ConsumerWidget {
   }
 }
 
-/// White tile with a pastel icon bubble (Nusuk's quick services).
+/// White tile with a pastel icon bubble.
 class _NavTile extends StatelessWidget {
   const _NavTile({
     required this.icon,

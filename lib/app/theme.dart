@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../core/ui_strings.dart';
 
-/// Light, airy palette in the spirit of the Nusuk app: soft grey canvas,
+/// Light, airy palette: soft grey canvas,
 /// white rounded cards, a warm sand glow at the top, ink-black primary
 /// actions, amber-gold highlights and pastel accents.
 abstract final class BColors {
@@ -54,8 +54,8 @@ abstract final class BColors {
   );
 }
 
-/// Typography: IBM Plex Sans Arabic throughout (large, regular-weight titles
-/// as in Nusuk), Reem Kufi for the wordmark and website titles, the King
+/// Typography: IBM Plex Sans Arabic throughout (large, regular-weight
+/// titles), Reem Kufi for the wordmark and website titles, the King
 /// Fahd Complex's Hafs font for verses, and Amiri for hadith.
 abstract final class BText {
   static TextStyle brand(double size, {Color? color}) =>

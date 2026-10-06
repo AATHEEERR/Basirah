@@ -8,7 +8,7 @@ import '../shared/web_frame.dart';
 import 'theme.dart';
 import '../core/lang.dart';
 
-/// Tab shell in the Nusuk idiom: a white rounded bar with glyph tabs that
+/// Tab shell: a white rounded bar with glyph tabs that
 /// fill with amber when active, and an assistant pill («بصيرة AI •••»).
 class AppShell extends ConsumerWidget {
   const AppShell({super.key, required this.shell});

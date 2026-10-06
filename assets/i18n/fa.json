@@ -677,6 +677,9 @@
     "The username or password is wrong.": "نام کاربری یا گذرواژه نادرست است.",
     "There are no specialist accounts on this server yet.": "هنوز هیچ حساب متخصصی روی این سرور وجود ندارد.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "تلاش‌های نادرست از این دستگاه بیش از حد بوده است. یک ربع ساعت صبر کنید، سپس دوباره تلاش کنید.",
-    "Username": "نام کاربری"
+    "Username": "نام کاربری",
+    "Ask a specialist for a fatwa": "درخواست فتوا از یک متخصص",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "برای مورد خاص خودتان: پرسش و جزئیات آن را بنویسید و یک متخصص شرعی با پیام یا تماس به شما پاسخ می‌دهد",
+    "Your question and the details of your case": "پرسش شما و جزئیات وضعیتتان"
   }
 }

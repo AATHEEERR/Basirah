@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Sunan mai amfani ko kalmar sirri ba daidai ba ne.",
     "There are no specialist accounts on this server yet.": "Babu asusun ƙwararru a wannan sabar tukuna.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "An yi yunƙurin da bai dace ba sau da yawa daga wannan na'ura. Ka jira kwata na awa, sannan ka sake gwadawa.",
-    "Username": "Sunan mai amfani"
+    "Username": "Sunan mai amfani",
+    "Ask a specialist for a fatwa": "Ka nemi fatawa daga ƙwararre",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Don al'amarinka na kanka: rubuta tambayarka da cikakkun bayananta, sai wani ƙwararre a fannin Shari'a ya amsa maka ta saƙo ko kira",
+    "Your question and the details of your case": "Tambayarka da cikakkun bayanan al'amarinka"
   }
 }

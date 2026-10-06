@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Magaca isticmaalaha ama erayga sirta ah waa khalad.",
     "There are no specialist accounts on this server yet.": "Weli ma jiraan akoonno mutaxassiyaal ah oo serverkan ku jira.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Isku dayo khalad ah oo badan ayaa laga sameeyay qalabkan. Sug rubuc saac, ka dibna mar kale isku day.",
-    "Username": "Magaca isticmaalaha"
+    "Username": "Magaca isticmaalaha",
+    "Ask a specialist for a fatwa": "Weydii khabiir fatwo",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Xaaladdaada gaarka ah: qor su'aashaada iyo faahfaahinteeda, khabiir Sharci ahna wuxuu kugu jawaabi doonaa farriin ama wicitaan",
+    "Your question and the details of your case": "Su'aashaada iyo faahfaahinta xaaladdaada"
   }
 }

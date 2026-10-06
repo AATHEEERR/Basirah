@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Le nom d’utilisateur ou le mot de passe est incorrect.",
     "There are no specialist accounts on this server yet.": "Il n’y a pas encore de compte de spécialiste sur ce serveur.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Trop de tentatives erronées depuis cet appareil. Attendez un quart d’heure, puis réessayez.",
-    "Username": "Nom d’utilisateur"
+    "Username": "Nom d’utilisateur",
+    "Ask a specialist for a fatwa": "Demander une fatwa à un spécialiste",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Pour votre cas personnel : écrivez votre question et ses détails, et un spécialiste de la Sharia vous répondra par message ou par appel",
+    "Your question and the details of your case": "Votre question et les détails de votre situation"
   }
 }

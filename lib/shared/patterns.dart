@@ -74,7 +74,7 @@ class StarLatticePainter extends CustomPainter {
       old.color != color || old.opacity != opacity || old.cell != cell;
 }
 
-/// Nusuk-style header wash: a warm sand glow in the top corner with a faint
+/// Header wash: a warm sand glow in the top corner with a faint
 /// star lattice, fading into the grey canvas.
 class PatternBackdrop extends StatelessWidget {
   const PatternBackdrop({
@@ -127,7 +127,7 @@ class PatternBackdrop extends StatelessWidget {
   }
 }
 
-/// Nav glyphs in the Nusuk idiom: outline when idle, amber fill when active.
+/// Nav glyphs: outline when idle, amber fill when active.
 enum Glyph { hexagon, star, book }
 
 class NavGlyph extends StatelessWidget {

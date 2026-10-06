@@ -677,6 +677,9 @@
     "The username or password is wrong.": "صارف نام یا پاس ورڈ درست نہیں ہے۔",
     "There are no specialist accounts on this server yet.": "اس سرور پر ابھی تک ماہرین کے کوئی اکاؤنٹ نہیں ہیں۔",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "اس ڈیوائس سے بہت زیادہ غلط کوششیں ہو چکی ہیں۔ پندرہ منٹ انتظار کریں، پھر دوبارہ کوشش کریں۔",
-    "Username": "صارف نام"
+    "Username": "صارف نام",
+    "Ask a specialist for a fatwa": "کسی ماہر سے فتویٰ طلب کریں",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "اپنے ذاتی معاملے کے لیے: اپنا سوال اور اس کی تفصیلات لکھیں، اور شریعت کے ایک ماہر پیغام یا فون کال کے ذریعے آپ کو جواب دیں گے",
+    "Your question and the details of your case": "آپ کا سوال اور آپ کے معاملے کی تفصیلات"
   }
 }

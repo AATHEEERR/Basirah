@@ -1,60 +1,105 @@
 # بصيرة · Basirah
 
-> «قُلْ هَٰذِهِ سَبِيلِي أَدْعُو إِلَى اللَّهِ ۚ عَلَىٰ بَصِيرَةٍ» — يوسف: 108
+> ﴿قُلۡ هَٰذِهِۦ سَبِيلِيٓ أَدۡعُوٓاْ إِلَى ٱللَّهِۚ عَلَىٰ بَصِيرَةٍ﴾ [يوسف: 108]
 
-**Basirah** answers the questions of people in their first year of Islam, in their own language, **only from approved references**. Every answer separates what Islam teaches from what is culture, shows its evidence with a way to check it, refers personal cases to a scholar, and says so plainly when there is no documented answer.
+في الأشهر الأولى بعد الإسلام تتوالى الأسئلة: هل عليّ أن أغيّر اسمي؟ هل أزور أهلي؟ هل يُقبل إسلامي وأنا لا أستطيع تطبيق كل شيء؟ وكثيراً ما تأتي الإجابات من منتديات وأقارب وروبوتات عامة لا تفرّق بين الموثّق وغيره، ولا بين الدين والعادة.
 
-## How an answer is made
+**بصيرة رفيقٌ في أسئلة الإسلام الأولى:** تقرأ القرآن والسنة الصحيحة قبل أن تجيب، وتجيب بلغة السائل، وتفرّق له بين ما يقرّره الدين وما هو عادة وثقافة. وكل دليل فيها معه رابط يتحقق منه السائل بنفسه. وإن كانت المسألة حالةً تخصّه، لا تُفتيه، بل تصله بمختص شرعي.
+
+**جرّبها الآن:** https://basirah-ajyq.onrender.com
+
+## ماذا تقدّم
+
+- **إجابة ببطاقات ملوّنة، لكل لون معنى ثابت:**
+  - الأصل الشرعي، والعرف والثقافة، والإرشاد العملي، والأدلة والمصادر.
+  - ومعها، عند الحاجة: مسألة خلافية، وتفصيل واحد قبل الإجابة، ويحتاج إلى مختص، ولا تتوفر إجابة موثقة، وخارج نطاق بصيرة.
+- **الآية بنصها من مصحف مجمع الملك فهد:** النموذج يختار الآية برقمها فقط، والكود ينسخ نصها. وكل آية تُعرض بعد قراءة تفسيرها من موسوعة التفسير في الدرر السنية، ومعها رابط صفحتها.
+- **الحديث من موسوعة الأحاديث النبوية**، الصحيح والحسن فقط، بمصدره ودرجته ورابطه.
+- **اسأل بأي لغة:**
+  - تصلك الإجابة بلغتك، ومعاني الآيات بترجمة معتمدة من موسوعة القرآن الكريم (25 لغة).
+  - «اسمعها بلغتك»: معنى الآية بصوت مسجّل في 13 لغة.
+  - واجهة التطبيق بـ26 لغة.
+- **«سياقي»:** أسئلة اختيارية تبقى على جهازك، تكيّف الشرح لحالك، ولا تغيّر الحكم ولا الأدلة.
+- **مختص شرعي حقيقي:**
+  - تحت كل مسألة خلافية أو إحالة، يرسل السائل سؤاله برسالة، أو يحجز مكالمة صوتية أو مرئية في غرفة خاصة بالمتصفح.
+  - «اطلب فتوى من مختص» متاح مباشرة من «مكتبتي».
+  - الرد يظهر حيّاً خلال ثوانٍ، ولا يُرسل إلا ما يوافق عليه السائل، ويُحذف الطلب بعد 30 يوماً.
+- **«كيف وصلت بصيرة لهذه الإجابة؟»:** تحت كل إجابة الفحوص التي جرت عليها، وما حذفه الحارس ولماذا، وخطوات البحث.
+- **بطاقة مشاركة** بنص الآية من المصحف ورمز QR لصفحتها، وتلاوة الآية بأصوات قرّاء معروفين.
+- **لوحة الأثر:** أعداد مجهولة فقط؛ لا يُحفظ نص أي سؤال، ولا عنوان IP، ولا هوية.
+
+## كيف تُصنع الإجابة
 
 ```
-question ─► language: Arabic and English use the curated knowledge base; any other
-             language is answered in that language, with approved translations
-         ─► scope check (not about Islam? polite refusal, no model call)
-         ─► safety signals (personal case, request to produce a hadith, hostile tone)
-         ─► research by the model, with tools only:
-               search_quran   the whole Quran (King Fahd Complex Mushaf text)
-               read_tafsir    the verse's tafsir in Dorar's tafsir encyclopedia
-               search_hadith  graded hadith from HadeethEnc (the association's MCP server)
-               submit_answer  a strict schema
-         ─► guard: a verse is shown only if its tafsir was read, and its text comes from
-                   the Mushaf dataset, never from the model; hadith only with source and
-                   an accepted grading; level D → referral; no evidence → abstention
+السؤال ─► فحص أولي بالكود: لغته، وهل هو عن الإسلام، وهل هو حالة شخصية أو طلب حديث
+       ─► استرجاع من المصادر وقت السؤال (RAG):
+            search_quran   بحث في المصحف كاملاً (6236 آية)
+            read_tafsir    تفسير الآية من موسوعة التفسير — الدرر السنية
+            search_hadith  موسوعة الأحاديث عبر خادم MCP لجمعية خدمة المحتوى الإسلامي باللغات
+       ─► يكتب النموذج (Claude Sonnet 5.5) الإجابة مما قرأه فقط
+       ─► حارس من الكود قبل العرض: يحذف ما لم يُقرأ من مصدره، ويحيل الفتوى الشخصية،
+          ويمتنع إن لم يجد دليلاً كافياً
 ```
 
-The model chooses a verse by its number only; its text is copied from the Mushaf.
+لا تدريب للنموذج ولا قاعدة متجهات: نموذج بتعليمات، يسترجع النصوص من مصادرها المعتمدة، ويضبطه كود. والتفصيل في [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-## Features
+## النتائج
 
-* Colour-coded answer cards: principle, culture, practical guidance, evidence; scholarly difference, referral and abstention cards.
-* «سياقي»: optional, on-device context (who is asking, since when, answer style) that adapts the explanation, never the ruling.
-* Ask in your language: the answer is written in it, and each cited verse shows QuranEnc's approved translation of its meaning in that language (25 languages) and each HadeethEnc hadith its approved translation when there is one. `server/bin/languages_eval.dart` checks this on the test questions ([eval/LANGUAGES_REPORT.md](eval/LANGUAGES_REPORT.md)).
-* The interface in 26 languages: Arabic and English written by the team, the other 24 (the languages of QuranEnc's approved translations) machine-translated with Claude by `server/tool/translate_ui.dart` from the strings `server/tool/extract_ui_strings.dart` finds in the code; every translation is checked to keep its value slots, and anything missing stays in English. They are not yet human-reviewed. The reviewed answers stay in Arabic and English.
-* Verse recitation by real reciters (repeat, slower speed), and «اسمعها بلغتك»: the approved translation of the meaning in 25 languages, 13 of them in a recorded voice, with the association's own introductions to Islam on IslamHouse in that language (through its MCP server).
-* A partly cited verse is shown whole, with the cited words highlighted; every verse links to its own page on QuranEnc.
-* Clarifying questions: when the answer in the sources depends on a detail the asker did not give, Basirah asks one short question back with options to tap (at most two), then answers that case with its evidence. A personal case or fatwa request is never clarified: it is referred to a Sharia specialist at once. The guard enforces both.
-* When the AI is unavailable or too slow, the stored documented answer (or a referral or abstention) is chosen by fixed rules in code and shown with a notice; the knowledge base works in the app without the server.
-* «تحدّث مع مختص شرعي»: under a scholarly difference or a referral, the asker sends their question and conversation (only what they approve) as a message, or books a voice or video call; specialists reply from a panel (`/#/specialist`, each specialist signs in with a username and password the team made: `server/tool/specialist_account.dart`, stored as `SPECIALIST_ACCOUNTS`; there is no sign-up). Requests are deleted after 30 days.
-* «إيصال بصيرة»: under each answer, the checks that ran, what the guard removed and why, and the research steps.
-* A share card with the Mushaf text and a QR code to the verse's own page.
-* Anonymous ratings and an impact board (counts only; no question text, IP or user id is stored).
-* The baseline comparison in the app: the same model as a general chatbot and inside Basirah, on the same 31 questions ([eval/BASELINE_COMPARISON.md](eval/BASELINE_COMPARISON.md)).
+**المقارنة المرجعية** ([eval/EVALUATION.md](eval/EVALUATION.md)):
+- نموذج واحد في الأطراف الثلاثة: `claude-sonnet-5-5`.
+- 31 سؤالاً، منها 12 من أمثلة أسئلة اختبار سلامة المحتوى في المرجعية المعتمدة، وكُتب السلوك المتوقع لكل سؤال قبل التشغيل.
+- يطبّق الكود على كل إجابة ستة فحوص، بلا حَكَم بشري ولا نموذج حَكَم.
 
-## Run it
+| | النموذج وحده | النموذج بتعليمات مكتوبة | بصيرة |
+|---|---|---|---|
+| إجابات اجتازت الفحوص الستة | 15 من 31 | 7 من 31 | **31 من 31** |
 
-Requirements: Flutter 3.41.9 (Dart 3.11.5). Put the AI key(s) in `server/.env` (copy `server/.env.example`; never commit it).
+لم يخطئ أي طرف في لفظ آية. الفرق أن نص الآية في بصيرة مضمون من المصحف ويمكن التحقق منه، أما عند الطرفين الآخرين فمكتوب من ذاكرة النموذج. وكل سؤال وما فعله كل طرف، بالإجابات كاملة: [eval/QUESTIONS.md](eval/QUESTIONS.md).
+
+**اختبار اللغات** ([eval/LANGUAGES_REPORT.md](eval/LANGUAGES_REPORT.md)): 69 سؤالاً بـ25 لغة على الخادم الحي.
+- 69 من 69 بلغة السؤال، وبنوع الإجابة المتوقع.
+- 69 من 69 بترجمة معانٍ معتمدة لكل آية.
+- لا إجابة جاءت من الذاكرة المؤقتة.
+
+## المصادر
+
+- **نص القرآن وترجمات المعاني:** موسوعة القرآن الكريم (QuranEnc) وQuranpedia.
+- **التفسير:** موسوعة التفسير في الدرر السنية.
+- **الحديث:** موسوعة الأحاديث النبوية (HadeethEnc)، عبر خادم MCP للجمعية.
+- **التلاوة ومكتبة دار الإسلام:** خادم MCP للجمعية.
+
+السجل الكامل للمصادر والأدوات والتراخيص في [docs/SOURCES_AND_LICENSES.md](docs/SOURCES_AND_LICENSES.md)، وطريقة مراجعة المحتوى في [docs/CONTENT_REVIEW.md](docs/CONTENT_REVIEW.md).
+
+## التشغيل
+
+المتطلبات: Flutter 3.41.9 (Dart 3.11.5).
+
+انسخ `server/.env.example` إلى `server/.env`، وضع فيه مفتاح Anthropic. هذا الملف لا يُرفع أبداً. وبلا مفتاح يعمل التطبيق بالإجابات الموثقة المحفوظة فقط.
 
 ```powershell
-cd server; dart pub get; dart test; cd ..          # server tests
-flutter pub get; flutter test                       # app tests
-powershell -ExecutionPolicy Bypass -File tool\start_live.ps1   # build, serve, public link
+cd server; dart pub get; dart test; cd ..          # اختبارات الخادم
+flutter pub get; flutter test                       # اختبارات التطبيق
+powershell -ExecutionPolicy Bypass -File run_local.ps1    # تشغيل محلي
 ```
 
-`server/bin/eval.dart` runs the evaluation set; `server/bin/baseline.dart` compares Basirah with a general chatbot on the same model.
+- **حساب مختص:** `cd server; dart run tool/specialist_account.dart <اسم-المستخدم>`. تُكتب كلمة المرور في ملف محلي لا يُرفع، ويُضاف سطر الحساب إلى `SPECIALIST_ACCOUNTS`. لا يوجد تسجيل ذاتي.
+- **النشر:** خدمة واحدة للموقع والخادم على Render (`render.yaml` و`Dockerfile`). ابنِ الموقع أولاً بـ`tool\build_web_for_deploy.ps1`. والاستعادة والنسخ الاحتياطي في [docs/RESTORE.md](docs/RESTORE.md).
+- **إعادة التقييم:** `cd server; dart run bin/baseline.dart --recount` يعيد العدّ من الإجابات المحفوظة بلا تكلفة.
 
-Deploy: `render.yaml` (one service: the API and the web app), built by the root `Dockerfile`; build the web app first with `tool\build_web_for_deploy.ps1`. Restore and backup: [docs/RESTORE.md](docs/RESTORE.md).
+## نسخة البداية
 
-## Sources
+بُنيت بصيرة فوق نسخة بداية موثّقة. ما كان فيها، وما أُضيف من 4 إلى 6 أكتوبر 2026 يوماً بيوم، في [docs/STARTING_VERSION.md](docs/STARTING_VERSION.md).
 
-Quran text and approved translations of the meanings: QuranEnc and Quranpedia. Tafsir: dorar.net/tafseer. Hadith: HadeethEnc (graded), verified on dorar.net. Recitation and the IslamHouse library: the association's MCP server. Details and licences: [docs/SOURCES_AND_LICENSES.md](docs/SOURCES_AND_LICENSES.md).
+## الفريق والاعتمادات
 
-Basirah is an AI tool, not a mufti. Code: MIT.
+- **أثير السبيعي:** القيادة التقنية وهندسة الذكاء الاصطناعي.
+- **أريج السبيعي:** تجربة المستخدم والمحتوى وضمان الجودة.
+
+**الأدوات:**
+- كتب الفريق الكود والمحتوى مستعيناً بـClaude Code (Anthropic).
+- تُرجمت الواجهة إلى 24 لغة ترجمة آلية بـClaude، ولم تُراجع بشرياً بعد.
+- الإجابات الموثقة بالعربية والإنجليزية.
+
+**التراخيص:** الكود مرخّص بـMIT. الخطوط وحقوق المصادر في [docs/SOURCES_AND_LICENSES.md](docs/SOURCES_AND_LICENSES.md).
+
+بصيرة أداة ذكاء اصطناعي تعين على الفهم، وليست مفتياً. وما يخص حالتك أنت، فاسأل عنه أهل العلم.

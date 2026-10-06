@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Emri i përdoruesit ose fjalëkalimi është i gabuar.",
     "There are no specialist accounts on this server yet.": "Ende nuk ka llogari specialistësh në këtë server.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Shumë përpjekje të gabuara nga kjo pajisje. Prit një çerek ore, pastaj provo përsëri.",
-    "Username": "Emri i përdoruesit"
+    "Username": "Emri i përdoruesit",
+    "Ask a specialist for a fatwa": "Kërko një fetva nga një specialist",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Për rastin tënd: shkruaj pyetjen dhe detajet e saj, dhe një specialist i Sheriatit të përgjigjet me mesazh ose me telefonatë",
+    "Your question and the details of your case": "Pyetja jote dhe detajet e rastit tënd"
   }
 }

@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Kullanıcı adı veya parola yanlış.",
     "There are no specialist accounts on this server yet.": "Bu sunucuda henüz uzman hesabı yok.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Bu cihazdan çok fazla yanlış deneme yapıldı. On beş dakika bekleyin, sonra tekrar deneyin.",
-    "Username": "Kullanıcı adı"
+    "Username": "Kullanıcı adı",
+    "Ask a specialist for a fatwa": "Bir uzmandan fetva isteyin",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Kendi durumunuz için: sorunuzu ve ayrıntılarını yazın, bir şer'i ilimler uzmanı size mesajla veya telefonla cevap versin",
+    "Your question and the details of your case": "Sorunuz ve durumunuzun ayrıntıları"
   }
 }

@@ -19,7 +19,7 @@ class GoldText extends StatelessWidget {
   Widget build(BuildContext context) => Text(text, textAlign: textAlign, style: style.copyWith(color: BColors.goldDeep));
 }
 
-/// White rounded card — the basic Nusuk surface.
+/// White rounded card — the basic surface.
 class SoftCard extends StatelessWidget {
   const SoftCard({
     super.key,
@@ -36,7 +36,7 @@ class SoftCard extends StatelessWidget {
   final double radius;
   final VoidCallback? onTap;
 
-  /// Optional pastel glow in one corner (as on Nusuk's tiles).
+  /// Optional pastel glow in one corner.
   final Color? glow;
   final Alignment glowAlignment;
 
@@ -160,7 +160,7 @@ class CountPill extends StatelessWidget {
   );
 }
 
-/// Circle with a pastel fill and a tinted icon (Nusuk's icon bubbles).
+/// Circle with a pastel fill and a tinted icon.
 class IconBubble extends StatelessWidget {
   const IconBubble({super.key, required this.icon, required this.color, this.size = 44, this.fill});
 
@@ -212,7 +212,7 @@ class InfoPill extends StatelessWidget {
   final String label;
   final Color? color;
 
-  /// Black badge (as on Nusuk's photo cards).
+  /// Black badge.
   final bool dark;
 
   @override
@@ -236,7 +236,7 @@ class InfoPill extends StatelessWidget {
   }
 }
 
-/// Grey pill with an arrow — Nusuk's "see more" affordance next to titles.
+/// Grey pill with an arrow: the "see more" affordance next to titles.
 class ArrowPill extends StatelessWidget {
   const ArrowPill({super.key, required this.onTap, this.tooltip});
 
@@ -396,7 +396,7 @@ class TrackTile extends StatelessWidget {
   }
 }
 
-/// Round amber action button (Nusuk's gold circle).
+/// Round amber action button.
 class GoldCircleButton extends StatelessWidget {
   const GoldCircleButton({super.key, required this.icon, required this.onTap, this.size = 56, this.tooltip});
 

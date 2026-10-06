@@ -677,6 +677,9 @@
     "The username or password is wrong.": "کارن‌نوم یا پټنوم غلط دی.",
     "There are no specialist accounts on this server yet.": "په دې سرور کې تر اوسه د متخصصینو حسابونه نشته.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "له دې وسیلې څخه ډېرې غلطې هڅې شوې. یو ربع ساعت انتظار وکړئ، بیا هڅه وکړئ.",
-    "Username": "کارن‌نوم"
+    "Username": "کارن‌نوم",
+    "Ask a specialist for a fatwa": "له یو متخصص نه فتوا وغواړئ",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "ستاسو د خپل حالت لپاره: خپله پوښتنه او تفصيلات یې ولیکئ، او یو شرعي متخصص به درته په پیغام یا زنګ ځواب درکړي",
+    "Your question and the details of your case": "ستاسو پوښتنه او د ستاسو د حالت تفصيلات"
   }
 }

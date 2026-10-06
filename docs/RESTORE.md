@@ -49,7 +49,7 @@ git clone "backups\Basirah_Backup_<التاريخ>\basirah.bundle" basirah_resto
    ```
    يبني الموقع، ويشغّل الخادم، ويطبع رابطاً عاماً بالشكل `https://….trycloudflare.com`. أبقِ النافذتين مفتوحتين. الرابط يتغير في كل تشغيل.
 
-## الحالة 3: رابط دائم للمحكّمين (Render)
+## الحالة 3: رابط دائم (Render)
 
 1. ارفع المستودع إلى GitHub:
    ```powershell

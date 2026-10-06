@@ -297,6 +297,10 @@
       "ar": "اسأل بصيرة"
     },
     {
+      "en": "Ask a specialist for a fatwa",
+      "ar": "اطلب فتوى من مختص"
+    },
+    {
       "en": "Ask about this topic",
       "ar": "اسأل في هذا الموضوع"
     },
@@ -793,6 +797,10 @@
     {
       "en": "For accuracy, a separate measure that is not one of the six checks: did the kind of Basirah’s answer match what we wrote before the run? It did in {0} of {1}. The one different case failed no check: on the number and names of the Throne’s bearers we expected Basirah to say no documented answer was available; it gave the number from the Quran (al-Haqqah 17) after reading its tafsir, and said it found no mention of the names, so it gives none. We did not change the expectation after seeing the result.",
       "ar": "وللدقة، مقياس منفصل ليس من الفحوص الستة: هل طابق «نوع» إجابة بصيرة ما كتبناه قبل التشغيل؟ طابق في {0} من {1}. والحالة الوحيدة المختلفة لم تُخفق في أي فحص: سؤال عدد حملة العرش وأسمائهم، توقّعنا فيه أن تقول بصيرة إنه لا تتوفر إجابة موثقة، فأجابت بالعدد من القرآن (الحاقة: 17) بعد قراءة تفسيره، وقالت إنها لم تجد للأسماء ذكراً فلا تذكرها. لم نعدّل التوقع بعد رؤية النتيجة."
+    },
+    {
+      "en": "For your own case: write your question and its details, and a Sharia specialist answers by message or call",
+      "ar": "لحالتك أنت: اكتب سؤالك وتفاصيله، ويجيبك مختص شرعي برسالة أو مكالمة"
     },
     {
       "en": "Four promises in every answer",
@@ -2498,6 +2506,10 @@
     {
       "en": "Your question (you can edit it and add details of your case)",
       "ar": "سؤالك (يمكنك تعديله وإضافة تفاصيل حالتك)"
+    },
+    {
+      "en": "Your question and the details of your case",
+      "ar": "سؤالك وتفاصيل حالتك"
     },
     {
       "en": "Your rating could not be sent; try again",

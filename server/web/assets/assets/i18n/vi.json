@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Tên người dùng hoặc mật khẩu không đúng.",
     "There are no specialist accounts on this server yet.": "Máy chủ này chưa có tài khoản chuyên gia nào.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Có quá nhiều lần thử sai từ thiết bị này. Hãy chờ mười lăm phút rồi thử lại.",
-    "Username": "Tên người dùng"
+    "Username": "Tên người dùng",
+    "Ask a specialist for a fatwa": "Nhờ chuyên gia đưa ra fatwa",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Dành cho trường hợp riêng của bạn: hãy viết câu hỏi cùng các chi tiết, và một chuyên gia về Sharia sẽ trả lời bạn bằng tin nhắn hoặc cuộc gọi",
+    "Your question and the details of your case": "Câu hỏi của bạn và các chi tiết về trường hợp của bạn"
   }
 }

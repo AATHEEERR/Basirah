@@ -107,8 +107,9 @@ class SpecialistCta extends StatelessWidget {
 }
 
 /// [caseFile]: what is sent instead of the answer and the chat, e.g. a
-/// prepared case summary.
-Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer answer, {String? caseFile}) {
+/// prepared case summary. With no [answer], the asker writes their question
+/// and the details of their case for a specialist directly («اطلب فتوى»).
+Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer? answer, {String? caseFile}) {
   // The website: a centred window, whole on screen. A phone: a sheet.
   if (isWebsite(context)) {
     return showDialog(
@@ -141,7 +142,8 @@ Future<void> showSpecialistRequest(BuildContext context, BasirahAnswer answer, {
 class _RequestForm extends ConsumerStatefulWidget {
   const _RequestForm({required this.answer, required this.controller, this.caseFile});
 
-  final BasirahAnswer answer;
+  /// Null for a fatwa asked directly, with no answer before it.
+  final BasirahAnswer? answer;
   final ScrollController controller;
   final String? caseFile;
 
@@ -150,11 +152,11 @@ class _RequestForm extends ConsumerStatefulWidget {
 }
 
 class _RequestFormState extends ConsumerState<_RequestForm> {
-  late final _question = TextEditingController(text: widget.answer.question);
+  late final _question = TextEditingController(text: widget.answer?.question ?? '');
   String _mode = 'message';
   DateTime? _day;
   int? _hour;
-  bool _withConversation = true;
+  late bool _withConversation = widget.answer != null || widget.caseFile != null;
   bool _withContext = true;
   bool _consent = false;
   bool _sending = false;
@@ -172,11 +174,13 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
   /// This answer in short, and the questions asked before it in the chat.
   String _conversation(String lang) {
     if (widget.caseFile case final file?) return file;
+    final answer = widget.answer;
+    if (answer == null) return '';
     final earlier = [
       for (final m in ref.read(chatProvider))
-        if (m.fromUser && m.text != widget.answer.question) m.text,
+        if (m.fromUser && m.text != answer.question) m.text,
     ];
-    final body = AnswerView.plainText(widget.answer, lang).split('\n').skip(2).join('\n').trim();
+    final body = AnswerView.plainText(answer, lang).split('\n').skip(2).join('\n').trim();
     final short = body.length > 900 ? '${body.substring(0, 900)} …' : body;
     return [
       if (earlier.isNotEmpty) '${lang == 'en' ? 'Earlier questions' : 'أسئلة سابقة'}: ${earlier.take(3).join(' / ')}',
@@ -236,7 +240,14 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
           padding: const EdgeInsets.fromLTRB(20, 4, 8, 4),
           child: Row(
             children: [
-              Expanded(child: Text(context.tr('تحدّث مع مختص شرعي', 'Talk to a Sharia specialist'), style: BText.display(22))),
+              Expanded(
+                child: Text(
+                  widget.answer == null && widget.caseFile == null
+                      ? context.tr('اطلب فتوى من مختص', 'Ask a specialist for a fatwa')
+                      : context.tr('تحدّث مع مختص شرعي', 'Talk to a Sharia specialist'),
+                  style: BText.display(22),
+                ),
+              ),
               IconButton(
                 onPressed: () => Navigator.of(context).pop(),
                 tooltip: context.tr('إغلاق', 'Close'),
@@ -323,13 +334,16 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
                 maxLength: 1200,
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
-                  labelText: context.tr(
-                    'سؤالك (يمكنك تعديله وإضافة تفاصيل حالتك)',
-                    'Your question (you can edit it and add details of your case)',
-                  ),
+                  labelText: widget.answer == null && widget.caseFile == null
+                      ? context.tr('سؤالك وتفاصيل حالتك', 'Your question and the details of your case')
+                      : context.tr(
+                          'سؤالك (يمكنك تعديله وإضافة تفاصيل حالتك)',
+                          'Your question (you can edit it and add details of your case)',
+                        ),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                 ),
               ),
+              if (widget.answer != null || widget.caseFile != null)
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 value: _withConversation,

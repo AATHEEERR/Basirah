@@ -677,6 +677,9 @@
     "The username or password is wrong.": "ユーザー名またはパスワードが正しくありません。",
     "There are no specialist accounts on this server yet.": "このサーバーには、まだ専門家のアカウントがありません。",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "この端末からの誤った試行が多すぎます。15分待ってから、もう一度お試しください。",
-    "Username": "ユーザー名"
+    "Username": "ユーザー名",
+    "Ask a specialist for a fatwa": "専門家にファトワーを依頼する",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "あなた自身の状況について:質問とその詳細を書いてください。シャリーアの専門家がメッセージまたは通話でお答えします",
+    "Your question and the details of your case": "あなたの質問と状況の詳細"
   }
 }

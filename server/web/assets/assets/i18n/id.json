@@ -677,6 +677,9 @@
     "The username or password is wrong.": "Nama pengguna atau kata sandi salah.",
     "There are no specialist accounts on this server yet.": "Belum ada akun spesialis di server ini.",
     "Too many wrong attempts from this device. Wait a quarter of an hour, then try again.": "Terlalu banyak percobaan yang salah dari perangkat ini. Tunggu seperempat jam, lalu coba lagi.",
-    "Username": "Nama pengguna"
+    "Username": "Nama pengguna",
+    "Ask a specialist for a fatwa": "Minta fatwa kepada seorang ahli",
+    "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Untuk kasus Anda sendiri: tuliskan pertanyaan beserta rinciannya, dan seorang ahli syariah akan menjawab melalui pesan atau panggilan",
+    "Your question and the details of your case": "Pertanyaan Anda dan rincian kasus Anda"
   }
 }

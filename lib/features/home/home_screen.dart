@@ -210,7 +210,7 @@ class _SearchPill extends StatelessWidget {
   );
 }
 
-/// Deep "photo" card with a black badge and white title (Nusuk content card).
+/// Deep "photo" card with a black badge and white title.
 class _FeaturedCard extends StatelessWidget {
   const _FeaturedCard({required this.category, required this.kb, this.width = 250});
 
@@ -322,7 +322,7 @@ class CategoryTile extends StatelessWidget {
   }
 }
 
-/// «بصيرة AI» card with a warm sand glow (Nusuk AI card).
+/// «بصيرة AI» card with a warm sand glow.
 class _AiCard extends StatelessWidget {
   const _AiCard({required this.onTap, this.padding = const EdgeInsets.fromLTRB(16, 26, 16, 0)});
 
@@ -431,7 +431,7 @@ class _ReferencesPromo extends StatelessWidget {
   }
 }
 
-/// Soft footer in the spirit of Nusuk's laurel badge — a statement of method,
+/// Soft footer with a laurel badge — a statement of method,
 /// not a usage claim.
 class _TrustLaurel extends StatelessWidget {
   const _TrustLaurel();
