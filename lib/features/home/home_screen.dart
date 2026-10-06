@@ -33,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
         body: KbBuilder(
           builder: (context, kb) => Stack(
             children: [
-              const PatternBackdrop(height: 620, onWebsite: true, glow: Alignment(.7, -1)),
+              const PatternBackdrop(height: 620, onWebsite: true, glow: Alignment(.7, -1), opacity: .09),
               _WideHome(kb: kb, ask: ask),
             ],
           ),

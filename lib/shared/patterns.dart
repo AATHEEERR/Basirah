@@ -138,7 +138,7 @@ class PatternBackdrop extends StatelessWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
-          stops: [0, .3, .7, 1],
+          stops: [0, .22, .78, 1],
         ).createShader(r),
         child: ShaderMask(
           blendMode: BlendMode.dstIn,
@@ -146,9 +146,9 @@ class PatternBackdrop extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
-            stops: [0, .22, .5, 1],
+            stops: [0, .15, .5, 1],
           ).createShader(r),
-          child: Opacity(opacity: .45, child: child),
+          child: Opacity(opacity: .65, child: child),
         ),
       );
     }
