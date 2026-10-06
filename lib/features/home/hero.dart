@@ -166,7 +166,7 @@ class _Verse extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
-              context.tr('[${verse.reference}] · تحقّق من النص في موسوعة القرآن الكريم', '[Yusuf 12:108] · check the text on QuranEnc'),
+              context.tr('[${verse.reference}] · تحقّق من النص في موسوعة القرآن الكريم', '[${verse.reference}] · check the text on QuranEnc'),
               style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
             ),
           ),

@@ -70,8 +70,11 @@ Future<void> main(List<String> args) async {
   final queue = <(MeaningLanguage, List<Map<String, dynamic>>)>[];
   for (final l in targets) {
     final file = File('../assets/i18n/${l.iso}.json');
+    // Kept: the translations of strings the code still has.
+    final wanted = {for (final s in source) s['en'] as String};
     done[l.iso] = file.existsSync()
-        ? ((jsonDecode(file.readAsStringSync()) as Map)['strings'] as Map).cast<String, String>()
+        ? (((jsonDecode(file.readAsStringSync()) as Map)['strings'] as Map).cast<String, String>()
+            ..removeWhere((en, _) => !wanted.contains(en)))
         : <String, String>{};
     dropped[l.iso] = 0;
     final todo = [for (final s in source) if (!done[l.iso]!.containsKey(s['en'])) s];
@@ -84,11 +87,16 @@ Future<void> main(List<String> args) async {
   void save(MeaningLanguage l) => File('../assets/i18n/${l.iso}.json').writeAsStringSync(
     '${const JsonEncoder.withIndent('  ').convert({'language': l.iso, 'model': _model, 'strings': done[l.iso]})}\n',
   );
+  // The pruned files, even where nothing is left to translate.
+  targets.forEach(save);
 
   Future<void> run(MeaningLanguage l, List<Map<String, dynamic>> part) async {
     final language = '${l.native} (${_englishName(l.iso)})';
+    // The Arabic only when it has the same slots: otherwise the model may
+    // follow its slots and lose the English ones.
     final items = [
-      for (final (j, s) in part.indexed) {'id': '$j', 'en': s['en'], if (s['ar'] != null) 'ar': s['ar']},
+      for (final (j, s) in part.indexed)
+        {'id': '$j', 'en': s['en'], if (s['ar'] != null && _valid(s['en'] as String, s['ar'] as String)) 'ar': s['ar']},
     ];
     Map<String, dynamic>? answer;
     for (var attempt = 1; attempt <= 4 && answer == null; attempt++) {

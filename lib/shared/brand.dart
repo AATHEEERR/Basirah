@@ -135,11 +135,12 @@ class Wordmark extends StatelessWidget {
 
   final TextStyle style;
 
-  /// The language to write it in; the interface's when null.
+  /// The language to write it in; when null, the interface's: Arabic script
+  /// in the right-to-left interfaces (Arabic, Urdu, Persian, Pashto).
   final String? lang;
 
   @override
-  Widget build(BuildContext context) => (lang ?? context.lang) == 'en'
+  Widget build(BuildContext context) => (lang ?? (isRtlLanguage(context.uiLang) ? 'ar' : 'en')) == 'en'
       ? Text('Basirah', style: style)
       : Semantics(label: 'بصيرة', excludeSemantics: true, child: Text('بصيره', style: style));
 }

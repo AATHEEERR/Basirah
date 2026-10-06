@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'app/router.dart';
 import 'app/theme.dart';
@@ -22,6 +23,8 @@ Future<void> main() async {
   } catch (_) {
     // Start anyway: a late font only swaps in when it arrives.
   }
+  // Month and day names in every interface language (bundled data).
+  await initializeDateFormatting();
   runApp(const ProviderScope(child: BasirahApp()));
 }
 

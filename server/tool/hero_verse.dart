@@ -2,7 +2,8 @@
 // named after) in each approved translation on QuranEnc (موسوعة القرآن
 // الكريم), verbatim, for the opening of the home page:
 //   dart run tool/hero_verse.dart        (from server/)
-// Writes ../assets/kb/hero_verse.json: {ISO code: {key, text}}.
+// Writes ../assets/kb/hero_verse.json: {ISO code: {key, text}}, cleaned as the
+// app cleans every meaning (cleanMeaning).
 import 'dart:convert';
 import 'dart:io';
 
@@ -19,7 +20,8 @@ Future<void> main() async {
       continue;
     }
     final r = (jsonDecode(utf8.decode(res.bodyBytes)) as Map)['result'] as Map;
-    final text = (r['translation'] as String).trim();
+    // As everywhere else: no leading verse number or footnote markers.
+    final text = cleanMeaning(r['translation'] as String, 108);
     if (text.isEmpty) {
       stderr.writeln('${l.key}: empty');
       exitCode = 1;

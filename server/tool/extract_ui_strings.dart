@@ -82,6 +82,18 @@ class _Collector extends RecursiveAstVisitor<void> {
     super.visitArgumentList(node);
   }
 
+  /// «context.tr(ar, en)»: the English side, even when the Arabic one has no
+  /// Arabic letters («{0} ✓»).
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    final args = node.argumentList.arguments;
+    if (node.methodName.name == 'tr' && args.length == 2) {
+      final en = template(args[1].argumentExpression);
+      if (en != null && _isEnglish(en)) _add(en, template(args[0].argumentExpression));
+    }
+    super.visitMethodInvocation(node);
+  }
+
   @override
   void visitRecordLiteral(RecordLiteral node) {
     _pairs(node.fields.map((f) => f.fieldExpression));

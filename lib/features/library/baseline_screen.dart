@@ -106,7 +106,8 @@ String _kind(BuildContext context, String kind) => switch (kind) {
   _ => context.tr('إجابة موثقة', 'Documented answer'),
 };
 
-String _seconds(BuildContext context, num s) => context.tr('${s.toStringAsFixed(1)} ث', '${s.toStringAsFixed(1)} s');
+/// «15.9 ث», the unit a word of its own (so it is translated alone).
+String _seconds(BuildContext context, num s) => '${s.toStringAsFixed(1)} ${context.tr('ث', 's')}';
 
 /// The numbers of the comparison, read once from the shipped data.
 class _Data {
@@ -760,16 +761,13 @@ class _Row extends ConsumerWidget {
       for (final (id, ar, en) in _counts)
         if (((side[id] as num?) ?? 0) > 0) '${context.tr(ar, en)}${(side[id] as num) > 1 ? ' (${side[id]})' : ''}',
     ];
-    String summary(String who, List<String> list) => list.isEmpty
-        ? context.tr('$who: لا إخفاق معدود', '$who: nothing counted')
-        : context.tr(
-            '$who: ${switch (list.length) {
-              1 => 'إخفاق واحد',
-              2 => 'إخفاقان',
-              final n => '$n إخفاقات',
-            }}',
-            '$who: ${list.length} ${list.length == 1 ? 'failure' : 'failures'}',
-          );
+    // Singular and plural as whole strings, so each translates whole.
+    String summary(String who, List<String> list) => switch (list.length) {
+      0 => context.tr('$who: لا إخفاق معدود', '$who: nothing counted'),
+      1 => context.tr('$who: إخفاق واحد', '$who: one failure'),
+      2 => context.tr('$who: إخفاقان', '$who: 2 failures'),
+      final n => context.tr('$who: $n إخفاقات', '$who: $n failures'),
+    };
     final pg = problems(g);
     final pp = p == null ? const <String>[] : problems(p);
     final pb = problems(b);

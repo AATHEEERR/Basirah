@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../app/theme.dart';
 import '../../core/config.dart';
@@ -143,9 +144,13 @@ class _Board extends StatelessWidget {
 /// «منذ 4 أكتوبر 2026» from the first event's hour («2026-10-04T17:00Z»).
 String _since(BuildContext context, String hour) {
   const ar = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-  const en = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   final d = DateTime.parse(hour).toLocal();
-  return context.tr('منذ ${d.day} ${ar[d.month - 1]} ${d.year}', 'Since ${d.day} ${en[d.month - 1]} ${d.year}');
+  // The month in the interface language, from the date data where it has
+  // that language (Tagalog is «fil» there), in English otherwise.
+  final ui = context.uiLang;
+  final locale = ui == 'tl' ? 'fil' : ui;
+  final month = ui == 'ar' ? ar[d.month - 1] : DateFormat.MMMM(DateFormat.localeExists(locale) ? locale : 'en').format(d);
+  return context.tr('منذ ${d.day} $month ${d.year}', 'Since ${d.day} $month ${d.year}');
 }
 
 /// A titled card of horizontal bars, each a share of [total].
@@ -260,7 +265,7 @@ class ImpactTiles extends StatelessWidget {
       (context.tr('رضا من قيّموا ($fbTotal)', 'helpful, of $fbTotal ratings'), pct(helpful, fbTotal), Tones.culture),
       (
         context.tr('الوقت الوسيط للإجابة', 'median answer time'),
-        median == null ? '—' : context.tr('${(median / 1000).toStringAsFixed(1)} ث', '${(median / 1000).toStringAsFixed(1)} s'),
+        median == null ? '—' : '${(median / 1000).toStringAsFixed(1)} ${context.tr('ث', 's')}',
         Tones.evidence,
       ),
     ];

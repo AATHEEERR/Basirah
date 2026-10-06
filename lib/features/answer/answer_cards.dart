@@ -515,11 +515,11 @@ class ResearchTrail extends StatelessWidget {
             context.tr('كيف وصلت بصيرة إلى الأدلة؟', 'How did Basirah find the evidence?'),
             style: BText.title(13.5, weight: FontWeight.w500),
           ),
+          // Singular and plural as whole strings, so each translates whole.
           subtitle: Text(
-            context.tr(
-              '${_arSteps(steps.length)} في المصادر المعتمدة',
-              '${steps.length} research ${steps.length == 1 ? 'step' : 'steps'} in the approved sources',
-            ),
+            steps.length == 1
+                ? context.tr('${_arSteps(1)} في المصادر المعتمدة', 'One research step in the approved sources')
+                : context.tr('${_arSteps(steps.length)} في المصادر المعتمدة', '${steps.length} research steps in the approved sources'),
             style: BText.label(11.5, weight: FontWeight.w400),
           ),
           children: [

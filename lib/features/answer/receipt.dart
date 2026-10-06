@@ -54,7 +54,13 @@ class _AnswerReceiptState extends State<AnswerReceipt> {
                         style: BText.title(14),
                       ),
                     ),
-                    _Pill(text: context.tr('${_arChecks(checks.length)} ✓', '${checks.length} ${checks.length == 1 ? 'check' : 'checks'} ✓'), tone: Tones.culture),
+                    _Pill(
+                      // Singular and plural as whole strings, so each translates whole.
+                      text: checks.length == 1
+                          ? context.tr('${_arChecks(1)} ✓', 'One check ✓')
+                          : context.tr('${_arChecks(checks.length)} ✓', '${checks.length} checks ✓'),
+                      tone: Tones.culture,
+                    ),
                     if (removed.isNotEmpty) ...[
                       const SizedBox(width: 6),
                       _Pill(text: context.tr('حذف ${removed.length}', '${removed.length} removed'), tone: Tones.refer),

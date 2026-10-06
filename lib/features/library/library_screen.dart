@@ -235,16 +235,18 @@ class LibraryScreen extends ConsumerWidget {
               SliverToBoxAdapter(
                 child: SectionHeader(
                   context.tr('المحفوظات', 'Saved'),
+                  // Singular and plural as whole strings, so each translates whole.
                   subtitle: saved.isEmpty
                       ? null
+                      : saved.length == 1
+                      ? context.tr('إجابة واحدة محفوظة على جهازك', 'One answer saved on your device')
                       : context.tr(
                           '${switch (saved.length) {
-                            1 => 'إجابة واحدة محفوظة',
                             2 => 'إجابتان محفوظتان',
                             >= 3 && <= 10 => '${saved.length} إجابات محفوظة',
                             _ => '${saved.length} إجابة محفوظة',
                           }} على جهازك',
-                          '${saved.length} ${saved.length == 1 ? 'answer' : 'answers'} saved on your device',
+                          '${saved.length} answers saved on your device',
                         ),
                 ),
               ),
