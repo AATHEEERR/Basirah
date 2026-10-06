@@ -155,7 +155,7 @@ class LibraryScreen extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                 sliver: SliverToBoxAdapter(
                   child: SoftCard(
-                    onTap: () => context.push('/baseline'),
+                    onTap: () => context.push('/comparison'),
                     glow: Tones.refer.top,
                     padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
                     child: Row(
@@ -166,7 +166,7 @@ class LibraryScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(context.tr('المقارنة المرجعية', 'Baseline comparison'), style: BText.title(14.5, weight: FontWeight.w500)),
+                              Text(context.tr('المقارنة', 'The comparison'), style: BText.title(14.5, weight: FontWeight.w500)),
                               Text(
                                 context.tr('نفس النموذج: روبوت عام مقابل بصيرة، على الأسئلة نفسها', 'Same model: a general chatbot vs Basirah, on the same questions'),
                                 style: BText.label(12, weight: FontWeight.w400),

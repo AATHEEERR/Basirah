@@ -229,8 +229,8 @@
       "ar": "وإن انقطع الاتصال أو تعذّر الذكاء الاصطناعي؟"
     },
     {
-      "en": "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).",
-      "ar": "واختبار اللغات: {0} سؤالاً بـ{1} لغة؛ أُجيب {2}، منها {3} بلغة السؤال نفسها، و{4} مع ترجمة معانٍ معتمدة لكل آية (eval/LANGUAGES_REPORT.md)."
+      "en": "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/languages_report.json).",
+      "ar": "واختبار اللغات: {0} سؤالاً بـ{1} لغة؛ أُجيب {2}، منها {3} بلغة السؤال نفسها، و{4} مع ترجمة معانٍ معتمدة لكل آية (eval/languages_report.json)."
     },
     {
       "en": "And the time (your device’s time)",
@@ -351,10 +351,6 @@
     {
       "en": "Based on the documented question: {0}",
       "ar": "استندت إلى السؤال الموثّق: {0}"
-    },
-    {
-      "en": "Baseline comparison",
-      "ar": "المقارنة المرجعية"
     },
     {
       "en": "Basirah",
@@ -696,8 +692,8 @@
       "ar": "ثمانية معايير نتبعها في كل ما تعرضه بصيرة، ومقابل كل معيار ما تفعله فعلاً."
     },
     {
-      "en": "Evaluating Basirah: the baseline comparison",
-      "ar": "تقييم بصيرة: المقارنة المرجعية"
+      "en": "Evaluating Basirah: the comparison",
+      "ar": "تقييم بصيرة: المقارنة"
     },
     {
       "en": "Every answer comes with its evidence, and every piece of evidence you can check yourself",
@@ -718,14 +714,6 @@
     {
       "en": "Every hadith with its source and grading",
       "ar": "الحديث بمصدره ودرجته"
-    },
-    {
-      "en": "Every one of the {0} questions and what each side did, with the full answers: eval/QUESTIONS.md in the project repository.",
-      "ar": "كل سؤال من الأسئلة الـ{0} وما فعله كل طرف، بإجاباته كاملة: eval/QUESTIONS.md في مستودع المشروع."
-    },
-    {
-      "en": "Every question and what each side did",
-      "ar": "كل سؤال وما فعله كل طرف"
     },
     {
       "en": "Every question falls into one of four levels, and each level has a fixed way of handling it.",
@@ -1527,8 +1515,8 @@
       "ar": "واجهة موسوعة القرآن الكريم"
     },
     {
-      "en": "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).",
-      "ar": "إعادة التشغيل بأمر واحد لكل طرف من مجلد server: dart run bin/baseline.dart (العام وبصيرة)، وdart run bin/baseline.dart --prompted (بالتعليمات)، وdart run bin/baseline.dart --recount (إعادة العدّ من الإجابات المحفوظة)."
+      "en": "Re-run with one command per side from the server folder: dart run bin/compare.dart (general and Basirah), dart run bin/compare.dart --prompted (instructed), dart run bin/compare.dart --recount (recount from the saved answers).",
+      "ar": "إعادة التشغيل بأمر واحد لكل طرف من مجلد server: dart run bin/compare.dart (العام وبصيرة)، وdart run bin/compare.dart --prompted (بالتعليمات)، وdart run bin/compare.dart --recount (إعادة العدّ من الإجابات المحفوظة)."
     },
     {
       "en": "Read the request: the question, and what the asker agreed to send of the conversation and “context”.",
@@ -1937,6 +1925,10 @@
       "ar": "تعذّر حفظ البطاقة"
     },
     {
+      "en": "The comparison",
+      "ar": "المقارنة"
+    },
+    {
       "en": "The comparison, and the proof in numbers",
       "ar": "المقارنة والدليل بالأرقام"
     },
@@ -1951,6 +1943,10 @@
     {
       "en": "The evaluation files in the repository",
       "ar": "ملفات التقييم في المستودع"
+    },
+    {
+      "en": "The evaluation report",
+      "ar": "تقرير التقييم"
     },
     {
       "en": "The evidence does not fit",
@@ -1980,8 +1976,8 @@
       "ar": "المسار كاملاً بالرسم"
     },
     {
-      "en": "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).",
-      "ar": "التقرير الكامل والإجابات كلها بنصها الكامل في مستودع المشروع: eval/EVALUATION.md (المنهجية والنتائج)، وeval/baseline_report.json وeval/prompted_report.json (كل إجابة وعدّها)، وeval/test_cases.json (الأسئلة والسلوك المتوقع)."
+      "en": "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/comparison_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).",
+      "ar": "التقرير الكامل والإجابات كلها بنصها الكامل في مستودع المشروع: eval/EVALUATION.md (المنهجية والنتائج)، وeval/comparison_report.json وeval/prompted_report.json (كل إجابة وعدّها)، وeval/test_cases.json (الأسئلة والسلوك المتوقع)."
     },
     {
       "en": "The guard changed part of the answer",

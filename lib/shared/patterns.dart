@@ -128,6 +128,30 @@ class PatternBackdrop extends StatelessWidget {
         child: child,
       );
     }
+    // On the website the wash sits in a centred column under the header: it
+    // is lighter, and fades out at the top and at both sides too, so no edge
+    // or corner of the column shows.
+    if (onWebsite) {
+      child = ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (r) => const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
+          stops: [0, .3, .7, 1],
+        ).createShader(r),
+        child: ShaderMask(
+          blendMode: BlendMode.dstIn,
+          shaderCallback: (r) => const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
+            stops: [0, .22, .5, 1],
+          ).createShader(r),
+          child: Opacity(opacity: .45, child: child),
+        ),
+      );
+    }
     return IgnorePointer(child: SizedBox(height: height, child: child));
   }
 }

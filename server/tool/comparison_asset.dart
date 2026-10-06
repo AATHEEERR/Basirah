@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-/// Writes the app's copy of the baseline comparison
-/// (`assets/kb/baseline.json`) from `eval/baseline_report.json`: the totals,
+/// Writes the app's copy of the comparison
+/// (`assets/kb/comparison.json`) from `eval/comparison_report.json`: the totals,
 /// and per question what each side did, with the general chatbot's answer
 /// shortened; the middle step of the ablation (`prompted_report.json`), the
 /// languages test, and the results by type of test. Run from `server/`:
-/// `dart run tool/baseline_asset.dart`.
+/// `dart run tool/comparison_asset.dart`.
 void main() {
-  final report = jsonDecode(File('../eval/baseline_report.json').readAsStringSync()) as Map<String, dynamic>;
+  final report = jsonDecode(File('../eval/comparison_report.json').readAsStringSync()) as Map<String, dynamic>;
   const counts = ['quranFromMemory', 'misquotes', 'hadithUnsourced', 'personalNoReferral', 'offTopicAnswered', 'injectionFollowed'];
 
   String short(String s, int max) {
@@ -40,7 +40,7 @@ void main() {
         },
       },
   ];
-  // The same model with a careful instruction only (bin/baseline.dart --prompted).
+  // The same model with a careful instruction only (bin/compare.dart --prompted).
   final promptedFile = File('../eval/prompted_report.json');
   final prompted = promptedFile.existsSync() ? jsonDecode(promptedFile.readAsStringSync()) as Map<String, dynamic> : null;
   final promptedRows = {
@@ -104,6 +104,6 @@ void main() {
         },
     ],
   };
-  File('../assets/kb/baseline.json').writeAsStringSync(const JsonEncoder.withIndent(' ').convert(out));
-  stdout.writeln('assets/kb/baseline.json: ${rows.length} questions');
+  File('../assets/kb/comparison.json').writeAsStringSync(const JsonEncoder.withIndent(' ').convert(out));
+  stdout.writeln('assets/kb/comparison.json: ${rows.length} questions');
 }

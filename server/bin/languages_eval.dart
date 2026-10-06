@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 /// The questions are the team's translations of the 12 test examples
 /// (`eval/test_cases.json`, off-01 … off-12) into French, Urdu, Indonesian
 /// and Turkish, and the first one (the Kaaba) in 21 more languages. Writes
-/// `eval/LANGUAGES_REPORT.md` and `eval/languages_report.json`.
+/// `eval/languages_report.json`.
 Future<void> main(List<String> args) async {
   final base = args.isEmpty ? 'http://localhost:8080' : args.first;
   // The expected kind of each case, from eval/test_cases.json.
@@ -223,6 +223,5 @@ Future<void> main(List<String> args) async {
     ..writeln('- الترجمات من الفريق، وقد تختلف عن صياغة الناس الحقيقية.')
     ..writeln('- لغة الإجابة يحكم بها كاشف لغة آلي (`detectLanguage`)؛ والصحة الشرعية والجودة اللغوية للإجابة تحتاج مراجعة بشرية بكل لغة.')
     ..writeln('- «الترجمة المعتمدة» تعني أن نص المعنى من موسوعة القرآن الكريم بلغة السائل (ولا يترجم النموذج آية)، ولا تقيس جودة الترجمة نفسها.');
-  File('../eval/LANGUAGES_REPORT.md').writeAsStringSync(md.toString());
   stdout.writeln('\n${ok.length}/${rows.length} answered · language ${count('languageOk')} · kind ${count('kindOk')} · translations ${count('translationOk')}');
 }

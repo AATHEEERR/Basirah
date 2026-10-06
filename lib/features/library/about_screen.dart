@@ -102,7 +102,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 links: [
                   (context.tr('المسار كاملاً بالرسم', 'The full path, drawn'), '/pipeline'),
-                  (context.tr('المقارنة والدليل بالأرقام', 'The comparison, and the proof in numbers'), '/baseline'),
+                  (context.tr('المقارنة والدليل بالأرقام', 'The comparison, and the proof in numbers'), '/comparison'),
                 ],
               ),
               _Block(

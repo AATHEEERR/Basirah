@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/theme.dart';
 import '../../core/lang.dart';
 import '../../shared/web_frame.dart';
-import 'baseline_screen.dart';
+import 'comparison_screen.dart';
 import 'page_scaffold.dart';
 
 /// A branch of a step: (when, what happens, its tone).
@@ -410,7 +410,7 @@ class _Proof extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final d = ref.watch(baselineProvider).valueOrNull;
+    final d = ref.watch(comparisonProvider).valueOrNull;
     if (d == null) return const SizedBox.shrink();
     final cases = d['cases'] as int;
     final byType = ((d['byType'] as Map?) ?? const {}).cast<String, dynamic>();
@@ -476,7 +476,7 @@ class _Proof extends ConsumerWidget {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: TextButton.icon(
-                  onPressed: () => context.push('/baseline'),
+                  onPressed: () => context.push('/comparison'),
                   icon: const Icon(Icons.arrow_back_rounded, size: 16),
                   label: Text(context.tr('طريقة القياس وكل سؤال بإجابته', 'How it was measured, and every answer'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
                 ),

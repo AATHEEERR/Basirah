@@ -10,7 +10,7 @@ import '../features/explore/explore_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/library/about_screen.dart';
 import '../features/library/glossary_screen.dart';
-import '../features/library/baseline_screen.dart';
+import '../features/library/comparison_screen.dart';
 import '../features/library/impact_screen.dart';
 import '../features/library/pipeline_screen.dart';
 import '../features/specialist/specialist.dart';
@@ -66,7 +66,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/sources', builder: (_, _) => const SourcesScreen()),
       GoRoute(path: '/about', builder: (_, _) => const AboutScreen()),
       GoRoute(path: '/impact', builder: (_, _) => const ImpactScreen()),
-      GoRoute(path: '/baseline', builder: (_, _) => const BaselineScreen()),
+      GoRoute(path: '/comparison', builder: (_, _) => const ComparisonScreen()),
       GoRoute(path: '/pipeline', builder: (_, _) => const PipelineScreen()),
       GoRoute(path: '/referrals', builder: (_, _) => const MyReferralsScreen()),
       GoRoute(path: '/specialist', builder: (_, _) => const SpecialistPanelScreen()),

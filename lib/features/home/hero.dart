@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app/theme.dart';
 import '../../core/lang.dart';
 import '../../shared/brand.dart';
-import '../library/baseline_screen.dart';
+import '../library/comparison_screen.dart';
 
 /// The meaning of Yusuf 12:108 in each approved translation on QuranEnc,
 /// verbatim (`server/tool/hero_verse.dart`): {ISO code: {key, text}}.
@@ -39,9 +39,9 @@ class HomeHero extends ConsumerWidget {
     final ui = context.uiLang;
     final meanings = ref.watch(heroVerseProvider).valueOrNull;
     final meaning = ui == 'ar' ? null : ((meanings?[ui] ?? meanings?['en']) as Map?)?.cast<String, dynamic>();
-    final baseline = ref.watch(baselineProvider).valueOrNull;
-    final cases = baseline?['cases'] as int?;
-    final passed = cases == null ? null : cases - ((baseline!['basirah'] as Map)['answersWithProblem'] as num).toInt();
+    final comparison = ref.watch(comparisonProvider).valueOrNull;
+    final cases = comparison?['cases'] as int?;
+    final passed = cases == null ? null : cases - ((comparison!['basirah'] as Map)['answersWithProblem'] as num).toInt();
 
     final chips = [
       (Icons.menu_book_rounded, context.tr('الآية بنصها من مصحف مجمع الملك فهد', 'Verses word for word from the King Fahd Complex Mushaf')),
@@ -153,20 +153,25 @@ class _Verse extends StatelessWidget {
                 TextSpan(text: text.substring(at + _basirah.length)),
               ],
               const TextSpan(text: '﴾'),
+              // The reference and the link to check the text, right after
+              // the verse on the same line, small.
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 10),
+                  child: InkWell(
+                    onTap: () => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
+                    borderRadius: BorderRadius.circular(6),
+                    child: Text(
+                      context.tr('[${verse.reference}] · تحقّق من النص في موسوعة القرآن الكريم', '[${verse.reference}] · check the text on QuranEnc'),
+                      style: BText.label(wide ? 11.5 : 10.5, color: BColors.goldDeep, weight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           textDirection: TextDirection.rtl,
-        ),
-        InkWell(
-          onTap: () => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
-          borderRadius: BorderRadius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Text(
-              context.tr('[${verse.reference}] · تحقّق من النص في موسوعة القرآن الكريم', '[${verse.reference}] · check the text on QuranEnc'),
-              style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600),
-            ),
-          ),
         ),
         if (meaning != null) ...[
           const SizedBox(height: 6),

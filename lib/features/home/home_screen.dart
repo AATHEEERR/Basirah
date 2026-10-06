@@ -14,7 +14,7 @@ import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 import '../answer/answer_cards.dart';
-import '../library/baseline_screen.dart';
+import '../library/comparison_screen.dart';
 import '../library/impact_screen.dart';
 import 'hero.dart';
 
@@ -33,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
         body: KbBuilder(
           builder: (context, kb) => Stack(
             children: [
-              const PatternBackdrop(height: 620, onWebsite: true),
+              const PatternBackdrop(height: 620, onWebsite: true, glow: Alignment(.7, -1)),
               _WideHome(kb: kb, ask: ask),
             ],
           ),
