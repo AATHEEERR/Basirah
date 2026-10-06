@@ -151,6 +151,40 @@ class SourcesScreen extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                   ),
                 ),
+              // Exactly what Basirah takes from that server, tool by tool.
+              if (section == kb.platforms.first.section)
+                _Panel(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.tr('ما تأخذه بصيرة من خادم MCP للجمعية', 'What Basirah takes from the association’s MCP server'), style: BText.title(14.5)),
+                      const SizedBox(height: 6),
+                      for (final (tool, ar, en) in const [
+                        ('search', 'البحث عن الأحاديث في موسوعة الأحاديث النبوية', 'Searching the hadith encyclopedia'),
+                        ('get_quran_audio', 'تلاوة كل آية بصوت القارئ (رابط ملف صوتي لكل آية)', 'Each verse recited (an audio link per verse)'),
+                        ('browse_library', 'إصدارات الفريق العلمي للجمعية في دار الإسلام بلغة السائل', 'The association’s scholarly team’s publications on IslamHouse, in the asker’s language'),
+                      ])
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(tool, style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600), textDirection: TextDirection.ltr),
+                              const SizedBox(width: 8),
+                              Expanded(child: Text(context.tr(ar, en), style: BText.body(13, color: BColors.textMuted, height: 1.55))),
+                            ],
+                          ),
+                        ),
+                      Text(
+                        context.tr(
+                          'أما نص المصحف وترجمات المعاني فمن واجهة موسوعة القرآن الكريم، وتفاصيل الحديث من واجهة موسوعة الأحاديث، والتفسير من الدرر السنية.',
+                          'The Mushaf text and the translations of the meanings come from QuranEnc’s API, the hadith details from HadeethEnc’s, and the tafsir from Dorar.',
+                        ),
+                        style: BText.label(12.5, weight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
               // The pack introduces the external platforms before their first
               // section.
               if (kb.platforms.firstWhere((p) => p.section == section).section == _firstExternal(kb) &&
@@ -374,6 +408,27 @@ class _PlatformCard extends StatelessWidget {
                   child: Text(
                     context.tr('تستخدمه بصيرة: ${p.basirahUse}', 'Used by Basirah: ${p.basirahUse}'),
                     style: BText.body(13, color: Tones.guidance.accent, height: 1.6),
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          // Named in the reference package, but nothing in Basirah reads it:
+          // said plainly, so it is not taken for a source of the answers.
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(12)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.remove_circle_outline_rounded, size: 16, color: BColors.textMuted),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    context.tr('مذكورة في الحزمة المرجعية، ولا تستخدمها بصيرة في إجاباتها حالياً.', 'Named in the reference package; Basirah does not use it in its answers at present.'),
+                    style: BText.body(13, color: BColors.textMuted, height: 1.6),
                   ),
                 ),
               ],

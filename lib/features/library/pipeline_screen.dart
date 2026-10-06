@@ -8,66 +8,40 @@ import '../../shared/web_frame.dart';
 import 'baseline_screen.dart';
 import 'page_scaffold.dart';
 
-/// One box of the answer path: (title, what Basirah does there).
-typedef _Box = (String, String);
+/// A branch of a step: (when, what happens, its tone).
+typedef _Branch = (String, String, Tone);
 
-/// «كيف تتحقق بصيرة من كل إجابة؟»: the path of every answer, drawn as a
-/// flowchart (question → retrieval from the approved package → is the
-/// evidence enough? → grounded writing and checking the references → the
-/// answer with its citations, or abstention / referral), then what happens
-/// at each step, the MCP connection, and the measured results.
+/// One step of the path: (icon, title, what happens, technical detail,
+/// branches that leave the path here).
+typedef _Step = (IconData, String, String, String, List<_Branch>);
+
+/// «كيف تتحقق بصيرة من كل إجابة؟»: the path every question takes, step by
+/// step as the code runs it (server/lib/src/pipeline.dart, agent.dart,
+/// guard.dart), with every branch that leaves it; then the MCP connection
+/// and the measured results.
 class PipelineScreen extends ConsumerWidget {
   const PipelineScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final boxes = <String, _Box>{
-      'q': (context.tr('سؤال المستفيد', 'The question'), context.tr('بلغته، مع «سياقي» إن شاء', 'In the asker’s language, with “My context” if set')),
-      'r': (
-        context.tr('استرجاع من الحزمة المعتمدة', 'Retrieval from the approved package'),
-        context.tr('المصحف، والتفسير، والأحاديث عبر MCP', 'The Mushaf, tafsir, and hadith via MCP'),
-      ),
-      'd': (context.tr('هل الدليل كافٍ؟', 'Is the evidence enough?'), context.tr('أو يحتاج تفصيلاً من السائل', 'Or is a detail needed from the asker')),
-      'f': (
-        context.tr('صياغة مسندة وفحص المراجع', 'Grounded writing, references checked'),
-        context.tr('النموذج يكتب، والحارس يفحص', 'The model writes, the guard checks'),
-      ),
-      's': (
-        context.tr('عرض الإجابة ومواضع الاستشهاد', 'The answer and its citations'),
-        context.tr('كل دليل بمصدره ورابطه، وإيصال', 'Each source linked, with a receipt'),
-      ),
-      'a': (
-        context.tr('امتناع أو إحالة إلى المراجعة', 'Abstain, or refer for review'),
-        context.tr('أو مراسلة مختص شرعي', 'Or message a Sharia specialist'),
-      ),
-    };
-    final labels = (
-      yes: context.tr('نعم', 'Yes'),
-      no: context.tr('لا', 'No'),
-      passed: context.tr('اجتاز الفحص', 'Passed'),
-      failed: context.tr('فشل التحقق', 'Check failed'),
-    );
+    final steps = _steps(context);
     return PageScaffold(
       title: context.tr('كيف تتحقق بصيرة من كل إجابة؟', 'How Basirah checks every answer'),
       subtitle: context.tr(
-        'المسار الذي تمر به كل إجابة حية، من السؤال إلى عرضها أو الامتناع عنها. ولا تُعرض إجابة لم تجتز الفحص.',
-        'The path every live answer takes, from the question to showing it or holding it back. No answer is shown unless it passes the check.',
+        'كل سؤال يمرّ بهذا المسار نفسه في الكود، كل مرة؛ والفروع تحدّد أين ينتهي. ولا تُعرض إجابة لم تمرّ على الحارس.',
+        'Every question goes through this same path in the code, every time; the branches decide where it ends. No answer is shown without passing the guard.',
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: const Color(0xFF1C1A4A),
-              borderRadius: BorderRadius.circular(24),
+            padding: const EdgeInsets.fromLTRB(16, 18, 16, 6),
+            decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(24)),
+            child: Column(
+              children: [
+                for (final (i, step) in steps.indexed) _PathStep(index: i + 1, step: step, last: i == steps.length - 1),
+              ],
             ),
-            child: isWebsite(context)
-                ? AspectRatio(
-                    aspectRatio: _Flow.width / _Flow.height,
-                    child: FittedBox(child: SizedBox(width: _Flow.width, height: _Flow.height, child: _Flow(boxes: boxes, labels: labels))),
-                  )
-                : _FlowPhone(boxes: boxes, labels: labels),
           ),
           const SizedBox(height: 8),
           Text(
@@ -78,9 +52,6 @@ class PipelineScreen extends ConsumerWidget {
             style: BText.label(12.5, weight: FontWeight.w400),
           ),
           const SizedBox(height: 18),
-          _Section(title: context.tr('ما الذي يحدث في كل خطوة', 'What happens at each step')),
-          for (final (i, step) in _steps(context).indexed) _StepCard(index: i + 1, step: step),
-          const SizedBox(height: 10),
           _Section(title: context.tr('الاتصال بخادم MCP للجمعية', 'The connection to the association’s MCP server')),
           const _McpDiagram(),
           const SizedBox(height: 18),
@@ -92,277 +63,244 @@ class PipelineScreen extends ConsumerWidget {
   }
 }
 
-typedef _Labels = ({String yes, String no, String passed, String failed});
-
-/// The flowchart on a computer: right to left, as Arabic reads, on a fixed
-/// canvas scaled to the width.
-class _Flow extends StatelessWidget {
-  const _Flow({required this.boxes, required this.labels});
-
-  final Map<String, _Box> boxes;
-  final _Labels labels;
-
-  static const width = 1060.0;
-  static const height = 400.0;
-
-  /// Box rectangles (x from the left of the canvas).
-  static const rects = {
-    'q': Rect.fromLTWH(870, 40, 180, 110),
-    'r': Rect.fromLTWH(645, 40, 195, 110),
-    'd': Rect.fromLTWH(440, 40, 175, 110),
-    'f': Rect.fromLTWH(210, 40, 200, 110),
-    'a': Rect.fromLTWH(440, 270, 230, 110),
-    's': Rect.fromLTWH(10, 270, 250, 110),
-  };
-
-  @override
-  Widget build(BuildContext context) => Directionality(
-    textDirection: TextDirection.ltr,
-    child: Stack(
-      children: [
-        Positioned.fill(child: CustomPaint(painter: _ArrowsPainter())),
-        for (final MapEntry(key: id, value: r) in rects.entries)
-          Positioned.fromRect(
-            rect: r,
-            child: _BoxView(box: boxes[id]!, decision: id == 'd', outcome: id == 's' || id == 'a', good: id == 's'),
-          ),
-        _Label(text: labels.yes, at: const Offset(418, 18), color: _teal),
-        _Label(text: labels.no, at: const Offset(535, 175), color: _muted),
-        _Label(text: labels.failed, at: const Offset(330, 222), color: _muted),
-        _Label(text: labels.passed, at: const Offset(84, 200), color: _teal),
-      ],
-    ),
-  );
-}
-
-const _teal = Color(0xFF4FE3C1);
-const _muted = Color(0xFFB9B6E3);
-
-class _Label extends StatelessWidget {
-  const _Label({required this.text, required this.at, required this.color});
-
-  final String text;
-  final Offset at;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) => Positioned(
-    left: at.dx,
-    top: at.dy,
-    child: Text(text, textDirection: TextDirection.rtl, style: BText.label(15, color: color, weight: FontWeight.w600)),
-  );
-}
-
-class _ArrowsPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final p = Paint()
-      ..color = _teal
-      ..strokeWidth = 2.2
-      ..style = PaintingStyle.stroke;
-    void line(List<Offset> pts, {bool arrow = true}) {
-      final path = Path()..moveTo(pts.first.dx, pts.first.dy);
-      for (final o in pts.skip(1)) {
-        path.lineTo(o.dx, o.dy);
-      }
-      canvas.drawPath(path, p);
-      if (!arrow) return;
-      final end = pts.last;
-      final from = pts[pts.length - 2];
-      final dir = (end - from) / (end - from).distance;
-      final normal = Offset(-dir.dy, dir.dx);
-      final head = Path()
-        ..moveTo(end.dx, end.dy)
-        ..lineTo((end - dir * 11 + normal * 6).dx, (end - dir * 11 + normal * 6).dy)
-        ..lineTo((end - dir * 11 - normal * 6).dx, (end - dir * 11 - normal * 6).dy)
-        ..close();
-      canvas.drawPath(head, Paint()..color = _teal);
-    }
-
-    // Main path, right to left.
-    line([const Offset(870, 95), const Offset(842, 95)]);
-    line([const Offset(645, 95), const Offset(617, 95)]);
-    line([const Offset(440, 95), const Offset(412, 95)]);
-    // «لا» from the decision, and «فشل التحقق» from the check, meet and go
-    // down to abstain / refer.
-    line([const Offset(527, 150), const Offset(527, 225)], arrow: false);
-    line([const Offset(310, 150), const Offset(310, 225), const Offset(555, 225), const Offset(555, 268)]);
-    // «اجتاز الفحص»: down the left to the answer.
-    line([const Offset(210, 95), const Offset(70, 95), const Offset(70, 325), const Offset(8, 325)], arrow: false);
-    line([const Offset(70, 268), const Offset(70, 272)]);
-  }
-
-  @override
-  bool shouldRepaint(_ArrowsPainter old) => false;
-}
-
-class _BoxView extends StatelessWidget {
-  const _BoxView({required this.box, this.decision = false, this.outcome = false, this.good = false});
-
-  final _Box box;
-  final bool decision;
-  final bool outcome;
-  final bool good;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-    decoration: BoxDecoration(
-      color: outcome ? (good ? const Color(0xFF173F45) : const Color(0xFF2C2A60)) : const Color(0xFF26245A),
-      borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: decision || good ? _teal : const Color(0xFF4A4790), width: decision || good ? 1.6 : 1),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          box.$1,
-          textAlign: TextAlign.center,
-          textDirection: Directionality.of(context),
-          style: BText.title(17, color: Colors.white, weight: FontWeight.w700),
-        ),
-        const SizedBox(height: 4),
-        Text(box.$2, textAlign: TextAlign.center, style: BText.label(12.5, color: _muted, weight: FontWeight.w400)),
-      ],
-    ),
-  );
-}
-
-/// The flowchart on a phone: top to bottom, with the two branches.
-class _FlowPhone extends StatelessWidget {
-  const _FlowPhone({required this.boxes, required this.labels});
-
-  final Map<String, _Box> boxes;
-  final _Labels labels;
-
-  @override
-  Widget build(BuildContext context) {
-    Widget box(String id) => _BoxView(box: boxes[id]!, decision: id == 'd', outcome: id == 's' || id == 'a', good: id == 's');
-    Widget down([String? label]) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.arrow_downward_rounded, color: _teal, size: 22),
-          if (label != null) ...[const SizedBox(width: 6), Text(label, style: BText.label(13, color: _teal, weight: FontWeight.w600))],
-        ],
-      ),
-    );
-    Widget aside(String label) => Padding(
-      padding: const EdgeInsets.only(top: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(label, style: BText.label(12.5, color: _muted, weight: FontWeight.w600)),
-          const SizedBox(width: 6),
-          const Icon(Icons.subdirectory_arrow_left_rounded, color: _muted, size: 18),
-          const SizedBox(width: 4),
-          Flexible(child: Text(boxes['a']!.$1, style: BText.label(12.5, color: _muted, weight: FontWeight.w400))),
-        ],
-      ),
-    );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        box('q'),
-        down(),
-        box('r'),
-        down(),
-        box('d'),
-        aside(labels.no),
-        down(labels.yes),
-        box('f'),
-        aside(labels.failed),
-        down(labels.passed),
-        box('s'),
-        const SizedBox(height: 14),
-        box('a'),
-      ],
-    );
-  }
-}
-
-/// (icon, tone, title, what happens, the technical detail).
-List<(IconData, Tone, String, String, String)> _steps(BuildContext context) => [
+/// The path, as the code runs it.
+List<_Step> _steps(BuildContext context) => [
   (
     Icons.chat_bubble_outline_rounded,
-    Tones.guidance,
     context.tr('سؤال المستفيد', 'The question'),
+    context.tr('يكتب السائل سؤاله بأي لغة، ومعه «سياقي» إن شاء، وأسئلته السابقة في المحادثة نفسها.', 'The asker writes in any language, with “My context” if set, and the earlier questions of the same conversation.'),
     context.tr(
-      'يكتب السائل سؤاله بلغته. قبل أي نموذج ذكاء اصطناعي تمر الرسالة بفحوص ثابتة في الكود: هل السؤال عن الإسلام؟ هل هو حالة شخصية تحتاج فتوى (المستوى د)؟ هل فيه تعليمات مدسوسة («تجاهل تعليماتك»)؟',
-      'The asker writes in their own language. Before any AI model, fixed checks in code ask: is it about Islam? Is it a personal case needing a fatwa (level D)? Does it hide instructions (“ignore your instructions”)?',
+      'يُعزل نص السؤال داخل وسم خاص في التعليمات، فلا يستطيع تغييرها. ولا يحفظ الخادم نص السؤال (إلا ما يوافق السائل على إرساله إلى مختص).',
+      'The question is fenced inside its own tag in the instructions, so it cannot change them. The server does not keep the question text (except what the asker agrees to send to a specialist).',
     ),
+    const [],
+  ),
+  (
+    Icons.rule_folder_outlined,
+    context.tr('فحص أولي بالكود، بلا نموذج', 'A first check in code, no model'),
     context.tr(
-      'كاشف اللغة يحدد لغة الإجابة (أكثر من 25 لغة). نص السؤال يُعزل داخل وسم خاص فلا يستطيع تغيير التعليمات. ولا يُحفظ نص السؤال على الخادم.',
-      'A language detector sets the answer’s language (25+ languages). The question is fenced inside its own tag, so it cannot change the instructions. The server never stores the question text.',
+      'يحدّد لغة السؤال، ويبحث في الإجابات الموثقة التي كتبها الفريق، ويرصد إشارات: حالة شخصية تحتاج فتوى، طلب حديث، طلب ترجمة.',
+      'It detects the question’s language, searches the documented answers the team wrote, and flags signals: a personal case needing a fatwa, a hadith request, a translation request.',
     ),
+    context.tr('قواعد ثابتة وقوائم كلمات بالعربية والإنجليزية؛ وفي اللغات الأخرى يحكم النموذج على النطاق بالقواعد نفسها.', 'Fixed rules and word lists in Arabic and English; in other languages the model judges the scope by the same rules.'),
+    [
+      (
+        context.tr('ليس عن الإسلام بوضوح', 'Clearly not about Islam'),
+        context.tr('اعتذار مباشر، دون استدعاء أي نموذج', 'Declined at once, with no model called'),
+        Tones.offTopic,
+      ),
+    ],
+  ),
+  (
+    Icons.history_rounded,
+    context.tr('هل سُئل بالصيغة نفسها من قبل؟', 'Asked in the same words before?'),
+    context.tr('السؤال الأول في المحادثة، بالكلمات واللغة والسياق نفسها.', 'The first question of a conversation, in the same words, language and context.'),
+    context.tr('تُحفظ الإجابة بلا نص السؤال، باسم ملف مشفّر. ولا تُحفظ إجابات الحالات الشخصية والإحالات.', 'The answer is kept without the question’s text, under a hashed file name. Answers to personal cases and referrals are never kept.'),
+    [
+      (
+        context.tr('نعم', 'Yes'),
+        context.tr('تُعرض الإجابة التي اجتازت الحارس من قبل، فوراً', 'The answer that passed the guard before is shown at once'),
+        Tones.guidance,
+      ),
+    ],
   ),
   (
     Icons.travel_explore_rounded,
-    Tones.evidence,
-    context.tr('استرجاع من الحزمة المعتمدة', 'Retrieval from the approved package'),
+    context.tr('النموذج يبحث ويقرأ', 'The model searches and reads'),
     context.tr(
-      'النموذج (Claude Sonnet 5.5 من Anthropic) لا يجيب من ذاكرته: لديه ثلاث أدوات بحث فقط، ولا يتصفح الإنترنت.',
-      'The model (Anthropic’s Claude Sonnet 5.5) does not answer from memory: it has three search tools only, and no web browsing.',
+      'Claude Sonnet 5.5 لا يجيب من ذاكرته ولا يتصفح الإنترنت: يبحث بأدوات محددة فقط، حتى ست جولات وفي حدود 75 ثانية.',
+      'Claude Sonnet 5.5 does not answer from memory or browse the web: it searches with set tools only, up to six rounds and within 75 seconds.',
     ),
     context.tr(
-      'search_quran: بحث في نص المصحف كاملاً (6236 آية من موسوعة القرآن الكريم، مفهرس محلياً). read_tafsir: قراءة تفسير الآية في موسوعة التفسير، الدرر السنية. search_hadith: بحث في موسوعة الأحاديث النبوية عبر خادم MCP للجمعية. ومعها إجابات قاعدة المعرفة التي كتبها الفريق من المراجع المعتمدة.',
-      'search_quran: the whole Mushaf (6,236 verses from QuranEnc, indexed locally). read_tafsir: the verse’s tafsir in Dorar.net’s encyclopedia. search_hadith: HadeethEnc, through the association’s MCP server. Plus the knowledge-base answers the team wrote from the approved references.',
+      'search_quran: المصحف كاملاً (6236 آية). read_tafsir: تفسير الآية في الدرر السنية. search_hadith: موسوعة الأحاديث عبر خادم MCP للجمعية، الصحيح والحسن فقط. submit_answer: تسليم الإجابة. وإن طابق السؤال إجابة موثقة قُرئ تفسير آياتها قبل استدعاء النموذج.',
+      'search_quran: the whole Mushaf (6,236 verses). read_tafsir: the verse’s tafsir on Dorar. search_hadith: the hadith encyclopedia through the association’s MCP server, sahih and hasan only. submit_answer: hands in the answer. When the question matches a documented answer, its verses’ tafsir is read before the model is called.',
     ),
+    [
+      (
+        context.tr('خطأ من النموذج أو ضغط عليه', 'The model errors or is overloaded'),
+        context.tr('يُسأل النموذج التالي: Claude Haiku 4.5 ثم Gemini', 'The next model is asked: Claude Haiku 4.5, then Gemini'),
+        Tones.clarify,
+      ),
+      (
+        context.tr('تجاوز 75 ثانية، أو تعذّرت النماذج كلها', 'Past 75 seconds, or every model failed'),
+        context.tr('الإجابة الموثقة المحفوظة إن طابقت السؤال، أو إحالة أو امتناع، مع تنبيه يقول ذلك', 'The stored documented answer if it matches, or a referral or abstention, with a notice saying so'),
+        Tones.abstain,
+      ),
+    ],
   ),
   (
-    Icons.rule_rounded,
-    Tones.clarify,
-    context.tr('هل الدليل كافٍ؟', 'Is the evidence enough?'),
+    Icons.call_split_rounded,
+    context.tr('النموذج يختار نوع الإجابة', 'The model chooses the kind of answer'),
     context.tr(
-      'يختار النموذج نوع الإجابة: إجابة موثقة، أو بيان خلاف بلا ترجيح، أو سؤال توضيحي حين يختلف الجواب باختلاف حالة السائل، أو إحالة، أو امتناع.',
-      'The model chooses the kind of answer: documented, a scholarly difference without picking a side, a clarifying question when the answer depends on the asker’s case, a referral, or abstaining.',
+      'إجابة موثقة، أو بيان خلاف دون ترجيح، أو سؤال توضيحي حين يختلف الجواب باختلاف حال السائل، أو إحالة، أو امتناع، أو اعتذار لأنه خارج النطاق.',
+      'A documented answer, a scholarly difference without picking a side, a clarifying question when the answer depends on the asker’s case, a referral, abstaining, or declining as out of scope.',
     ),
     context.tr(
-      'والحارس يفرض ذلك: إجابة بلا دليل ← امتناع؛ ثقة منخفضة ← امتناع؛ حالة شخصية ← إحالة فوراً ولا يُستوضح فيها.',
-      'And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.',
+      'يشير إلى الآية برقمها والحديث بمعرّفه ولا يكتب نصهما. وإجابة عربية لسؤال إنجليزي أو العكس تُرفض ويُطلب غيرها مرة.',
+      'It points to a verse by its number and a hadith by its id, never typing their text. An Arabic answer to an English question, or the reverse, is rejected and asked for again once.',
     ),
+    const [],
   ),
   (
     Icons.verified_user_rounded,
-    Tones.principle,
-    context.tr('صياغة مسندة وفحص المراجع', 'Grounded writing, references checked'),
+    context.tr('الحارس: كود ثابت يفحص كل إجابة', 'The guard: fixed code checks every answer'),
     context.tr(
-      'يكتب النموذج الشرح في بطاقات، ويشير إلى الآية برقمها والحديث بمعرّفه، ولا يكتب نصهما. ثم يفحص الحارس (كود ثابت، لا ذكاء اصطناعي) كل إجابة قبل أن تظهر.',
-      'The model writes the explanation as cards and points to a verse by its number and a hadith by its id, never typing their text. Then the guard (fixed code, not AI) checks every answer before it is shown.',
+      'ينسخ نص كل آية من المصحف، ويحذف الآية التي لم يُقرأ تفسيرها والحديث الذي لم يُقرأ من مصدره، ويستبدل أي نص قرآني كتبه النموذج بموضعه.',
+      'It copies every verse’s text from the Mushaf, drops a verse whose tafsir was not read and a hadith not read from its source, and replaces any Quran wording the model typed with its reference.',
     ),
-    context.tr(
-      'نص كل آية يُنسخ من المصحف؛ الآية التي لم يُقرأ تفسيرها تُحذف؛ الحديث الذي لم يُقرأ من مصدره، أو ليس صحيحاً ولا حسناً، يُحذف؛ أي نص قرآني كتبه النموذج من ذاكرته يُستبدل بموضعه؛ الإجابة بغير لغة السؤال تُرفض ويُعاد طلبها.',
-      'Every verse text is copied from the Mushaf; a verse whose tafsir was not read is dropped; a hadith not read from its source, or neither sahih nor hasan, is dropped; any Quran wording the model typed is replaced by its reference; an answer in the wrong language is rejected and asked for again.',
-    ),
+    context.tr('كل ما فعله الحارس يُسجَّل في «إيصال بصيرة» تحت الإجابة.', 'Everything the guard did is listed in the “Basirah receipt” under the answer.'),
+    [
+      (
+        context.tr('فتوى أو حالة شخصية', 'A fatwa or a personal case'),
+        context.tr('إحالة إلى مختص شرعي، يراسله السائل أو يحجز معه مكالمة', 'Referred to a Sharia specialist, whom the asker can message or call'),
+        Tones.refer,
+      ),
+      (
+        context.tr('إجابة بلا دليل أو بثقة منخفضة', 'An answer with no evidence, or low confidence'),
+        context.tr('امتناع: «لا تتوفر إجابة موثقة» بدل التخمين', 'Abstain: “no documented answer” instead of a guess'),
+        Tones.abstain,
+      ),
+      (
+        context.tr('سؤال توضيحي بلا خيارات', 'A clarifying question with no options'),
+        context.tr('امتناع', 'Abstain'),
+        Tones.abstain,
+      ),
+    ],
   ),
   (
     Icons.receipt_long_rounded,
-    Tones.culture,
-    context.tr('عرض الإجابة ومواضع الاستشهاد', 'The answer and its citations'),
+    context.tr('عرض الإجابة', 'The answer is shown'),
     context.tr(
-      'بطاقات ملوّنة: الأصل الشرعي، والعرف، والإرشاد العملي، والأدلة. كل آية بنصها من المصحف وتفسيرها من الدرر ورابط صفحتها، وكل حديث بمصدره وحكمه ورابطه.',
-      'Colour-coded cards: the principle, custom, practical guidance and evidence. Each verse with its Mushaf text, its tafsir from Dorar and a link to its page; each hadith with its source, grading and link.',
+      'بطاقات ملوّنة: الأصل الشرعي، والعرف، والإرشاد العملي، والأدلة؛ كل آية بنصها من المصحف وتفسيرها ورابط صفحتها، وكل حديث بمصدره وحكمه ورابطه.',
+      'Colour-coded cards: the principle, custom, practical guidance and evidence; each verse with its Mushaf text, its tafsir and a link to its page, each hadith with its source, grading and link.',
     ),
     context.tr(
-      'و«إيصال بصيرة» تحت كل إجابة يبيّن ما فُحص فيها وما حذفه الحارس ولماذا، وخطوات البحث كلها.',
-      'And the “Basirah receipt” under each answer shows what was checked, what the guard removed and why, and every research step.',
+      'وبلغة غير العربية والإنجليزية: معنى كل آية بترجمة معتمدة من موسوعة القرآن الكريم، والحديث بترجمته المعتمدة إن وُجدت.',
+      'In a language other than Arabic and English: each verse’s meaning in an approved QuranEnc translation, and the hadith in its approved translation where there is one.',
     ),
-  ),
-  (
-    Icons.support_agent_rounded,
-    Tones.refer,
-    context.tr('امتناع أو إحالة إلى المراجعة', 'Abstain, or refer for review'),
-    context.tr(
-      'حين لا يكفي الدليل: «لا تتوفر إجابة موثقة» بدل التخمين. وحين تكون الحالة شخصية: معلومة عامة وإحالة إلى مختص شرعي، يراسله السائل أو يحجز معه مكالمة من داخل بصيرة.',
-      'When the evidence is not enough: “no documented answer” instead of a guess. For a personal case: general information and a referral to a Sharia specialist, whom the asker can message or book a call with inside Basirah.',
-    ),
-    context.tr(
-      'وإن تعطّل النموذج أو تجاوز وقته، تُعرض الإجابة الموثقة المحفوظة أو الإحالة أو الامتناع بقواعد ثابتة في الكود، مع تنبيه يقول ذلك.',
-      'If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.',
-    ),
+    const [],
   ),
 ];
+
+/// One step on the path: a numbered mark on the line, what happens, the
+/// technical detail, and the branches that leave the path here.
+class _PathStep extends StatelessWidget {
+  const _PathStep({required this.index, required this.step, required this.last});
+
+  final int index;
+  final _Step step;
+  final bool last;
+
+  @override
+  Widget build(BuildContext context) {
+    final (icon, title, body, detail, branches) = step;
+    final wide = isWebsite(context);
+    final main = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(icon, size: 19, color: BColors.goldDeep),
+            const SizedBox(width: 6),
+            Flexible(child: Text(title, style: BText.title(15.5))),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(body, style: BText.body(14, height: 1.7)),
+        const SizedBox(height: 6),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(12)),
+          child: Text(detail, style: BText.body(13, color: BColors.textMuted, height: 1.65)),
+        ),
+      ],
+    );
+    final side = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [for (final b in branches) _BranchPill(b)],
+    );
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // The path: a numbered mark and the line down to the next step.
+          SizedBox(
+            width: 34,
+            child: Column(
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(color: BColors.goldDeep, shape: BoxShape.circle),
+                  child: Text('$index', style: BText.label(13.5, color: Colors.white, weight: FontWeight.w700)),
+                ),
+                if (!last) Expanded(child: Container(width: 2, color: BColors.sand)),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: wide && branches.isNotEmpty
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 3, child: main),
+                        const SizedBox(width: 14),
+                        Expanded(flex: 2, child: side),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        main,
+                        if (branches.isNotEmpty) ...[const SizedBox(height: 8), side],
+                      ],
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// «when → what happens», in the tone of where it ends.
+class _BranchPill extends StatelessWidget {
+  const _BranchPill(this.branch);
+
+  final _Branch branch;
+
+  @override
+  Widget build(BuildContext context) {
+    final (condition, then, tone) = branch;
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.subdirectory_arrow_left_rounded, size: 17, color: tone.accent),
+              const SizedBox(width: 4),
+              Flexible(child: Text(condition, style: BText.label(13, color: tone.accent, weight: FontWeight.w600))),
+            ],
+          ),
+          const SizedBox(height: 2),
+          Text(then, style: BText.body(13, color: BColors.ink, height: 1.55)),
+        ],
+      ),
+    );
+  }
+}
 
 class _Section extends StatelessWidget {
   const _Section({required this.title});
@@ -376,135 +314,97 @@ class _Section extends StatelessWidget {
   );
 }
 
-class _StepCard extends StatelessWidget {
-  const _StepCard({required this.index, required this.step});
-
-  final int index;
-  final (IconData, Tone, String, String, String) step;
-
-  @override
-  Widget build(BuildContext context) {
-    final (icon, tone, title, body, detail) = step;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 32,
-            height: 32,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(color: tone.accent, shape: BoxShape.circle),
-            child: Text('$index', style: BText.label(14, color: Colors.white, weight: FontWeight.w700)),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(icon, size: 18, color: tone.accent),
-                    const SizedBox(width: 6),
-                    Flexible(child: Text(title, style: BText.title(15.5, color: tone.accent))),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(body, style: BText.body(14, height: 1.7)),
-                const SizedBox(height: 6),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .7), borderRadius: BorderRadius.circular(12)),
-                  child: Text(detail, style: BText.body(13, color: BColors.textMuted, height: 1.65)),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Basirah ⇄ the association's MCP server ⇄ its indexed references; what
-/// comes back is the source's id and link.
+/// Basirah's server ⇄ the association's MCP server ⇄ its platforms, the three
+/// tools Basirah calls, and what it reads directly from each source instead.
 class _McpDiagram extends StatelessWidget {
   const _McpDiagram();
 
   @override
   Widget build(BuildContext context) {
     final nodes = [
-      (Icons.auto_awesome_rounded, context.tr('بصيرة تطلب', 'Basirah asks'), context.tr('بحث بنص السؤال', 'A search with the question’s words')),
+      (
+        Icons.auto_awesome_rounded,
+        context.tr('خادم بصيرة', 'Basirah’s server'),
+        context.tr('النموذج يكتب عبارة البحث، والخادم يرسل الطلب', 'The model writes the search words; the server sends the request'),
+      ),
       (Icons.dns_rounded, context.tr('خادم MCP للجمعية', 'The association’s MCP server'), 'mcp.islamiccontent.org'),
-      (Icons.library_books_rounded, context.tr('فهرس المراجع', 'The indexed references'), context.tr('مصادر محددة ومعتمدة', 'Defined, approved sources')),
+      (
+        Icons.library_books_rounded,
+        context.tr('منصات الجمعية', 'The association’s platforms'),
+        context.tr('موسوعة الأحاديث النبوية، ودار الإسلام، وملفات التلاوة', 'HadeethEnc, IslamHouse, and the recitation files'),
+      ),
     ];
     final tools = [
-      ('search', context.tr('البحث في موسوعة الأحاديث النبوية', 'Search HadeethEnc')),
-      ('get_quran_audio', context.tr('تلاوة كل آية بصوت القارئ', 'Each verse recited by a reciter')),
-      ('browse_library', context.tr('إصدارات الجمعية في دار الإسلام بلغة السائل', 'The association’s IslamHouse titles in the asker’s language')),
+      ('search', context.tr('البحث في الأحاديث وحدها، ويعيد أرقامها', 'Searches the hadith only, and returns their numbers')),
+      ('get_quran_audio', context.tr('رابط ملف التلاوة لكل آية، بصوت قارئ يختاره السائل من ثمانية', 'The recitation file link for each verse, in a reciter the asker picks from eight')),
+      ('browse_library', context.tr('إصدارات الفريق العلمي للجمعية في دار الإسلام بلغة السائل', 'The association’s scholarly team’s publications on IslamHouse, in the asker’s language')),
+    ];
+    final direct = [
+      (context.tr('نص الحديث وراويه وحكمه وشرحه وترجمته', 'A hadith’s text, narrator, grading, explanation and translation'), context.tr('واجهة موسوعة الأحاديث النبوية', 'HadeethEnc’s API')),
+      (context.tr('نص المصحف وترجمات المعاني', 'The Mushaf text and the translations of the meanings'), context.tr('واجهة موسوعة القرآن الكريم', 'QuranEnc’s API')),
+      (context.tr('تفسير الآية', 'A verse’s tafsir'), context.tr('موسوعة التفسير، الدرر السنية', 'Dorar’s tafsir encyclopedia')),
     ];
     final wide = isWebsite(context);
     final row = [
       for (final (i, (icon, title, sub)) in nodes.indexed) ...[
         if (i > 0)
-          Icon(wide ? Icons.sync_alt_rounded : Icons.swap_vert_rounded, color: _teal, size: 26),
+          Padding(
+            padding: const EdgeInsets.all(6),
+            child: Icon(wide ? Icons.sync_alt_rounded : Icons.swap_vert_rounded, color: BColors.goldDeep, size: 24),
+          ),
         _wrap(
           wide,
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFF26245A),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: i == 1 ? _teal : const Color(0xFF4A4790)),
+              color: i == 1 ? BColors.sandSoft : BColors.bg,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: i == 1 ? BColors.goldDeep : BColors.stroke, width: i == 1 ? 1.5 : 1),
             ),
             child: Column(
               children: [
-                Icon(icon, color: _teal, size: 22),
+                Icon(icon, color: BColors.goldDeep, size: 22),
                 const SizedBox(height: 4),
-                Text(title, textAlign: TextAlign.center, style: BText.title(14.5, color: Colors.white)),
-                Text(sub, textAlign: TextAlign.center, style: BText.label(12, color: _muted, weight: FontWeight.w400)),
+                Text(title, textAlign: TextAlign.center, style: BText.title(14.5)),
+                Text(sub, textAlign: TextAlign.center, style: BText.label(12, weight: FontWeight.w400)),
               ],
             ),
           ),
         ),
       ],
     ];
+    Widget line(String a, String b, {bool code = false}) => Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(color: BColors.sandSoft, borderRadius: BorderRadius.circular(8)),
+            child: Text(a, textDirection: code ? TextDirection.ltr : null, style: BText.label(12.5, color: BColors.goldDeep, weight: FontWeight.w600)),
+          ),
+          const SizedBox(width: 8),
+          Expanded(child: Text(b, style: BText.body(13, color: BColors.ink, height: 1.55))),
+        ],
+      ),
+    );
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: const Color(0xFF1C1A4A), borderRadius: BorderRadius.circular(24)),
+      decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(24)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          wide ? Row(children: row) : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: row),
-          const SizedBox(height: 12),
-          Text(
-            context.tr(
-              'تعود النتيجة بمعرّف المصدر ورابطه، فتعرض بصيرة النص كما نشره صاحبه وتربطه بصفحته. وتفاصيل الحديث (الحكم والشرح والترجمة المعتمدة) تُقرأ من واجهة موسوعة الأحاديث النبوية نفسها.',
-              'The result comes back with the source’s id and link, so Basirah shows the text as its publisher published it and links to its page. Hadith details (grading, explanation, approved translation) are read from HadeethEnc’s own API.',
-            ),
-            style: BText.body(13.5, color: _muted, height: 1.7),
-          ),
+          wide
+              ? Row(crossAxisAlignment: CrossAxisAlignment.center, children: row)
+              : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: row),
+          const SizedBox(height: 14),
+          Text(context.tr('الأدوات الثلاث التي تستدعيها بصيرة', 'The three tools Basirah calls'), style: BText.title(14.5)),
+          const SizedBox(height: 6),
+          for (final (tool, use) in tools) line(tool, use, code: true),
           const SizedBox(height: 8),
-          for (final (tool, use) in tools)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(color: const Color(0xFF26245A), borderRadius: BorderRadius.circular(6)),
-                    child: Text(tool, textDirection: TextDirection.ltr, style: BText.label(12, color: _teal, weight: FontWeight.w600)),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(use, style: BText.label(13, color: Colors.white, weight: FontWeight.w400))),
-                ],
-              ),
-            ),
+          Text(context.tr('ومباشرة من المصدر، دون MCP', 'And directly from the source, without MCP'), style: BText.title(14.5)),
+          const SizedBox(height: 6),
+          for (final (what, from) in direct) line(from, what),
         ],
       ),
     );

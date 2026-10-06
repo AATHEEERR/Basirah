@@ -110,6 +110,7 @@ class ResearchAgent {
     var model = llm.model;
     var nudged = false;
     var languageCorrected = false;
+    var kindCorrected = false;
 
     AgentOutcome outcome(int round, Map<String, dynamic>? submitted, {bool refused = false}) => AgentOutcome(
       submitted: submitted,
@@ -154,6 +155,31 @@ class ResearchAgent {
                             ? 'Rejected: the question is in English, so every text field must be written in English '
                                   '(keep only Islamic terms in Arabic or transliteration). Call submit_answer again, in English.'
                             : 'مرفوض: السؤال بالعربية، فاكتب جميع الحقول النصية بالعربية، ثم استدعِ submit_answer مجدداً.',
+                        'is_error': true,
+                      }
+                    : await _execute(u, readRefs, tafsirRead, hadithRead, research, lang),
+            ],
+          });
+          continue;
+        }
+        // In a language other than Arabic and English, a submission the
+        // guard would have to overrule (an answer with nothing cited, a
+        // fatwa not referred, a clarifying question with no options) is sent
+        // back once: the guard's own fixed texts exist in Arabic and English
+        // only, so the model writes the abstention or referral itself, in the
+        // question's language.
+        final problem = answerLang == null ? null : overruled(input);
+        if (!kindCorrected && round < maxRounds && problem != null) {
+          kindCorrected = true;
+          messages.add({
+            'role': 'user',
+            'content': [
+              for (final u in uses)
+                identical(u, submit)
+                    ? {
+                        'type': 'tool_result',
+                        'tool_use_id': u['id'],
+                        'content': 'Rejected: $problem Call submit_answer again, with every text field in the language of the question.',
                         'is_error': true,
                       }
                     : await _execute(u, readRefs, tafsirRead, hadithRead, research, lang),
@@ -299,6 +325,31 @@ class ResearchAgent {
   /// Whether the submission's text is in the answer language: more Latin
   /// than Arabic letters for English, the reverse for Arabic. Very short
   /// texts pass.
+  /// Why the guard would overrule [input] (the same rules as in
+  /// guard.dart), or null. An answer needs something behind it: a verse or a
+  /// hadith it cites, or a documented answer it rests on.
+  static String? overruled(Map<String, dynamic> input) {
+    List<dynamic> list(String key) => input[key] as List? ?? const [];
+    final kind = input['kind'];
+    if (input['level'] == 'D' && kind != 'refer' && kind != 'abstain') {
+      return 'a question at level D (a fatwa on a personal case) must be submitted as kind "refer", '
+          'with referReason and referTo, not answered.';
+    }
+    if (kind == 'clarify' && (((input['clarifyQuestion'] as String?) ?? '').trim().isEmpty || list('clarifyOptions').length < 2)) {
+      return 'a clarifying question needs clarifyQuestion and two to four clarifyOptions; '
+          'otherwise answer from what you read, or submit kind "abstain" with abstainReason.';
+    }
+    if (kind == 'answer' && list('quran').isEmpty && list('hadith').isEmpty && list('basedOnEntries').isEmpty) {
+      return 'an answer must cite at least one verse whose tafsir you read (quran), one hadith you read (hadith), '
+          'or a documented answer (basedOnEntries). If what you read does not support an answer, submit kind '
+          '"abstain" with abstainReason and guidance; if scholars differ, kind "khilaf".';
+    }
+    if (kind == 'answer' && input['confidence'] == 'low') {
+      return 'a low-confidence answer is not shown; submit kind "abstain" with abstainReason and guidance.';
+    }
+    return null;
+  }
+
   static bool inLanguage(Map<String, dynamic> input, String lang) {
     final text = [
       for (final k in const ['principle', 'culture', 'khilafAgreed', 'khilafNote', 'referReason', 'referTo', 'abstainReason', 'clarifyQuestion'])

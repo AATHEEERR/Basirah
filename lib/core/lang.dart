@@ -81,7 +81,12 @@ class LangNotifier extends Notifier<String> {
     UiStrings.current = lang;
     UiStrings.name = appNameFor(lang);
     state = lang;
-    if (save) await _save(lang);
+    if (save) {
+      await _save(lang);
+      // «اسمعها بلغتك» follows the page again: a meaning picked under the
+      // old language gives way to the new page's.
+      await ref.read(meaningLangProvider.notifier).set(null);
+    }
   }
 
   Future<void> toggle() => set(state == 'ar' ? 'en' : 'ar');
@@ -129,5 +134,14 @@ extension Tr on BuildContext {
 
   /// The string for the interface language: the Arabic, the English, or the
   /// English one's translation.
-  String tr(String ar, String en) => uiLang == 'ar' ? ar : UiStrings.fromEnglish(en);
+  String tr(String ar, String en) => uiLang == 'ar' ? ar : isolateVerseBrackets(UiStrings.fromEnglish(en));
 }
+
+final _verseBrackets = RegExp('﴿[^﴾]*﴾');
+
+/// «﴿ … ﴾» inside left-to-right text, isolated as right-to-left (RLI … PDI):
+/// the ornate brackets are drawn for Arabic, so in a left-to-right line
+/// they would otherwise face the wrong way.
+String isolateVerseBrackets(String s) => s.contains('﴿')
+    ? s.replaceAllMapped(_verseBrackets, (m) => '${String.fromCharCode(0x2067)}${m[0]}${String.fromCharCode(0x2069)}')
+    : s;

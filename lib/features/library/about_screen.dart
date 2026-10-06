@@ -32,7 +32,8 @@ class AboutScreen extends StatelessWidget {
               Center(child: GoldText(context.tr('بصيرة', 'Basirah'), style: BText.display(40))),
               if (verse != null) ...[
                 const SizedBox(height: 10),
-                Text('﴿${verse.text}﴾', style: BText.quran(19), textAlign: TextAlign.center),
+                // A verse reads right to left in every interface: its brackets too.
+                Text('﴿${verse.text}﴾', style: BText.quran(19), textAlign: TextAlign.center, textDirection: TextDirection.rtl),
                 Text('[${verse.reference}]', style: BText.label(12.5, color: BColors.gold), textAlign: TextAlign.center),
                 if (en && verse.translation != null) ...[
                   const SizedBox(height: 6),

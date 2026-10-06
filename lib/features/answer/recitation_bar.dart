@@ -67,12 +67,16 @@ class _RecitationBarState extends ConsumerState<RecitationBar> {
     });
   }
 
-  /// The asker's choice, else the answer's own language when it has one,
-  /// else the interface's (French interface: the French meaning).
+  /// The asker's choice in this bar, else the answer's own language when it
+  /// is neither Arabic nor English, else the page's language (English page:
+  /// the English meaning; French page: the French one; Arabic page: the
+  /// recitation alone).
   String? _chosen(String? picked) {
     if (picked != null) return picked;
-    for (final lang in [widget.answerLang, context.getInheritedWidgetOfExactType<UiLangScope>()?.lang]) {
-      if (lang == null || lang == 'ar' || lang == 'en') continue;
+    final answer = widget.answerLang == 'ar' || widget.answerLang == 'en' ? null : widget.answerLang;
+    final page = context.getInheritedWidgetOfExactType<UiLangScope>()?.lang;
+    for (final lang in [answer, page]) {
+      if (lang == null || lang == 'ar') continue;
       final key = meaningLanguages.where((l) => l.$2 == lang).firstOrNull?.$1;
       if (key != null) return key;
     }

@@ -331,7 +331,7 @@ class AskPipeline {
               ? e.copyWith(translation: texts.join(' '), translationSource: title ?? 'QuranEnc · ${language.native}')
               : e,
         );
-      } else if (!e.isQuran && hadith != null && RegExp(r'^he:(d+)$').hasMatch(e.id)) {
+      } else if (!e.isQuran && hadith != null && RegExp(r'^he:(\d+)$').hasMatch(e.id)) {
         final local = await hadith!.get(e.id.substring(3), iso);
         evidence.add(
           local == null || local.text.trim().isEmpty
