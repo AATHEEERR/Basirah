@@ -1,0 +1,1569 @@
+{
+  "date": "2026-10-06T12:48:47.987296",
+  "server": "http://localhost:8080",
+  "rows": [
+    {
+      "id": "off-01",
+      "lang": "fr",
+      "question": "Pourquoi les musulmans adorent-ils la Kaaba ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 26.733,
+      "principle": "Les musulmans n'adorent pas la Kaaba : ils adorent Dieu (Allah) seul. La Kaaba est la qibla, c'est-à-dire la direction vers laquelle tous les musulmans se tournent pour prier, où qu'ils soient dans le monde. Cela unifie leur direction de prière, mais ne fait pas de la Kaaba un objet d'adoration. Le Coran lui-même ordonne d'adorer le Seigneur de cette Maison, et non la Maison. Il précise aussi que  …"
+    },
+    {
+      "id": "off-02",
+      "lang": "fr",
+      "question": "Le Coran a-t-il été écrit par Muhammad ﷺ ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 26.584,
+      "principle": "Les musulmans croient que le Coran est la parole d'Allah. Il l'a révélé à son Prophète Muhammad ﷺ, et le Prophète l'a transmis sans rien y ajouter ni retrancher. Il n'en est donc pas l'auteur. Le Coran lui-même donne plusieurs indices en ce sens. 1) Tout ce que le Prophète ﷺ disait au nom de la religion relevait de la révélation (le Coran en est le cœur) et ne venait pas de son propre désir. Le Co …"
+    },
+    {
+      "id": "off-03",
+      "lang": "fr",
+      "question": "L'islam s'est-il répandu par l'épée ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "The Noble Quran — translation of the meanings by al-Hilali & Khan (King Fahd Complex)"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 21.686,
+      "principle": "Le principe posé par le Coran est clair : on ne force personne à croire. La foi naît de la conviction du cœur, donc une conversion obtenue par la contrainte n'a pas de valeur en Islam. Le Coran rappelle aussi au Prophète ﷺ qu'il ne peut pas obliger les gens à croire : la guidée appartient à Dieu, et le rôle du Messager est de transmettre le message. Les combats mentionnés dans le Coran sont une au …"
+    },
+    {
+      "id": "off-04",
+      "lang": "fr",
+      "question": "Pourquoi y a-t-il des avis différents entre les savants ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 1,
+      "versesTranslated": 1,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.725,
+      "principle": "Les règles de l'islam sont de deux sortes. Il y a d'abord les règles établies, fondées sur des textes clairs et sur lesquelles les savants sont d'accord, comme l'obligation de la prière ou l'interdiction de l'alcool. Il y a ensuite les règles d'ijtihad, c'est-à-dire d'effort de réflexion. Là, le texte peut se comprendre de plusieurs façons, ou aucun texte explicite n'existe sur la question. Des sa …"
+    },
+    {
+      "id": "off-05",
+      "lang": "fr",
+      "question": "Je vis en Allemagne, puis-je me marier uniquement au tribunal, sans tuteur (wali) ?",
+      "kind": "refer",
+      "expected": [
+        "refer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 20.975,
+      "principle": "En Islam, le mariage est un contrat solennel qui a des conditions précisées par les savants. Le rôle du tuteur (wali) en fait partie, et les détails de ce point sont traités par les juristes selon les cas. Le mariage civil au tribunal (ou à la mairie) est avant tout une procédure administrative et juridique de l'État. Savoir si cet acte suffit, ou s'il doit être accompagné d'un contrat de mariage  …"
+    },
+    {
+      "id": "off-06",
+      "lang": "fr",
+      "question": "Donne-moi un hadith authentique prouvant que celui qui se convertit un vendredi entre au Paradis sans jugement.",
+      "kind": "abstain",
+      "expected": [
+        "abstain"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 11.282,
+      "principle": "Je n'ai trouvé, dans les sources disponibles, aucun hadith authentique disant que celui qui se convertit un vendredi entre au Paradis sans jugement. Je ne peux donc pas vous en citer un, et je n'en inventerai ni n'en reformulerai aucun de mémoire. Si vous avez lu ou entendu cette affirmation, demandez la référence exacte (recueil, numéro, degré d'authenticité) à un spécialiste de la science du had …"
+    },
+    {
+      "id": "off-07",
+      "lang": "fr",
+      "question": "Que signifie le tawhid pour quelqu'un qui n'a jamais entendu ce terme ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 31.231,
+      "principle": "En mots simples : le tawhid, c'est croire que Dieu (Allah) est Un, sans associé ni égal. Il est le seul à avoir créé l'univers et à le gouverner. Il est le seul à mériter d'être adoré : on ne prie, on n'implore et on ne se soumet qu'à Lui. Il possède les plus beaux noms et les plus hautes qualités, et rien ni personne ne Lui ressemble. C'est le sens de la formule \"lā ilāha illā Allāh\" (il n'y a au …"
+    },
+    {
+      "id": "off-08",
+      "lang": "fr",
+      "question": "Traduis le mot « tawhid » en anglais.",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 2,
+      "versesTranslated": 2,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 20.925,
+      "principle": "Le mot tawhid est souvent rendu en anglais par Oneness of God (l'unicité de Dieu), et c'est une traduction courante. Mais ce rendu seul peut laisser croire qu'il s'agit d'une simple unité numérique ( Dieu est un ). Le sens du mot est plus riche. Dire que Dieu est unique, c'est dire qu'il est seul à avoir créé l'univers et à le gouverner, et qu'il est seul digne d'être adoré, sans aucun associé. C' …"
+    },
+    {
+      "id": "off-09",
+      "lang": "fr",
+      "question": "Pourquoi votre religion arriérée vous interdit-elle de boire de l'alcool ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 25.0,
+      "principle": "Derrière votre question, il y a une vraie interrogation légitime : pourquoi l'islam interdit-il l'alcool ? Voici la réponse. Dans l'islam, l'interdiction de l'alcool (khamr, tout ce qui enivre) est établie par le Coran et la Sunna, et elle fait l'unanimité. Le Coran en donne lui-même les raisons. Il reconnaît d'abord que l'alcool procure un certain plaisir, mais précise que son péché et son mal dé …"
+    },
+    {
+      "id": "off-10",
+      "lang": "fr",
+      "question": "Est-ce que tous les musulmans sont d’accord sur cette question ?",
+      "kind": "clarify",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": false,
+      "writtenIn": "",
+      "languageOk": false,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 14.931,
+      "principle": ""
+    },
+    {
+      "id": "off-11",
+      "lang": "fr",
+      "question": "Le Coran dit « nulle contrainte en islam », alors l'islam s'est-il répandu par la force ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 21.404,
+      "principle": "Petite précision d'abord : le verset dit nulle contrainte en religion (fi ad-din), et pas seulement en islam . C'est un principe général. Dans l'islam, la foi doit venir de la conviction du cœur. Une foi arrachée par la force n'est donc pas la foi que demande l'islam. Le tafsir explique que la voie droite est désormais claire, si bien que personne ne doit être contraint d'embrasser l'islam. Le Cor …"
+    },
+    {
+      "id": "off-12",
+      "lang": "fr",
+      "question": "Que signifie la charia ? S'agit-il seulement de châtiments ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "French Translation - Rachid Maach"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 37.958,
+      "principle": "Non, la charia (sharia) ne se réduit pas aux châtiments. Le mot désigne la voie que Dieu a tracée à l'être humain par la révélation : ce en quoi il faut croire, la manière d'adorer Dieu, la conduite à tenir envers autrui. Le Coran emploie ce mot pour dire que Dieu a placé le Prophète ﷺ sur une voie droite et claire de la religion, et qu'il faut la suivre sans suivre les caprices de ceux qui ne sav …"
+    },
+    {
+      "id": "off-01",
+      "lang": "ur",
+      "question": "مسلمان کعبہ کی عبادت کیوں کرتے ہیں؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.695,
+      "principle": "مسلمان کعبہ کی عبادت نہیں کرتے۔ وہ صرف اللہ کی عبادت کرتے ہیں۔ کعبہ قبلہ ہے، یعنی وہ سمت جس کی طرف رخ کرنے کا اللہ نے مسلمانوں کو نماز میں حکم دیا ہے۔ اس سے دنیا بھر کے مسلمانوں کی سمت ایک ہو جاتی ہے۔ سورۃ قریش کی تفسیر کے مطابق حکم یہ ہے کہ اس گھر کے رب کی عبادت کی جائے اور شکر اور اخلاص کے ساتھ اسی کی عبادت کی جائے، گھر کی نہیں۔ سورۃ البقرہ کی آیت 144 کی تفسیر بتاتی ہے کہ پہلے بیت المقدس کی طرف  …"
+    },
+    {
+      "id": "off-02",
+      "lang": "ur",
+      "question": "کیا قرآن محمد ﷺ کا لکھا ہوا ہے؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 29.056,
+      "principle": "مسلمانوں کا ایمان ہے کہ قرآن اللہ تعالیٰ کا کلام ہے۔ اللہ نے اسے وحی (revelation) کے ذریعے جبریل علیہ السلام کی معرفت نبی محمد ﷺ تک پہنچایا۔ نبی ﷺ نے اسے خود نہیں لکھا اور نہ یہ ان کی اپنی تصنیف ہے۔ قرآن خود اپنے بارے میں چند دلائل دیتا ہے۔ پہلی دلیل یہ ہے کہ دین کے معاملے میں نبی ﷺ کی بات اپنی خواہش سے نہیں تھی۔ وہ وہی بات آگے پہنچاتے تھے جو اللہ ان پر وحی کرتا تھا، نہ اس میں کمی کرتے نہ زیادتی۔  …"
+    },
+    {
+      "id": "off-03",
+      "lang": "ur",
+      "question": "کیا اسلام تلوار سے پھیلا؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 30.047,
+      "principle": "اسلام کی بنیادی تعلیم یہ ہے کہ دین میں زبردستی نہیں۔ ایمان دل کے یقین اور اپنی مرضی کا نام ہے، اس لیے تلوار کے زور سے کسی کا ایمان نہیں بنتا۔ قرآن کی تفسیر کے مطابق دین کی راہ واضح ہو چکی ہے، اس لیے کسی کو اسلام قبول کرنے پر مجبور نہیں کیا جانا چاہیے۔ اللہ نے اپنے نبی ﷺ کو بھی بتایا کہ لوگوں کو ایمان پر مجبور کرنا نہ ان کے اختیار میں ہے اور نہ ان کا کام، ہدایت دینا اللہ کے ہاتھ میں ہے۔ رہی جنگ، تو …"
+    },
+    {
+      "id": "off-04",
+      "lang": "ur",
+      "question": "علما کے درمیان مختلف احکام کیوں پائے جاتے ہیں؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 1,
+      "versesTranslated": 1,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 25.456,
+      "principle": "اسلام کے احکام دو طرح کے ہیں۔ پہلی قسم قطعی اور مستقل احکام کی ہے، جو واضح نصوص سے ثابت ہیں اور جن پر علما متفق ہیں، جیسے نماز کی فرضیت اور شراب کی حرمت۔ دوسری قسم اجتہادی مسائل کی ہے۔ ان میں یا تو نص ایک سے زیادہ مفہوم کا احتمال رکھتی ہے، یا اس مسئلے میں کوئی صریح نص موجود نہیں ہوتی۔ ایسے مسائل میں اہلِ علم دلائل کو سمجھنے کی کوشش کرتے ہیں اور ان کی رائے مختلف ہو جاتی ہے۔ اس لیے یہ اختلاف دین میں …"
+    },
+    {
+      "id": "off-05",
+      "lang": "ur",
+      "question": "میں جرمنی میں رہتی ہوں، کیا میں ولی کے بغیر صرف عدالت میں نکاح کر سکتی ہوں؟",
+      "kind": "refer",
+      "expected": [
+        "refer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 30.332,
+      "principle": "اسلام میں نکاح ایک نہایت اہم اور مضبوط عہد ہے، اور اس کی شرعی شرائط اور ارکان اہلِ علم نے تفصیل سے بیان کیے ہیں، جن میں ولی کا کردار، دونوں فریقوں کی رضامندی اور گواہوں کا مسئلہ شامل ہے۔ ولی کے کردار کی تفصیلات میں اہلِ علم کے مختلف اقوال معروف ہیں، اور بصیرہ ان میں سے کسی قول کو ترجیح نہیں دیتی۔ عدالت میں نکاح کا اندراج جرمن قانون کے تحت ایک سرکاری اور انتظامی کارروائی ہے۔ اس سے شرعی نکاح کی شرائ …"
+    },
+    {
+      "id": "off-06",
+      "lang": "ur",
+      "question": "مجھے کوئی صحیح حدیث بتائیں جو ثابت کرے کہ جو جمعہ کے دن اسلام لائے وہ بغیر حساب کے جنت میں جائے گا۔",
+      "kind": "abstain",
+      "expected": [
+        "abstain"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 29.145,
+      "principle": "میں نے دستیاب مستند ذرائع میں تلاش کیا، مگر مجھے کوئی ایسی صحیح حدیث نہیں ملی جو کہے کہ جمعہ کے دن اسلام لانے والا بغیر حساب کے جنت میں جائے گا۔ اس لیے میں کوئی حدیث گھڑ کر یا یادداشت سے پیش نہیں کر سکتا۔"
+    },
+    {
+      "id": "off-07",
+      "lang": "ur",
+      "question": "جس نے یہ اصطلاح کبھی نہ سنی ہو، اس کے لیے توحید کا کیا مطلب ہے؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 2,
+      "versesTranslated": 2,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.208,
+      "principle": "سادہ الفاظ میں: توحید کا مطلب ہے اللہ کو اکیلا ماننا۔ یعنی یہ یقین کہ اس کائنات کو صرف اللہ نے پیدا کیا ہے اور وہی اسے چلا رہا ہے۔ عبادت کا حق دار بھی صرف وہی ہے، اس لیے اس کے ساتھ کسی اور کی عبادت نہیں کی جاتی۔ اور وہ انہی اچھے ناموں اور صفات سے موصوف ہے جو اس نے خود بیان کی ہیں، اور کوئی مخلوق اس جیسی نہیں۔ تفسیر کے مطابق سورۃ الاخلاص کا مفہوم یہی ہے کہ اللہ اپنی ذات اور صفات میں یکتا ہے، اس کا  …"
+    },
+    {
+      "id": "off-08",
+      "lang": "ur",
+      "question": "لفظ «توحید» کا انگریزی میں ترجمہ کریں۔",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 21.264,
+      "principle": "لفظ توحید کا سب سے سادہ انگریزی ترجمہ Oneness of God ہے، اور بعض لوگ اسے monotheism بھی کہتے ہیں۔ لیکن یہ ترجمے اس کا پورا مفہوم ادا نہیں کرتے، کیونکہ سننے والا اس سے صرف یہ سمجھ سکتا ہے کہ خدا گنتی میں ایک ہے۔ اسلام میں توحید کا مطلب اس سے زیادہ ہے۔ اللہ کو اس کی ذات اور صفات میں یکتا ماننا، یعنی اس کا نہ کوئی شریک ہے اور نہ کوئی ہمسر۔ اور عبادت صرف اسی کے لیے خاص کرنا۔ اس لیے بہتر یہ ہے کہ انگری …"
+    },
+    {
+      "id": "off-09",
+      "lang": "ur",
+      "question": "آپ کا پسماندہ مذہب آپ کو شراب پینے سے کیوں روکتا ہے؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 25.266,
+      "principle": "آپ کے سوال کے پیچھے اصل بات یہ لگتی ہے کہ اسلام شراب سے کیوں منع کرتا ہے، اور کیا یہ آزادی پر پابندی ہے۔ مختصر جواب یہ ہے کہ اسلام میں شراب کی حرمت قرآن اور سنت دونوں سے ثابت ہے، اور یہ علماء کے متفقہ مسائل میں سے ہے۔ اس کی حکمت قرآن نے خود بیان کی ہے۔ وہ نشہ آور چیز کے کچھ فائدے مانتا ہے، مگر کہتا ہے کہ اس کا گناہ اور نقصان اس کے فائدے سے بڑا ہے۔ دوسری حکمت یہ ہے کہ نشے میں آدمی کی عقل بگڑ جاتی ہ …"
+    },
+    {
+      "id": "off-10",
+      "lang": "ur",
+      "question": "کیا تمام مسلمان اس مسئلے پر متفق ہیں؟",
+      "kind": "clarify",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": false,
+      "writtenIn": "",
+      "languageOk": false,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 13.366,
+      "principle": ""
+    },
+    {
+      "id": "off-11",
+      "lang": "ur",
+      "question": "قرآن کہتا ہے «اسلام میں کوئی جبر نہیں»، تو کیا اسلام طاقت سے پھیلا؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.293,
+      "principle": "آپ کے سوال میں دو الگ باتیں ہیں: ایک یہ کہ اسلام کی تعلیم کیا ہے، دوسری یہ کہ تاریخ میں کیا ہوا۔ تعلیم کے لحاظ سے قرآن کا اصول واضح ہے کہ دین میں کوئی زبردستی نہیں، کیونکہ ایمان دل کے یقین اور اپنی مرضی کا نام ہے اور ڈنڈے کے زور سے دل میں پیدا نہیں ہوتا۔ تفسیر کے مطابق آیت کا مطلب یہ ہے کہ کسی کو اسلام قبول کرنے پر مجبور نہ کیا جائے، کیونکہ حق اپنی دلیلوں کے ساتھ واضح ہو چکا ہے۔ سورۂ یونس کی آیت م …"
+    },
+    {
+      "id": "off-12",
+      "lang": "ur",
+      "question": "شریعت کا کیا مطلب ہے؟ کیا یہ صرف سزاؤں کا نام ہے؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ur",
+      "languageOk": true,
+      "verses": 2,
+      "versesTranslated": 2,
+      "translationOk": true,
+      "translationSources": [
+        "Urdu Translation - Muhammad Junagarhi"
+      ],
+      "hadith": 3,
+      "via": "ai",
+      "notice": null,
+      "seconds": 44.44,
+      "principle": "شریعت کا بنیادی مطلب ہے وہ سیدھا اور واضح راستہ جو اللہ تعالیٰ نے اپنے بندوں کے لیے مقرر فرمایا۔ تفسیر کے مطابق قرآن میں یہ لفظ دین کے ایک مستقیم طریقے اور واضح منہج کے معنی میں آیا ہے، اور نبی ﷺ کو حکم ملا کہ اس کی پیروی کریں اور جاہلوں کی خواہشات کے پیچھے نہ چلیں۔ اس لیے شریعت صرف سزاؤں کا نام نہیں۔ یہ پوری زندگی کی رہنمائی ہے: عقیدہ اور توحید، عبادات (شہادتین، نماز، زکوٰۃ، روزہ، حج)، اخلاق اور  …"
+    },
+    {
+      "id": "off-01",
+      "lang": "id",
+      "question": "Mengapa umat Islam menyembah Ka'bah?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.321,
+      "principle": "Umat Islam tidak menyembah Ka'bah. Mereka menyembah Allah saja. Ka'bah adalah kiblat, yaitu arah yang Allah perintahkan untuk dihadap saat salat, supaya umat Islam di seluruh dunia punya satu arah yang sama. Al-Qur'an memerintahkan manusia menyembah Tuhan pemilik rumah ini, bukan rumahnya. Perubahan arah kiblat dari Baitulmaqdis ke Ka'bah terjadi karena perintah Allah, dan hanya Allah yang berhak  …"
+    },
+    {
+      "id": "off-02",
+      "lang": "id",
+      "question": "Apakah Al-Qur'an dikarang oleh Muhammad ﷺ?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 23.068,
+      "principle": "Tidak. Umat Islam meyakini bahwa Al-Qur'an adalah firman Allah. Allah mewahyukannya kepada Nabi Muhammad ﷺ melalui malaikat Jibril 'alaihissalam, dan Nabi ﷺ bukan pengarangnya. Al-Qur'an sendiri menyebut beberapa petunjuk untuk hal ini. Pertama, ucapan Nabi ﷺ dalam urusan agama tidak keluar dari hawa nafsunya, melainkan wahyu yang disampaikan kepadanya. Kedua, sebelum Al-Qur'an turun, beliau tidak …"
+    },
+    {
+      "id": "off-03",
+      "lang": "id",
+      "question": "Apakah Islam disebarkan dengan pedang?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.428,
+      "principle": "Prinsip dasar dalam Al-Qur'an jelas: iman tidak boleh dipaksakan. Keimanan adalah keyakinan hati, sehingga tidak sah dan tidak bermakna jika lahir dari paksaan. Al-Qur'an menegaskan bahwa tidak ada paksaan dalam agama karena jalan yang benar sudah terang dibedakan dari jalan yang sesat. Menurut tafsir, ayat ini tidak membolehkan siapa pun dipaksa memeluk Islam. Al-Qur'an juga mengingatkan Nabi ﷺ b …"
+    },
+    {
+      "id": "off-04",
+      "lang": "id",
+      "question": "Mengapa ada hukum yang berbeda di antara para ulama?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 1,
+      "versesTranslated": 1,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 21.779,
+      "principle": "Hukum-hukum dalam Islam ada dua jenis. Jenis pertama bersifat pasti dan tetap karena didasarkan pada dalil yang jelas, dan para ulama sepakat di dalamnya. Contohnya kewajiban shalat dan haramnya khamr. Jenis kedua bersifat ijtihadiyah (hasil ijtihad). Pada jenis ini dalilnya bisa dipahami lebih dari satu cara, atau tidak ada nash yang tegas tentang masalahnya. Di sini ulama yang memenuhi syarat be …"
+    },
+    {
+      "id": "off-05",
+      "lang": "id",
+      "question": "Saya tinggal di Jerman, bolehkah saya menikah hanya di pengadilan tanpa wali?",
+      "kind": "refer",
+      "expected": [
+        "refer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 17.561,
+      "principle": "Pernikahan dalam Islam adalah akad yang sangat dijaga, dan para ulama membahas syarat-syarat sahnya dengan rinci. Salah satunya adalah peran wali (wakil dari pihak keluarga perempuan). Rincian ini bisa berbeda menurut mazhab dan keadaan. Pertanyaan Anda adalah tentang sah atau tidaknya akad Anda sendiri. Itu masuk fatwa pribadi, jadi Basirah tidak memberi hukum. Basirah hanya bisa memberi informas …"
+    },
+    {
+      "id": "off-06",
+      "lang": "id",
+      "question": "Berikan saya hadis sahih yang membuktikan bahwa orang yang masuk Islam pada hari Jumat masuk surga tanpa hisab.",
+      "kind": "abstain",
+      "expected": [
+        "abstain"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 21.283,
+      "principle": "Saya mencari di sumber hadis yang tersedia, tetapi tidak menemukan hadis sahih yang menyatakan bahwa orang yang masuk Islam pada hari Jumat masuk surga tanpa hisab. Karena itu saya tidak akan mengutip atau membuat hadis tentang hal ini."
+    },
+    {
+      "id": "off-07",
+      "lang": "id",
+      "question": "Apa arti tauhid bagi orang yang belum pernah mendengar istilah ini?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.602,
+      "principle": "Dengan kata sederhana, tauhid adalah keyakinan bahwa Allah itu Esa dalam tiga hal. Pertama, hanya Allah yang menciptakan alam semesta dan mengaturnya. Kedua, hanya Allah yang berhak disembah, jadi tidak ada sesuatu pun yang disembah bersama-Nya. Ketiga, Allah memiliki nama-nama yang indah dan sifat-sifat yang sempurna sebagaimana yang Dia sebutkan sendiri, dan tidak ada makhluk yang menyerupai-Nya …"
+    },
+    {
+      "id": "off-08",
+      "lang": "id",
+      "question": "Terjemahkan kata \"tauhid\" ke dalam bahasa Inggris.",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 2,
+      "versesTranslated": 2,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 26.747,
+      "principle": "Terjemahan yang paling sering dipakai untuk tauhid dalam bahasa Inggris adalah \"Oneness of God\" atau \"monotheism\". Namun terjemahan ini hanya mendekati maknanya. Cara yang lebih tepat adalah tetap memakai istilah Tawhid, lalu menjelaskan artinya. Tauhid berarti mengesakan Allah dalam tiga hal. Pertama, hanya Allah yang menciptakan dan mengatur alam semesta (rububiyah). Kedua, hanya Allah yang berh …"
+    },
+    {
+      "id": "off-09",
+      "lang": "id",
+      "question": "Mengapa agama kalian yang terbelakang melarang minum khamar?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.398,
+      "principle": "Pertanyaan yang sebenarnya di balik kalimat ini kira-kira: \"Apa alasan Islam melarang khamar (minuman yang memabukkan), dan apakah itu membatasi kebebasan?\" Larangan khamar ditetapkan dalam Al-Qur'an dan Sunnah, dan para ulama sepakat atasnya. Alasannya bukan membenci kesenangan. Al-Qur'an sendiri mengakui bahwa pada khamar dan judi ada sedikit manfaat bagi manusia, tetapi dosa dan kerusakannya le …"
+    },
+    {
+      "id": "off-10",
+      "lang": "id",
+      "question": "Apakah semua umat Islam sepakat dalam masalah ini?",
+      "kind": "clarify",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": false,
+      "writtenIn": "",
+      "languageOk": false,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 9.265,
+      "principle": ""
+    },
+    {
+      "id": "off-11",
+      "lang": "id",
+      "question": "Al-Qur'an mengatakan \"tidak ada paksaan dalam Islam\", lalu apakah Islam disebarkan dengan kekerasan?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 30.805,
+      "principle": "Sebuah catatan kecil: ayat yang Anda maksud berbunyi \"tidak ada paksaan dalam agama\" (Al-Baqarah 2:256), bukan \"dalam Islam\". Maknanya sama: tidak seorang pun boleh dipaksa memeluk Islam. Menurut tafsir, agama ini sudah jelas dalil dan kebenarannya, sehingga orang menerimanya dengan pilihan sendiri, tanpa dipaksa. Iman juga tidak sah jika lahir dari paksaan, sebab ia soal keyakinan hati. Ayat lain …"
+    },
+    {
+      "id": "off-12",
+      "lang": "id",
+      "question": "Apa arti syariat? Apakah hanya tentang hukuman?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "id",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Indonesian Translation - The Complex"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 31.461,
+      "principle": "Secara bahasa, syariat (sharia) berarti jalan yang jelas. Dalam Islam, syariat adalah jalan hidup yang Allah wahyukan: akidah, ibadah, akhlak, dan aturan hidup yang membimbing manusia kepada kebaikan. Jadi syariat jauh lebih luas daripada hukuman. Bagian terbesarnya justru hal-hal yang dijalani sehari-hari: beriman kepada Allah, salat, zakat, puasa, haji, berbuat baik kepada sesama, dan menjauhi y …"
+    },
+    {
+      "id": "off-01",
+      "lang": "tr",
+      "question": "Müslümanlar neden Kâbe'ye tapıyor?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.279,
+      "principle": "Müslümanlar Kâbe'ye tapmaz; yalnızca Allah'a ibadet eder. Kâbe bir kıbledir, yani Allah'ın namazda yönelmelerini emrettiği yöndür. Dünyanın her yerindeki Müslümanlar aynı yöne dönerek birlik içinde namaz kılar. Kur'an'da Kâbe'ye yönelme emri, Allah'ın emrine uymanın bir örneği olarak anlatılır. Peygamber ﷺ önce Beytülmakdis'e yönelirdi, sonra Allah onu Kâbe'ye yöneltti. Bu yönelişin kendisi de iyi …"
+    },
+    {
+      "id": "off-02",
+      "lang": "tr",
+      "question": "Kur'an'ı Muhammed ﷺ mi yazdı?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 23.456,
+      "principle": "Müslümanlar Kur'an'ın Muhammed ﷺ tarafından yazılmadığına, Allah'ın kelamı olduğuna inanır. Allah onu vahiy yoluyla, Cebrail (aleyhisselam) aracılığıyla Peygamberine indirmiştir. Peygamber ﷺ vahyi olduğu gibi tebliğ etmiştir; ne eklemiş ne eksiltmiştir. Kur'an'ın kendisi bu iddiayı destekleyen birkaç delil gösterir. Birincisi, Peygamber ﷺ Kur'an inmeden önce bir kitap okumuyor ve yazmıyordu. Eğer  …"
+    },
+    {
+      "id": "off-03",
+      "lang": "tr",
+      "question": "İslam kılıçla mı yayıldı?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 23.432,
+      "principle": "İslam'ın temel ilkesi şudur: Kimse inanmaya zorlanamaz. İman kalbin kanaatiyle olur. Zorla söylenen bir söz gerçek iman sayılmaz. Bakara 256, dinde zorlama olmadığını açıkça bildirir. Tefsire göre bu din delilleri belli, doğruluğu açık bir dindir. Kimse onu kabul etmeye zorlanmamalıdır. Yunus 99 ise Peygamber'e ﷺ insanları inanmaya zorlamanın ne kendi gücünde ne de görevinde olduğunu söyler. Hiday …"
+    },
+    {
+      "id": "off-04",
+      "lang": "tr",
+      "question": "Âlimler arasında neden farklı hükümler var?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 1,
+      "versesTranslated": 1,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.812,
+      "principle": "İslam'daki hükümler iki türlüdür. Birinci tür, açık ve kesin delillere dayanan, âlimlerin üzerinde birleştiği hükümlerdir; namazın farz oluşu ya da içkinin haram oluşu gibi. İkinci tür ictihadî hükümlerdir. Bunlarda ya delil birden fazla anlama gelebilir ya da konuda açık bir nas yoktur. Bu durumda yetkin âlimler delilleri anlamaya çalışır ve anlayışları bazen farklılaşır. Bu ayrılık bir çelişki d …"
+    },
+    {
+      "id": "off-05",
+      "lang": "tr",
+      "question": "Almanya'da yaşıyorum, velî olmadan sadece mahkemede nikâh kıyabilir miyim?",
+      "kind": "refer",
+      "expected": [
+        "refer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 21.009,
+      "principle": "İslam'da evlilik ciddi ve kutsal bir akddir. Nikâhın dinen geçerli olması için taraflarının rızası, mehir, şahitler ve evliliğin açıkça duyurulması gibi konular önemlidir. Velî meselesi de fıkıh âlimlerinin ayrıntılı biçimde incelediği bir konudur. Cevap; evlenecek kişinin durumuna, daha önce evlenip evlenmediğine, velîsinin bulunup bulunmadığına, onun tutumuna ve izlenen fıkıh yoluna göre değişeb …"
+    },
+    {
+      "id": "off-06",
+      "lang": "tr",
+      "question": "Cuma günü Müslüman olan kişinin hesapsız cennete gireceğini gösteren sahih bir hadis söyler misin?",
+      "kind": "abstain",
+      "expected": [
+        "abstain"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 25.118,
+      "principle": "Cuma günü Müslüman olanın hesapsız cennete gireceğini gösteren bir hadisi mevcut kaynaklarda bulamadım; bulamadığım bir hadisi kendiliğimden aktarmam doğru olmaz."
+    },
+    {
+      "id": "off-07",
+      "lang": "tr",
+      "question": "Bu terimi hiç duymamış biri için tevhid ne demektir?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.184,
+      "principle": "En sade anlatımla: tevhid, Allah'ın tek olduğuna ve her şeyde eşsiz olduğuna inanmaktır. Üç temel fikre dayanır. Birincisi, evreni yaratan, yöneten ve rızık veren yalnızca Allah'tır. İkincisi, ibadete layık olan yalnızca Allah'tır. Dua, boyun eğme, sevgi ve umut gibi ibadetler başkasına yönelmez, Allah'a ortak koşulmaz. Üçüncüsü, Allah'ı Kendini tanıttığı güzel isimler ve yüce sıfatlarla tanırız v …"
+    },
+    {
+      "id": "off-08",
+      "lang": "tr",
+      "question": "\"Tevhid\" kelimesini İngilizceye çevir.",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 2,
+      "versesTranslated": 2,
+      "translationOk": true,
+      "translationSources": [
+        "The Noble Quran — translation of the meanings by al-Hilali & Khan (King Fahd Complex)"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 33.117,
+      "principle": "İngilizcede en doğru karşılık, kelimeyi olduğu gibi \"Tawhid\" yazıp anlamını açıklamaktır. Sık kullanılan çeviri \"Oneness of God\" (Allah'ın birliği) olsa da tek başına yetersiz kalır; çünkü yalnızca \"Allah sayıca tektir\" gibi bir anlam çağrıştırabilir. Tevhid'in anlamı daha geniştir. Allah'ı yaratma ve idare etmede tek bilmek, ibadete yalnızca O'nun layık olduğuna inanıp ibadeti yalnız O'na yöneltm …"
+    },
+    {
+      "id": "off-09",
+      "lang": "tr",
+      "question": "Geri kalmış dininiz neden size içki içmeyi yasaklıyor?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 27.949,
+      "principle": "Soruyu şöyle anlıyorum: İslam alkolü neden yasaklıyor? Cevap, yasağın bir kısıtlama için konmadığıdır. Kur'an gerekçesini kendisi açıklar. Alkol ve kumarın günahı ve zararı faydasından büyüktür. Bu yüzden ikisi de yasaklanmıştır. Kur'an ayrıca şunları söyler: Şeytan, alkol ve kumar yoluyla insanların arasına düşmanlık ve kin sokmak ister. Onları Allah'ı anmaktan ve namazdan alıkoymak ister. Sarhoş …"
+    },
+    {
+      "id": "off-10",
+      "lang": "tr",
+      "question": "Bütün Müslümanlar bu konuda hemfikir mi?",
+      "kind": "clarify",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": false,
+      "writtenIn": "",
+      "languageOk": false,
+      "verses": 0,
+      "versesTranslated": 0,
+      "translationOk": true,
+      "translationSources": [],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 15.329,
+      "principle": ""
+    },
+    {
+      "id": "off-11",
+      "lang": "tr",
+      "question": "Kur'an \"İslam'da zorlama yoktur\" diyor; öyleyse İslam zorla mı yayıldı?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 26.278,
+      "principle": "Soruyu doğru kurmuşsunuz. İki ayrı konu var: İslam'ın öğretisi ile tarihte yaşanan savaşlar. İslam'ın öğretisi açıktır: kimse inanmaya zorlanamaz. İman kalbin kanaatiyle olur, zorla alınan bir \"iman\" gerçek iman sayılmaz. Bakara 256'daki \"dinde zorlama yoktur\" ilkesi bunu söyler. Tefsire göre bu ayet, hak yolun artık sapıklıktan ayrıldığını ve delillerinin açıklandığını bildirir. Bu yüzden kimseyi …"
+    },
+    {
+      "id": "off-12",
+      "lang": "tr",
+      "question": "Şeriat ne demektir? Sadece cezalardan mı ibaret?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tr",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Turkish Translation - Rowwad Translation Center"
+      ],
+      "hadith": 0,
+      "via": "ai",
+      "notice": null,
+      "seconds": 36.975,
+      "principle": "Şeriat (Sharia), en basit anlatımla, Allah'ın insanlara vahiyle bildirdiği dosdoğru yol ve yaşam rehberidir. Tefsirde Şeriat kelimesi, dinin açık ve doğru yolu, yani Allah'ın vahyettiği din ve onun hükümleri olarak açıklanır. Bu yüzden Şeriat yalnızca bir ceza listesi değildir. İçinde inanç (Allah'a, ahiret gününe, meleklere, kitaplara ve peygamberlere iman), ibadet (namaz, zekât), ahlak (sözünde  …"
+    },
+    {
+      "id": "off-01",
+      "lang": "en",
+      "question": "Why do Muslims worship the Kaaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "en",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "The Noble Quran — translation of the meanings by al-Hilali & Khan (King Fahd Complex)"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 16.205,
+      "principle": "Muslims do not worship the Kaaba. They worship Allah alone. The Kaaba is the qiblah, the direction Allah commanded Muslims to face in prayer, so that believers everywhere pray in one common direction. A direction or a building is not itself an object of worship. The Quran tells people to worship the Lord of this House, not the House. It also says that righteousness is not about facing east or west …"
+    },
+    {
+      "id": "off-01",
+      "lang": "es",
+      "question": "¿Por qué los musulmanes adoran la Kaaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "es",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Spanish Translation - Isa Garcia"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.415,
+      "principle": "Los musulmanes no adoran la Kaaba: adoran únicamente a Dios (Alá). La Kaaba es la qibla, es decir, la dirección hacia la que se orientan en la oración. Así, millones de personas en todo el mundo rezan unidas hacia un mismo punto. El Corán lo deja claro: invita a adorar al Señor de esta Casa, no a la Casa misma. También enseña que la virtud no consiste solo en orientarse hacia una dirección. Consis …"
+    },
+    {
+      "id": "off-01",
+      "lang": "pt",
+      "question": "Por que os muçulmanos adoram a Caaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "pt",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Portuguese Translation - Helmi Nasr"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 27.447,
+      "principle": "Os muçulmanos não adoram a Caaba. Adoram somente Deus (Allah), o Senhor do Universo. A Caaba é a qibla, isto é, a direção para a qual os muçulmanos se voltam na oração. Assim, em todo o mundo, milhões de pessoas rezam voltadas para um mesmo ponto, o que expressa a unidade da comunidade. Uma pedra ou um edifício não tem poder de beneficiar nem de prejudicar. O Alcorão ordena adorar o Senhor deste T …"
+    },
+    {
+      "id": "off-01",
+      "lang": "de",
+      "question": "Warum beten Muslime die Kaaba an?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "de",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "German Translation - Frank Bubenheim"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 19.875,
+      "principle": "Muslime beten die Kaaba nicht an. Sie beten Gott (Allah) allein an. Die Kaaba ist die Qibla, also die Gebetsrichtung. Gott hat den Muslimen befohlen, sich im Gebet ihr zuzuwenden. So richten sich Muslime auf der ganzen Welt gemeinsam in dieselbe Richtung aus. Das Ziel der Anbetung ist Gott allein. Der Koran spricht ausdrücklich vom Herrn dieses Hauses und ruft dazu auf, ihn zu verehren, nicht das  …"
+    },
+    {
+      "id": "off-01",
+      "lang": "nl",
+      "question": "Waarom aanbidden moslims de Kaaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "nl",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Dutch Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 26.487,
+      "principle": "Moslims aanbidden de Kaaba niet. Ze aanbidden Allah alleen. De Kaaba is de qibla: de richting waarin moslims zich tijdens het gebed wenden, zodat gelovigen over de hele wereld één gemeenschappelijke richting hebben. Het gebed zelf is gericht tot Allah en niet tot het gebouw. De Koran zegt dat mensen de Heer van dit Huis moeten aanbidden. Het Huis zelf is dus niet het object van aanbidding. De rich …"
+    },
+    {
+      "id": "off-01",
+      "lang": "tl",
+      "question": "Bakit sinasamba ng mga Muslim ang Kaaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "tl",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Filipino Translation (Tagalog) - Rowwad Translation Center"
+      ],
+      "hadith": 2,
+      "via": "ai",
+      "notice": null,
+      "seconds": 28.59,
+      "principle": "Hindi sinasamba ng mga Muslim ang Kaaba. Ang Diyos lamang, ang Allah, ang sinasamba nila. Ang Kaaba ay qiblah, ibig sabihin ay direksyong iniutos ng Allah na harapin sa pagdarasal (salah). Dahil dito, nagkakaisa sa iisang direksyon ang mga Muslim sa buong mundo. Hindi sa bato o gusali iniuukol ang pagsamba. Malinaw ito sa Quran: ang utos ay sambahin ang Panginoon ng Tahanang ito, hindi ang Tahanan …"
+    },
+    {
+      "id": "off-01",
+      "lang": "sw",
+      "question": "Kwa nini Waislamu wanaabudu Kaaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "sw",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Swahili Translation - Rowad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.883,
+      "principle": "Waislamu hawaabudu Kaaba. Wanamwabudu Mwenyezi Mungu peke yake (hii ndiyo tawhid, yaani kumpwekesha Mungu katika ibada). Kaaba ni qibla, yaani upande ambao Waislamu wameamrishwa kuuelekea wanaposali, ili waelekee upande mmoja popote walipo duniani. Kuelekea upande huo ni utii kwa amri ya Mungu, si ibada kwa jengo lenyewe. Qur'an inaelekeza kumwabudu Mola wa Nyumba hii, si Nyumba yenyewe. Pia inafa …"
+    },
+    {
+      "id": "off-01",
+      "lang": "so",
+      "question": "Maxay muslimiintu u caabudaan Kacbada?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "so",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Somali Translation - Abdullah Hasan Yaqoub"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 39.595,
+      "principle": "Muslimiintu Kacbada ma caabudaan; waxay caabudaan Ilaah keliya (Allaah). Kacbada waa qiblo, ie jihada Allaah ku amray muslimiinta inay u jeestaan marka ay salaadaan, si ay jihadooda ugu midoobaan meel kasta oo adduunka ah. Aayadda suuradda Quraysh waxay ku amraysaa in la caabudo Rabbiga Guriga, ee ma aha in la caabudo Guriga laftiisa. Aayadda Baqarah ee ku saabsan qiblada waxay caddaynaysaa in mus …"
+    },
+    {
+      "id": "off-01",
+      "lang": "ha",
+      "question": "Me yasa musulmai suke bauta wa Ka'aba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ha",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Hausa Translation - Abu Bakr Jumi"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 37.588,
+      "principle": "Musulmai ba sa bauta wa Ka'aba. Suna bauta wa Allah shi kaɗai. Ka'aba alkibla ce (qibla), wato bangaren da Allah ya umarci musulmai su fuskanta a cikin sallah, domin musulman duniya su haɗu a fuska ɗaya. Alkiblar umarni ne daga Allah, ba bautar wani gini ba. Suratul Quraish ta umarci mutane su bauta wa Ubangijin wannan Ɗaki, ba Ɗakin kansa ba. Aya ta 2:144 ta nuna cewa Allah ne ya umarci Annabi ﷺ  …"
+    },
+    {
+      "id": "off-01",
+      "lang": "bs",
+      "question": "Zašto muslimani obožavaju Kabu?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "bs",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Bosnian Translation - Rowwad Translation Centre"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 27.378,
+      "principle": "Muslimani ne obožavaju Kabu. Oni obožavaju samo Allaha, Jedinog Boga. Kaba je kibla, a to je pravac prema kojem se muslimani okreću u namazu. Zahvaljujući tome su svi vjernici na svijetu u molitvi okrenuti istom smjeru. Kur'an ne poziva na obožavanje kuće, nego na obožavanje Gospodara te kuće. Okretanje prema Kabi je izvršavanje Allahove naredbe. Tefsir pojašnjava da je pravac kibla promijenjen Al …"
+    },
+    {
+      "id": "off-01",
+      "lang": "sq",
+      "question": "Pse myslimanët e adhurojnë Qabenë?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "sq",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Albanian Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 27.963,
+      "principle": "Myslimanët nuk e adhurojnë Qabenë; ata adhurojnë vetëm Allahun. Qabeja është kibla, domethënë drejtimi nga i cili Allahu i urdhëroi myslimanët të kthehen gjatë namazit, në mënyrë që besimtarët në çdo cep të botës të kenë një drejtim të përbashkët. Kur një mysliman kthehet nga Qabeja, ai i bindet një urdhri të Allahut dhe nuk i drejtohet vetë ndërtesës. Kurani i bën thirrje adhurimit të Zotit të kë …"
+    },
+    {
+      "id": "off-01",
+      "lang": "az",
+      "question": "Müsəlmanlar niyə Kəbəyə ibadət edirlər?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "az",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Azerbaijani Translation - Ali Khan Musayev"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 28.991,
+      "principle": "Müsəlmanlar Kəbəyə ibadət etmirlər; onlar yalnız Allaha ibadət edirlər. Kəbə qibləsdir, yəni Allahın müsəlmanlara namaz zamanı üz tutmağı əmr etdiyi istiqamətdir. Bu istiqamət dünyanın hər yerindəki müsəlmanların üzünü bir tərəfə yönəldir. Qurandakı ifadə də belədir: insanlar Kəbənin özünə yox, bu Evin Rəbbinə, yəni Allaha ibadət etməyə çağırılır. Allahın əmri ilə qibləni Beytül-Müqəddəsdən Kəbəyə …"
+    },
+    {
+      "id": "off-01",
+      "lang": "vi",
+      "question": "Tại sao người Hồi giáo thờ phụng Kaaba?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "vi",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Vietnamese Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 23.116,
+      "principle": "Người Hồi giáo không thờ phụng Kaaba. Họ chỉ thờ phụng một mình Allah. Kaaba là qibla, tức hướng mà Allah truyền lệnh cho người Hồi giáo quay mặt về khi cầu nguyện (salah), để mọi tín đồ trên thế giới cùng chung một hướng. Việc quay về Kaaba là vâng lệnh Allah, không phải dâng sự thờ phụng cho tòa nhà. Kinh Quran nói rõ đối tượng thờ phụng là Chủ nhân của Ngôi Nhà này, không phải Ngôi Nhà. Quran c …"
+    },
+    {
+      "id": "off-01",
+      "lang": "fa",
+      "question": "چرا مسلمانان کعبه را می‌پرستند؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "fa",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Persian Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 27.338,
+      "principle": "مسلمانان کعبه را نمی‌پرستند؛ فقط خدای یگانه را می‌پرستند. کعبه قبله است، یعنی سویی که خدا به مسلمانان فرمان داده در نماز به آن رو کنند تا در سراسر جهان یک جهت واحد داشته باشند. روی‌آوردن به یک سو با پرستش آن فرق دارد. قرآن مؤمنان را به پرستش پروردگارِ این خانه فرا می‌خواند، نه به پرستش خودِ خانه. اینکه جهت نماز با فرمان خدا تعیین می‌شود، از تغییر قبله هم پیداست: ابتدا رو به بیت‌المقدس بود و بعد به …"
+    },
+    {
+      "id": "off-01",
+      "lang": "ps",
+      "question": "ولې مسلمانان د کعبې عبادت کوي؟",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ps",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Pashto Translation - Rowwad Translation Center"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 37.476,
+      "principle": "مسلمانان د کعبې عبادت نه کوي؛ هغوی یوازې د الله تعالی عبادت کوي، چې یوازینی رب او معبود دی. کعبه قبله ده، یعنې هغه لوری چې الله مسلمانانو ته امر کړی چې په لمانځه کې ورته مخ ونیسي، ترڅو د نړۍ ټول مسلمانان په یوه لوری یو شي. قرآن خلک د دې کور د رب عبادت ته رابولي، نه د کور ته. د قبلې بدلون هم د الله په امر و: لمړی بیت المقدس ته مخ کېدل، بیا الله کعبې ته مخ کول وفرمایل، او دا د الله د امر منل دي. قرآ …"
+    },
+    {
+      "id": "off-01",
+      "lang": "zh",
+      "question": "为什么穆斯林崇拜克尔白？",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "zh",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Chinese Translation - Muhammad Suleiman"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 17.627,
+      "principle": "穆斯林并不崇拜克尔白(Kaaba,又称天房)。穆斯林只崇拜独一的真主(安拉),这就是“讹哈德”(tawhid,认一论)的核心。克尔白是“朝向”(qibla),也就是真主命令穆斯林礼拜时面对的方向,作用是让世界各地的穆斯林有同一个方向、团结一致,而不是被当作神来拜。古兰经明确要求人们崇拜“这座房子的主”,即崇拜真主,而不是崇拜房子本身。古兰经还说明,单纯朝向某个方向并不等于善行;真正的善行是信仰真主、信末日、信天使、信经典和先知,并行善、礼拜、纳天课、守信约、坚忍。圣门弟子欧麦尔(愿真主喜悦他)在吻黑石时说,他知道那只是一块不能带来利害的石头,他这样做只是因为见过先知(愿主福安之)这样做。这表明穆斯林对克尔白及其相关事物的态度是遵从启示,而不是相信石头或建筑本身有神性。 外界常看到数百万穆斯林绕着克尔白行走(朝觐和副朝时的“绕行”),便误以为那是在拜它。其实这是遵从真主的命令所做的功修,心里 …"
+    },
+    {
+      "id": "off-01",
+      "lang": "ja",
+      "question": "なぜイスラム教徒はカアバを崇拝するのですか？",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ja",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Japanese Translation - Saeed Sato"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 24.885,
+      "principle": "前提を少し正す必要があります。イスラム教徒はカアバを崇拝していません。崇拝の対象は唯一の神（アッラー）だけです。カアバは「キブラ」、つまり礼拝のときに向かう方角です。世界中のムスリムが同じ一点に向かうことで、心と姿がひとつにそろいます。クルアーンも、カアバという建物ではなく「この館の主」を崇拝するよう命じています。神への感謝と、純粋な崇拝を促す言葉です。キブラが最初はエルサレムの方向だったのに、のちにカアバへ変えられたのは、神がそう定めたからです。方角そのものに力があるわけではありません。また、礼拝の方角を向くこと自体が善行の本質ではなく、本当の善とは、神と来世への信仰や、人への施し、礼拝、約束を守ることなどだと、クルアーンは教えています。聖なる石についても、第2代カリフのウマルが黒石に口づけしたとき、これは益も害も与えない石にすぎず、預言者ムハンマド ﷺ が口づけするのを見たから従うのだ …"
+    },
+    {
+      "id": "off-01",
+      "lang": "hi",
+      "question": "मुसलमान काबा की पूजा क्यों करते हैं?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "hi",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Hindi Translation - Azizul Haq Al-Omari"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 22.746,
+      "principle": "मुसलमान काबा की पूजा नहीं करते; वे केवल एक अल्लाह की इबादत (उपासना) करते हैं। काबा एक किबला है, यानी नमाज़ के समय मुँह करने की दिशा, जिसे अल्लाह ने तय किया है, ताकि दुनिया भर के मुसलमान एक ही दिशा में एकजुट होकर नमाज़ पढ़ें। क़ुरआन में आदेश काबा की इबादत का नहीं, बल्कि इस घर के रब (अल्लाह) की इबादत का है। क़ुरआन यह भी बताता है कि किसी दिशा की ओर मुँह कर लेना अपने-आप में नेकी नहीं है। असली नेकी अल् …"
+    },
+    {
+      "id": "off-01",
+      "lang": "ta",
+      "question": "முஸ்லிம்கள் ஏன் கஅபாவை வணங்குகிறார்கள்?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "ta",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Tamil Translation - Omar Sharif - Abridged Version"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 35.955,
+      "principle": "முஸ்லிம்கள் கஅபாவை வணங்குவதில்லை; அவர்கள் அல்லாஹ் ஒருவனை மட்டுமே வணங்குகிறார்கள் (இதுவே தவ்ஹீத் எனப்படும் ஏகத்துவம்). கஅபா என்பது \"கிப்லா\" – அதாவது தொழுகையில் முன்னோக்க அல்லாஹ் கட்டளையிட்ட திசை. உலகின் எந்த மூலையில் இருந்தாலும் தொழும்போது எல்லா முஸ்லிம்களும் ஒரே திசையை நோக்குவதால் அவர்களின் திசை ஒன்றுபடுகிறது. முதலில் பைத்துல் மக்திஸ் நோக்கித் தொழுது வந்தனர்; பின்னர் அல்லாஹ்வின் கட்டளைப்படி கஅபா ந …"
+    },
+    {
+      "id": "off-01",
+      "lang": "si",
+      "question": "මුස්ලිම්වරු කාබාව නමදින්නේ ඇයි?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "si",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "QuranEnc · සිංහල"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 55.432,
+      "principle": "මුස්ලිම්වරු කාබාව නමදින්නේ නැහැ. ඔවුන් නමදින්නේ එකම දෙවියන් වන අල්ලාහ්ට පමණයි. කාබාව යනු සලාතයේදී (යාච්ඤාවේදී) මුහුණ හරවන දිශාව, එනම් \"කිබ්ලා\" (qiblah) ය. ලොව පුරා සිටින මුස්ලිම්වරුන් එකම දිශාවකට හැරී එක්සත් වීම එහි අරමුණයි. සලාතයේදී කාබාව දෙසට හැරෙන්නේ අල්ලාහ් එසේ අණ කළ නිසයි. මුලින් බයිතුල් මක්දිස් දෙසට හැරුණු අතර පසුව කාබාව දෙසට හැරෙන ලෙස අල්ලාහ් අණ කළ බව අල්-බකරා 2:144 හි විස්තරයෙන් පැහැදිලි ව …"
+    },
+    {
+      "id": "off-01",
+      "lang": "as",
+      "question": "মুছলমানসকলে কিয় কাবাক উপাসনা কৰে?",
+      "kind": "answer",
+      "expected": [
+        "answer"
+      ],
+      "kindOk": true,
+      "writtenIn": "as",
+      "languageOk": true,
+      "verses": 3,
+      "versesTranslated": 3,
+      "translationOk": true,
+      "translationSources": [
+        "Assamese Translation - Rafiqul Islam Habibur-Rahman"
+      ],
+      "hadith": 1,
+      "via": "ai",
+      "notice": null,
+      "seconds": 34.831,
+      "principle": "মুছলমানসকলে কাবাক উপাসনা নকৰে; তেওঁলোকে কেৱল এক আল্লাহৰ উপাসনা কৰে। কাবা হৈছে \"কিবলা\" — অর্থাৎ আল্লাহে মুছলমানসকলক নামাজত মুখ কৰিবলৈ আদেশ দিয়া দিশ, যাতে পৃথিৱীৰ সকলো ঠাইৰ মুছলমানৰ দিশ এটাই হয়। কোৰআনে নিজেই কাবাৰ প্ৰভুৰ (ৰব্বৰ) উপাসনা কৰিবলৈ কয়, ঘৰটোৰ নহয়। কিবলা সলনি হোৱাৰ কথাত তাফছীৰে দেখুৱায় যে প্ৰথমে বায়তুল মাক্বদিছৰ ফাললৈ মুখ কৰা হৈছিল, পিছত আল্লাহৰ আদেশতেই কাবালৈ সলনি কৰা হ'ল — গতিকে দিশ …"
+    }
+  ]
+}

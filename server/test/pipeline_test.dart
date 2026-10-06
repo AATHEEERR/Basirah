@@ -241,6 +241,20 @@ void main() {
     expect(r.answer.kind, AnswerKind.abstain);
   });
 
+  test('with no model, a question in another language is never called off-topic', () async {
+    final failing = ClaudeClient(
+      apiKey: 'k',
+      client: MockClient((_) async => http.Response('{"error":{"message":"overloaded"}}', 529)),
+    );
+    // A question about Islam that the English scope lists cannot read.
+    final r = await AskPipeline(kb, llm: failing, quran: quran, tafsir: FakeTafsir())
+        .ask('Le Coran a-t-il été modifié au fil du temps ?');
+    expect(r.via, Via.offline);
+    expect(r.notice, 'ai_busy');
+    expect(r.answer.kind, isNot(AnswerKind.offTopic));
+    if (r.answer.kind == AnswerKind.abstain) expect(detectLanguage(r.answer.abstainReason), 'fr');
+  });
+
   test('past the time budget: the stored answer with a notice, not a longer wait', () async {
     final slow = ClaudeClient(
       apiKey: 'k',

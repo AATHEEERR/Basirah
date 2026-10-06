@@ -141,7 +141,10 @@ Future<void> main(List<String> args) async {
       continue;
     }
     final a = BasirahAnswer.fromJson(body['answer'] as Map<String, dynamic>);
-    final text = [a.principle, a.khilafNote, a.referReason, a.abstainReason, a.culture].where((s) => s.trim().isNotEmpty).join(' ');
+    // Every text the asker reads, a clarifying question and its options too.
+    final text = [a.principle, a.khilafNote, a.referReason, a.abstainReason, a.culture, a.clarifyQuestion, ...a.clarifyOptions]
+        .where((s) => s.trim().isNotEmpty)
+        .join(' ');
     final written = text.isEmpty ? '' : detectLanguage(text);
     final verses = a.evidence.where((e) => e.isQuran).toList();
     final translated = verses.where((e) => (e.translation ?? '').isNotEmpty).length;
@@ -162,6 +165,9 @@ Future<void> main(List<String> args) async {
       'translationSources': {for (final e in verses) e.translationSource}.toList(),
       'hadith': a.evidence.where((e) => !e.isQuran).length,
       'via': body['via'],
+      // From the answer cache (the same question answered earlier), not
+      // answered by the model during this run.
+      'cached': body['cached'] == true,
       'notice': body['notice'],
       'seconds': seconds,
       'principle': text.length > 400 ? '${text.substring(0, 400)} …' : text,
@@ -194,6 +200,7 @@ Future<void> main(List<String> args) async {
     ..writeln('| الإجابة مكتوبة بلغة السؤال (كاشف اللغة على نص الإجابة) | ${count('languageOk')} من ${ok.length} |')
     ..writeln('| نوع الإجابة كما في الحالة (إجابة، خلاف، إحالة، امتناع) | ${count('kindOk')} من ${ok.length} |')
     ..writeln('| كل آية مستشهد بها معها ترجمة معانٍ معتمدة بلغة السائل | ${count('translationOk')} من ${ok.length} |')
+    ..writeln('| أُجيب من الذاكرة المؤقتة لا من النموذج أثناء التشغيل | ${count('cached')} من ${ok.length} |')
     ..writeln()
     ..writeln('## كل سؤال')
     ..writeln()
@@ -206,7 +213,7 @@ Future<void> main(List<String> args) async {
     }
     md.writeln(
       '| ${r['lang']} | ${r['id']} | ${r['kind']}${r['kindOk'] == true ? '' : ' ⚠️'} | ${r['writtenIn']}${r['languageOk'] == true ? '' : ' ⚠️'} | '
-      '${r['versesTranslated']}/${r['verses']}${r['translationOk'] == true ? '' : ' ⚠️'} | ${r['hadith']} | ${(r['seconds'] as double).toStringAsFixed(1)} ث |',
+      '${r['versesTranslated']}/${r['verses']}${r['translationOk'] == true ? '' : ' ⚠️'} | ${r['hadith']} | ${(r['seconds'] as double).toStringAsFixed(1)} ث${r['cached'] == true ? ' (ذاكرة مؤقتة)' : ''} |',
     );
   }
   md

@@ -4,6 +4,7 @@ import 'package:basirah_core/basirah_core.dart';
 
 import 'agent.dart';
 import 'answer_cache.dart';
+import 'fixed_texts.dart';
 import 'guard.dart';
 import 'hadith.dart';
 import 'llm.dart';
@@ -38,6 +39,8 @@ class PipelineResult {
     'answer': answer.toJson(),
     'via': via.name,
     if (notice != null) 'notice': notice,
+    // Saved earlier from the same question (tests count these apart).
+    if (guardActions.contains(AskPipeline.cachedAction)) 'cached': true,
   };
 }
 
@@ -159,7 +162,7 @@ class AskPipeline {
 
     if (mode == AskMode.kb || _agents.isEmpty) {
       return PipelineResult(
-        answer: routed.answer,
+        answer: _stored(routed, other: other, lang: answerLang),
         via: routed.strong ? Via.kb : Via.offline,
         notice: mode == AskMode.live ? 'no_ai' : null,
       );
@@ -207,7 +210,7 @@ class AskPipeline {
           outcome = await agent.run(userTurn, lang: lang, answerLang: other ? answerLang : null, preread: preread).timeout(left);
         } on TimeoutException {
           return PipelineResult(
-            answer: routed.answer,
+            answer: _stored(routed, other: other, lang: answerLang),
             via: Via.offline,
             notice: 'ai_busy',
             guardActions: [...skipped, 'time budget reached (${answerBudget.inSeconds} s)'],
@@ -268,7 +271,7 @@ class AskPipeline {
           continue;
         }
         return PipelineResult(
-          answer: routed.answer,
+          answer: _stored(routed, other: other, lang: answerLang),
           via: Via.offline,
           notice: e.retryable ? 'ai_busy' : 'ai_error',
           guardActions: [...skipped, '${client.provider}:${client.model} error ${e.statusCode ?? ''}: ${e.message}'.trim()],
@@ -278,10 +281,36 @@ class AskPipeline {
     // No model could answer (all out of quota or resting): stored answer,
     // labelled as such.
     return PipelineResult(
-      answer: routed.answer,
+      answer: _stored(routed, other: other, lang: answerLang),
       via: Via.offline,
       notice: 'ai_busy',
       guardActions: [...skipped, 'no model available'],
+    );
+  }
+
+  /// The stored answer, when no model answers. In a language other than
+  /// Arabic and English the router's scope word lists (Arabic and English)
+  /// cannot judge the question: "off-topic" there only means no English
+  /// word matched, so the asker is told that no documented answer can be
+  /// given now, never that the question is outside Islam. Fixed texts are
+  /// given in the asker's language.
+  BasirahAnswer _stored(RouteResult routed, {required bool other, required String lang}) {
+    if (!other) return routed.answer;
+    final a = routed.answer;
+    return localizeFixedTexts(
+      a.kind != AnswerKind.offTopic
+          ? a
+          : BasirahAnswer(
+              question: a.question,
+              kind: AnswerKind.abstain,
+              level: ContentLevel.b,
+              origin: AnswerOrigin.offline,
+              abstainReason: RouterTexts.en.abstainReason,
+              guidance: RouterTexts.en.abstainGuidance,
+              related: a.related,
+              review: 'generated',
+            ),
+      lang,
     );
   }
 
@@ -312,9 +341,11 @@ class AskPipeline {
   /// An answer in [iso] (neither Arabic nor English): each verse gets its
   /// approved translation of the meaning in that language (QuranEnc) and
   /// each HadeethEnc hadith its approved translation, when they exist;
-  /// otherwise the English ones stay.
-  Future<BasirahAnswer> _localize(BasirahAnswer a, String iso) async {
-    if (iso == 'und') return a;
+  /// otherwise the English ones stay. The guard's fixed texts (a default
+  /// abstention or referral) are given in [iso] too.
+  Future<BasirahAnswer> _localize(BasirahAnswer answer, String iso) async {
+    if (iso == 'und') return answer;
+    final a = localizeFixedTexts(answer, iso);
     final language = meaningLanguages.where((l) => l.iso == iso).firstOrNull;
     final title = language == null ? null : await meaning?.title(language);
     final evidence = <Evidence>[];

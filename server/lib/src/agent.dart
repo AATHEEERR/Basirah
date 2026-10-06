@@ -165,9 +165,10 @@ class ResearchAgent {
         // In a language other than Arabic and English, a submission the
         // guard would have to overrule (an answer with nothing cited, a
         // fatwa not referred, a clarifying question with no options) is sent
-        // back once: the guard's own fixed texts exist in Arabic and English
-        // only, so the model writes the abstention or referral itself, in the
-        // question's language.
+        // back once, so the model writes the abstention or referral itself, in
+        // the question's language and fitted to the question. (If it still
+        // does not, the guard's fixed texts are shown, translated: see
+        // localizeFixedTexts.)
         final problem = answerLang == null ? null : overruled(input);
         if (!kindCorrected && round < maxRounds && problem != null) {
           kindCorrected = true;
