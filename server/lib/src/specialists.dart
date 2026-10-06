@@ -32,6 +32,9 @@ class SpecialistAccounts {
   /// Whether any account exists (the panel is closed without one).
   bool get open => _accounts.isNotEmpty;
 
+  /// How many accounts parsed (for /health: a count, never a name).
+  int get count => _accounts.length;
+
   static Map<String, ({Uint8List salt, Uint8List hash})> _parse(String? spec) {
     final out = <String, ({Uint8List salt, Uint8List hash})>{};
     for (final entry in (spec ?? '').split(';')) {

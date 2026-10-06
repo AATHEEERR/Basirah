@@ -84,6 +84,9 @@ Future<void> main() async {
         'models': [for (final m in llms) m.model],
         'quranVerses': quran?.length ?? 0,
         'tafsir': quran == null ? null : ['موسوعة التفسير — الدرر السنية'],
+        // Whether SPECIALIST_ACCOUNTS reached the process, and how many of
+        // its entries parsed: counts only, so a misconfiguration shows.
+        'specialistAccounts': {'set': (env['SPECIALIST_ACCOUNTS'] ?? '').isNotEmpty, 'parsed': specialists.count},
       }),
     )
     // «اسمعها بلغتك»: a verse's approved translation, text and recorded voice,
