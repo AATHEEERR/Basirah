@@ -55,15 +55,14 @@ class HomeHero extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (wide) ...[
-          Wordmark(style: BText.brand(context.isEn ? 54 : 64)),
-          const SizedBox(height: 10),
+          Wordmark(style: BText.brand(context.isEn ? 50 : 60)),
+          const SizedBox(height: 8),
         ],
         if (verse != null) _Verse(verse: verse, meaning: meaning, wide: wide),
-        SizedBox(height: wide ? 22 : 16),
-        Text(
-          context.tr('كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك', 'Every answer comes with its evidence, and every piece of evidence you can check yourself'),
-          style: BText.display(wide ? (context.isEn ? 30 : 34) : 24, weight: FontWeight.w600),
-        ),
+        SizedBox(height: wide ? 20 : 14),
+        // One scale for the block: the name, the verse, then this line a
+        // step smaller, its key words in the verse's gold.
+        Text.rich(_headline(context, BText.display(wide ? (context.isEn ? 25 : 27) : 21, weight: FontWeight.w500))),
         const SizedBox(height: 10),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
@@ -75,7 +74,7 @@ class HomeHero extends ConsumerWidget {
                   'answers in your language, and separates what the religion establishes from custom and culture. '
                   'And when the question is about your own situation, it connects you with a Sharia specialist.',
             ),
-            style: BText.body(wide ? 17 : 15, color: BColors.textMuted, height: 1.75),
+            style: BText.body(wide ? 16.5 : 15, color: BColors.textMuted, height: 1.75),
           ),
         ),
         const SizedBox(height: 14),
@@ -137,7 +136,7 @@ class _Verse extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = verse.fullText ?? verse.text;
     final at = text.indexOf(_basirah);
-    final style = BText.quran(wide ? 25 : 21);
+    final style = BText.quran(wide ? 21 : 19);
     final key = meaning?['key'] as String?;
     final url = verse.urlFor(context.lang, quranEncKey: key);
     return Column(
@@ -186,4 +185,34 @@ class _Verse extends StatelessWidget {
       ],
     );
   }
+}
+
+/// «كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك», its two key words in
+/// gold in Arabic and English; one plain line in the other languages.
+TextSpan _headline(BuildContext context, TextStyle style) {
+  final gold = style.copyWith(color: BColors.goldDeep);
+  return switch (context.uiLang) {
+    'ar' => TextSpan(
+      style: style,
+      children: [
+        const TextSpan(text: 'كل جواب هنا '),
+        TextSpan(text: 'بدليله', style: gold),
+        const TextSpan(text: '، وكل دليل تتحقق منه '),
+        TextSpan(text: 'بنفسك', style: gold),
+      ],
+    ),
+    'en' => TextSpan(
+      style: style,
+      children: [
+        const TextSpan(text: 'Every answer comes with its '),
+        TextSpan(text: 'evidence', style: gold),
+        const TextSpan(text: ', and every piece of evidence you can check '),
+        TextSpan(text: 'yourself', style: gold),
+      ],
+    ),
+    _ => TextSpan(
+      text: context.tr('كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك', 'Every answer comes with its evidence, and every piece of evidence you can check yourself'),
+      style: style,
+    ),
+  };
 }

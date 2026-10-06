@@ -7,6 +7,7 @@ import '../../app/theme.dart';
 import '../../core/config.dart';
 import '../../core/feedback.dart';
 import '../../core/lang.dart';
+import '../../shared/motion.dart';
 import '../../shared/web_frame.dart';
 import 'page_scaffold.dart';
 
@@ -183,20 +184,33 @@ class _Bars extends StatelessWidget {
                     width: isWebsite(context) ? 220 : 140,
                     child: Text(label, style: BText.label(13, color: BColors.ink, weight: FontWeight.w400)),
                   ),
+                  // The bar grows to its share when it comes into view.
                   Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(99),
-                      child: LinearProgressIndicator(
-                        value: total == 0 ? 0 : value / total,
-                        minHeight: 9,
-                        backgroundColor: BColors.bg,
-                        valueColor: AlwaysStoppedAnimation(tone.accent),
+                    child: RevealOnView(
+                      builder: (context, shown) => TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0, end: shown && total > 0 ? value / total : 0),
+                        duration: const Duration(milliseconds: 1200),
+                        curve: Curves.easeOutCubic,
+                        builder: (context, share, _) => ClipRRect(
+                          borderRadius: BorderRadius.circular(99),
+                          child: LinearProgressIndicator(
+                            value: share,
+                            minHeight: 9,
+                            backgroundColor: BColors.bg,
+                            valueColor: AlwaysStoppedAnimation(tone.accent),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
                     width: 44,
-                    child: Text('$value', textAlign: TextAlign.end, style: BText.label(13, color: BColors.ink, weight: FontWeight.w600)),
+                    child: CountUp(
+                      value: value,
+                      format: (v) => '${v.round()}',
+                      textAlign: TextAlign.end,
+                      style: BText.label(13, color: BColors.ink, weight: FontWeight.w600),
+                    ),
                   ),
                 ],
               ),
@@ -241,32 +255,47 @@ class ImpactTiles extends StatelessWidget {
     final helpful = fb['helpful'] as int? ?? 0;
     final median = s['medianMs'] as int?;
     final sign = context.lang == 'ar' ? '٪' : '%';
-    String pct(int part, int whole) => whole == 0 ? '—' : '${(100 * part / whole).round()}$sign';
+    final unit = context.tr('ث', 's');
     // Answers given, and how many cite a verse or hadith from the approved
     // sources (referrals and abstentions are not answers: they cite nothing).
     final answered = s['answered'] as int? ?? ((kinds['answer'] ?? 0) + (kinds['khilaf'] ?? 0));
     final grounded = s['answeredWithEvidence'] as int? ?? 0;
     final referred = kinds['refer'] ?? 0;
+    String whole(double v) => '${v.round()}';
+    String percent(double v) => '${v.round()}$sign';
 
-    final tiles = [
-      (context.tr('سؤالاً طُرح', 'questions asked'), '$n', Tones.guidance),
+    // (label, value or null when there is none yet, how it is written, tone, icon)
+    final tiles = <(String, num?, String Function(double), Tone, IconData)>[
+      (context.tr('سؤالاً طُرح', 'questions asked'), n, whole, Tones.guidance, Icons.forum_rounded),
       (
         context.tr('من إجاباتنا بدليل من المصادر المعتمدة ($grounded من $answered)', 'of our answers cite the approved sources ($grounded of $answered)'),
-        pct(grounded, answered),
+        answered == 0 ? null : 100 * grounded / answered,
+        percent,
         Tones.principle,
+        Icons.menu_book_rounded,
       ),
       (
         referred == 1
             ? context.tr('حالة أُحيلت إلى مختص', 'case referred to a specialist')
             : context.tr('حالات أُحيلت إلى مختص', 'cases referred to a specialist'),
-        '$referred',
+        referred,
+        whole,
         Tones.refer,
+        Icons.support_agent_rounded,
       ),
-      (context.tr('رضا من قيّموا ($fbTotal)', 'helpful, of $fbTotal ratings'), pct(helpful, fbTotal), Tones.culture),
+      (
+        context.tr('رضا من قيّموا ($fbTotal)', 'helpful, of $fbTotal ratings'),
+        fbTotal == 0 ? null : 100 * helpful / fbTotal,
+        percent,
+        Tones.culture,
+        Icons.thumb_up_alt_rounded,
+      ),
       (
         context.tr('الوقت الوسيط للإجابة', 'median answer time'),
-        median == null ? '—' : '${(median / 1000).toStringAsFixed(1)} ${context.tr('ث', 's')}',
+        median == null ? null : median / 1000,
+        (v) => '${v.toStringAsFixed(1)} $unit',
         Tones.evidence,
+        Icons.timer_rounded,
       ),
     ];
     final columns = isWebsite(context) ? 3 : 2;
@@ -274,28 +303,45 @@ class ImpactTiles extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, box) {
         final width = (box.maxWidth - gap * (columns - 1)) / columns;
-        // Low tiles on the website; on a phone they keep their shape.
-        final height = columns == 3 ? 136.0 : width / 1.45;
+        // Compact cards: the icon in its colour, the number counting up
+        // beside it, the label under the number.
         return Wrap(
           alignment: WrapAlignment.center,
           spacing: gap,
           runSpacing: gap,
           children: [
-            for (final (label, value, tone) in tiles)
+            for (final (label, value, format, tone, icon) in tiles)
               Container(
                 width: width,
-                height: height,
-                padding: const EdgeInsets.all(14),
+                constraints: BoxConstraints(minHeight: columns == 3 ? 92 : 104),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [tone.top, tone.bottom], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-                  borderRadius: BorderRadius.circular(20),
+                  color: BColors.surface,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: tone.top, width: 1.5),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Row(
                   children: [
-                    Text(value, style: BText.brand(30, color: tone.accent)),
-                    Text(label, style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w500)),
+                    Container(
+                      width: 42,
+                      height: 42,
+                      decoration: BoxDecoration(color: tone.top, shape: BoxShape.circle),
+                      child: Icon(icon, size: 21, color: tone.accent),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          value == null
+                              ? Text('—', style: BText.brand(24, color: tone.accent))
+                              : CountUp(value: value, format: format, style: BText.brand(24, color: tone.accent)),
+                          const SizedBox(height: 2),
+                          Text(label, style: BText.label(12, color: BColors.ink, weight: FontWeight.w500)),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

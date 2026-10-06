@@ -128,11 +128,61 @@ class ChatMessage {
   final AskOutcome? outcome;
   final bool pending;
   final String? categoryId;
+
+  Map<String, dynamic> toJson() => {
+    'user': fromUser,
+    'text': text,
+    if (outcome != null) 'answer': outcome!.answer.toJson(),
+    if (outcome?.notice != null) 'notice': outcome!.notice!.name,
+    if (categoryId != null) 'category': categoryId,
+  };
+
+  static ChatMessage fromJson(Map<String, dynamic> j) => j['user'] == true
+      ? ChatMessage.user(j['text'] as String)
+      : ChatMessage.assistant(
+          text: j['text'] as String,
+          outcome: j['answer'] == null
+              ? null
+              : AskOutcome(
+                  answer: BasirahAnswer.fromJson((j['answer'] as Map).cast<String, dynamic>()),
+                  notice: AskNotice.values.where((n) => n.name == j['notice']).firstOrNull,
+                ),
+          categoryId: j['category'] as String?,
+        );
 }
 
+/// The conversation in «اسأل»: kept on this device (the last [_keep]
+/// messages), so the questions and answers stay readable after a reload or
+/// with no connection. Nothing of it is kept on the server.
 class ChatNotifier extends Notifier<List<ChatMessage>> {
+  static const _key = 'basirah.chat.v1';
+  static const _keep = 60;
+
   @override
-  List<ChatMessage> build() => const [];
+  List<ChatMessage> build() {
+    _load();
+    return const [];
+  }
+
+  Future<void> _load() async {
+    try {
+      final raw = (await SharedPreferences.getInstance()).getString(_key);
+      if (raw == null || state.isNotEmpty) return;
+      state = [for (final j in (jsonDecode(raw) as List).cast<Map<String, dynamic>>()) ChatMessage.fromJson(j)];
+    } on Object {
+      // Storage unavailable or an older format: start empty.
+    }
+  }
+
+  Future<void> _save() async {
+    try {
+      final done = [for (final m in state) if (!m.pending) m];
+      final kept = done.length <= _keep ? done : done.sublist(done.length - _keep);
+      await (await SharedPreferences.getInstance()).setString(_key, jsonEncode([for (final m in kept) m.toJson()]));
+    } on Object {
+      // Kept for this session only.
+    }
+  }
 
   bool get busy => state.any((m) => m.pending);
 
@@ -179,9 +229,13 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
       for (final m in state)
         if (m.pending) ChatMessage.assistant(text: q, outcome: outcome, categoryId: categoryId) else m,
     ];
+    await _save();
   }
 
-  void clear() => state = const [];
+  void clear() {
+    state = const [];
+    _save();
+  }
 }
 
 final chatProvider = NotifierProvider<ChatNotifier, List<ChatMessage>>(ChatNotifier.new);

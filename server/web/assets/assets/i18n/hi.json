@@ -187,7 +187,6 @@
     "I grew up Muslim": "मैं मुसलमान घराने में पला-बढ़ा",
     "Identity & name": "पहचान और नाम",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "यदि मॉडल विफल हो जाए या समय सीमा पार कर ले, तो कोड के निश्चित नियमों के अनुसार सहेजा गया दस्तावेज़ीकृत उत्तर, विशेषज्ञ के पास भेजना या उत्तर से परहेज़ दिखाया जाता है, साथ में यह बताने वाली सूचना होती है।",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "यदि मॉडल विफल हो जाए या अपनी समय सीमा पार कर ले, तो ज्ञान-आधार में सहेजा गया दस्तावेज़ीकृत उत्तर दिखाया जाता है, जिसे कोड के निश्चित नियम चुनते हैं (कोई मॉडल नहीं), या विशेषज्ञ के पास भेजना या उत्तर से परहेज़, साथ में यह बताने वाली सूचना। ज्ञान-आधार सर्वर के बिना ऐप के भीतर ही काम करता है।",
     "Ignore the planted instruction, keep the rules": "छिपाए गए निर्देश को अनदेखा करें, नियमों पर टिके रहें",
     "Impact board": "प्रभाव बोर्ड",
     "Impact in numbers": "आँकड़ों में प्रभाव",
@@ -634,7 +633,6 @@
     "An answer tied to the material, citing its exact place": "सामग्री से जुड़ा उत्तर, जिसमें उसके सटीक स्थान का हवाला हो",
     "An approved translation of the meanings, from QuranEnc": "QuranEnc से अर्थों का मान्य अनुवाद",
     "An off-topic question answered": "विषय से बाहर का प्रश्न जिसका उत्तर दे दिया गया",
-    "And if the AI is unavailable? Basirah keeps working": "और यदि AI उपलब्ध न हो? Basirah काम करती रहती है",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "और रक्षक इसे लागू करता है: प्रमाण के बिना उत्तर ← उत्तर न देना; कम विश्वास ← उत्तर न देना; व्यक्तिगत मामला ← तुरंत विशेषज्ञ के पास भेजना, उसमें स्पष्टीकरण नहीं माँगा जाता।",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "और भाषा परीक्षण: {1} भाषाओं में {0} प्रश्न; {2} के उत्तर दिए गए, उनमें से {3} प्रश्न की अपनी भाषा में, और {4} में हर आयत के साथ मान्य अनुवाद था (eval/LANGUAGES_REPORT.md)।",
     "And the time (your device’s time)": "और समय (आपके डिवाइस का समय)",
@@ -669,6 +667,14 @@
     "One check ✓": "एक जाँच ✓",
     "{0} checks ✓": "{0} जाँचें ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "server फ़ोल्डर से हर पक्ष के लिए एक कमांड से दोबारा चलाएँ: dart run bin/baseline.dart (सामान्य और Basirah), dart run bin/baseline.dart --prompted (निर्देशों के साथ), dart run bin/baseline.dart --recount (सहेजे गए उत्तरों से दोबारा गिनती)।",
-    "s": "से."
+    "s": "से.",
+    "And if the connection drops or the AI is unavailable?": "अगर कनेक्शन टूट जाए या AI उपलब्ध न हो तो?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "हर उत्तर तय चरणों से गुज़रता है: हम आपके प्रश्न की भाषा पहचानते हैं, और यह कि क्या यह कोई निजी मामला है जिसे शरीअत के विशेषज्ञ के पास भेजना चाहिए। फिर मॉडल पूरे मुसहफ़ में खोजता है, किसी आयत का हवाला देने से पहले Dorar पर उसकी तफ़्सीर पढ़ता है, हदीस विश्वकोश में सहीह और हसन हदीसें खोजता है, और उत्तर केवल इन्हीं स्रोतों से लिखता है। दिखाए जाने से पहले कोड में मौजूद एक रक्षक उसकी जाँच करता है: आयत का पाठ मॉडल की स्मृति से नहीं, मुसहफ़ से कॉपी किया जाता है, और कोई भी हदीस अपने स्रोत और दर्जे के बिना नहीं आती। उत्तर के साथ इस बात की रसीद आती है कि क्या जाँचा गया, और हर प्रमाण के साथ एक लिंक होता है ताकि आप स्वयं जाँच सकें।",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "आपने जो कुछ किया वह आपके डिवाइस पर रहता है: आपके प्रश्न और उनके उत्तर, आपके सहेजे गए उत्तर, और शरीअत विशेषज्ञ को भेजे गए आपके अनुरोध तथा आपको मिले अंतिम जवाब; कनेक्शन टूटने पर भी आप उन्हें कभी भी पढ़ सकते हैं। नए प्रश्न के लिए कनेक्शन ज़रूरी है; उसके बिना, ऐप में सहेजा गया प्रलेखित उत्तर दिखाया जाता है यदि वह आपके प्रश्न से मेल खाता हो, अन्यथा रेफ़रल या उत्तर देने से परहेज़, इसकी सूचना के साथ।",
+    "How do we check every answer?": "हम हर उत्तर की जाँच कैसे करते हैं?",
+    "No connection right now: this is the last copy saved on your device.": "अभी कोई कनेक्शन नहीं: यह आपके डिवाइस पर सहेजी गई अंतिम प्रति है।",
+    "The comparison, and the proof in numbers": "तुलना, और आँकड़ों में प्रमाण",
+    "The full path, drawn": "पूरा मार्ग, चित्र के रूप में",
+    "The Basirah team gives the key to approved specialists.": "Basirah की टीम मान्य विशेषज्ञों को कुंजी देती है।"
   }
 }

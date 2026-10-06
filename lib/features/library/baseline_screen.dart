@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app/theme.dart';
 import '../../core/lang.dart';
 import '../../core/state.dart';
+import '../../shared/motion.dart';
 import '../../shared/web_frame.dart';
 import 'about_screen.dart' show modelName;
 import 'page_scaffold.dart';
@@ -76,10 +77,13 @@ const _definitions = {
 /// (the count by default) under it. The mark is centred in its column, so
 /// the marks line up from row to row whatever is written under them.
 class _Check extends StatelessWidget {
-  const _Check({required this.failures, this.label});
+  const _Check({required this.failures, this.label, this.index = 0});
 
   final int failures;
   final String? label;
+
+  /// Its row: the marks appear one row after another.
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +91,12 @@ class _Check extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        failures == 0
-            ? Icon(Icons.check_circle_rounded, color: Tones.guidance.accent, size: 22, semanticLabel: context.tr('اجتاز', 'passed'))
-            : Icon(Icons.cancel_rounded, color: Tones.refer.accent, size: 22, semanticLabel: context.tr('أخفق', 'failed')),
+        PopIn(
+          index: index,
+          child: failures == 0
+              ? Icon(Icons.check_circle_rounded, color: Tones.guidance.accent, size: 22, semanticLabel: context.tr('اجتاز', 'passed'))
+              : Icon(Icons.cancel_rounded, color: Tones.refer.accent, size: 22, semanticLabel: context.tr('أخفق', 'failed')),
+        ),
         if (note.isNotEmpty)
           Text(note, textAlign: TextAlign.center, style: BText.label(11.5, color: Tones.refer.accent, weight: FontWeight.w600)),
       ],
@@ -179,7 +186,11 @@ class ComparisonHeadline extends ConsumerWidget {
                   Row(
                     children: [
                       if (n == data.cases) ...[Icon(Icons.verified_rounded, color: tone.accent, size: 30), const SizedBox(width: 6)],
-                      Text(context.tr('$n من ${data.cases}', '$n of ${data.cases}'), style: BText.display(34, color: tone.accent, weight: FontWeight.w600)),
+                      CountUp(
+                        value: n,
+                        format: (v) => context.tr('${v.round()} من ${data.cases}', '${v.round()} of ${data.cases}'),
+                        style: BText.display(34, color: tone.accent, weight: FontWeight.w600),
+                      ),
                     ],
                   ),
                   Text(context.tr('إجابات اجتازت كل الفحوص', 'answers passed every check'), style: BText.label(13, color: BColors.ink, weight: FontWeight.w400)),
@@ -371,13 +382,13 @@ class _Report extends ConsumerWidget {
                   ],
                 ),
                 const Divider(height: 14),
-                for (final (id, _, _) in _counts)
+                for (final (i, (id, _, _)) in _counts.indexed)
                   _SideRow(
                     label: Text(context.tr(_checks[id]!.$1, _checks[id]!.$2), style: BText.body(13.5, height: 1.45)),
                     cells: [
-                      _cell(context, 'general', id),
-                      if (prompted != null) _cell(context, 'prompted', id),
-                      _cell(context, 'basirah', id),
+                      _cell(context, 'general', id, i),
+                      if (prompted != null) _cell(context, 'prompted', id, i),
+                      _cell(context, 'basirah', id, i),
                     ],
                   ),
                 const Divider(height: 14),
@@ -552,12 +563,12 @@ class _Report extends ConsumerWidget {
     );
   }
 
-  Widget _cell(BuildContext context, String side, String id) {
+  Widget _cell(BuildContext context, String side, String id, int index) {
     final n = data.answersFailing(side, id);
     if (id == 'quranFromMemory' && n > 0) {
-      return _Check(failures: n, label: context.tr('$n (${data.total(side, id)} اقتباساً)', '$n (${data.total(side, id)} quotes)'));
+      return _Check(failures: n, index: index, label: context.tr('$n (${data.total(side, id)} اقتباساً)', '$n (${data.total(side, id)} quotes)'));
     }
-    return _Check(failures: n);
+    return _Check(failures: n, index: index);
   }
 }
 
@@ -580,7 +591,7 @@ class _DesignTable extends StatelessWidget {
       (context.tr('حارس من الكود يفحص الإجابة قبل عرضها', 'A guard in code checks the answer before it is shown'), false, false, true),
       (context.tr('رابط تحقق لكل دليل', 'A link to check every piece of evidence'), false, false, true),
     ];
-    Widget mark(bool yes) => _Check(failures: yes ? 0 : 1, label: '');
+    Widget mark(bool yes, int i) => _Check(failures: yes ? 0 : 1, label: '', index: i);
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(16)),
@@ -595,10 +606,10 @@ class _DesignTable extends StatelessWidget {
             ],
           ),
           const Divider(height: 14),
-          for (final (label, g, p, b) in rows)
+          for (final (i, (label, g, p, b)) in rows.indexed)
             _SideRow(
               label: Text(label, style: BText.body(13.5, height: 1.45)),
-              cells: [mark(g), if (hasPrompted) mark(p), mark(b)],
+              cells: [mark(g, i), if (hasPrompted) mark(p, i), mark(b, i)],
             ),
         ],
       ),
@@ -921,12 +932,15 @@ class ComparisonTable extends ConsumerWidget {
         ),
       ),
     ];
-    Widget mark(int? failures) => failures == null
+    Widget mark(int? failures, int index) => failures == null
         ? const SizedBox.shrink()
         : Center(
-            child: failures == 0
-                ? Icon(Icons.check_circle_rounded, color: Tones.guidance.accent, size: 22)
-                : Icon(Icons.cancel_rounded, color: Tones.refer.accent, size: 22),
+            child: PopIn(
+              index: index,
+              child: failures == 0
+                  ? Icon(Icons.check_circle_rounded, color: Tones.guidance.accent, size: 22)
+                  : Icon(Icons.cancel_rounded, color: Tones.refer.accent, size: 22),
+            ),
           );
     final cols = prompted == null ? 2 : 3;
     final head = BText.label(12, color: BColors.ink, weight: FontWeight.w600);
@@ -946,7 +960,7 @@ class ComparisonTable extends ConsumerWidget {
             ],
           ),
           const Divider(height: 18),
-          for (final (label, g, p, b, note) in rows)
+          for (final (i, (label, g, p, b, note)) in rows.indexed)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Row(
@@ -960,9 +974,9 @@ class ComparisonTable extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  SizedBox(width: 74, child: mark(g)),
-                  if (cols == 3) SizedBox(width: 74, child: mark(p)),
-                  SizedBox(width: 64, child: mark(b)),
+                  SizedBox(width: 74, child: mark(g, i)),
+                  if (cols == 3) SizedBox(width: 74, child: mark(p, i)),
+                  SizedBox(width: 64, child: mark(b, i)),
                 ],
               ),
             ),
@@ -970,10 +984,20 @@ class ComparisonTable extends ConsumerWidget {
           Row(
             children: [
               Expanded(child: Text(context.tr('إجابات اجتازت كل الفحوص', 'Answers that passed every check'), style: BText.title(14))),
-              SizedBox(width: 74, child: Text('${data.passed('general')}/$cases', textAlign: TextAlign.center, style: BText.title(14, color: Tones.refer.accent))),
-              if (cols == 3)
-                SizedBox(width: 74, child: Text('${data.passed('prompted')}/$cases', textAlign: TextAlign.center, style: BText.title(14, color: Tones.refer.accent))),
-              SizedBox(width: 64, child: Text('${data.passed('basirah')}/$cases', textAlign: TextAlign.center, style: BText.title(14, color: Tones.guidance.accent))),
+              for (final (side, width, tone) in [
+                ('general', 74.0, Tones.refer),
+                if (cols == 3) ('prompted', 74.0, Tones.refer),
+                ('basirah', 64.0, Tones.guidance),
+              ])
+                SizedBox(
+                  width: width,
+                  child: CountUp(
+                    value: data.passed(side),
+                    format: (v) => '${v.round()}/$cases',
+                    textAlign: TextAlign.center,
+                    style: BText.title(14, color: tone.accent),
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 8),

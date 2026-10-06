@@ -38,7 +38,8 @@ class BasirahApp extends ConsumerWidget {
     // Flutter has it, in English otherwise.
     final material = GlobalMaterialLocalizations.delegate.isSupported(Locale(ui)) ? ui : 'en';
     return MaterialApp.router(
-      title: ui == 'ar' ? 'بصيرة · Basirah' : 'Basirah · بصيرة',
+      // The browser tab: the name in the interface's script, then the other form.
+      title: ui == 'ar' ? 'بصيرة · Basirah' : (appNameFor(ui) == 'Basirah' ? 'Basirah · بصيرة' : '${appNameFor(ui)} · Basirah'),
       debugShowCheckedModeBanner: false,
       theme: BasirahTheme.light(),
       themeMode: ThemeMode.light,

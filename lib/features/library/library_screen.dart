@@ -308,14 +308,16 @@ class _NavTile extends StatelessWidget {
     glow: fill,
     glowAlignment: const Alignment(-1, 1),
     padding: const EdgeInsets.fromLTRB(12, 16, 12, 16),
+    // Room for a three-line title: longer languages («Comment Basirah
+    // vérifie») are not cut.
     child: SizedBox(
-      height: 104,
+      height: 120,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconBubble(icon: icon, color: ink, fill: fill, size: 46),
           const Spacer(),
-          Text(title, style: BText.title(14, weight: FontWeight.w500), maxLines: 2),
+          Text(title, style: BText.title(14, weight: FontWeight.w500).copyWith(height: 1.25), maxLines: 3, overflow: TextOverflow.ellipsis),
         ],
       ),
     ),

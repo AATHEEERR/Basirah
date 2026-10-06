@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Odgovor povezan s građom, uz tačno upućivanje na njeno mjesto",
     "An approved translation of the meanings, from QuranEnc": "Odobren prijevod značenja, iz QuranEnc",
     "An off-topic question answered": "Odgovoreno na pitanje izvan okvira",
-    "And if the AI is unavailable? Basirah keeps working": "A ako umjetna inteligencija nije dostupna? Basirah nastavlja raditi",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "A zaštita to provodi: odgovor bez dokaza → suzdržavanje; niska pouzdanost → suzdržavanje; lični slučaj → odmah upućivanje, bez pojašnjavanja.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "I test jezika: {0} pitanja na {1} jezika; odgovoreno je na {2}, od toga {3} na jeziku samog pitanja, a {4} s odobrenim prijevodom svakog ajeta (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "I vrijeme (prema vremenu vašeg uređaja)",
@@ -117,7 +116,6 @@
     "I grew up Muslim": "Odrastao/la sam kao musliman/ka",
     "Identity & name": "Identitet i ime",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Ako model zakaže ili istekne vrijeme, prikazuje se pohranjeni dokumentovani odgovor, upućivanje ili uzdržavanje, po utvrđenim pravilima u kodu, uz napomenu o tome.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Ako model zakaže ili prekorači vremensko ograničenje, prikazuje se dokumentovani odgovor pohranjen u bazi znanja, odabran po utvrđenim pravilima u kodu (bez modela), ili upućivanje ili uzdržavanje, uz napomenu o tome. Baza znanja radi unutar aplikacije bez servera.",
     "Ignore the planted instruction, keep the rules": "Zanemari podmetnutu uputu, drži se pravila",
     "Impact board": "Ploča učinka",
     "Impact in numbers": "Učinak u brojevima",
@@ -669,6 +667,14 @@
     "One check ✓": "Jedna provjera ✓",
     "{0} checks ✓": "Broj provjera: {0} ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Ponovo pokreni jednom naredbom po strani iz mape server: dart run bin/baseline.dart (opći i Basirah), dart run bin/baseline.dart --prompted (s uputama), dart run bin/baseline.dart --recount (ponovno brojanje iz sačuvanih odgovora).",
-    "s": "s"
+    "s": "s",
+    "And if the connection drops or the AI is unavailable?": "A ako veza nestane ili AI nije dostupan?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Svaki odgovor prolazi kroz utvrđene korake: prepoznajemo jezik tvog pitanja i da li je riječ o ličnom slučaju koji treba uputiti stručnjaku za šerijat. Zatim model pretražuje cijeli Mushaf, čita tefsir ajeta na Dorar prije nego što ga navede, traži u enciklopediji hadisa sahih i hasen hadise, i piše odgovor samo iz ovih izvora. Prije prikaza, čuvar u kodu ga provjerava: tekst ajeta kopira se iz Mushafa, a ne iz pamćenja modela, i nijedan hadis se ne pojavljuje bez izvora i stepena. Odgovor dolazi s potvrdom o tome šta je provjereno, a svaki dokaz ima link da ga sam provjeriš.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Sve što si uradio ostaje na tvom uređaju: tvoja pitanja i odgovori na njih, sačuvani odgovori, i tvoji zahtjevi stručnjaku za šerijat s posljednjim odgovorima koje si primio; možeš ih čitati bilo kada, čak i kad veza nestane. Novo pitanje traži vezu; bez nje se prikazuje dokumentovani odgovor sačuvan u aplikaciji ako odgovara tvom pitanju, ili upućivanje ili uzdržavanje od odgovora, uz obavještenje koje to kaže.",
+    "How do we check every answer?": "Kako provjeravamo svaki odgovor?",
+    "No connection right now: this is the last copy saved on your device.": "Trenutno nema veze: ovo je posljednja kopija sačuvana na tvom uređaju.",
+    "The comparison, and the proof in numbers": "Poređenje i dokaz u brojkama",
+    "The full path, drawn": "Cijeli put, nacrtan",
+    "The Basirah team gives the key to approved specialists.": "Tim Basirah daje ključ odobrenim stručnjacima."
   }
 }

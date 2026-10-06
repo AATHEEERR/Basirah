@@ -90,9 +90,16 @@ class _NavItem extends StatelessWidget {
           children: [
             NavGlyph(glyph, active: selected),
             const SizedBox(height: 4),
-            Text(
-              label,
-              style: BText.label(12, color: BColors.ink, weight: selected ? FontWeight.w600 : FontWeight.w400),
+            // One line in every language: a long label («Ma bibliothèque»)
+            // is scaled down to fit rather than wrapped.
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                label,
+                maxLines: 1,
+                softWrap: false,
+                style: BText.label(12, color: BColors.ink, weight: selected ? FontWeight.w600 : FontWeight.w400),
+              ),
             ),
           ],
         ),

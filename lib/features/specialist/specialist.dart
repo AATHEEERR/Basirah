@@ -509,18 +509,23 @@ class MyReferralsScreen extends ConsumerWidget {
   }
 }
 
-class _Thread extends StatefulWidget {
+class _Thread extends ConsumerStatefulWidget {
   const _Thread({required this.r});
 
   final MyReferral r;
 
   @override
-  State<_Thread> createState() => _ThreadState();
+  ConsumerState<_Thread> createState() => _ThreadState();
 }
 
-class _ThreadState extends State<_Thread> {
-  Map<String, dynamic>? _live;
-  bool _loading = true;
+class _ThreadState extends ConsumerState<_Thread> {
+  /// What the server last said, kept on the device: readable with no
+  /// connection.
+  late Map<String, dynamic>? _live = widget.r.lastSeen;
+  late bool _loading = _live == null;
+
+  /// The last refresh could not reach the server.
+  bool _offline = false;
   final _reply = TextEditingController();
   Timer? _poll;
 
@@ -541,13 +546,14 @@ class _ThreadState extends State<_Thread> {
 
   Future<void> _refresh() async {
     final live = await ReferralApi.read(widget.r);
-    // A missed refresh keeps what is on screen.
-    if (mounted && (live != null || _live == null)) {
-      setState(() {
-        _live = live;
-        _loading = false;
-      });
-    }
+    if (!mounted) return;
+    // A missed refresh keeps what is on screen (the copy on the device).
+    setState(() {
+      if (live != null) _live = live;
+      _offline = live == null;
+      _loading = false;
+    });
+    if (live != null) await ref.read(myReferralsProvider.notifier).remember(widget.r.id, live);
   }
 
   Future<void> _send() async {
@@ -606,6 +612,11 @@ class _ThreadState extends State<_Thread> {
             textDirection: textDirectionOf(r.question),
           ),
           Text(context.tr('رمز الطلب: ${r.id}', 'Request code: ${r.id}'), style: BText.label(11.5, weight: FontWeight.w400)),
+          if (_offline && _live != null)
+            Text(
+              context.tr('بلا اتصال الآن: هذه آخر نسخة محفوظة على جهازك.', 'No connection right now: this is the last copy saved on your device.'),
+              style: BText.label(11.5, color: Tones.abstain.accent, weight: FontWeight.w500),
+            ),
           for (final m in messages)
             Container(
               margin: const EdgeInsets.only(top: 8),
@@ -775,6 +786,7 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
               onSubmitted: (_) => _load(),
               decoration: InputDecoration(
                 labelText: context.tr('مفتاح اللوحة', 'Panel key'),
+                helperText: context.tr('يعطي فريقُ بصيرة المفتاحَ للمختصين المعتمدين.', 'The Basirah team gives the key to approved specialists.'),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
               ),
             ),

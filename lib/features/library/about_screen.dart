@@ -1,6 +1,7 @@
 import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../app/theme.dart';
 import '../../core/ask_service.dart';
@@ -85,6 +86,23 @@ class AboutScreen extends StatelessWidget {
                       'background, which they can trace to an approved source themselves; and that Basirah declines or refers them to a '
                       'specialist when the reference is not enough or the matter is a personal case.',
                 ),
+              ),
+              _Block(
+                title: context.tr('كيف نتحقق من كل إجابة؟', 'How do we check every answer?'),
+                body: context.tr(
+                  'كل إجابة تمرّ بخطوات ثابتة: نعرف لغة سؤالك، وهل هو حالة شخصية تُحال إلى مختص شرعي. ثم يبحث النموذج في المصحف كاملاً، '
+                      'ويقرأ تفسير الآية في الدرر السنية قبل أن يستشهد بها، ويبحث في موسوعة الأحاديث عن الصحيح والحسن، ويكتب الإجابة من هذه المصادر وحدها. '
+                      'وقبل أن تظهر يفحصها حارس من الكود: نص الآية يُنسخ من المصحف لا من ذاكرة النموذج، ولا حديث بلا مصدره ودرجته. '
+                      'وتصلك الإجابة بإيصال يبيّن ما فُحص فيها، ولكل دليل رابط تتحقق منه بنفسك.',
+                  'Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. '
+                      'The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. '
+                      'Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. '
+                      'The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.',
+                ),
+                links: [
+                  (context.tr('المسار كاملاً بالرسم', 'The full path, drawn'), '/pipeline'),
+                  (context.tr('المقارنة والدليل بالأرقام', 'The comparison, and the proof in numbers'), '/baseline'),
+                ],
               ),
               _Block(
                 title: context.tr('الشفافية', 'Transparency'),
@@ -248,10 +266,13 @@ class _TechBlock extends ConsumerWidget {
 }
 
 class _Block extends StatelessWidget {
-  const _Block({required this.title, required this.body});
+  const _Block({required this.title, required this.body, this.links = const []});
 
   final String title;
   final String body;
+
+  /// (label, route) of pages that say more.
+  final List<(String, String)> links;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -267,6 +288,19 @@ class _Block extends StatelessWidget {
         Text(title, style: BText.title(15.5, color: BColors.goldDeep)),
         const SizedBox(height: 6),
         Text(body, style: BText.body(14, color: BColors.textMuted)),
+        if (links.isNotEmpty)
+          Wrap(
+            spacing: 4,
+            children: [
+              for (final (label, route) in links)
+                TextButton.icon(
+                  onPressed: () => context.push(route),
+                  iconAlignment: IconAlignment.end,
+                  icon: const Icon(Icons.arrow_forward_rounded, size: 16, color: BColors.goldDeep),
+                  label: Text(label, style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
+                ),
+            ],
+          ),
       ],
     ),
   );

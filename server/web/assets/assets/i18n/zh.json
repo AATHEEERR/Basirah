@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "与材料相联系的答案,并准确标明出处位置",
     "An approved translation of the meanings, from QuranEnc": "来自 QuranEnc 的经认可的古兰经含义译本",
     "An off-topic question answered": "回答了超出范围的问题",
-    "And if the AI is unavailable? Basirah keeps working": "如果 AI 不可用呢?Basirah 仍会继续运作",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "守卫会强制执行:没有证据的答案→放弃回答;可信度低→放弃回答;个人情况→立即转介,不再追问澄清。",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "语言测试:{1} 种语言共 {0} 个问题;{2} 个得到回答,其中 {3} 个使用问题本身的语言,{4} 个为每节经文附上经认可的含义译本(eval/LANGUAGES_REPORT.md)。",
     "And the time (your device’s time)": "以及时间(您设备的时间)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "我生来就是穆斯林",
     "Identity & name": "身份与姓名",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "如果模型出错或超时,将按代码中的固定规则显示已存的有依据回答、转介或不作答,并附上相应提示。",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "如果模型出错或超过时限,将按代码中的固定规则(不使用模型)显示知识库中已存的有依据回答,或转介、不作答,并附上相应提示。知识库可在应用内运行,无需服务器。",
     "Ignore the planted instruction, keep the rules": "忽略夹带的指令,继续遵守规则",
     "Impact board": "影响力看板",
     "Impact in numbers": "数字看影响",
@@ -669,6 +667,14 @@
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "在 server 文件夹中，每一方用一条命令重新运行：dart run bin/baseline.dart（通用模型与 Basirah），dart run bin/baseline.dart --prompted（带指令），dart run bin/baseline.dart --recount（根据已保存的回答重新计数）。",
     "Evidence & sources": "证据与来源",
     "Evidence in the answers": "回答中的证据",
-    "s": "秒"
+    "s": "秒",
+    "And if the connection drops or the AI is unavailable?": "如果网络中断或人工智能不可用怎么办？",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "每个回答都经过固定的步骤：我们识别你提问的语言，并判断它是否属于应转交给教法专家的个人情况。随后，模型在整部《古兰经》中检索，在引用经文之前先在 Dorar 上阅读该经文的经注，在圣训百科中检索正确（sahih）和良好（hasan）的圣训，并仅依据这些来源撰写回答。在显示之前，代码中的守护程序会对其进行检查：经文文本复制自《古兰经》，而非模型的记忆；任何圣训都必须附有出处和等级。回答附有一份检查凭据，每条证据都有链接，可供你亲自核对。",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "你所做的一切都保存在你的设备上：你的问题及其回答、你保存的回答，以及你向教法专家提出的请求和你收到的最新回复；即使网络中断，你也可以随时查看。新的问题需要联网；没有网络时，如果应用中保存的有据回答与你的问题相符，就会显示该回答，否则会显示转交或不作回答，并附有相应提示。",
+    "How do we check every answer?": "我们如何核查每个回答？",
+    "No connection right now: this is the last copy saved on your device.": "当前无网络连接：这是保存在你设备上的最新副本。",
+    "The comparison, and the proof in numbers": "对比，以及数据证明",
+    "The full path, drawn": "完整流程图",
+    "The Basirah team gives the key to approved specialists.": "Basirah 团队会向经认可的专家提供密钥。"
   }
 }

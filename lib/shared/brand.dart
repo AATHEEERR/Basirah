@@ -135,14 +135,18 @@ class Wordmark extends StatelessWidget {
 
   final TextStyle style;
 
-  /// The language to write it in; when null, the interface's: Arabic script
-  /// in the right-to-left interfaces (Arabic, Urdu, Persian, Pashto).
+  /// The language to write it in; when null, the interface's: the Arabic
+  /// logo in the right-to-left interfaces (Arabic, Urdu, Persian, Pashto),
+  /// and the name in the script of the others (Basirah, बसीरा, バシーラ…).
   final String? lang;
 
   @override
-  Widget build(BuildContext context) => (lang ?? (isRtlLanguage(context.uiLang) ? 'ar' : 'en')) == 'en'
-      ? Text('Basirah', style: style)
-      : Semantics(label: 'بصيرة', excludeSemantics: true, child: Text('بصيره', style: style));
+  Widget build(BuildContext context) {
+    final ui = context.uiLang;
+    final arabic = lang == null ? isRtlLanguage(ui) : lang == 'ar';
+    if (arabic) return Semantics(label: 'بصيرة', excludeSemantics: true, child: Text('بصيره', style: style));
+    return Text(lang == null ? appNameFor(ui) : 'Basirah', style: style);
+  }
 }
 
 /// The sparkle mark in a square: a four-point star with concave sides

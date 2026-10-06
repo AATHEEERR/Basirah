@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "பொருளுடன் இணைந்த பதில்; அதன் துல்லியமான இடத்தைச் சுட்டிக்காட்டுகிறது",
     "An approved translation of the meanings, from QuranEnc": "QuranEnc இலிருந்து ஏற்கப்பட்ட பொருள் மொழிபெயர்ப்பு",
     "An off-topic question answered": "வரம்புக்கு அப்பாற்பட்ட கேள்விக்குப் பதிலளிக்கப்பட்டது",
-    "And if the AI is unavailable? Basirah keeps working": "செயற்கை நுண்ணறிவு கிடைக்கவில்லை என்றால்? Basirah தொடர்ந்து இயங்கும்",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "காவலர் இதைச் செயல்படுத்துகிறார்: ஆதாரமில்லாத பதில் ← பதிலளிக்காமை; குறைந்த நம்பிக்கை ← பதிலளிக்காமை; தனிப்பட்ட நிலை ← உடனே பரிந்துரை, அதில் தெளிவுபடுத்தல் கேட்கப்படாது.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "மொழிகள் சோதனை: {1} மொழிகளில் {0} கேள்விகள்; {2} பதிலளிக்கப்பட்டன, அவற்றில் {3} கேள்வியின் சொந்த மொழியில், {4} ஒவ்வொரு வசனத்துக்கும் ஏற்கப்பட்ட மொழிபெயர்ப்புடன் (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "மேலும் நேரம் (உங்கள் சாதனத்தின் நேரம்)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "நான் முஸ்லிமாக வளர்ந்தேன்",
     "Identity & name": "அடையாளமும் பெயரும்",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "மாதிரி செயலிழந்தாலோ நேரம் முடிந்தாலோ, சேமிக்கப்பட்ட ஆவணப்படுத்தப்பட்ட பதில், பரிந்துரை அல்லது பதிலளிக்காமல் விடுதல் ஆகியவை குறியீட்டில் உள்ள நிலையான விதிகளின்படி காட்டப்படும்; அதைத் தெரிவிக்கும் அறிவிப்புடன்.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "மாதிரி செயலிழந்தாலோ அதன் நேர வரம்பைத் தாண்டினாலோ, அறிவுத் தளத்தில் சேமிக்கப்பட்ட ஆவணப்படுத்தப்பட்ட பதில், குறியீட்டில் உள்ள நிலையான விதிகளால் (மாதிரி இல்லாமல்) தேர்ந்தெடுக்கப்பட்டுக் காட்டப்படும்; அல்லது பரிந்துரை அல்லது பதிலளிக்காமல் விடுதல், அதைத் தெரிவிக்கும் அறிவிப்புடன். அறிவுத் தளம் சர்வர் இல்லாமலே செயலிக்குள் இயங்குகிறது.",
     "Ignore the planted instruction, keep the rules": "புகுத்தப்பட்ட கட்டளையைப் புறக்கணித்து விதிகளைத் தொடர்தல்",
     "Impact board": "தாக்கப் பலகை",
     "Impact in numbers": "எண்களில் தாக்கம்",
@@ -669,6 +667,14 @@
     "One check ✓": "ஒரு சரிபார்ப்பு ✓",
     "{0} checks ✓": "{0} சரிபார்ப்புகள் ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "server கோப்புறையிலிருந்து ஒவ்வொரு தரப்புக்கும் ஒரு கட்டளையில் மீண்டும் இயக்கவும்: dart run bin/baseline.dart (பொது மற்றும் Basirah), dart run bin/baseline.dart --prompted (அறிவுறுத்தலுடன்), dart run bin/baseline.dart --recount (சேமித்த பதில்களிலிருந்து மீண்டும் எண்ணுதல்).",
-    "s": "வி."
+    "s": "வி.",
+    "And if the connection drops or the AI is unavailable?": "இணைப்பு துண்டிக்கப்பட்டால் அல்லது AI கிடைக்காவிட்டால் என்ன?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "ஒவ்வொரு பதிலும் நிலையான படிகளைக் கடக்கிறது: உங்கள் கேள்வியின் மொழியையும், அது ஷரீஆ நிபுணரிடம் பரிந்துரைக்க வேண்டிய தனிப்பட்ட விவகாரமா என்பதையும் கண்டறிகிறோம். பின்னர் மாதிரி முழு முஸ்ஹஃபிலும் தேடுகிறது, ஒரு வசனத்தை மேற்கோள் காட்டும் முன் Dorar-இல் அதன் தஃப்ஸீரைப் படிக்கிறது, ஹதீஸ் கலைக்களஞ்சியத்தில் ஸஹீஹ் மற்றும் ஹஸன் ஹதீஸ்களைத் தேடுகிறது, இந்த மூலங்களிலிருந்து மட்டுமே பதிலை எழுதுகிறது. காட்டப்படும் முன், குறியீட்டில் உள்ள ஒரு காவலர் அதைச் சரிபார்க்கிறார்: வசனத்தின் உரை மாதிரியின் நினைவிலிருந்து அல்ல, முஸ்ஹஃபிலிருந்து நகலெடுக்கப்படுகிறது; மூலமும் தரமும் இல்லாமல் எந்த ஹதீஸும் தோன்றாது. சரிபார்க்கப்பட்டவற்றின் ரசீதுடன் பதில் வருகிறது, ஒவ்வொரு சான்றுக்கும் நீங்களே சரிபார்க்க ஒரு இணைப்பு உள்ளது.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "நீங்கள் செய்த அனைத்தும் உங்கள் சாதனத்தில் இருக்கும்: உங்கள் கேள்விகளும் அவற்றின் பதில்களும், நீங்கள் சேமித்த பதில்களும், நீங்கள் பெற்ற கடைசி பதில்களுடன் ஷரீஆ நிபுணருக்கு நீங்கள் அனுப்பிய கோரிக்கைகளும்; இணைப்பு துண்டிக்கப்பட்டாலும் அவற்றை எப்போது வேண்டுமானாலும் படிக்கலாம். புதிய கேள்விக்கு இணைப்பு தேவை; அது இல்லாதபோது, செயலியில் சேமிக்கப்பட்ட ஆவணப்படுத்தப்பட்ட பதில் உங்கள் கேள்விக்குப் பொருந்தினால் காட்டப்படும், இல்லையெனில் பரிந்துரை அல்லது பதிலளிக்க மறுப்பு, அதைக் கூறும் அறிவிப்புடன்.",
+    "How do we check every answer?": "ஒவ்வொரு பதிலையும் நாங்கள் எவ்வாறு சரிபார்க்கிறோம்?",
+    "No connection right now: this is the last copy saved on your device.": "இப்போது இணைப்பு இல்லை: இது உங்கள் சாதனத்தில் சேமிக்கப்பட்ட கடைசி நகல்.",
+    "The comparison, and the proof in numbers": "ஒப்பீடு, மற்றும் எண்களில் சான்று",
+    "The full path, drawn": "முழுப் பாதை, வரைபடமாக",
+    "The Basirah team gives the key to approved specialists.": "அங்கீகரிக்கப்பட்ட நிபுணர்களுக்கு Basirah குழு திறவுகோலை வழங்குகிறது."
   }
 }

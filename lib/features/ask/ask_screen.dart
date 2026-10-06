@@ -232,6 +232,13 @@ class _Header extends ConsumerWidget {
           padding: web ? const EdgeInsets.fromLTRB(20, 30, 12, 18) : const EdgeInsets.fromLTRB(20, 14, 12, 14),
           child: Row(
             children: [
+              // The way back, as on every page.
+              RoundIconButton(
+                icon: Icons.arrow_back_rounded,
+                tooltip: context.tr('رجوع', 'Back'),
+                onTap: () => context.canPop() ? context.pop() : context.go('/home'),
+              ),
+              const SizedBox(width: 10),
               const BrandLogo(size: 38),
               const SizedBox(width: 12),
               Expanded(
@@ -241,15 +248,12 @@ class _Header extends ConsumerWidget {
                     Text(context.tr('بصيرة AI', 'Basirah AI'), style: web ? pageTitleStyle(context) : BText.display(22)),
                     Row(
                       children: [
-                        Container(
-                          width: 7,
-                          height: 7,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ai ? const Color(0xFF2FA464) : BColors.gold,
-                          ),
+                        Icon(
+                          ai ? Icons.bolt_rounded : Icons.cloud_off_rounded,
+                          size: 15,
+                          color: ai ? const Color(0xFF2FA464) : BColors.gold,
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 4),
                         Flexible(child: Text(status, style: BText.label(12, weight: FontWeight.w400))),
                       ],
                     ),

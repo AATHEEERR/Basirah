@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Amsa da ke da alaƙa da abun da aka ɗauko daga gare shi, tare da nuna ainihin wurinsa",
     "An approved translation of the meanings, from QuranEnc": "Fassarar ma'anoni karɓaɓɓiya daga QuranEnc",
     "An off-topic question answered": "An amsa tambayar da ba ta cikin iyaka",
-    "And if the AI is unavailable? Basirah keeps working": "Idan AI ba ta samu fa? Basirah ba ta tsayawa",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Kuma mai tsaro yana tilasta hakan: amsa ba tare da hujja → kauracewa; ƙarancin tabbaci → kauracewa; keɓantaccen lamari → turawa nan take, ba a yi masa tambayar bayani ba.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Kuma gwajin harsuna: tambayoyi {0} cikin harsuna {1}; an amsa {2}, daga ciki {3} da harshen tambayar kanta, kuma {4} da fassarar ma'ana karɓaɓɓiya ga kowace aya (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Da lokaci (lokacin na'urarka)",
@@ -117,7 +116,6 @@
     "I grew up Muslim": "Na girma a matsayin Musulmi",
     "Identity & name": "Asali da suna",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Idan samfurin ya lalace ko ya wuce lokacinsa, ana nuna amsar da aka adana mai hujja, ko aika zuwa ga ƙwararre ko kauracewa amsawa, bisa ƙa'idodi tsayayyu a cikin lambar, tare da sanarwa da ke faɗin hakan.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Idan samfurin ya lalace ko ya wuce iyakar lokacinsa, ana nuna amsar da aka adana a tushen ilimi, wadda ƙa'idodi tsayayyu a cikin lambar suka zaɓa (ba tare da samfuri ba), ko aika zuwa ga ƙwararre ko kauracewa amsawa, tare da sanarwa da ke faɗin hakan. Tushen ilimi yana aiki a cikin manhajar ba tare da sabar ba.",
     "Ignore the planted instruction, keep the rules": "A yi watsi da umarnin da aka ɓoye, a ci gaba da ƙa'idodi",
     "Impact board": "Allon tasiri",
     "Impact in numbers": "Tasiri a lambobi",
@@ -669,6 +667,14 @@
     "One check ✓": "Bincike ɗaya ✓",
     "{0} checks ✓": "Bincike {0} ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Sake gudanarwa da umarni ɗaya ga kowane ɓangare daga babban fayil na server: dart run bin/baseline.dart (gama-gari da Basirah), dart run bin/baseline.dart --prompted (mai umarni), dart run bin/baseline.dart --recount (sake ƙirga daga amsoshin da aka adana).",
-    "s": "daƙ."
+    "s": "daƙ.",
+    "And if the connection drops or the AI is unavailable?": "Idan haɗin intanet ya katse ko AI ba ta samuwa fa?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Kowace amsa tana bin matakai ƙayyadaddu: muna gane harshen tambayarka, da kuma ko al'amari ne na kai da ya kamata a tura wa ƙwararren Shari'a. Sa'an nan samfurin yana bincike a cikin Mushaf gaba ɗaya, yana karanta tafsirin aya a Dorar kafin ya kawo ta, yana bincika littafin hadisai don samun hadisai sahihai da hasan, kuma yana rubuta amsar daga waɗannan tushe kaɗai. Kafin a nuna ta, wani mai tsaro a cikin lambar yana duba ta: ana kwafar rubutun aya daga Mushaf, ba daga ƙwaƙwalwar samfurin ba, kuma babu wani hadisi da zai bayyana ba tare da tushensa da darajarsa ba. Amsar tana zuwa tare da rasit na abin da aka duba, kuma kowace hujja tana da hanyar haɗi don ka duba ta da kanka.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Duk abin da ka yi yana nan a na'urarka: tambayoyinka da amsoshinsu, amsoshin da ka adana, da buƙatunka zuwa ga ƙwararren Shari'a tare da amsoshi na ƙarshe da ka samu; za ka iya karanta su a kowane lokaci, ko da haɗin intanet ya katse. Sabuwar tambaya tana buƙatar haɗin intanet; idan babu shi, ana nuna amsar da aka tabbatar da aka adana a cikin manhajar idan ta dace da tambayarka, ko kuma turawa ko ƙin amsawa, tare da sanarwa da ke faɗin haka.",
+    "How do we check every answer?": "Ta yaya muke duba kowace amsa?",
+    "No connection right now: this is the last copy saved on your device.": "Babu haɗin intanet yanzu: wannan ita ce kwafin ƙarshe da aka adana a na'urarka.",
+    "The comparison, and the proof in numbers": "Kwatancen, da hujja da adadi",
+    "The full path, drawn": "Cikakkiyar hanya, a zane",
+    "The Basirah team gives the key to approved specialists.": "Ƙungiyar Basirah ce ke ba ƙwararrun da aka amince da su mabuɗin."
   }
 }

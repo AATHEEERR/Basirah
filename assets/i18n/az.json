@@ -47,7 +47,6 @@
     "I grew up Muslim": "Müsəlman ailəsində böyümüşəm",
     "Identity & name": "Kimlik və ad",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Model xəta versə və ya vaxtı keçsə, saxlanılmış sənədləşdirilmiş cavab, yönləndirmə və ya çəkinmə kodda sabit qaydalarla göstərilir və bunu bildirən xəbərdarlıq verilir.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Model xəta versə və ya vaxt həddini aşsa, bilik bazasında saxlanılmış sənədləşdirilmiş cavab kodda sabit qaydalarla (modelsiz) seçilərək göstərilir, ya da yönləndirmə və ya çəkinmə göstərilir və bunu bildirən xəbərdarlıq verilir. Bilik bazası tətbiqin daxilində serversiz işləyir.",
     "Ignore the planted instruction, keep the rules": "Gizlədilmiş əmrə məhəl qoymayıb qaydalara əməl etmək",
     "Impact board": "Təsir lövhəsi",
     "Impact in numbers": "Rəqəmlərlə təsir",
@@ -121,7 +120,6 @@
     "An answer tied to the material, citing its exact place": "Materiala bağlı, dəqiq yerinə istinad edən cavab",
     "An approved translation of the meanings, from QuranEnc": "QuranEnc-dən təsdiqlənmiş mənaların tərcüməsi",
     "An off-topic question answered": "Mövzudan kənar suala verilmiş cavab",
-    "And if the AI is unavailable? Basirah keeps working": "Süni intellekt əlçatmaz olarsa? Basirah işləməyə davam edir",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Mühafizə bunu tətbiq edir: dəlilsiz cavab ← imtina; aşağı əminlik ← imtina; şəxsi hal ← dərhal yönləndirmə, aydınlaşdırma sorğusu olmadan.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Dillər testi: {1} dildə {0} sual; {2} cavablandırıldı, {3} sualın öz dilində, {4} isə hər ayənin təsdiqlənmiş mənaca tərcüməsi ilə (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Və saat (cihazınızın vaxtı ilə)",
@@ -669,6 +667,14 @@
     "One check ✓": "Bir yoxlama ✓",
     "{0} checks ✓": "{0} yoxlama ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "server qovluğundan hər tərəf üçün bir əmrlə yenidən işə salın: dart run bin/baseline.dart (ümumi və Basirah), dart run bin/baseline.dart --prompted (təlimatlı), dart run bin/baseline.dart --recount (saxlanmış cavablardan yenidən sayma).",
-    "s": "san."
+    "s": "san.",
+    "And if the connection drops or the AI is unavailable?": "Bəs əlaqə kəsilsə və ya süni intellekt əlçatan olmasa?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Hər cavab sabit addımlardan keçir: sualınızın dilini və onun şəriət mütəxəssisinə yönləndirilməli olan şəxsi məsələ olub-olmadığını müəyyən edirik. Sonra model bütün Mushafda axtarır, ayəni sitat gətirməzdən əvvəl Dorar-da onun təfsirini oxuyur, hədis ensiklopediyasında səhih və həsən hədisləri axtarır və cavabı yalnız bu mənbələrdən yazır. Göstərilməzdən əvvəl kodda olan bir qoruyucu onu yoxlayır: ayənin mətni modelin yaddaşından deyil, Mushafdan köçürülür və heç bir hədis mənbəyi və dərəcəsi olmadan göstərilmir. Cavab yoxlanılanların qəbzi ilə gəlir və hər dəlilin özünüz yoxlamağınız üçün keçidi var.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Etdiyiniz hər şey cihazınızda qalır: suallarınız və onların cavabları, saxladığınız cavablar və aldığınız son cavablarla birlikdə şəriət mütəxəssisinə müraciətləriniz; əlaqə kəsilsə belə, istənilən vaxt onları oxuya bilərsiniz. Yeni sual üçün əlaqə lazımdır; əlaqə olmadıqda, tətbiqdə saxlanmış sənədli cavab sualınıza uyğundursa göstərilir, əks halda yönləndirmə və ya cavabdan çəkinmə, bunu bildirən bildirişlə.",
+    "How do we check every answer?": "Hər cavabı necə yoxlayırıq?",
+    "No connection right now: this is the last copy saved on your device.": "Hazırda əlaqə yoxdur: bu, cihazınızda saxlanmış son nüsxədir.",
+    "The comparison, and the proof in numbers": "Müqayisə və rəqəmlərlə sübut",
+    "The full path, drawn": "Tam yol, sxem şəklində",
+    "The Basirah team gives the key to approved specialists.": "Açarı təsdiqlənmiş mütəxəssislərə Basirah komandası verir."
   }
 }

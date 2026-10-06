@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "সামগ্ৰীৰ সৈতে সংযুক্ত উত্তৰ, ইয়াৰ সঠিক স্থানৰ উল্লেখসহ",
     "An approved translation of the meanings, from QuranEnc": "QuranEnc ৰ পৰা অৰ্থৰ অনুমোদিত অনুবাদ",
     "An off-topic question answered": "পৰিসৰৰ বাহিৰৰ প্ৰশ্নৰ উত্তৰ দিয়া হ’ল",
-    "And if the AI is unavailable? Basirah keeps working": "আৰু কৃত্ৰিম বুদ্ধিমত্তা উপলব্ধ নহ’লে? Basirah চলি থাকে",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "আৰু প্ৰহৰীয়ে সেয়া কঠোৰভাৱে প্ৰয়োগ কৰে: প্ৰমাণবিহীন উত্তৰ ← বিৰত; কম আস্থা ← বিৰত; ব্যক্তিগত ক্ষেত্ৰ ← তৎক্ষণাত প্ৰেৰণ, কেতিয়াও স্পষ্টীকৰণ নহয়।",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "আৰু ভাষা পৰীক্ষা: {1}টা ভাষাত {0}টা প্ৰশ্ন; {2}টাৰ উত্তৰ দিয়া হ’ল, ইয়াৰে {3}টা প্ৰশ্নৰ নিজৰ ভাষাত, আৰু {4}টাত প্ৰতিটো আয়াতৰ অনুমোদিত অনুবাদসহ (eval/LANGUAGES_REPORT.md)।",
     "And the time (your device’s time)": "আৰু সময় (আপোনাৰ ডিভাইচৰ সময়)",
@@ -257,7 +256,6 @@
     "I grew up Muslim": "মই মুছলমান হৈয়ে ডাঙৰ হৈছোঁ",
     "Identity & name": "পৰিচয় আৰু নাম",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "যদি মডেলটো বিফল হয় বা সময় পাৰ হৈ যায়, তেন্তে সংৰক্ষিত নথিভুক্ত উত্তৰ, ৰেফাৰেল বা বিৰত থকা কোডত থকা নিৰ্দিষ্ট নিয়মেৰে দেখুওৱা হয়, আৰু সেই কথা কোৱা এটা জাননীও দিয়া হয়।",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "যদি মডেলটো বিফল হয় বা ইয়াৰ সময়সীমা পাৰ হৈ যায়, তেন্তে জ্ঞানভাণ্ডাৰত সংৰক্ষিত নথিভুক্ত উত্তৰ, কোডত থকা নিৰ্দিষ্ট নিয়মেৰে (মডেল নোহোৱাকৈ) বাছনি কৰি, বা ৰেফাৰেল বা বিৰত থকা দেখুওৱা হয়, আৰু সেই কথা কোৱা এটা জাননীও দিয়া হয়। জ্ঞানভাণ্ডাৰে ছাৰ্ভাৰ অবিহনে এপৰ ভিতৰতে কাম কৰে।",
     "Ignore the planted instruction, keep the rules": "লুকুৱাই ৰখা নিৰ্দেশ আওকাণ কৰি নিয়ম মানি চলা",
     "Impact board": "প্ৰভাৱ বৰ্ডি",
     "Impact in numbers": "সংখ্যাত প্ৰভাৱ",
@@ -669,6 +667,14 @@
     "One check ✓": "এটা পৰীক্ষা ✓",
     "{0} checks ✓": "{0}টা পৰীক্ষা ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "server ফোল্ডাৰৰ পৰা প্ৰতিটো পক্ষৰ বাবে এটা আদেশেৰে পুনৰ চলাওক: dart run bin/baseline.dart (সাধাৰণ আৰু Basirah), dart run bin/baseline.dart --prompted (নিৰ্দেশনাসহ), dart run bin/baseline.dart --recount (সংৰক্ষিত উত্তৰৰ পৰা পুনৰ গণনা)।",
-    "s": "ছেকেণ্ড"
+    "s": "ছেকেণ্ড",
+    "And if the connection drops or the AI is unavailable?": "সংযোগ বিচ্ছিন্ন হ'লে বা AI উপলব্ধ নহ'লে কি হ'ব?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "প্ৰতিটো উত্তৰ নিৰ্দিষ্ট পদক্ষেপৰ মাজেৰে যায়: আমি আপোনাৰ প্ৰশ্নৰ ভাষা আৰু ই শ্বৰীয়া বিশেষজ্ঞলৈ প্ৰেৰণ কৰিবলগীয়া ব্যক্তিগত বিষয় হয় নে নহয় চিনাক্ত কৰোঁ। তাৰ পিছত মডেলটোৱে সমগ্ৰ মুছহাফত সন্ধান কৰে, আয়াত উদ্ধৃত কৰাৰ আগতে Dorar-ত তাৰ তাফছীৰ পঢ়ে, হাদীছ বিশ্বকোষত ছহীহ আৰু হাছান হাদীছ বিচাৰে, আৰু কেৱল এই উৎসসমূহৰ পৰাহে উত্তৰ লিখে। দেখুওৱাৰ আগতে ক'ডত থকা এজন ৰক্ষকে ইয়াক পৰীক্ষা কৰে: আয়াতৰ পাঠ মডেলৰ স্মৃতিৰ পৰা নহয়, মুছহাফৰ পৰা কপি কৰা হয়, আৰু উৎস আৰু মান অবিহনে কোনো হাদীছ দেখা নাযায়। উত্তৰৰ সৈতে কি পৰীক্ষা কৰা হ'ল তাৰ এখন ৰচিদ আহে, আৰু প্ৰতিটো প্ৰমাণৰ নিজে পৰীক্ষা কৰিবলৈ এটা লিংক থাকে।",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "আপুনি কৰা সকলো আপোনাৰ ডিভাইচত থাকে: আপোনাৰ প্ৰশ্ন আৰু সেইবোৰৰ উত্তৰ, সংৰক্ষিত উত্তৰ, আৰু আপুনি পোৱা শেহতীয়া উত্তৰসহ শ্বৰীয়া বিশেষজ্ঞলৈ আপোনাৰ অনুৰোধসমূহ; সংযোগ বিচ্ছিন্ন হ'লেও আপুনি যিকোনো সময়তে সেইবোৰ পঢ়িব পাৰে। নতুন প্ৰশ্নৰ বাবে সংযোগৰ প্ৰয়োজন; সংযোগ নাথাকিলে, এপত সংৰক্ষিত নথিভুক্ত উত্তৰটো আপোনাৰ প্ৰশ্নৰ সৈতে মিলিলে দেখুওৱা হয়, নহ'লে প্ৰেৰণ বা উত্তৰ দিয়াৰ পৰা বিৰত থকা, সেই কথা জনোৱা জাননীৰ সৈতে।",
+    "How do we check every answer?": "আমি প্ৰতিটো উত্তৰ কেনেকৈ পৰীক্ষা কৰোঁ?",
+    "No connection right now: this is the last copy saved on your device.": "এতিয়া সংযোগ নাই: এইটো আপোনাৰ ডিভাইচত সংৰক্ষিত শেহতীয়া কপি।",
+    "The comparison, and the proof in numbers": "তুলনা, আৰু সংখ্যাৰে প্ৰমাণ",
+    "The full path, drawn": "সম্পূৰ্ণ পথ, চিত্ৰৰূপত",
+    "The Basirah team gives the key to approved specialists.": "Basirah দলটোৱে অনুমোদিত বিশেষজ্ঞসকলক চাবিটো দিয়ে।"
   }
 }

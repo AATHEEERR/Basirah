@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Jawaban yang terkait dengan materi, disertai rujukan tepat ke lokasinya",
     "An approved translation of the meanings, from QuranEnc": "Terjemahan makna yang disahkan, dari QuranEnc",
     "An off-topic question answered": "Pertanyaan di luar cakupan yang tetap dijawab",
-    "And if the AI is unavailable? Basirah keeps working": "Bagaimana jika AI tidak tersedia? Basirah tetap berfungsi",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Dan pengaman menegakkannya: jawaban tanpa dalil → tidak menjawab; keyakinan rendah → tidak menjawab; kasus pribadi → langsung dirujuk, tanpa pertanyaan klarifikasi.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Dan uji bahasa: {0} pertanyaan dalam {1} bahasa; {2} dijawab, {3} di antaranya dalam bahasa pertanyaan itu sendiri, dan {4} disertai terjemahan makna yang disahkan untuk setiap ayat (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Dan jam (menurut waktu perangkat Anda)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "Saya dibesarkan sebagai Muslim",
     "Identity & name": "Identitas & nama",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Jika model gagal atau melewati batas waktu, jawaban terdokumentasi yang tersimpan, rujukan, atau penolakan ditampilkan berdasarkan aturan tetap dalam kode, disertai pemberitahuan tentang hal itu.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Jika model gagal atau melewati batas waktunya, yang ditampilkan adalah jawaban terdokumentasi yang tersimpan di basis pengetahuan, dipilih berdasarkan aturan tetap dalam kode (tanpa model), atau rujukan atau penolakan, disertai pemberitahuan tentang hal itu. Basis pengetahuan berfungsi di dalam aplikasi tanpa server.",
     "Ignore the planted instruction, keep the rules": "Abaikan perintah terselubung, tetap ikuti aturan",
     "Impact board": "Papan dampak",
     "Impact in numbers": "Dampak dalam angka",
@@ -669,6 +667,14 @@
     "One check ✓": "Satu pemeriksaan ✓",
     "{0} checks ✓": "{0} pemeriksaan ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Jalankan ulang dengan satu perintah per pihak dari folder server: dart run bin/baseline.dart (umum dan Basirah), dart run bin/baseline.dart --prompted (dengan instruksi), dart run bin/baseline.dart --recount (hitung ulang dari jawaban yang tersimpan).",
-    "s": "dtk"
+    "s": "dtk",
+    "And if the connection drops or the AI is unavailable?": "Bagaimana jika koneksi terputus atau AI tidak tersedia?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Setiap jawaban melewati langkah-langkah tetap: kami mengenali bahasa pertanyaan Anda, dan apakah itu kasus pribadi yang perlu dirujuk kepada spesialis syariah. Kemudian model mencari di seluruh Mushaf, membaca tafsir ayat di Dorar sebelum mengutipnya, mencari hadis sahih dan hasan di ensiklopedia hadis, dan menulis jawaban hanya dari sumber-sumber ini. Sebelum ditampilkan, penjaga dalam kode memeriksanya: teks ayat disalin dari Mushaf, bukan dari ingatan model, dan tidak ada hadis yang muncul tanpa sumber dan derajatnya. Jawaban disertai tanda terima tentang apa yang telah diperiksa, dan setiap dalil memiliki tautan agar Anda dapat memeriksanya sendiri.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Semua yang Anda lakukan tersimpan di perangkat Anda: pertanyaan Anda beserta jawabannya, jawaban yang Anda simpan, dan permintaan Anda kepada spesialis syariah beserta balasan terakhir yang Anda terima; Anda dapat membacanya kapan saja, bahkan saat koneksi terputus. Pertanyaan baru memerlukan koneksi; tanpa koneksi, jawaban terdokumentasi yang tersimpan di aplikasi ditampilkan jika sesuai dengan pertanyaan Anda, atau rujukan atau penolakan menjawab, disertai pemberitahuan yang menyatakannya.",
+    "How do we check every answer?": "Bagaimana kami memeriksa setiap jawaban?",
+    "No connection right now: this is the last copy saved on your device.": "Tidak ada koneksi saat ini: ini salinan terakhir yang tersimpan di perangkat Anda.",
+    "The comparison, and the proof in numbers": "Perbandingan, dan bukti dalam angka",
+    "The full path, drawn": "Alur lengkap, dalam bentuk diagram",
+    "The Basirah team gives the key to approved specialists.": "Tim Basirah memberikan kunci kepada spesialis yang disetujui."
   }
 }

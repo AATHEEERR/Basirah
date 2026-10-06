@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Jawaab ku xiran maaddada, iyadoo la tilmaamayo goobteeda saxda ah",
     "An approved translation of the meanings, from QuranEnc": "Tarjumaad macnaha ah oo la ansixiyay, oo ka timid QuranEnc",
     "An off-topic question answered": "Su'aal aan mawduuca ahayn oo la jawaabay",
-    "And if the AI is unavailable? Basirah keeps working": "Haddii sirdoonka macmalka ah la waayo? Basirah way sii shaqaysaa",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Ilaaladuna way xoojisaa: jawaab caddayn la'aan → ka fiirsasho; kalsooni hoose → ka fiirsasho; xaalad shakhsi ah → gudbin isla markiiba, lamana weydiiyo caddayn.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Imtixaanka luqadaha: {0} su'aalood oo {1} luqadood ah; {2} ayaa la jawaabay, {3} luqadda su'aasha lafteeda, {4} na waxay la socdeen tarjumaad la ansixiyay oo aayad kasta ah (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Iyo wakhtiga (waqtiga qalabkaaga)",
@@ -117,7 +116,6 @@
     "I grew up Muslim": "Waxaan ku soo koray Islaam",
     "Identity & name": "Aqoonsi iyo magac",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Haddii moodelku fashilmo ama waqtigiisa dhaafo, waxaa lagu soo bandhigayaa jawaabta la xujeeyay ee kaydsan, gudbin ama ka fiirsasho, iyadoo la adeegsanayo xeerar go'an oo koodka ku jira, iyo ogeysiis sheegaya taas.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Haddii moodelku fashilmo ama dhaafo waqtigiisa go'an, waxaa la soo bandhigayaa jawaabta la xujeeyay ee ku kaydsan kaydka aqoonta, oo lagu doortay xeerar go'an oo koodka ku jira (moodel la'aan), ama gudbin ama ka fiirsasho, iyadoo ogeysiis sheegaya taas la socoto. Kaydka aqoontu wuxuu ku shaqeeyaa gudaha app-ka server la'aan.",
     "Ignore the planted instruction, keep the rules": "Iska dhaaf amarka la dhex-geliyay, oo raac xeerarka",
     "Impact board": "Looxa saamaynta",
     "Impact in numbers": "Saamaynta tirooyinka ku jirta",
@@ -669,6 +667,14 @@
     "One check ✓": "Hal hubin ✓",
     "{0} checks ✓": "{0} hubin ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Dib u socodsii hal amar oo dhinac kasta ah, laga bilaabo galka server: dart run bin/baseline.dart (guud iyo Basirah), dart run bin/baseline.dart --prompted (tilmaamo leh), dart run bin/baseline.dart --recount (dib u tirin jawaabaha la kaydiyay).",
-    "s": "il."
+    "s": "il.",
+    "And if the connection drops or the AI is unavailable?": "Haddii xiriirku go'o ama AI-du aanay diyaar ahayn?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Jawaab kastaa waxay maraysaa tallaabooyin go'an: waxaan garanaynaa luqadda su'aashaada, iyo haddii ay tahay arrin shakhsi ah oo loo gudbinayo khabiir Shareeco. Kadib moodelku wuxuu ka baaraa Mushafka oo dhan, wuxuu akhriyaa tafsiirka aayadda ee Dorar ka hor intaanu soo xigan, wuxuu ka raadiyaa encyclopedia-da xadiiska xadiisyada saxiixa iyo xasanka, oo jawaabta wuxuu ka qoraa ilahan oo keliya. Ka hor intaan la soo bandhigin, ilaaliye ku jira koodhka ayaa hubiya: qoraalka aayadda waxaa laga koobiyeeyaa Mushafka, ee lagama qaado xusuusta moodelka, mana jiro xadiis soo baxa isagoo aan lahayn isha iyo darajadiisa. Jawaabtu waxay la socotaa rasiid muujinaya waxa la hubiyay, caddayn kastana waxay leedahay link aad adigu ku hubin karto.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Wax kasta oo aad samaysay waxay ku jiraan qalabkaaga: su'aalahaaga iyo jawaabahooda, jawaabaha aad kaydsatay, iyo codsiyadaada khabiirka Shareecada iyo jawaabihii ugu dambeeyay ee kuu yimid; waad akhrin kartaa wakhti kasta, xitaa haddii xiriirku go'o. Su'aal cusub waxay u baahan tahay xiriir; haddii aanu jirin, waxaa la tusayaa jawaabta la diiwaangeliyay ee ku kaydsan app-ka haddii ay la jaanqaadayso su'aashaada, ama gudbin ama ka gaabsasho, iyadoo ay la socoto ogeysiis sheegaya.",
+    "How do we check every answer?": "Sidee ayaan u hubinaa jawaab kasta?",
+    "No connection right now: this is the last copy saved on your device.": "Xiriir ma jiro hadda: tani waa nuqulkii ugu dambeeyay ee lagu kaydiyay qalabkaaga.",
+    "The comparison, and the proof in numbers": "Isbarbardhigga, iyo caddaynta tirooyinka",
+    "The full path, drawn": "Jidka oo dhan, sawir ahaan",
+    "The Basirah team gives the key to approved specialists.": "Kooxda Basirah ayaa furaha siisa khubarada la ansixiyay."
   }
 }

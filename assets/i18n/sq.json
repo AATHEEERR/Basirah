@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Përgjigje e lidhur me materialin, me referencë të saktë te vendi i tij",
     "An approved translation of the meanings, from QuranEnc": "Përkthim i miratuar i kuptimeve, nga QuranEnc",
     "An off-topic question answered": "Pyetje jashtë fushës që u përgjigj",
-    "And if the AI is unavailable? Basirah keeps working": "Dhe nëse inteligjenca artificiale nuk është e disponueshme? Basirah vazhdon të punojë",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Dhe roja e zbaton: përgjigje pa dëshmi → përmbajtje; besim i ulët → përmbajtje; rast personal → drejtim menjëherë, pa pyetje sqaruese.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Dhe testi i gjuhëve: {0} pyetje në {1} gjuhë; u përgjigjën {2}, prej tyre {3} në gjuhën e vetë pyetjes, dhe {4} me përkthim të miratuar të çdo ajeti (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Dhe ora (sipas orës së pajisjes sate)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "Jam rritur musliman",
     "Identity & name": "Identiteti dhe emri",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Nëse modeli dështon ose i kalon koha, shfaqet përgjigjja e dokumentuar e ruajtur, orientimi ose heqja dorë, sipas rregullave të fiksuara në kod, me një njoftim që e thotë këtë.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Nëse modeli dështon ose e kalon kohën e caktuar, shfaqet përgjigjja e dokumentuar e ruajtur në bazën e dijes, e zgjedhur sipas rregullave të fiksuara në kod (pa model), ose orientimi ose heqja dorë, me një njoftim që e thotë këtë. Baza e dijes funksionon brenda aplikacionit pa serverin.",
     "Ignore the planted instruction, keep the rules": "Injoro urdhrin e futur dhe vazhdo me rregullat",
     "Impact board": "Tabela e ndikimit",
     "Impact in numbers": "Ndikimi në numra",
@@ -669,6 +667,14 @@
     "One check ✓": "Një kontroll ✓",
     "{0} checks ✓": "{0} kontrolle ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Riekzekuto me një komandë për secilën palë nga dosja server: dart run bin/baseline.dart (i përgjithshëm dhe Basirah), dart run bin/baseline.dart --prompted (me udhëzime), dart run bin/baseline.dart --recount (rinumërim nga përgjigjet e ruajtura).",
-    "s": "s"
+    "s": "s",
+    "And if the connection drops or the AI is unavailable?": "Po nëse lidhja ndërpritet ose IA nuk është e disponueshme?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Çdo përgjigje kalon nëpër hapa të caktuar: dallojmë gjuhën e pyetjes sate dhe nëse është një rast personal që duhet drejtuar te një specialist i Sheriatit. Pastaj modeli kërkon në të gjithë Mushafin, lexon tefsirin e ajetit në Dorar para se ta citojë, kërkon në enciklopedinë e haditheve hadithet sahih dhe hasen, dhe e shkruan përgjigjen vetëm nga këto burime. Para se të shfaqet, një rojë në kod e kontrollon: teksti i ajetit kopjohet nga Mushafi, jo nga kujtesa e modelit, dhe asnjë hadith nuk shfaqet pa burimin dhe shkallën e tij. Përgjigjja vjen me një dëftesë të asaj që u kontrollua, dhe çdo provë ka një lidhje që ta kontrollosh vetë.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Gjithçka që ke bërë mbetet në pajisjen tënde: pyetjet e tua dhe përgjigjet e tyre, përgjigjet e ruajtura, dhe kërkesat e tua te specialisti i Sheriatit me përgjigjet e fundit që more; mund t'i lexosh në çdo kohë, edhe kur lidhja ndërpritet. Një pyetje e re ka nevojë për lidhje; pa të, shfaqet përgjigjja e dokumentuar e ruajtur në aplikacion nëse përputhet me pyetjen tënde, ose një drejtim apo abstenim, me një njoftim që e thotë këtë.",
+    "How do we check every answer?": "Si e kontrollojmë çdo përgjigje?",
+    "No connection right now: this is the last copy saved on your device.": "Tani nuk ka lidhje: kjo është kopja e fundit e ruajtur në pajisjen tënde.",
+    "The comparison, and the proof in numbers": "Krahasimi dhe prova në shifra",
+    "The full path, drawn": "E gjithë rruga, e vizatuar",
+    "The Basirah team gives the key to approved specialists.": "Ekipi i Basirah ua jep çelësin specialistëve të miratuar."
   }
 }

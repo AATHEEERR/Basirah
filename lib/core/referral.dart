@@ -17,6 +17,7 @@ class MyReferral {
     required this.mode,
     this.slot,
     this.meetUrl,
+    this.lastSeen,
   });
 
   factory MyReferral.fromJson(Map<String, dynamic> j) => MyReferral(
@@ -27,6 +28,7 @@ class MyReferral {
     mode: j['mode'] as String,
     slot: j['slot'] == null ? null : DateTime.parse(j['slot'] as String),
     meetUrl: j['meetUrl'] as String?,
+    lastSeen: (j['lastSeen'] as Map?)?.cast<String, dynamic>(),
   );
 
   final String id;
@@ -34,10 +36,25 @@ class MyReferral {
   final DateTime created;
   final String question;
 
-  /// «message», «audio» or «video».
+  /// «message» or «call» («audio» and «video» from before).
   final String mode;
   final DateTime? slot;
   final String? meetUrl;
+
+  /// The request as last read from the server (status, the specialist's
+  /// replies), kept so it can be read again with no connection.
+  final Map<String, dynamic>? lastSeen;
+
+  MyReferral withLastSeen(Map<String, dynamic> live) => MyReferral(
+    id: id,
+    token: token,
+    created: created,
+    question: question,
+    mode: mode,
+    slot: slot,
+    meetUrl: meetUrl,
+    lastSeen: live,
+  );
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -47,6 +64,7 @@ class MyReferral {
     'mode': mode,
     'slot': slot?.toUtc().toIso8601String(),
     'meetUrl': meetUrl,
+    if (lastSeen != null) 'lastSeen': lastSeen,
   };
 }
 
@@ -72,8 +90,18 @@ class MyReferralsNotifier extends Notifier<List<MyReferral>> {
 
   Future<void> add(MyReferral r) async {
     state = [r, ...state];
+    await _save();
+  }
+
+  /// Keeps what the server last said about request [id].
+  Future<void> remember(String id, Map<String, dynamic> live) async {
+    state = [for (final r in state) r.id == id ? r.withLastSeen(live) : r];
+    await _save();
+  }
+
+  Future<void> _save() async {
     try {
-      (await SharedPreferences.getInstance()).setString(_key, jsonEncode([for (final m in state) m.toJson()]));
+      await (await SharedPreferences.getInstance()).setString(_key, jsonEncode([for (final m in state) m.toJson()]));
     } on Exception {
       // Kept for this session only.
     }

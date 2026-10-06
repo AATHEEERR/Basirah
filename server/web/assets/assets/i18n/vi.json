@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Câu trả lời gắn với tài liệu, kèm dẫn chiếu chính xác đến vị trí của nó",
     "An approved translation of the meanings, from QuranEnc": "Bản dịch ý nghĩa được phê duyệt, từ QuranEnc",
     "An off-topic question answered": "Câu hỏi ngoài phạm vi nhưng vẫn được trả lời",
-    "And if the AI is unavailable? Basirah keeps working": "Còn nếu AI không khả dụng? Basirah vẫn tiếp tục hoạt động",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Và bộ kiểm soát thực thi điều đó: câu trả lời không có dẫn chứng → từ chối trả lời; độ tin cậy thấp → từ chối trả lời; trường hợp cá nhân → chuyển ngay, không hỏi làm rõ.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Và kiểm tra ngôn ngữ: {0} câu hỏi bằng {1} ngôn ngữ; {2} câu được trả lời, {3} câu bằng chính ngôn ngữ của câu hỏi, và {4} câu kèm bản dịch ý nghĩa được phê duyệt cho mọi câu kinh (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Và giờ (theo giờ thiết bị của bạn)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "Tôi lớn lên trong gia đình Muslim",
     "Identity & name": "Danh tính và tên gọi",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Nếu mô hình gặp lỗi hoặc quá thời gian, câu trả lời đã được tư liệu hóa và lưu sẵn, hoặc việc chuyển đến chuyên gia, hoặc việc từ chối trả lời sẽ được hiển thị theo các quy tắc cố định trong mã, kèm thông báo cho biết điều đó.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Nếu mô hình gặp lỗi hoặc vượt quá thời gian quy định, câu trả lời đã được tư liệu hóa và lưu trong cơ sở tri thức sẽ được hiển thị, được chọn theo các quy tắc cố định trong mã (không dùng mô hình), hoặc việc chuyển đến chuyên gia hay từ chối trả lời, kèm thông báo cho biết điều đó. Cơ sở tri thức hoạt động ngay trong ứng dụng mà không cần máy chủ.",
     "Ignore the planted instruction, keep the rules": "Bỏ qua chỉ dẫn cài ẩn và tiếp tục theo các quy tắc",
     "Impact board": "Bảng tác động",
     "Impact in numbers": "Tác động qua các con số",
@@ -669,6 +667,14 @@
     "One check ✓": "Một kiểm tra ✓",
     "{0} checks ✓": "{0} kiểm tra ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Chạy lại bằng một lệnh cho mỗi bên từ thư mục server: dart run bin/baseline.dart (mô hình chung và Basirah), dart run bin/baseline.dart --prompted (có hướng dẫn), dart run bin/baseline.dart --recount (đếm lại từ các câu trả lời đã lưu).",
-    "s": "giây"
+    "s": "giây",
+    "And if the connection drops or the AI is unavailable?": "Nếu mất kết nối hoặc AI không khả dụng thì sao?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Mỗi câu trả lời đều đi qua các bước cố định: chúng tôi xác định ngôn ngữ câu hỏi của bạn, và liệu đó có phải là trường hợp cá nhân cần chuyển cho chuyên gia Sharia hay không. Sau đó, mô hình tìm kiếm trong toàn bộ Mushaf, đọc tafsir của câu kinh trên Dorar trước khi trích dẫn, tìm trong bách khoa hadith các hadith sahih và hasan, và chỉ viết câu trả lời từ những nguồn này. Trước khi hiển thị, một bộ bảo vệ trong mã sẽ kiểm tra: văn bản câu kinh được sao chép từ Mushaf, không phải từ trí nhớ của mô hình, và không hadith nào xuất hiện mà không có nguồn và mức độ. Câu trả lời đi kèm một biên nhận về những gì đã được kiểm tra, và mỗi bằng chứng đều có liên kết để bạn tự kiểm chứng.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Mọi điều bạn đã làm đều được lưu trên thiết bị của bạn: các câu hỏi và câu trả lời, các câu trả lời đã lưu, và các yêu cầu gửi chuyên gia Sharia cùng những phản hồi mới nhất bạn nhận được; bạn có thể xem lại bất cứ lúc nào, kể cả khi mất kết nối. Câu hỏi mới cần có kết nối; khi không có kết nối, câu trả lời có tài liệu được lưu trong ứng dụng sẽ hiển thị nếu khớp với câu hỏi của bạn, hoặc là chuyển tiếp hay từ chối trả lời, kèm thông báo cho biết điều đó.",
+    "How do we check every answer?": "Chúng tôi kiểm tra từng câu trả lời như thế nào?",
+    "No connection right now: this is the last copy saved on your device.": "Hiện không có kết nối: đây là bản sao mới nhất được lưu trên thiết bị của bạn.",
+    "The comparison, and the proof in numbers": "Phép so sánh, và bằng chứng qua con số",
+    "The full path, drawn": "Toàn bộ quy trình, dưới dạng sơ đồ",
+    "The Basirah team gives the key to approved specialists.": "Nhóm Basirah cấp khóa cho các chuyên gia được công nhận."
   }
 }

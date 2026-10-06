@@ -32,11 +32,16 @@ abstract final class UiStrings {
   @visibleForTesting
   static void debugSet(String code, Map<String, String> strings) => _tables[code] = _Table(strings);
 
-  /// [en] in the interface language.
+  /// [en] in the interface language, with the app's name in that
+  /// language's script ([name], set with the language).
   static String fromEnglish(String en) {
     if (current == 'ar' || current == 'en') return en;
-    return _tables[current]?.lookup(en) ?? en;
+    final out = _tables[current]?.lookup(en) ?? en;
+    return name == 'Basirah' ? out : out.replaceAll('Basirah', name);
   }
+
+  /// The app's name in the interface language's script.
+  static String name = 'Basirah';
 }
 
 class _Table {

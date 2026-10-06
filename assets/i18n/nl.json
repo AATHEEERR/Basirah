@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Een antwoord gekoppeld aan het materiaal, met een nauwkeurige verwijzing naar de plaats ervan",
     "An approved translation of the meanings, from QuranEnc": "Een erkende vertaling van de betekenissen, van QuranEnc",
     "An off-topic question answered": "Een vraag buiten het bereik is toch beantwoord",
-    "And if the AI is unavailable? Basirah keeps working": "En als de AI niet beschikbaar is? Basirah blijft werken",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "En de controle dwingt dit af: een antwoord zonder bewijs → onthouding; laag vertrouwen → onthouding; een persoonlijke situatie → direct doorverwijzing, nooit een verduidelijkende vraag.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "En de taaltest: {0} vragen in {1} talen; {2} beantwoord, {3} in de eigen taal van de vraag en {4} met een erkende vertaling van elk vers (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "En de tijd (de tijd van je apparaat)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "Ik ben moslim opgevoed",
     "Identity & name": "Identiteit en naam",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Als het model uitvalt of te lang duurt, wordt het opgeslagen gedocumenteerde antwoord, een doorverwijzing of onthouding getoond volgens vaste regels in de code, met een melding daarover.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Als het model uitvalt of zijn tijdslimiet overschrijdt, wordt het gedocumenteerde antwoord uit de kennisbank getoond, gekozen volgens vaste regels in de code (zonder model), of een doorverwijzing of onthouding, met een melding daarover. De kennisbank werkt in de app zelf zonder de server.",
     "Ignore the planted instruction, keep the rules": "Negeer de ingevoegde instructie, houd je aan de regels",
     "Impact board": "Impactoverzicht",
     "Impact in numbers": "Impact in cijfers",
@@ -669,6 +667,14 @@
     "One check ✓": "Eén controle ✓",
     "{0} checks ✓": "{0} controles ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Opnieuw uitvoeren met één opdracht per kant vanuit de map server: dart run bin/baseline.dart (algemeen en Basirah), dart run bin/baseline.dart --prompted (met instructies), dart run bin/baseline.dart --recount (opnieuw tellen uit de opgeslagen antwoorden).",
-    "s": "s"
+    "s": "s",
+    "And if the connection drops or the AI is unavailable?": "En als de verbinding wegvalt of de AI niet beschikbaar is?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Elk antwoord doorloopt vaste stappen: we herkennen de taal van je vraag, en of het een persoonlijke situatie is die naar een specialist in de Sharia moet. Daarna zoekt het model in de hele Mushaf, leest het de tafsir van een vers op Dorar voordat het dat vers aanhaalt, zoekt het in de hadith-encyclopedie naar sahih- en hasan-hadiths, en schrijft het antwoord alleen vanuit deze bronnen. Voordat het wordt getoond, controleert een bewaker in de code het: de tekst van het vers wordt gekopieerd uit de Mushaf, niet uit het geheugen van het model, en geen hadith verschijnt zonder bron en graad. Het antwoord komt met een bon van wat er is gecontroleerd, en elk bewijs heeft een link om het zelf te controleren.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Alles wat je hebt gedaan blijft op je apparaat: je vragen en de antwoorden daarop, je opgeslagen antwoorden, en je verzoeken aan de specialist in de Sharia met de laatste reacties die je ontving; je kunt ze altijd lezen, ook als de verbinding wegvalt. Een nieuwe vraag heeft verbinding nodig; zonder verbinding wordt het gedocumenteerde antwoord dat in de app is opgeslagen getoond als het bij je vraag past, of anders een verwijzing of een onthouding, met een melding die dat zegt.",
+    "How do we check every answer?": "Hoe controleren we elk antwoord?",
+    "No connection right now: this is the last copy saved on your device.": "Nu geen verbinding: dit is de laatste kopie die op je apparaat is opgeslagen.",
+    "The comparison, and the proof in numbers": "De vergelijking, en het bewijs in cijfers",
+    "The full path, drawn": "Het volledige pad, getekend",
+    "The Basirah team gives the key to approved specialists.": "Het team van Basirah geeft de sleutel aan erkende specialisten."
   }
 }

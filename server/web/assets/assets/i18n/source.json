@@ -197,8 +197,8 @@
       "ar": "سؤال خارج النطاق أُجيب عنه"
     },
     {
-      "en": "And if the AI is unavailable? Basirah keeps working",
-      "ar": "وإن تعذّر الذكاء الاصطناعي؟ لا تتوقف بصيرة"
+      "en": "And if the connection drops or the AI is unavailable?",
+      "ar": "وإن انقطع الاتصال أو تعذّر الذكاء الاصطناعي؟"
     },
     {
       "en": "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.",
@@ -716,6 +716,10 @@
       "ar": "كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك"
     },
     {
+      "en": "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.",
+      "ar": "كل إجابة تمرّ بخطوات ثابتة: نعرف لغة سؤالك، وهل هو حالة شخصية تُحال إلى مختص شرعي. ثم يبحث النموذج في المصحف كاملاً، ويقرأ تفسير الآية في الدرر السنية قبل أن يستشهد بها، ويبحث في موسوعة الأحاديث عن الصحيح والحسن، ويكتب الإجابة من هذه المصادر وحدها. وقبل أن تظهر يفحصها حارس من الكود: نص الآية يُنسخ من المصحف لا من ذاكرة النموذج، ولا حديث بلا مصدره ودرجته. وتصلك الإجابة بإيصال يبيّن ما فُحص فيها، ولكل دليل رابط تتحقق منه بنفسك."
+    },
+    {
       "en": "Every answer has four cards, each with a fixed colour and meaning",
       "ar": "كل إجابة من أربع بطاقات، لكل بطاقة لون ومعنى ثابت"
     },
@@ -746,6 +750,10 @@
     {
       "en": "Every verse text is copied from the Mushaf; a verse whose tafsir was not read is dropped; a hadith not read from its source, or neither sahih nor hasan, is dropped; any Quran wording the model typed is replaced by its reference; an answer in the wrong language is rejected and asked for again.",
       "ar": "نص كل آية يُنسخ من المصحف؛ الآية التي لم يُقرأ تفسيرها تُحذف؛ الحديث الذي لم يُقرأ من مصدره، أو ليس صحيحاً ولا حسناً، يُحذف؛ أي نص قرآني كتبه النموذج من ذاكرته يُستبدل بموضعه؛ الإجابة بغير لغة السؤال تُرفض ويُعاد طلبها."
+    },
+    {
+      "en": "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.",
+      "ar": "كل ما فعلته يبقى على جهازك: أسئلتك وإجاباتها، والإجابات المحفوظة، وطلباتك إلى المختص الشرعي مع آخر ردوده التي وصلتك؛ تراجعها متى شئت حتى إن انقطع الاتصال. أما السؤال الجديد فيحتاج الاتصال، وإن تعذّر عُرضت الإجابة الموثقة المحفوظة في التطبيق إن طابقت سؤالك، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك."
     },
     {
       "en": "Evidence & sources",
@@ -960,6 +968,10 @@
       "en": "How do I treat my non-Muslim family? Should I visit them? How do I tell them I became Muslim? Islam commands kindness and good treatment — here are the details and the limits."
     },
     {
+      "en": "How do we check every answer?",
+      "ar": "كيف نتحقق من كل إجابة؟"
+    },
+    {
       "en": "How do you like answers?",
       "ar": "كيف تحب الإجابة؟"
     },
@@ -1009,10 +1021,6 @@
     {
       "en": "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.",
       "ar": "وإن تعطّل النموذج أو تجاوز وقته، تُعرض الإجابة الموثقة المحفوظة أو الإحالة أو الامتناع بقواعد ثابتة في الكود، مع تنبيه يقول ذلك."
-    },
-    {
-      "en": "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.",
-      "ar": "إن تعطّل النموذج أو تجاوز وقته المحدد، تُعرض الإجابة الموثقة المحفوظة في قاعدة المعرفة بقواعد ثابتة في الكود (بلا نموذج)، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك. وقاعدة المعرفة تعمل في التطبيق نفسه دون الحاجة إلى الخادم."
     },
     {
       "en": "Ignore the planted instruction, keep the rules",
@@ -1273,6 +1281,10 @@
     {
       "en": "No AI key · stored answers",
       "ar": "دون مفتاح AI · إجابات محفوظة"
+    },
+    {
+      "en": "No connection right now: this is the last copy saved on your device.",
+      "ar": "بلا اتصال الآن: هذه آخر نسخة محفوظة على جهازك."
     },
     {
       "en": "No data yet. Numbers appear here after the first question.",
@@ -1849,6 +1861,10 @@
       "ar": "إيصال بصيرة"
     },
     {
+      "en": "The Basirah team gives the key to approved specialists.",
+      "ar": "يعطي فريقُ بصيرة المفتاحَ للمختصين المعتمدين."
+    },
+    {
       "en": "The Islamic principle",
       "ar": "الأصل الشرعي"
     },
@@ -1905,6 +1921,10 @@
       "ar": "تعذّر حفظ البطاقة"
     },
     {
+      "en": "The comparison, and the proof in numbers",
+      "ar": "المقارنة والدليل بالأرقام"
+    },
+    {
       "en": "The connection to the association’s MCP server",
       "ar": "الاتصال بخادم MCP للجمعية"
     },
@@ -1934,6 +1954,10 @@
     {
       "en": "The full path of every answer, drawn",
       "ar": "المسار الكامل لكل إجابة بالرسم"
+    },
+    {
+      "en": "The full path, drawn",
+      "ar": "المسار كاملاً بالرسم"
     },
     {
       "en": "The full report and every answer in full are in the project repository: eval/EVALUATION.md (method and results), eval/baseline_report.json and eval/prompted_report.json (every answer and its counts), eval/test_cases.json (the questions and expected behaviour).",

@@ -50,7 +50,6 @@ class HomeScreen extends ConsumerWidget {
                   child: SectionHeader(
                     context.tr('ابدأ من هنا', 'Start here'),
                     eyebrow: context.tr('أكثر ما يشغل المسلم الجديد', 'What new Muslims ask most'),
-                    onMore: () => context.go('/explore'),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -543,8 +542,6 @@ class _WideHome extends StatelessWidget {
         _WideSection(
           eyebrow: context.tr('أكثر ما يشغل المسلم الجديد', 'What new Muslims ask most'),
           title: context.tr('ابدأ من هنا', 'Start here'),
-          linkLabel: context.tr('عرض الكل', 'See all'),
-          onLink: () => context.go('/explore'),
           // Every category, four to a row.
           child: GridView.count(
             crossAxisCount: 4,
@@ -607,16 +604,14 @@ class _WideHome extends StatelessWidget {
   }
 }
 
-/// A website section: a hairline above, a small gold eyebrow, the title, an
-/// optional «عرض الكل» link, then the content.
+/// A website section: a hairline above, a small gold eyebrow, the title,
+/// then the content.
 class _WideSection extends StatelessWidget {
-  const _WideSection({required this.eyebrow, required this.title, required this.child, this.linkLabel, this.onLink});
+  const _WideSection({required this.eyebrow, required this.title, required this.child});
 
   final String eyebrow;
   final String title;
   final Widget child;
-  final String? linkLabel;
-  final VoidCallback? onLink;
 
   @override
   Widget build(BuildContext context) => SliverPadding(
@@ -628,28 +623,9 @@ class _WideSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(eyebrow, style: BText.label(13.5, color: BColors.goldDeep, weight: FontWeight.w600)),
-                      const SizedBox(height: 2),
-                      Text(title, style: BText.display(28, weight: FontWeight.w600)),
-                    ],
-                  ),
-                ),
-                if (linkLabel != null)
-                  TextButton.icon(
-                    onPressed: onLink,
-                    iconAlignment: IconAlignment.end,
-                    icon: const Icon(Icons.arrow_forward_rounded, size: 18, color: BColors.ink),
-                    label: Text(linkLabel!, style: BText.label(14, color: BColors.ink, weight: FontWeight.w600)),
-                  ),
-              ],
-            ),
+            Text(eyebrow, style: BText.label(13.5, color: BColors.goldDeep, weight: FontWeight.w600)),
+            const SizedBox(height: 2),
+            Text(title, style: BText.display(28, weight: FontWeight.w600)),
             const SizedBox(height: 18),
             child,
           ],

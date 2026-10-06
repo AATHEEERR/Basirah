@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Une réponse liée au contenu, avec un renvoi précis à son emplacement",
     "An approved translation of the meanings, from QuranEnc": "Une traduction approuvée des sens, provenant de QuranEnc",
     "An off-topic question answered": "Une question hors sujet à laquelle on a répondu",
-    "And if the AI is unavailable? Basirah keeps working": "Et si l’IA est indisponible ? Basirah continue de fonctionner",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Et le garde-fou l’impose : réponse sans preuve → abstention ; confiance faible → abstention ; cas personnel → renvoi immédiat, jamais de question de clarification.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Et le test des langues : {0} questions dans {1} langues ; {2} ont reçu une réponse, dont {3} dans la langue même de la question, et {4} avec une traduction approuvée des sens de chaque verset (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Et l’heure (selon l’heure de votre appareil)",
@@ -257,7 +256,6 @@
     "I grew up Muslim": "J'ai grandi dans une famille musulmane",
     "Identity & name": "Identité et prénom",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Si le modèle échoue ou dépasse le temps imparti, la réponse documentée enregistrée, une orientation ou une abstention est affichée selon des règles fixes dans le code, avec un avis l'indiquant.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Si le modèle échoue ou dépasse sa limite de temps, la réponse documentée enregistrée dans la base de connaissances est affichée, choisie par des règles fixes dans le code (sans modèle), ou bien une orientation ou une abstention, avec un avis l'indiquant. La base de connaissances fonctionne dans l'application sans le serveur.",
     "Ignore the planted instruction, keep the rules": "Ignorer l'instruction cachée et respecter les règles",
     "Impact board": "Tableau d'impact",
     "Impact in numbers": "L'impact en chiffres",
@@ -669,6 +667,14 @@
     "One check ✓": "Une vérification ✓",
     "{0} checks ✓": "{0} vérifications ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Relancer avec une commande par côté depuis le dossier server : dart run bin/baseline.dart (général et Basirah), dart run bin/baseline.dart --prompted (avec instructions), dart run bin/baseline.dart --recount (recompter à partir des réponses enregistrées).",
-    "s": "s"
+    "s": "s",
+    "And if the connection drops or the AI is unavailable?": "Et si la connexion est coupée ou si l’IA est indisponible ?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Chaque réponse suit des étapes fixes : nous détectons la langue de votre question, et s’il s’agit d’un cas personnel à confier à un spécialiste de la Sharia. Le modèle cherche ensuite dans tout le Mushaf, lit le tafsir du verset sur Dorar avant de le citer, cherche dans l’encyclopédie des hadiths les hadiths sahih et hasan, et rédige la réponse à partir de ces seules sources. Avant son affichage, un garde-fou dans le code la vérifie : le texte du verset est copié du Mushaf, et non de la mémoire du modèle, et aucun hadith n’apparaît sans sa source et son degré. La réponse est accompagnée d’un reçu de ce qui a été vérifié, et chaque preuve a un lien pour la vérifier vous-même.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Tout ce que vous avez fait reste sur votre appareil : vos questions et leurs réponses, vos réponses enregistrées, et vos demandes au spécialiste de la Sharia avec les dernières réponses reçues ; vous pouvez les relire à tout moment, même si la connexion est coupée. Une nouvelle question nécessite la connexion ; sans elle, la réponse documentée enregistrée dans l’application s’affiche si elle correspond à votre question, ou bien un renvoi ou une abstention, avec un avis qui le signale.",
+    "How do we check every answer?": "Comment vérifions-nous chaque réponse ?",
+    "No connection right now: this is the last copy saved on your device.": "Pas de connexion pour le moment : voici la dernière copie enregistrée sur votre appareil.",
+    "The comparison, and the proof in numbers": "La comparaison, et la preuve en chiffres",
+    "The full path, drawn": "Le parcours complet, en schéma",
+    "The Basirah team gives the key to approved specialists.": "L’équipe de Basirah remet la clé aux spécialistes agréés."
   }
 }

@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "له موادو سره تړلی ځواب چې دقیق ځای یې ښيي",
     "An approved translation of the meanings, from QuranEnc": "له QuranEnc څخه د معناوو منل شوې ژباړه",
     "An off-topic question answered": "له موضوع بهر پوښتنه چې ځواب شوې",
-    "And if the AI is unavailable? Basirah keeps working": "که مصنوعي ذکاوت شتون ونه لري؟ Basirah دوام کوي",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "او ساتونکی دا پلي کوي: پرته له دلیل ځواب ← ډډه کول؛ ټيټ باور ← ډډه کول؛ شخصي حالت ← سمدلاسه لیږنه او روښانوونه نه کېږي.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "او د ژبو آزموینه: {0} پوښتنې په {1} ژبو؛ {2} ځواب شوې، {3} یې د پوښتنې په خپله ژبه، او {4} د هر آیت له منل شوې ژباړې سره (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "او وخت (ستاسو د وسیلې وخت)",
@@ -117,7 +116,6 @@
     "I grew up Muslim": "زه مسلمان لویو شوی یم",
     "Identity & name": "هویت او نوم",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "که نمونه ناکامه شي یا وخت تېر کړي، ساتل شوی مستند ځواب، لیږنه یا ځان ساتنه د کوډ په ثابتو قاعدو سره ښودل کیږي، له یوې خبرتیا سره چې همدا وايي.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "که نمونه ناکامه شي یا له خپل ټاکل شوي وخت تېر شي، د پوهې په بنسټ کې ساتل شوی مستند ځواب د کوډ په ثابتو قاعدو (پرته له نمونې) ښودل کیږي، یا لیږنه یا ځان ساتنه، له یوې خبرتیا سره چې همدا وايي. د پوهې بنسټ په اپ کې پرته له سرور کار کوي.",
     "Ignore the planted instruction, keep the rules": "ایښودل شوې امر ته پام مه کوئ او قاعدې دوام ورکړئ",
     "Impact board": "د اغېز تخته",
     "Impact in numbers": "اغېز په شمیرو کې",
@@ -669,6 +667,14 @@
     "One check ✓": "یوه کتنه ✓",
     "{0} checks ✓": "{0} کتنې ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "د server له فولډر څخه د هر اړخ لپاره په یوه کمانډ بیا یې وچلوئ: dart run bin/baseline.dart (عمومي او Basirah)، dart run bin/baseline.dart --prompted (له لارښوونو سره)، dart run bin/baseline.dart --recount (له خوندي شویو ځوابونو بیا شمېرنه).",
-    "s": "ثانیې"
+    "s": "ثانیې",
+    "And if the connection drops or the AI is unavailable?": "که اړیکه پرې شي یا مصنوعي ځیرکتیا شتون ونه لري نو څه؟",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "هر ځواب له ټاکلو ګامونو تېرېږي: موږ ستاسو د پوښتنې ژبه پېژنو، او دا چې آیا دا شخصي مسئله ده چې شرعي متخصص ته واستول شي. بیا ماډل په ټول مصحف کې لټون کوي، د آیت تر یادولو مخکې په Dorar کې د هغه تفسیر لولي، د احادیثو په پوهنغونډ کې صحیح او حسن احادیث لټوي، او ځواب یوازې له همدې سرچینو لیکي. تر ښودلو مخکې، په کوډ کې یو ساتونکی یې ګوري: د آیت متن د ماډل له حافظې نه، بلکې له مصحف څخه کاپي کېږي، او هېڅ حدیث د خپلې سرچینې او درجې پرته نه ښکاري. ځواب د هغه څه له رسید سره راځي چې کتل شوي، او هر دلیل یو لینک لري چې تاسو یې پخپله وګورئ.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "هر څه چې تاسو کړي ستاسو په وسیله کې پاتې کېږي: ستاسو پوښتنې او د هغو ځوابونه، خوندي شوي ځوابونه، او شرعي متخصص ته ستاسو غوښتنې له هغو وروستیو ځوابونو سره چې تاسو ترلاسه کړي؛ هر وخت یې لوستلی شئ، حتی که اړیکه پرې شي. نوې پوښتنه اړیکې ته اړتیا لري؛ له اړیکې پرته، په اپ کې خوندي شوی مستند ځواب ښودل کېږي که ستاسو له پوښتنې سره سمون ولري، که نه نو لېږل یا له ځواب څخه ډډه، د هغه خبرتیا سره چې دا وايي.",
+    "How do we check every answer?": "موږ هر ځواب څنګه ګورو؟",
+    "No connection right now: this is the last copy saved on your device.": "اوس اړیکه نشته: دا ستاسو په وسیله کې خوندي شوې وروستۍ نسخه ده.",
+    "The comparison, and the proof in numbers": "پرتله، او په شمېرو کې ثبوت",
+    "The full path, drawn": "بشپړه لار، په انځور کې",
+    "The Basirah team gives the key to approved specialists.": "د Basirah ټیم کیلي تایید شویو متخصصینو ته ورکوي."
   }
 }

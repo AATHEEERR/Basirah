@@ -8,6 +8,7 @@ import '../../core/lang.dart';
 import '../specialist/specialist.dart';
 import 'recitation_bar.dart';
 import '../../shared/patterns.dart';
+import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
 
 /// Renders a [BasirahAnswer] as a stack of colour-coded cards:
@@ -699,12 +700,17 @@ class PipelineSteps extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(context.tr('وإن تعذّر الذكاء الاصطناعي؟ لا تتوقف بصيرة', 'And if the AI is unavailable? Basirah keeps working'), style: BText.title(14.5, color: Tones.abstain.accent)),
+                Text(
+                  context.tr('وإن انقطع الاتصال أو تعذّر الذكاء الاصطناعي؟', 'And if the connection drops or the AI is unavailable?'),
+                  style: BText.title(14.5, color: Tones.abstain.accent),
+                ),
                 const SizedBox(height: 3),
                 Text(
                   context.tr(
-                    'إن تعطّل النموذج أو تجاوز وقته المحدد، تُعرض الإجابة الموثقة المحفوظة في قاعدة المعرفة بقواعد ثابتة في الكود (بلا نموذج)، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك. وقاعدة المعرفة تعمل في التطبيق نفسه دون الحاجة إلى الخادم.',
-                    'If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.',
+                    'كل ما فعلته يبقى على جهازك: أسئلتك وإجاباتها، والإجابات المحفوظة، وطلباتك إلى المختص الشرعي مع آخر ردوده التي وصلتك؛ تراجعها متى شئت حتى إن انقطع الاتصال. '
+                        'أما السؤال الجديد فيحتاج الاتصال، وإن تعذّر عُرضت الإجابة الموثقة المحفوظة في التطبيق إن طابقت سؤالك، أو الإحالة أو الامتناع، مع تنبيه يقول ذلك.',
+                    'Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. '
+                        'A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.',
                   ),
                   style: BText.body(13.5, height: 1.65),
                 ),
@@ -765,15 +771,49 @@ class PipelineSteps extends StatelessWidget {
 
 /// Legend: how an answer is made, and what the card colours mean.
 Future<void> showToneLegend(BuildContext context, {Tone? focus}) {
+  // The website: a centred window, whole on screen. A phone: a sheet that
+  // opens near the top, easy to read without dragging it up.
+  if (isWebsite(context)) {
+    return showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.all(24),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 680, maxHeight: MediaQuery.of(context).size.height * .88),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: IconButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  tooltip: context.tr('إغلاق', 'Close'),
+                  icon: const Icon(Icons.close_rounded),
+                ),
+              ),
+              Flexible(child: _toneLegendBody(context, null)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     builder: (context) => DraggableScrollableSheet(
       expand: false,
-      initialChildSize: .72,
-      maxChildSize: .92,
-      builder: (_, controller) => ListView(
+      initialChildSize: .92,
+      maxChildSize: .95,
+      builder: (_, controller) => _toneLegendBody(context, controller),
+    ),
+  );
+}
+
+Widget _toneLegendBody(BuildContext context, ScrollController? controller) => ListView(
         controller: controller,
+        shrinkWrap: controller == null,
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
         children: [
           Text(context.tr('كيف تُجيب بصيرة؟', 'How does Basirah answer?'), style: BText.display(24)),
@@ -812,7 +852,4 @@ Future<void> showToneLegend(BuildContext context, {Tone? focus}) {
               child: ToneCard(tone: t, compact: true, child: Text(t.explainFor(context.lang), style: BText.body(14.5))),
             ),
         ],
-      ),
-    ),
-  );
-}
+      );

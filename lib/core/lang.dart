@@ -17,6 +17,22 @@ bool isUiLanguage(String code) => uiLanguages.any((l) => l.$1 == code);
 
 bool isRtlLanguage(String code) => uiLanguages.any((l) => l.$1 == code && l.$3);
 
+/// The app's name in the interface language's own script: «Basirah» in the
+/// Latin-script languages, the Arabic name in the Arabic-script ones, and a
+/// transliteration of «بصيرة» in the others.
+String appNameFor(String ui) => switch (ui) {
+  'ar' => 'بصيرة',
+  'ur' => 'بصیرہ',
+  'fa' || 'ps' => 'بصیره',
+  'hi' => 'बसीरा',
+  'si' => 'බසීරා',
+  'ta' => 'பஸீரா',
+  'as' => 'বাছিৰা',
+  'zh' => '巴希拉',
+  'ja' => 'バシーラ',
+  _ => 'Basirah',
+};
+
 /// The language of the content the interface shows (the reviewed answers,
 /// the categories' questions): Arabic in the Arabic interface, English in
 /// every other one.
@@ -37,6 +53,7 @@ class LangNotifier extends Notifier<String> {
       _load();
     }
     UiStrings.current = 'ar';
+    UiStrings.name = appNameFor('ar');
     return 'ar';
   }
 
@@ -62,6 +79,7 @@ class LangNotifier extends Notifier<String> {
     if (!isUiLanguage(lang)) return;
     await UiStrings.ensure(lang);
     UiStrings.current = lang;
+    UiStrings.name = appNameFor(lang);
     state = lang;
     if (save) await _save(lang);
   }

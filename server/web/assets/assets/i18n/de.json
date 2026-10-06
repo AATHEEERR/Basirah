@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "Eine Antwort, die an das Material gebunden ist und genau auf die Fundstelle verweist",
     "An approved translation of the meanings, from QuranEnc": "Eine anerkannte Übersetzung der Bedeutungen von QuranEnc",
     "An off-topic question answered": "Eine themenfremde Frage wurde beantwortet",
-    "And if the AI is unavailable? Basirah keeps working": "Und wenn die KI nicht verfügbar ist? Basirah funktioniert weiter",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "Und der Wächter setzt das durch: Antwort ohne Beleg → Enthaltung; geringe Sicherheit → Enthaltung; persönlicher Fall → sofortiger Verweis, nie eine Rückfrage.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "Und der Sprachentest: {0} Fragen in {1} Sprachen; {2} beantwortet, davon {3} in der Sprache der Frage selbst und {4} mit einer anerkannten Bedeutungsübersetzung jedes Verses (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "Und die Uhrzeit (Zeit deines Geräts)",
@@ -187,7 +186,6 @@
     "I grew up Muslim": "Ich bin als Muslim aufgewachsen",
     "Identity & name": "Identität & Name",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "Fällt das Modell aus oder überschreitet es seine Zeit, werden nach festen Regeln im Code die gespeicherte dokumentierte Antwort, ein Verweis oder eine Enthaltung angezeigt, mit einem entsprechenden Hinweis.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "Fällt das Modell aus oder überschreitet es sein Zeitlimit, wird nach festen Regeln im Code (ohne Modell) die in der Wissensbasis gespeicherte dokumentierte Antwort angezeigt, oder ein Verweis oder eine Enthaltung, mit einem entsprechenden Hinweis. Die Wissensbasis funktioniert in der App selbst, ohne den Server.",
     "Ignore the planted instruction, keep the rules": "Die eingeschleuste Anweisung ignorieren und die Regeln weiter befolgen",
     "Impact board": "Wirkungsübersicht",
     "Impact in numbers": "Die Wirkung in Zahlen",
@@ -669,6 +667,14 @@
     "One check ✓": "Eine Prüfung ✓",
     "{0} checks ✓": "{0} Prüfungen ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "Erneut ausführen, mit einem Befehl pro Seite aus dem Ordner server: dart run bin/baseline.dart (allgemein und Basirah), dart run bin/baseline.dart --prompted (mit Anweisungen), dart run bin/baseline.dart --recount (Neuzählung aus den gespeicherten Antworten).",
-    "s": "s"
+    "s": "s",
+    "And if the connection drops or the AI is unavailable?": "Und wenn die Verbindung abbricht oder die KI nicht verfügbar ist?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "Jede Antwort durchläuft feste Schritte: Wir erkennen die Sprache deiner Frage und ob es ein persönlicher Fall ist, der an einen Scharia-Spezialisten verwiesen werden muss. Dann durchsucht das Modell den gesamten Mushaf, liest den Tafsir eines Verses auf Dorar, bevor es ihn zitiert, sucht in der Hadith-Enzyklopädie nach sahih- und hasan-Hadithen und schreibt die Antwort nur aus diesen Quellen. Bevor sie angezeigt wird, prüft ein Wächter im Code sie: Der Text des Verses wird aus dem Mushaf kopiert, nicht aus dem Gedächtnis des Modells, und kein Hadith erscheint ohne Quelle und Einstufung. Die Antwort kommt mit einem Beleg darüber, was geprüft wurde, und jeder Beleg hat einen Link, mit dem du ihn selbst prüfen kannst.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "Alles, was du getan hast, bleibt auf deinem Gerät: deine Fragen und ihre Antworten, deine gespeicherten Antworten und deine Anfragen an den Scharia-Spezialisten mit den letzten Antworten, die du erhalten hast; du kannst sie jederzeit lesen, auch wenn die Verbindung abbricht. Eine neue Frage braucht die Verbindung; ohne sie wird die in der App gespeicherte belegte Antwort angezeigt, wenn sie zu deiner Frage passt, sonst eine Verweisung oder eine Enthaltung, mit einem Hinweis, der das sagt.",
+    "How do we check every answer?": "Wie prüfen wir jede Antwort?",
+    "No connection right now: this is the last copy saved on your device.": "Gerade keine Verbindung: Dies ist die letzte auf deinem Gerät gespeicherte Kopie.",
+    "The comparison, and the proof in numbers": "Der Vergleich und der Beweis in Zahlen",
+    "The full path, drawn": "Der ganze Weg, gezeichnet",
+    "The Basirah team gives the key to approved specialists.": "Das Basirah-Team gibt den Schlüssel an anerkannte Spezialisten."
   }
 }

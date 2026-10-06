@@ -9,6 +9,7 @@ import '../../core/state.dart';
 import '../../shared/patterns.dart';
 import '../../shared/web_frame.dart';
 import '../../shared/widgets.dart';
+import '../answer/answer_screen.dart' show RoundIconButton;
 import '../home/home_screen.dart';
 
 /// Search across curated questions + category grid.
@@ -51,6 +52,13 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // The way back to the home page.
+                            RoundIconButton(
+                              icon: Icons.arrow_back_rounded,
+                              tooltip: context.tr('الرئيسية', 'Home'),
+                              onTap: () => context.go('/home'),
+                            ),
+                            const SizedBox(height: 10),
                             Text(context.tr('استكشف', 'Explore'), style: pageTitleStyle(context)),
                             Text(
                               context.tr(

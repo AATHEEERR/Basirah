@@ -51,7 +51,6 @@
     "An answer tied to the material, citing its exact place": "ද්‍රව්‍යයට බැඳි, එහි නිශ්චිත තැන සඳහන් කරන පිළිතුරක්",
     "An approved translation of the meanings, from QuranEnc": "QuranEnc වෙතින් අනුමත අර්ථ පරිවර්තනයක්",
     "An off-topic question answered": "විෂය පථයෙන් පිටත ප්‍රශ්නයකට පිළිතුරු දෙන ලදී",
-    "And if the AI is unavailable? Basirah keeps working": "කෘත්‍රිම බුද්ධිය නොමැති නම්? Basirah දිගටම ක්‍රියා කරයි",
     "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.": "ආරක්ෂකයා එය බලාත්මක කරයි: සාක්ෂි නැති පිළිතුරක් → වැළකීම; අඩු විශ්වාසය → වැළකීම; පුද්ගලික අවස්ථාවක් → වහාම යොමුව, එහි පැහැදිලි කිරීමක් නොඅසයි.",
     "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).": "භාෂා පරීක්ෂණය: භාෂා {1}කින් ප්‍රශ්න {0}ක්; {2}කට පිළිතුරු ලැබිණි, ඉන් {3}ක් ප්‍රශ්නයේම භාෂාවෙන්, {4}ක් සෑම ආයතයකටම අනුමත පරිවර්තනයක් සහිතව (eval/LANGUAGES_REPORT.md).",
     "And the time (your device’s time)": "සහ වේලාව (ඔබේ උපාංගයේ වේලාව)",
@@ -117,7 +116,6 @@
     "I grew up Muslim": "මම මුස්ලිමුවෙකු ලෙස හැදී වැඩුණා",
     "Identity & name": "අනන්‍යතාව සහ නම",
     "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.": "ආකෘතිය අසාර්ථක වුවහොත් හෝ කාලය ඉක්මවුවහොත්, ගබඩා කළ ලේඛනගත පිළිතුර, යොමුවක් හෝ පිළිතුරු දීමෙන් වැළකීම කේතයේ ඇති ස්ථාවර නීති මගින් පෙන්වනු ලැබේ, ඒ බව දන්වන දැනුම්දීමක් සමඟ.",
-    "If the model fails or runs past its time limit, the documented answer stored in the knowledge base is shown, chosen by fixed rules in code (no model), or a referral or abstention, with a notice saying so. The knowledge base works inside the app without the server.": "ආකෘතිය අසාර්ථක වුවහොත් හෝ එහි නියමිත කාලය ඉක්මවුවහොත්, දැනුම් ගබඩාවේ ගබඩා කර ඇති ලේඛනගත පිළිතුර කේතයේ ඇති ස්ථාවර නීති මගින් (ආකෘතියකින් තොරව) තෝරා පෙන්වනු ලැබේ, නැතහොත් යොමුවක් හෝ පිළිතුරු දීමෙන් වැළකීම පෙන්වනු ලැබේ, ඒ බව දන්වන දැනුම්දීමක් සමඟ. දැනුම් ගබඩාව සේවාදායකයෙන් තොරව යෙදුම තුළම ක්‍රියා කරයි.",
     "Ignore the planted instruction, keep the rules": "සඟවා ඇති උපදෙස නොසලකා, නීති අනුගමනය කරන්න",
     "Impact board": "බලපෑම් පුවරුව",
     "Impact in numbers": "සංඛ්‍යා වලින් බලපෑම",
@@ -669,6 +667,14 @@
     "One check ✓": "එක් පරීක්ෂාවක් ✓",
     "{0} checks ✓": "පරීක්ෂා {0} ✓",
     "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).": "server ෆෝල්ඩරයෙන් එක් පැත්තකට එක් විධානයකින් නැවත ධාවනය කරන්න: dart run bin/baseline.dart (සාමාන්‍ය සහ Basirah), dart run bin/baseline.dart --prompted (උපදෙස් සහිත), dart run bin/baseline.dart --recount (සුරැකි පිළිතුරුවලින් නැවත ගණන් කිරීම).",
-    "s": "තත්."
+    "s": "තත්.",
+    "And if the connection drops or the AI is unavailable?": "සම්බන්ධතාවය බිඳ වැටුණොත් හෝ AI ලබා ගත නොහැකි වුවහොත් කුමක් වේද?",
+    "Every answer goes through fixed steps: we detect your question’s language, and whether it is a personal case to refer to a Sharia specialist. The model then searches the whole Mushaf, reads the verse’s tafsir on Dorar before citing it, searches the hadith encyclopedia for sahih and hasan hadith, and writes the answer from these sources only. Before it is shown, a guard in code checks it: the verse text is copied from the Mushaf, not the model’s memory, and no hadith appears without its source and grading. The answer comes with a receipt of what was checked, and every piece of evidence has a link to check it yourself.": "සෑම පිළිතුරක්ම ස්ථිර පියවර හරහා යයි: අපි ඔබේ ප්‍රශ්නයේ භාෂාව සහ එය ෂරීආ විශේෂඥයකු වෙත යොමු කළ යුතු පුද්ගලික කාරණයක්ද යන්න හඳුනා ගනිමු. ඉන්පසු ආකෘතිය සම්පූර්ණ මුස්හෆ් තුළ සොයයි, පාඨයක් උපුටා දැක්වීමට පෙර Dorar හි එහි තෆ්සීරය කියවයි, හදීස් විශ්වකෝෂයේ සහීහ් සහ හසන් හදීස් සොයයි, සහ මෙම මූලාශ්‍රවලින් පමණක් පිළිතුර ලියයි. එය පෙන්වීමට පෙර කේතයේ ඇති ආරක්ෂකයක් එය පරීක්ෂා කරයි: පාඨයේ පෙළ ආකෘතියේ මතකයෙන් නොව මුස්හෆ් එකෙන් පිටපත් කෙරේ, සහ මූලාශ්‍රය සහ ශ්‍රේණිය නොමැතිව කිසිදු හදීසයක් නොපෙන්වයි. පිළිතුර සමඟ පරීක්ෂා කළ දේ පිළිබඳ රිසිට්පතක් ලැබෙන අතර, සෑම සාක්ෂියකටම ඔබම පරීක්ෂා කිරීමට සබැඳියක් ඇත.",
+    "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.": "ඔබ කළ සියල්ල ඔබේ උපාංගයේ රැඳේ: ඔබේ ප්‍රශ්න සහ ඒවායේ පිළිතුරු, ඔබ සුරැකි පිළිතුරු, සහ ඔබට ලැබුණු අවසන් පිළිතුරු සමඟ ෂරීආ විශේෂඥයාට ඔබ කළ ඉල්ලීම්; සම්බන්ධතාවය බිඳ වැටුණත් ඔබට ඕනෑම වේලාවක ඒවා කියවිය හැකිය. නව ප්‍රශ්නයකට සම්බන්ධතාවය අවශ්‍ය වේ; එය නොමැති විට, යෙදුමේ සුරැකි ලේඛනගත පිළිතුර ඔබේ ප්‍රශ්නයට ගැළපේ නම් එය පෙන්වයි, නැතහොත් යොමු කිරීමක් හෝ පිළිතුරු දීමෙන් වැළකීමක්, ඒ බව පවසන දැනුම්දීමක් සමඟ.",
+    "How do we check every answer?": "අපි සෑම පිළිතුරක්ම පරීක්ෂා කරන්නේ කෙසේද?",
+    "No connection right now: this is the last copy saved on your device.": "දැන් සම්බන්ධතාවයක් නැත: මෙය ඔබේ උපාංගයේ සුරැකි අවසන් පිටපතයි.",
+    "The comparison, and the proof in numbers": "සංසන්දනය, සහ සංඛ්‍යාවලින් සාක්ෂිය",
+    "The full path, drawn": "සම්පූර්ණ මාර්ගය, රූපසටහනකින්",
+    "The Basirah team gives the key to approved specialists.": "Basirah කණ්ඩායම අනුමත විශේෂඥයින්ට යතුර ලබා දෙයි."
   }
 }
