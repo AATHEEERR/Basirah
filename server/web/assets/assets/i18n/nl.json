@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} verzoeken · {1} in afwachting · {2} bevestigde gesprekken",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} verzen van QuranEnc (de Mushaf van het King Fahd-complex)",
     "{0}; if unavailable: {1}": "{0}; indien niet beschikbaar: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Kies „Sluiten” wanneer je klaar bent. Verzoeken worden na 30 dagen van de server verwijderd; de lijst ververst zichzelf elke 30 seconden.",
     "We read every answer flagged on all three sides ourselves, corrected the counting rules where they were wrong, and applied each correction to every side from the saved answers, without asking again.": "We hebben zelf elk antwoord gelezen dat aan alle drie de kanten als problematisch was aangemerkt, de telregels aangepast waar ze fout waren, en elke correctie op alle kanten toegepast vanuit de opgeslagen antwoorden, zonder de vraag opnieuw te stellen.",
     "Website view": "Websiteweergave",
     "Wednesday": "Woensdag",
@@ -680,6 +679,7 @@
     "Username": "Gebruikersnaam",
     "Ask a specialist for a fatwa": "Vraag een specialist om een fatwa",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Voor jouw eigen situatie: schrijf je vraag en de details op, en een specialist in de Sharia antwoordt je per bericht of telefonisch",
-    "Your question and the details of your case": "Je vraag en de details van jouw situatie"
+    "Your question and the details of your case": "Je vraag en de details van jouw situatie",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Kies „Sluiten” wanneer je klaar bent. Verzoeken worden na 30 dagen van de server verwijderd; de lijst wordt elke 5 seconden automatisch vernieuwd."
   }
 }

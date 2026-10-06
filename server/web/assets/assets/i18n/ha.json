@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "buƙatu {0} · {1} suna jira · kiran da aka tabbatar {2}",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "ayoyi {0} daga QuranEnc (Mushaf na Hadaddiyar Sarki Fahd)",
     "{0}; if unavailable: {1}": "{0}; idan ba a samu ba: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "“Rufe” idan an gama. Ana share buƙatu daga sabar bayan kwanaki 30; jerin yana sabunta kansa kowane dakika 30.",
     "Search a term… Tawhid, الشريعة": "Nemi kalma… Tawhid, الشريعة",
     "Search results": "Sakamakon bincike",
     "Searching the Quran and tafsir…": "Ana bincike a cikin Alƙur'ani da tafsiri…",
@@ -680,6 +679,7 @@
     "Username": "Sunan mai amfani",
     "Ask a specialist for a fatwa": "Ka nemi fatawa daga ƙwararre",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Don al'amarinka na kanka: rubuta tambayarka da cikakkun bayananta, sai wani ƙwararre a fannin Shari'a ya amsa maka ta saƙo ko kira",
-    "Your question and the details of your case": "Tambayarka da cikakkun bayanan al'amarinka"
+    "Your question and the details of your case": "Tambayarka da cikakkun bayanan al'amarinka",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Ka/ki danna “Rufe buƙata” idan an gama. Ana goge buƙatu daga sabar bayan kwana 30; jerin kuma yana sabunta kansa da kansa a kowane daƙiƙa 5."
   }
 }

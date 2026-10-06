@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} kërkesa · {1} në pritje · {2} thirrje të konfirmuara",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} ajete nga QuranEnc (Mushafi i Kompleksit Mbreti Fahd)",
     "{0}; if unavailable: {1}": "{0}; nëse nuk ofrohet: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Shtypni «Mbylle» kur të mbaroni. Kërkesat fshihen nga serveri pas 30 ditësh; lista rifreskohet vetë çdo 30 sekonda.",
     "Search a term… Tawhid, الشريعة": "Kërko një term… Tawhid, الشريعة",
     "Search results": "Rezultatet e kërkimit",
     "Searching the Quran and tafsir…": "Po kërkon në Kuran dhe në tafsir…",
@@ -680,6 +679,7 @@
     "Username": "Emri i përdoruesit",
     "Ask a specialist for a fatwa": "Kërko një fetva nga një specialist",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Për rastin tënd: shkruaj pyetjen dhe detajet e saj, dhe një specialist i Sheriatit të përgjigjet me mesazh ose me telefonatë",
-    "Your question and the details of your case": "Pyetja jote dhe detajet e rastit tënd"
+    "Your question and the details of your case": "Pyetja jote dhe detajet e rastit tënd",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Shtyp «Mbylle kërkesën» kur të përfundosh. Kërkesat fshihen nga serveri pas 30 ditësh; lista rifreskohet vetë çdo 5 sekonda."
   }
 }

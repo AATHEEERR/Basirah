@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "maombi {0} · {1} yanasubiri · simu {2} zilizothibitishwa",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "aya {0} kutoka QuranEnc (Mushaf wa Kampuni ya Mfalme Fahd)",
     "{0}; if unavailable: {1}": "{0}; ikishindikana: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Bonyeza “Funga” ukimaliza. Maombi hufutwa kutoka kwenye seva baada ya siku 30; orodha hujisasisha yenyewe kila sekunde 30.",
     "Search a term… Tawhid, الشريعة": "Tafuta istilahi… Tawhid, الشريعة",
     "Search results": "Matokeo ya utafutaji",
     "Searching the Quran and tafsir…": "Inatafuta katika Quran na tafsir…",
@@ -680,6 +679,7 @@
     "Username": "Jina la mtumiaji",
     "Ask a specialist for a fatwa": "Mwombe mtaalamu fatwa",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Kwa hali yako mwenyewe: andika swali lako na maelezo yake, naye mtaalamu wa Sharia atakujibu kwa ujumbe au kwa simu",
-    "Your question and the details of your case": "Swali lako na maelezo ya hali yako"
+    "Your question and the details of your case": "Swali lako na maelezo ya hali yako",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Bonyeza «Funga ombi» ukimaliza. Maombi hufutwa kwenye seva baada ya siku 30; orodha hujisasisha yenyewe kila baada ya sekunde 5."
   }
 }

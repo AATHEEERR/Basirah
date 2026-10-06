@@ -322,7 +322,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} zahtjeva · {1} na čekanju · {2} potvrđenih poziva",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} ajeta s QuranEnc (Mushaf Kompleksa kralja Fahda)",
     "{0}; if unavailable: {1}": "{0}; ako nije dostupno: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Kliknite „Zatvori“ kad završite. Zahtjevi se brišu sa servera nakon 30 dana; lista se sama osvježava svakih 30 sekundi.",
     "Out of scope": "Izvan okvira",
     "Outside Basirah's scope": "Izvan okvira Basirah",
     "Outside Islamic content: Basirah declined without citing anything": "Izvan islamskog sadržaja: Basirah je odbila odgovoriti bez navođenja ikakvog dokaza",
@@ -680,6 +679,7 @@
     "Username": "Korisničko ime",
     "Ask a specialist for a fatwa": "Zatraži fetvu od stručnjaka",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Za tvoj lični slučaj: napiši svoje pitanje i detalje, a stručnjak za šerijatsko pravo odgovorit će ti porukom ili pozivom",
-    "Your question and the details of your case": "Tvoje pitanje i detalji tvog slučaja"
+    "Your question and the details of your case": "Tvoje pitanje i detalji tvog slučaja",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Kliknite „Zatvori zahtjev“ kada završite. Zahtjevi se brišu sa servera nakon 30 dana, a lista se sama osvježava svakih 5 sekundi."
   }
 }

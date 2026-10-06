@@ -447,7 +447,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} kahilingan · {1} naghihintay · {2} kumpirmadong tawag",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} talata mula sa QuranEnc (Mushaf ng King Fahd Complex)",
     "{0}; if unavailable: {1}": "{0}; kung hindi available: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Pindutin ang “Isara” kapag tapos na. Buburahin ang mga kahilingan sa server pagkalipas ng 30 araw; kusang nagre-refresh ang listahan tuwing 30 segundo.",
     "The hadith and its explanation on HadeethEnc": "Ang hadith at ang paliwanag nito sa HadeethEnc",
     "The highlighted words are the part cited": "Ang may highlight ang bahaging binanggit na patunay mula sa talata",
     "The impact board needs the Basirah server.": "Kailangan ng impact board ang server ng Basirah.",
@@ -680,6 +679,7 @@
     "Username": "Username",
     "Ask a specialist for a fatwa": "Humingi ng fatwa sa isang espesyalista",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Para sa sarili mong kaso: isulat ang iyong tanong at ang mga detalye nito, at sasagot sa iyo ang isang espesyalista sa Sharia sa pamamagitan ng mensahe o tawag",
-    "Your question and the details of your case": "Ang iyong tanong at ang mga detalye ng iyong kaso"
+    "Your question and the details of your case": "Ang iyong tanong at ang mga detalye ng iyong kaso",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "I-tap ang “Isara ang kahilingan” kapag tapos ka na. Binubura ang mga kahilingan mula sa server pagkatapos ng 30 araw; kusang nagre-refresh ang listahan tuwing 5 segundo."
   }
 }

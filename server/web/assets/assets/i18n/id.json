@@ -323,7 +323,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} permintaan · {1} menunggu · {2} panggilan terkonfirmasi",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} ayat dari QuranEnc (Mushaf Kompleks Raja Fahd)",
     "{0}; if unavailable: {1}": "{0}; jika tidak tersedia: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Pilih “Tutup” jika sudah selesai. Permintaan dihapus dari server setelah 30 hari; daftar diperbarui sendiri setiap 30 detik.",
     "Knowledge base (version {0}): {1} questions and {2} texts, explained by the team from the references above. {3} of {4} have been human-reviewed; the rest show “pending review” until they are.": "Basis pengetahuan (versi {0}): {1} pertanyaan dan {2} dalil, yang penjelasannya ditulis oleh tim dari referensi di atas. {3} dari {4} telah ditinjau manusia; sisanya ditampilkan dengan keterangan “menunggu tinjauan” sampai ditinjau.",
     "Languages test: {0} questions in {1} languages": "Uji bahasa: {0} pertanyaan dalam {1} bahasa",
     "Learn more in your language: the whole IslamHouse library": "Pelajari lebih lanjut dalam bahasa Anda: seluruh pustaka IslamHouse",
@@ -680,6 +679,7 @@
     "Username": "Nama pengguna",
     "Ask a specialist for a fatwa": "Minta fatwa kepada seorang ahli",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Untuk kasus Anda sendiri: tuliskan pertanyaan beserta rinciannya, dan seorang ahli syariah akan menjawab melalui pesan atau panggilan",
-    "Your question and the details of your case": "Pertanyaan Anda dan rincian kasus Anda"
+    "Your question and the details of your case": "Pertanyaan Anda dan rincian kasus Anda",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Pilih “Tutup permintaan” bila sudah selesai. Permintaan akan dihapus dari server setelah 30 hari; daftar diperbarui sendiri setiap 5 detik."
   }
 }

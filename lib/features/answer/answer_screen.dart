@@ -272,7 +272,7 @@ class AnswerView extends ConsumerWidget {
     void section(String title, String body) {
       if (body.trim().isEmpty) return;
       b
-        ..writeln('【$title】')
+        ..writeln('— $title —')
         ..writeln(body)
         ..writeln();
     }

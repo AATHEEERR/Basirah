@@ -1112,8 +1112,8 @@ class _PanelGuide extends StatelessWidget {
         'For a call: “Confirm the time”, or suggest another in your reply. At the time, open the room first; Jitsi may ask whoever creates the room to sign in (Google, GitHub or Facebook).',
       ),
       context.tr(
-        '«أغلق الطلب» حين تنتهي. تُحذف الطلبات من الخادم بعد 30 يوماً، والقائمة تتحدّث وحدها كل 30 ثانية.',
-        '“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.',
+        '«أغلق الطلب» حين تنتهي. تُحذف الطلبات من الخادم بعد 30 يوماً، والقائمة تتحدّث وحدها كل 5 ثوانٍ.',
+        '“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.',
       ),
     ];
     return Container(

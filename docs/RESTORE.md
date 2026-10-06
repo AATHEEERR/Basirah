@@ -61,6 +61,6 @@ git clone "backups\Basirah_Backup_<التاريخ>\basirah.bundle" basirah_resto
 
 ## ملاحظات
 
-- **مجلد OneDrive:** مجلد `IslamicAI` كله داخل OneDrive، فالنسخ الاحتياطية في `IslamicAI\backups` تُرفع إلى السحابة تلقائياً. ولأن `server.env` بداخلها، لا تشارك مجلد النسخ مع أحد.
+- **سرية النسخ:** في كل نسخة احتياطية ملف `server.env` بمفاتيحه، فاحفظ النسخ في مكان خاص ولا تشاركها مع أحد.
 - **نسخة جديدة:** شغّل `powershell -ExecutionPolicy Bypass -File tool\backup.ps1` بعد أي عمل مهم.
 - **التحقق من سلامة النسخة:** `git bundle verify basirah.bundle`، وقارن البصمات في `SHA256SUMS.txt` بأمر `Get-FileHash`.

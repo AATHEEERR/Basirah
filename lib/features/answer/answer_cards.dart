@@ -330,10 +330,13 @@ class EvidenceView extends StatelessWidget {
               style: BText.label(11, weight: FontWeight.w400),
             ),
           const SizedBox(height: 6),
-          Row(
+          // The reference stays whole: on a narrow screen the link moves to
+          // the next line instead of squeezing it.
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Flexible(child: Text('[${e.reference}]', style: BText.label(12.5, color: accent, weight: FontWeight.w600))),
-              const Spacer(),
+              Text('[${e.reference}]', style: BText.label(12.5, color: accent, weight: FontWeight.w600)),
               link,
             ],
           ),

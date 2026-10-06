@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} codsi · {1} sugaya · {2} wicitaan la xaqiijiyey",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} aayadood oo ka socda QuranEnc (Mushaf-ka King Fahd Complex)",
     "{0}; if unavailable: {1}": "{0}; haddii aan la heli karin: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Riix “Xir” markaad dhammayso. Codsiyada waxaa server-ka laga tirtiraa 30 maalmood ka dib; liiska wuu is-cusboonaysiiyaa 30 ilbiriqsi kasta.",
     "Search a term… Tawhid, الشريعة": "Raadi eray… Tawhid, الشريعة",
     "Search results": "Natiijooyinka raadinta",
     "Searching the Quran and tafsir…": "Waxaa lagu raadinayaa Quranka iyo tafsiirka…",
@@ -680,6 +679,7 @@
     "Username": "Magaca isticmaalaha",
     "Ask a specialist for a fatwa": "Weydii khabiir fatwo",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Xaaladdaada gaarka ah: qor su'aashaada iyo faahfaahinteeda, khabiir Sharci ahna wuxuu kugu jawaabi doonaa farriin ama wicitaan",
-    "Your question and the details of your case": "Su'aashaada iyo faahfaahinta xaaladdaada"
+    "Your question and the details of your case": "Su'aashaada iyo faahfaahinta xaaladdaada",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Marka aad dhammayso, riix “Xir”. Codsiyada waxaa laga tirtiraa server-ka kadib 30 maalmood; liiska wuxuu is-cusboonaysiiyaa 5 ilbiriqsi kasta."
   }
 }

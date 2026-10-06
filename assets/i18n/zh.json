@@ -385,7 +385,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} 个请求 · {1} 个等待中 · {2} 个已确认的通话",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "来自 QuranEnc 的 {0} 节经文（法赫德国王古兰经印制总局版 Mushaf）",
     "{0}; if unavailable: {1}": "{0}；若无法使用：{1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "完成后请点“关闭”。请求在 30 天后会从服务器删除；列表每 30 秒自动刷新一次。",
     "Search a term… Tawhid, الشريعة": "搜索术语… Tawhid、الشريعة",
     "Search results": "搜索结果",
     "Searching the Quran and tafsir…": "正在搜索古兰经和经注…",
@@ -680,6 +679,7 @@
     "Username": "用户名",
     "Ask a specialist for a fatwa": "向专业人士请教教法裁决（法特瓦）",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "针对您自己的情况：请写下您的问题和详细情形，一位伊斯兰教法专家将通过消息或电话为您解答",
-    "Your question and the details of your case": "您的问题及您的情况详情"
+    "Your question and the details of your case": "您的问题及您的情况详情",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "完成后请点击“关闭请求”。请求会在 30 天后从服务器删除;列表每 5 秒自动刷新一次。"
   }
 }

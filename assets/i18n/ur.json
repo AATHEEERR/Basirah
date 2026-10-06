@@ -568,7 +568,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} درخواستیں · {1} انتظار میں · {2} تصدیق شدہ کالیں",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "QuranEnc سے {0} آیات (مصحفِ مجمع الملک فہد)",
     "{0}; if unavailable: {1}": "{0}؛ دستیاب نہ ہو تو: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "کام مکمل ہونے پر «بند کریں» دبائیں۔ درخواستیں 30 دن بعد سرور سے حذف ہو جاتی ہیں؛ فہرست ہر 30 سیکنڈ میں خود تازہ ہوتی ہے۔",
     "Interface languages": "انٹرفیس کی زبانیں",
     "One answer saved on your device": "آپ کے آلے پر محفوظ ایک جواب",
     "{0} answers saved on your device": "آپ کے آلے پر محفوظ {0} جوابات",
@@ -680,6 +679,7 @@
     "Username": "صارف نام",
     "Ask a specialist for a fatwa": "کسی ماہر سے فتویٰ طلب کریں",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "اپنے ذاتی معاملے کے لیے: اپنا سوال اور اس کی تفصیلات لکھیں، اور شریعت کے ایک ماہر پیغام یا فون کال کے ذریعے آپ کو جواب دیں گے",
-    "Your question and the details of your case": "آپ کا سوال اور آپ کے معاملے کی تفصیلات"
+    "Your question and the details of your case": "آپ کا سوال اور آپ کے معاملے کی تفصیلات",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "جب کام ختم ہو جائے تو «درخواست بند کریں» دبائیں۔ درخواستیں 30 دن کے بعد سرور سے حذف کر دی جاتی ہیں، اور فہرست ہر 5 سیکنڈ بعد خود بخود تازہ ہو جاتی ہے۔"
   }
 }

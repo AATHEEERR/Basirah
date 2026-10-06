@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} yêu cầu · {1} đang chờ · {2} cuộc gọi đã xác nhận",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} câu kinh từ QuranEnc (Mushaf của Tổ hợp Vua Fahd)",
     "{0}; if unavailable: {1}": "{0}; nếu không khả dụng: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Nhấn “Đóng” khi hoàn tất. Các yêu cầu sẽ bị xóa khỏi máy chủ sau 30 ngày; danh sách tự làm mới mỗi 30 giây.",
     "Search a term… Tawhid, الشريعة": "Tìm một thuật ngữ… Tawhid, الشريعة",
     "Search results": "Kết quả tìm kiếm",
     "Searching the Quran and tafsir…": "Đang tìm trong Quran và tafsir…",
@@ -680,6 +679,7 @@
     "Username": "Tên người dùng",
     "Ask a specialist for a fatwa": "Nhờ chuyên gia đưa ra fatwa",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Dành cho trường hợp riêng của bạn: hãy viết câu hỏi cùng các chi tiết, và một chuyên gia về Sharia sẽ trả lời bạn bằng tin nhắn hoặc cuộc gọi",
-    "Your question and the details of your case": "Câu hỏi của bạn và các chi tiết về trường hợp của bạn"
+    "Your question and the details of your case": "Câu hỏi của bạn và các chi tiết về trường hợp của bạn",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "Hãy chọn “Đóng yêu cầu” khi bạn xong. Các yêu cầu sẽ bị xóa khỏi máy chủ sau 30 ngày; danh sách tự làm mới mỗi 5 giây."
   }
 }

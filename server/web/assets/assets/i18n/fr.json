@@ -447,7 +447,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} demandes · {1} en attente · {2} appels confirmés",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} versets de QuranEnc (Mushaf du Complexe du roi Fahd)",
     "{0}; if unavailable: {1}": "{0} ; en cas d’indisponibilité : {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "Appuyez sur « Clore la demande » une fois terminé. Les demandes sont supprimées du serveur après 30 jours ; la liste s’actualise d’elle-même toutes les 30 secondes.",
     "The hadith and its explanation on HadeethEnc": "Le hadith et son explication sur HadeethEnc",
     "The highlighted words are the part cited": "Les mots surlignés correspondent au passage cité",
     "The impact board needs the Basirah server.": "Le tableau d'impact nécessite le serveur de Basirah.",
@@ -680,6 +679,7 @@
     "Username": "Nom d’utilisateur",
     "Ask a specialist for a fatwa": "Demander une fatwa à un spécialiste",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "Pour votre cas personnel : écrivez votre question et ses détails, et un spécialiste de la Sharia vous répondra par message ou par appel",
-    "Your question and the details of your case": "Votre question et les détails de votre situation"
+    "Your question and the details of your case": "Votre question et les détails de votre situation",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "« Clôturer la demande » une fois terminé. Les demandes sont supprimées du serveur après 30 jours ; la liste s'actualise automatiquement toutes les 5 secondes."
   }
 }

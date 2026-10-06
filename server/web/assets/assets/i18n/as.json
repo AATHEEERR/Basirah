@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0}টা অনুৰোধ · {1}টা অপেক্ষাৰত · {2}টা নিশ্চিত কল",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "QuranEnc ৰ {0}টা আয়াত (ক'ৰ ফাহ্দ কমপ্লেক্সৰ মুছহাফ)",
     "{0}; if unavailable: {1}": "{0}; উপলব্ধ নহ'লে: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "কাম শেষ হ'লে “বন্ধ কৰক” টিপক। অনুৰোধবোৰ ৩০ দিনৰ পিছত চাৰ্ভাৰৰ পৰা মচি পেলোৱা হয়; তালিকা প্ৰতি ৩০ ছেকেণ্ডে নিজে নিজে নৱীকৰণ হয়।",
     "Search a term… Tawhid, الشريعة": "এটা শব্দ সন্ধান কৰক… Tawhid, الشريعة",
     "Search results": "সন্ধানৰ ফলাফল",
     "Searching the Quran and tafsir…": "কুৰআন আৰু তাফসীৰ সন্ধান কৰি আছে…",
@@ -680,6 +679,7 @@
     "Username": "ইউজাৰনেম",
     "Ask a specialist for a fatwa": "এজন বিশেষজ্ঞৰ পৰা ফতোৱা বিচাৰক",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "আপোনাৰ নিজৰ ক্ষেত্ৰৰ বাবে: আপোনাৰ প্ৰশ্ন আৰু ইয়াৰ বিৱৰণ লিখক, আৰু এজন শৰীয়ত বিশেষজ্ঞই বাৰ্তা বা কলৰ দ্বাৰা উত্তৰ দিব",
-    "Your question and the details of your case": "আপোনাৰ প্ৰশ্ন আৰু আপোনাৰ ক্ষেত্ৰৰ বিৱৰণ"
+    "Your question and the details of your case": "আপোনাৰ প্ৰশ্ন আৰু আপোনাৰ ক্ষেত্ৰৰ বিৱৰণ",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "কাম শেষ হ'লে “অনুৰোধ বন্ধ কৰক” টিপক। অনুৰোধবোৰ ৩০ দিনৰ পিছত ছাৰ্ভাৰৰ পৰা মচি পেলোৱা হয়; তালিকাখন প্ৰতি ৫ ছেকেণ্ডত নিজে নিজে ৰিফ্ৰেচ হয়।"
   }
 }

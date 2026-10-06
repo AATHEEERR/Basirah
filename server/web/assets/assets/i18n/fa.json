@@ -387,7 +387,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "{0} درخواست · {1} در انتظار پاسخ · {2} تماس تأییدشده",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "{0} آیه از QuranEnc (مصحف مجمع ملک فهد)",
     "{0}; if unavailable: {1}": "{0}؛ و در صورت دسترس‌نبودن: {1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "پس از پایان کار، «بستن» را بزنید. درخواست‌ها پس از ۳۰ روز از سرور حذف می‌شوند و فهرست هر ۳۰ ثانیه خودکار به‌روز می‌شود.",
     "Search a term… Tawhid, الشريعة": "جستجوی یک اصطلاح… Tawhid، الشريعة",
     "Search results": "نتایج جستجو",
     "Searching the Quran and tafsir…": "در حال جستجو در قرآن کریم و تفسیر…",
@@ -680,6 +679,7 @@
     "Username": "نام کاربری",
     "Ask a specialist for a fatwa": "درخواست فتوا از یک متخصص",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "برای مورد خاص خودتان: پرسش و جزئیات آن را بنویسید و یک متخصص شرعی با پیام یا تماس به شما پاسخ می‌دهد",
-    "Your question and the details of your case": "پرسش شما و جزئیات وضعیتتان"
+    "Your question and the details of your case": "پرسش شما و جزئیات وضعیتتان",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "پس از پایان کار، «بستن درخواست» را بزنید. درخواست‌ها پس از ۳۰ روز از سرور حذف می‌شوند و فهرست هر ۵ ثانیه خودبه‌خود به‌روزرسانی می‌شود."
   }
 }

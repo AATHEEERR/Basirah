@@ -323,7 +323,6 @@
     "{0} requests · {1} waiting · {2} confirmed calls": "リクエスト {0} 件 · 待機中 {1} 件 · 確定した通話 {2} 件",
     "{0} verses from QuranEnc (the King Fahd Complex Mushaf)": "QuranEnc の {0} 節(ファハド国王複合施設版ムスハフ)",
     "{0}; if unavailable: {1}": "{0}。利用できない場合は{1}",
-    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 30 seconds.": "完了したら「閉じる」を押してください。リクエストは30日後にサーバーから削除され、リストは30秒ごとに自動で更新されます。",
     "Knowledge base (version {0}): {1} questions and {2} texts, explained by the team from the references above. {3} of {4} have been human-reviewed; the rest show “pending review” until they are.": "知識ベース(バージョン {0}):{1} 件の質問と {2} 件の典拠。上記の参考文献をもとに、チームが解説を執筆しました。{3} 件中 {4} 件は人による確認が済んでおり、残りは確認が終わるまで「確認待ち」と表示されます。",
     "Languages test: {0} questions in {1} languages": "言語テスト:{1} 言語で {0} 件の質問",
     "Learn more in your language: the whole IslamHouse library": "あなたの言語でさらに学ぶ:IslamHouse のライブラリ全体",
@@ -680,6 +679,7 @@
     "Username": "ユーザー名",
     "Ask a specialist for a fatwa": "専門家にファトワーを依頼する",
     "For your own case: write your question and its details, and a Sharia specialist answers by message or call": "あなた自身の状況について:質問とその詳細を書いてください。シャリーアの専門家がメッセージまたは通話でお答えします",
-    "Your question and the details of your case": "あなたの質問と状況の詳細"
+    "Your question and the details of your case": "あなたの質問と状況の詳細",
+    "“Close” when done. Requests are deleted from the server after 30 days; the list refreshes by itself every 5 seconds.": "終わったら「リクエストを閉じる」を押してください。リクエストは30日後にサーバーから削除されます。リストは5秒ごとに自動で更新されます。"
   }
 }
