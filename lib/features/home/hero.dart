@@ -54,25 +54,26 @@ class HomeHero extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (wide) ...[
-          Wordmark(style: BText.brand(context.isEn ? 50 : 60)),
-          const SizedBox(height: 8),
-        ],
+        // The name above its verse, on the phone as on the website.
+        Wordmark(style: BText.brand(wide ? (context.isEn ? 50 : 60) : (context.isEn ? 40 : 46))),
+        const SizedBox(height: 8),
         if (verse != null) _Verse(verse: verse, meaning: meaning, wide: wide),
         SizedBox(height: wide ? 20 : 14),
-        // One block under the name: this line in the wordmark's own font,
-        // lighter and a step smaller, its key words in the verse's gold.
-        Text.rich(_headline(context, BText.brandLine(wide ? (context.isEn ? 25 : 28) : 22))),
+        // The promise in one line: the reading font, bold, one colour.
+        Text(
+          context.tr('كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك', 'Every answer comes with its evidence, and every piece of evidence you can check yourself'),
+          style: BText.display(wide ? (context.isEn ? 25 : 28) : 22, weight: FontWeight.w700),
+        ),
         const SizedBox(height: 10),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
           child: Text(
             context.tr(
               'بصيرة رفيقك في أسئلة الإسلام الأولى: تقرأ القرآن والسنة الصحيحة قبل أن تجيب، وتجيبك بلغتك، وتفرّق لك بين ما يقرّره الدين وما هو عادة وثقافة. '
-                  'وحين تكون المسألة حالتك أنت، تصلك بمختص شرعي.',
+                  'وإن كان سؤالك عن واقعة تخصّك أنت، كعقد زواجك أو صحة عبادتك، فلا تُفتيك فيها، بل تصلك بمختص شرعي يجيبك.',
               'Basirah is your companion for your first questions about Islam: it reads the Quran and the authentic Sunnah before it answers, '
                   'answers in your language, and separates what the religion establishes from custom and culture. '
-                  'And when the question is about your own situation, it connects you with a Sharia specialist.',
+                  'If your question is about your own case, such as your marriage contract or whether your worship is valid, it does not give you a ruling: it connects you with a Sharia specialist who answers you.',
             ),
             style: BText.body(wide ? 16.5 : 15, color: BColors.textMuted, height: 1.75),
           ),
@@ -185,34 +186,4 @@ class _Verse extends StatelessWidget {
       ],
     );
   }
-}
-
-/// «كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك», its two key words in
-/// gold in Arabic and English; one plain line in the other languages.
-TextSpan _headline(BuildContext context, TextStyle style) {
-  final gold = style.copyWith(color: BColors.goldDeep);
-  return switch (context.uiLang) {
-    'ar' => TextSpan(
-      style: style,
-      children: [
-        const TextSpan(text: 'كل جواب هنا '),
-        TextSpan(text: 'بدليله', style: gold),
-        const TextSpan(text: '، وكل دليل تتحقق منه '),
-        TextSpan(text: 'بنفسك', style: gold),
-      ],
-    ),
-    'en' => TextSpan(
-      style: style,
-      children: [
-        const TextSpan(text: 'Every answer comes with its '),
-        TextSpan(text: 'evidence', style: gold),
-        const TextSpan(text: ', and every piece of evidence you can check '),
-        TextSpan(text: 'yourself', style: gold),
-      ],
-    ),
-    _ => TextSpan(
-      text: context.tr('كل جواب هنا بدليله، وكل دليل تتحقق منه بنفسك', 'Every answer comes with its evidence, and every piece of evidence you can check yourself'),
-      style: style,
-    ),
-  };
 }

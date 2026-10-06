@@ -129,4 +129,4 @@ dart run bin/languages_eval.dart                 # اختبار اللغات (ع
 dart run tool/baseline_asset.dart                # نسخة التطبيق من النتائج
 ```
 
-الملفات: `eval/baseline_report.json` (أ وج، كل إجابة بنصها)، `eval/prompted_report.json` (ب)، `eval/languages_report.json`.
+الملفات: `eval/baseline_report.json` (أ وج، كل إجابة بنصها)، `eval/prompted_report.json` (ب)، `eval/languages_report.json`. وكل سؤال وما فعله كل طرف، بالإجابات كاملة، في صفحة واحدة: `eval/QUESTIONS.md` (تُنشأ بالأداة `tool/questions_md.dart`).

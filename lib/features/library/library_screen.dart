@@ -214,24 +214,6 @@ class LibraryScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              // The other side of the requests: the specialists' panel (it asks
-              // for the panel key).
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
-                sliver: SliverToBoxAdapter(
-                  child: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: TextButton.icon(
-                      onPressed: () => context.push('/specialist'),
-                      icon: const Icon(Icons.badge_outlined, size: 18, color: BColors.goldDeep),
-                      label: Text(
-                        context.tr('أنت مختص شرعي؟ لوحة المختصين', 'Are you a Sharia specialist? The specialists’ panel'),
-                        style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               SliverToBoxAdapter(
                 child: SectionHeader(
                   context.tr('المحفوظات', 'Saved'),

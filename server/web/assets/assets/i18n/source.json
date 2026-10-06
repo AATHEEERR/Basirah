@@ -9,8 +9,8 @@
       "ar": "١. سؤال التقييم"
     },
     {
-      "en": "2. Design: an ablation on the same model",
-      "ar": "٢. تصميم التجربة: الاستئصال المتدرّج (ablation)"
+      "en": "2. The design and its results",
+      "ar": "٢. تصميم التجربة ونتائجها"
     },
     {
       "en": "3. The test set",
@@ -21,24 +21,20 @@
       "ar": "٤. المقاييس وتعريفها الإجرائي"
     },
     {
-      "en": "5. Results",
-      "ar": "٥. النتائج"
+      "en": "5. Discussion: what Basirah adds beyond instructions",
+      "ar": "٥. قراءة النتائج: ما الذي تضيفه بصيرة فوق التعليمات؟"
     },
     {
-      "en": "6. Discussion: what Basirah adds beyond instructions",
-      "ar": "٦. قراءة النتائج: ما الذي تضيفه بصيرة فوق التعليمات؟"
+      "en": "6. Checking the counting by hand",
+      "ar": "٦. التحقق اليدوي من العدّ"
     },
     {
-      "en": "7. Checking the counting by hand",
-      "ar": "٧. التحقق اليدوي من العدّ"
+      "en": "7. Limits",
+      "ar": "٧. حدود التقييم"
     },
     {
-      "en": "8. Limits",
-      "ar": "٨. حدود التقييم"
-    },
-    {
-      "en": "9. The evidence: how to check the results yourself",
-      "ar": "٩. الدليل: كيف تتحقق من النتائج بنفسك"
+      "en": "8. The evidence: how to check the results yourself",
+      "ar": "٨. الدليل: كيف تتحقق من النتائج بنفسك"
     },
     {
       "en": "A Quranic quotation that matches no place in the Mushaf, after ignoring diacritics and the difference between the simple and the Uthmani spelling.",
@@ -49,12 +45,24 @@
       "ar": "وجود الاستشهاد وحده لا يثبت صحة الاستنتاج؛ لذلك تقرأ بصيرة تفسير الآية قبل أن تستشهد بها، وتكتب «وجه الاستدلال» موسوماً بأنه مولَّد، وتُعرض المصادر للتحقق بنفسك."
     },
     {
-      "en": "A clarifying question",
-      "ar": "سؤال توضيحي"
-    },
-    {
       "en": "A clarifying question first",
       "ar": "سؤال توضيحي قبل الإجابة"
+    },
+    {
+      "en": "A clarifying question with no options",
+      "ar": "سؤال توضيحي بلا خيارات"
+    },
+    {
+      "en": "A documented answer, a scholarly difference without picking a side, a clarifying question when the answer depends on the asker’s case, a referral, abstaining, or declining as out of scope.",
+      "ar": "إجابة موثقة، أو بيان خلاف دون ترجيح، أو سؤال توضيحي حين يختلف الجواب باختلاف حال السائل، أو إحالة، أو امتناع، أو اعتذار لأنه خارج النطاق."
+    },
+    {
+      "en": "A fatwa or a personal case",
+      "ar": "فتوى أو حالة شخصية"
+    },
+    {
+      "en": "A first check in code, no model",
+      "ar": "فحص أولي بالكود، بلا نموذج"
     },
     {
       "en": "A general question (level {0}), not a personal case that needs a mufti",
@@ -69,12 +77,12 @@
       "ar": "حديث بلا مصدر أو بلا حكم"
     },
     {
-      "en": "A hidden instruction followed",
-      "ar": "تعليمات مدسوسة نُفّذت"
+      "en": "A hadith’s text, narrator, grading, explanation and translation",
+      "ar": "نص الحديث وراويه وحكمه وشرحه وترجمته"
     },
     {
-      "en": "A language detector sets the answer’s language (25+ languages). The question is fenced inside its own tag, so it cannot change the instructions. The server never stores the question text.",
-      "ar": "كاشف اللغة يحدد لغة الإجابة (أكثر من 25 لغة). نص السؤال يُعزل داخل وسم خاص فلا يستطيع تغيير التعليمات. ولا يُحفظ نص السؤال على الخادم."
+      "en": "A hidden instruction followed",
+      "ar": "تعليمات مدسوسة نُفّذت"
     },
     {
       "en": "A link to check every piece of evidence",
@@ -83,10 +91,6 @@
     {
       "en": "A link to check every source",
       "ar": "رابط للتحقق من كل دليل"
-    },
-    {
-      "en": "A link to check the source",
-      "ar": "رابط للتحقق من المصدر"
     },
     {
       "en": "A matter of scholarly difference: what is agreed, with the difference stated and no side taken",
@@ -125,16 +129,16 @@
       "ar": "بطاقة آمنة للمشاركة"
     },
     {
-      "en": "A search with the question’s words",
-      "ar": "بحث بنص السؤال"
-    },
-    {
       "en": "A sourced answer",
       "ar": "إجابة موثّقة المصدر"
     },
     {
       "en": "A verse worded differently from the Mushaf",
       "ar": "آية بلفظ غير موجود في المصحف"
+    },
+    {
+      "en": "A verse’s tafsir",
+      "ar": "تفسير الآية"
     },
     {
       "en": "AI model",
@@ -149,8 +153,12 @@
       "ar": "عن بصيرة"
     },
     {
-      "en": "Abstain, or refer for review",
-      "ar": "امتناع أو إحالة إلى المراجعة"
+      "en": "Abstain",
+      "ar": "امتناع"
+    },
+    {
+      "en": "Abstain: “no documented answer” instead of a guess",
+      "ar": "امتناع: «لا تتوفر إجابة موثقة» بدل التخمين"
     },
     {
       "en": "Accepted hadith only",
@@ -189,6 +197,14 @@
       "ar": "إجابة مرتبطة بالمادة مع إحالة دقيقة إلى موضعها"
     },
     {
+      "en": "An answer with no evidence, or low confidence",
+      "ar": "إجابة بلا دليل أو بثقة منخفضة"
+    },
+    {
+      "en": "An approved specialist enters the panel with the private sign-in link the Basirah team sends them: open the link from the team’s message and the panel opens directly, with nothing to type.",
+      "ar": "يدخل المختص المعتمد اللوحة برابط الدخول الخاص الذي يرسله له فريق بصيرة: افتح الرابط من رسالة الفريق، فتُفتح اللوحة مباشرة دون كتابة أي شيء."
+    },
+    {
       "en": "An approved translation of the meanings, from QuranEnc",
       "ar": "ترجمة معاني معتمدة من موسوعة القرآن الكريم"
     },
@@ -197,12 +213,12 @@
       "ar": "سؤال خارج النطاق أُجيب عنه"
     },
     {
-      "en": "And if the connection drops or the AI is unavailable?",
-      "ar": "وإن انقطع الاتصال أو تعذّر الذكاء الاصطناعي؟"
+      "en": "And directly from the source, without MCP",
+      "ar": "ومباشرة من المصدر، دون MCP"
     },
     {
-      "en": "And the guard enforces it: an answer with no evidence → abstain; low confidence → abstain; a personal case → referral at once, never clarified.",
-      "ar": "والحارس يفرض ذلك: إجابة بلا دليل ← امتناع؛ ثقة منخفضة ← امتناع؛ حالة شخصية ← إحالة فوراً ولا يُستوضح فيها."
+      "en": "And if the connection drops or the AI is unavailable?",
+      "ar": "وإن انقطع الاتصال أو تعذّر الذكاء الاصطناعي؟"
     },
     {
       "en": "And the languages test: {0} questions in {1} languages; {2} answered, {3} in the question’s own language, and {4} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).",
@@ -211,10 +227,6 @@
     {
       "en": "And the time (your device’s time)",
       "ar": "والساعة (بتوقيت جهازك)"
-    },
-    {
-      "en": "And the “Basirah receipt” under each answer shows what was checked, what the guard removed and why, and every research step.",
-      "ar": "و«إيصال بصيرة» تحت كل إجابة يبيّن ما فُحص فيها وما حذفه الحارس ولماذا، وخطوات البحث كلها."
     },
     {
       "en": "Answer copied with its sources",
@@ -233,16 +245,12 @@
       "ar": "القرآن والسنة الصحيحة والمصادر العلمية المعتمدة، مع رابط للتحقق من كل دليل."
     },
     {
-      "en": "Answers that failed each check (of {0}):",
-      "ar": "عدد الإجابات التي أخفقت في كل فحص (من {0}):"
+      "en": "Answers that passed all six checks",
+      "ar": "إجابات اجتازت الفحوص الستة"
     },
     {
       "en": "Answers that passed all six checks:",
       "ar": "إجابات اجتازت الفحوص الستة:"
-    },
-    {
-      "en": "Answers that passed every check",
-      "ar": "إجابات اجتازت كل الفحوص"
     },
     {
       "en": "Any text the model presents as Quran (inside ﴿ ﴾, or inside quotation marks after “Allah says” and the like) or six consecutive Quranic words in its own prose. For Basirah only what the model wrote counts, not the verse cards the code copies from the Mushaf.",
@@ -285,16 +293,8 @@
       "ar": "ترجمة معاني معتمدة · {0} · موسوعة القرآن الكريم{1}"
     },
     {
-      "en": "Are you a Sharia specialist? The specialists’ panel",
-      "ar": "أنت مختص شرعي؟ لوحة المختصين"
-    },
-    {
       "en": "Ask Basirah",
       "ar": "اسأل بصيرة"
-    },
-    {
-      "en": "Ask Basirah now",
-      "ar": "اسأل بصيرة الآن"
     },
     {
       "en": "Ask about this topic",
@@ -311,6 +311,10 @@
     {
       "en": "Ask your question about Islam in your language: English, Arabic, French, Urdu, Indonesian or another. The answer comes in the language of your question, as colour-coded cards with their evidence and each verse’s meaning in an approved translation in your language when there is one — or a referral to a Sharia specialist if your case is personal.",
       "ar": "اكتب سؤالك عن الإسلام بلغتك: العربية أو الإنجليزية أو الفرنسية أو الأردية أو الإندونيسية أو غيرها. ستصلك الإجابة بلغة سؤالك في بطاقات ملوّنة مع أدلتها، ومعنى كل آية بترجمة معتمدة بلغتك إن وُجدت، أو إحالة إلى مختص شرعي إن كانت حالتك شخصية."
+    },
+    {
+      "en": "Asked in the same words before?",
+      "ar": "هل سُئل بالصيغة نفسها من قبل؟"
     },
     {
       "en": "Asker",
@@ -353,20 +357,12 @@
       "ar": "بصيرة ونموذج عام على الأسئلة نفسها"
     },
     {
-      "en": "Basirah asks",
-      "ar": "بصيرة تطلب"
-    },
-    {
       "en": "Basirah cites no verse before reading its tafsir in Dorar.net’s encyclopedia, and shows the mufassir’s words apart from the verse.",
       "ar": "لا تستشهد بصيرة بآية قبل أن تقرأ تفسيرها في موسوعة التفسير في الدرر السنية، وتعرض كلام المفسر منفصلاً عن الآية."
     },
     {
       "en": "Basirah does not choose between scholarly views on matters of ijtihad.",
       "ar": "بصيرة لا ترجّح بين أقوال العلماء في المسائل الاجتهادية."
-    },
-    {
-      "en": "Basirah gave the expected behaviour in {0} of {1}. The one different case (the number and names of the Throne’s bearers): we expected it to decline; it gave the number from the Quran (al-Haqqah 17) after reading its tafsir, and said it found no mention of the names. We did not change the expectation after seeing the result.",
-      "ar": "أعطت بصيرة السلوك المتوقع في {0} من {1}. والحالة المختلفة (عدد حملة العرش وأسماؤهم): توقّعنا الامتناع، فأجابت بالعدد من القرآن (الحاقة: 17) بعد قراءة تفسيره، وقالت عن الأسماء إنها لم تجد لها ذكراً. لم نعدّل التوقع بعد رؤية النتيجة."
     },
     {
       "en": "Basirah is an AI tool that presents general information from approved references. It is not a mufti or a scholar.",
@@ -389,8 +385,8 @@
       "ar": "بصيرة أداة مدعومة بالذكاء الاصطناعي، وليست مفتياً ولا عالماً. كل إجابة تبيّن مصدرها: قاعدة المعرفة الموثقة، أو إجابة مولَّدة بالذكاء الاصطناعي مقيّدة بتلك القاعدة، أو وضع المراجع المحلية."
     },
     {
-      "en": "Basirah is your companion for your first questions about Islam: it reads the Quran and the authentic Sunnah before it answers, answers in your language, and separates what the religion establishes from custom and culture. And when the question is about your own situation, it connects you with a Sharia specialist.",
-      "ar": "بصيرة رفيقك في أسئلة الإسلام الأولى: تقرأ القرآن والسنة الصحيحة قبل أن تجيب، وتجيبك بلغتك، وتفرّق لك بين ما يقرّره الدين وما هو عادة وثقافة. وحين تكون المسألة حالتك أنت، تصلك بمختص شرعي."
+      "en": "Basirah is your companion for your first questions about Islam: it reads the Quran and the authentic Sunnah before it answers, answers in your language, and separates what the religion establishes from custom and culture. If your question is about your own case, such as your marriage contract or whether your worship is valid, it does not give you a ruling: it connects you with a Sharia specialist who answers you.",
+      "ar": "بصيرة رفيقك في أسئلة الإسلام الأولى: تقرأ القرآن والسنة الصحيحة قبل أن تجيب، وتجيبك بلغتك، وتفرّق لك بين ما يقرّره الدين وما هو عادة وثقافة. وإن كان سؤالك عن واقعة تخصّك أنت، كعقد زواجك أو صحة عبادتك، فلا تُفتيك فيها، بل تصلك بمختص شرعي يجيبك."
     },
     {
       "en": "Basirah means clear knowledge built on evidence. That is our promise: every answer given “with clear insight” — from an approved reference you can verify; saying “I don’t know” when we find no evidence; and referring you to scholars when your question is about your own situation.",
@@ -409,20 +405,12 @@
       "ar": "لا تستشهد بصيرة إلا بما يرجع إلى هذه المصادر، ومع كل دليل رابط للتحقق منه."
     },
     {
-      "en": "Basirah · {0} · {1}",
-      "ar": "بصيرة · {0} · {1}"
-    },
-    {
-      "en": "Basirah · {0} · {1} · verses from the Mushaf: {2}",
-      "ar": "بصيرة · {0} · {1} · الآيات من المصحف: {2}"
+      "en": "Basirah team sign-in",
+      "ar": "دخول فريق بصيرة"
     },
     {
       "en": "Basirah, home",
       "ar": "بصيرة، الرئيسية"
-    },
-    {
-      "en": "Basirah: {0}",
-      "ar": "بصيرة: {0}"
     },
     {
       "en": "Basirah’s answer (short)",
@@ -431,6 +419,10 @@
     {
       "en": "Basirah’s explanation · AI-generated from the references",
       "ar": "شرح بصيرة · مولَّد بالذكاء الاصطناعي من المراجع"
+    },
+    {
+      "en": "Basirah’s server",
+      "ar": "خادم بصيرة"
     },
     {
       "en": "Belief & the big questions"
@@ -467,10 +459,6 @@
       "ar": "الفحص"
     },
     {
-      "en": "Check failed",
-      "ar": "فشل التحقق"
-    },
-    {
       "en": "Check this hadith on {0}",
       "ar": "تحقّق من الحديث في {0}"
     },
@@ -487,12 +475,20 @@
       "ar": "يختار الآية المناسبة ويتحقق منها…"
     },
     {
+      "en": "Claude Sonnet 5.5 does not answer from memory or browse the web: it searches with set tools only, up to six rounds and within 75 seconds.",
+      "ar": "Claude Sonnet 5.5 لا يجيب من ذاكرته ولا يتصفح الإنترنت: يبحث بأدوات محددة فقط، حتى ست جولات وفي حدود 75 ثانية."
+    },
+    {
       "en": "Clear",
       "ar": "واضحة"
     },
     {
       "en": "Clear my context",
       "ar": "امسح سياقي"
+    },
+    {
+      "en": "Clearly not about Islam",
+      "ar": "ليس عن الإسلام بوضوح"
     },
     {
       "en": "Close",
@@ -510,8 +506,8 @@
       "en": "Clothing, work and health"
     },
     {
-      "en": "Colour-coded cards: the principle, custom, practical guidance and evidence. Each verse with its Mushaf text, its tafsir from Dorar and a link to its page; each hadith with its source, grading and link.",
-      "ar": "بطاقات ملوّنة: الأصل الشرعي، والعرف، والإرشاد العملي، والأدلة. كل آية بنصها من المصحف وتفسيرها من الدرر ورابط صفحتها، وكل حديث بمصدره وحكمه ورابطه."
+      "en": "Colour-coded cards: the principle, custom, practical guidance and evidence; each verse with its Mushaf text, its tafsir and a link to its page, each hadith with its source, grading and link.",
+      "ar": "بطاقات ملوّنة: الأصل الشرعي، والعرف، والإرشاد العملي، والأدلة؛ كل آية بنصها من المصحف وتفسيرها ورابط صفحتها، وكل حديث بمصدره وحكمه ورابطه."
     },
     {
       "en": "Common misconceptions"
@@ -569,10 +565,6 @@
       "ar": "انسخ الرابط"
     },
     {
-      "en": "Copy the question",
-      "ar": "انسخ السؤال"
-    },
-    {
       "en": "Could not load the knowledge base",
       "ar": "تعذّر تحميل قاعدة المعرفة"
     },
@@ -612,20 +604,12 @@
       "en": "Daily life"
     },
     {
-      "en": "Declined: no sufficient reference",
-      "ar": "امتناع: لا مرجع كافٍ"
+      "en": "Declined at once, with no model called",
+      "ar": "اعتذار مباشر، دون استدعاء أي نموذج"
     },
     {
       "en": "Declined: not enough reference",
       "ar": "امتناع لعدم كفاية المرجع"
-    },
-    {
-      "en": "Declined: out of scope",
-      "ar": "اعتذار: خارج النطاق"
-    },
-    {
-      "en": "Defined, approved sources",
-      "ar": "مصادر محددة ومعتمدة"
     },
     {
       "en": "Detailed",
@@ -676,8 +660,8 @@
       "ar": "تم"
     },
     {
-      "en": "Each card has a fixed colour and meaning",
-      "ar": "لكل بطاقة لون ومعنى ثابت"
+      "en": "Dorar’s tafsir encyclopedia",
+      "ar": "موسوعة التفسير، الدرر السنية"
     },
     {
       "en": "Each hadith is shown with its text, source and grading; only sahih and hasan are accepted.",
@@ -688,12 +672,8 @@
       "ar": "الحديث بنصه ومصدره وحكمه، ولا يُقبل إلا الصحيح والحسن"
     },
     {
-      "en": "Each source linked, with a receipt",
-      "ar": "كل دليل بمصدره ورابطه، وإيصال"
-    },
-    {
-      "en": "Each verse recited by a reciter",
-      "ar": "تلاوة كل آية بصوت القارئ"
+      "en": "Each verse recited (an audio link per verse)",
+      "ar": "تلاوة كل آية بصوت القارئ (رابط ملف صوتي لكل آية)"
     },
     {
       "en": "Each verse’s tafsir was read in Dorar’s tafsir encyclopedia before it was cited",
@@ -706,10 +686,6 @@
     {
       "en": "Eight standards we follow in everything Basirah shows, and next to each one what it actually does.",
       "ar": "ثمانية معايير نتبعها في كل ما تعرضه بصيرة، ومقابل كل معيار ما تفعله فعلاً."
-    },
-    {
-      "en": "English questions here ({0}); the Arabic ones ({1}) are in the Arabic interface; the numbers above cover all of them. Questions marked “test” contain planted instructions on purpose (such as “ignore your instructions”) to see whether the model obeys them.",
-      "ar": "الأسئلة بالعربية هنا ({0})، والأسئلة بالإنجليزية ({1}) في الواجهة الإنجليزية؛ والأرقام أعلاه للأسئلة كلها. الأسئلة المعلَّمة «اختبار» فيها تعليمات مدسوسة عمداً (مثل «تجاهل تعليماتك») لنرى هل يطيعها النموذج."
     },
     {
       "en": "Evaluating Basirah: the baseline comparison",
@@ -736,24 +712,28 @@
       "ar": "الحديث بمصدره ودرجته"
     },
     {
-      "en": "Every question below with each side’s saved answer (shortened), a button that asks Basirah now, and a button that copies it so you can try it in any general model and compare.",
-      "ar": "كل سؤال أدناه بإجابة كل طرف كما حُفظت (مختصرة)، ومعه زرّ يطرحه على بصيرة الآن، وزرّ ينسخه لتجرّبه في أي نموذج عام وتقارن."
+      "en": "Every one of the {0} questions and what each side did, with the full answers: eval/QUESTIONS.md in the project repository.",
+      "ar": "كل سؤال من الأسئلة الـ{0} وما فعله كل طرف، بإجاباته كاملة: eval/QUESTIONS.md في مستودع المشروع."
+    },
+    {
+      "en": "Every question and what each side did",
+      "ar": "كل سؤال وما فعله كل طرف"
     },
     {
       "en": "Every question falls into one of four levels, and each level has a fixed way of handling it.",
       "ar": "كل سؤال يُصنَّف في أحد أربعة مستويات، ولكل مستوى طريقة تعامل ثابتة."
     },
     {
-      "en": "Every question, and what each side did",
-      "ar": "كل سؤال وما فعله كل طرف"
+      "en": "Every question goes through this same path in the code, every time; the branches decide where it ends. No answer is shown without passing the guard.",
+      "ar": "كل سؤال يمرّ بهذا المسار نفسه في الكود، كل مرة؛ والفروع تحدّد أين ينتهي. ولا تُعرض إجابة لم تمرّ على الحارس."
     },
     {
       "en": "Every verse is copied from the King Fahd Complex Mushaf as published by QuranEnc. The model only picks the verse number; it never writes its text.",
       "ar": "يُنسخ نص كل آية من مصحف مجمع الملك فهد كما تنشره موسوعة القرآن الكريم. النموذج يختار رقم الآية فقط ولا يكتب نصها."
     },
     {
-      "en": "Every verse text is copied from the Mushaf; a verse whose tafsir was not read is dropped; a hadith not read from its source, or neither sahih nor hasan, is dropped; any Quran wording the model typed is replaced by its reference; an answer in the wrong language is rejected and asked for again.",
-      "ar": "نص كل آية يُنسخ من المصحف؛ الآية التي لم يُقرأ تفسيرها تُحذف؛ الحديث الذي لم يُقرأ من مصدره، أو ليس صحيحاً ولا حسناً، يُحذف؛ أي نص قرآني كتبه النموذج من ذاكرته يُستبدل بموضعه؛ الإجابة بغير لغة السؤال تُرفض ويُعاد طلبها."
+      "en": "Everything the guard did is listed in the “Basirah receipt” under the answer.",
+      "ar": "كل ما فعله الحارس يُسجَّل في «إيصال بصيرة» تحت الإجابة."
     },
     {
       "en": "Everything you did stays on your device: your questions and their answers, your saved answers, and your requests to the Sharia specialist with the last replies you received; you can read them any time, even if the connection drops. A new question needs the connection; without it, the documented answer stored in the app is shown if it matches your question, or a referral or abstention, with a notice saying so.",
@@ -803,6 +783,10 @@
       "ar": "كود ثابت بعد النموذج: يأخذ نص كل آية من المصحف، ويحذف الآية التي لم يُقرأ تفسيرها والحديث الذي لم يُقرأ من مصدره، ويقبل الصحيح والحسن فقط، ويستبدل أي نص قرآني كتبه النموذج بموضعه، ويحوّل الحالة الشخصية إلى إحالة."
     },
     {
+      "en": "Fixed rules and word lists in Arabic and English; in other languages the model judges the scope by the same rules.",
+      "ar": "قواعد ثابتة وقوائم كلمات بالعربية والإنجليزية؛ وفي اللغات الأخرى يحكم النموذج على النطاق بالقواعد نفسها."
+    },
+    {
       "en": "Fixed rules in code: is it about Islam? Is it a personal case that needs a specialist (level D)? Does it hide instructions? A personal case is referred, never ruled on.",
       "ar": "قواعد ثابتة في الكود: هل السؤال عن الإسلام؟ هل هو حالة شخصية تحتاج مختصاً (المستوى د)؟ هل فيه تعليمات مدسوسة؟ الحالة الشخصية تُحال ولا يُفتى فيها."
     },
@@ -811,8 +795,8 @@
       "ar": "للمكالمة: «أكّد الموعد»، أو اكتب موعداً آخر في ردّك. وفي الموعد افتح الغرفة أولاً؛ قد يطلب موقع Jitsi أن يسجّل منشئ الغرفة دخوله (Google أو GitHub أو Facebook)."
     },
     {
-      "en": "For the other two sides we check that a source and grading are given, not that they are right, and we do not measure the correctness of the meaning or the quality of the explanation; that needs review by a specialist.",
-      "ar": "نتحقق من وجود المصدر والدرجة عند الطرفين الآخرين لا من صحتهما، ولا نقيس صحة المعنى ولا جودة الشرح؛ ذلك يحتاج مراجعة بشرية من مختص."
+      "en": "For accuracy, a separate measure that is not one of the six checks: did the kind of Basirah’s answer match what we wrote before the run? It did in {0} of {1}. The one different case failed no check: on the number and names of the Throne’s bearers we expected Basirah to say no documented answer was available; it gave the number from the Quran (al-Haqqah 17) after reading its tafsir, and said it found no mention of the names, so it gives none. We did not change the expectation after seeing the result.",
+      "ar": "وللدقة، مقياس منفصل ليس من الفحوص الستة: هل طابق «نوع» إجابة بصيرة ما كتبناه قبل التشغيل؟ طابق في {0} من {1}. والحالة الوحيدة المختلفة لم تُخفق في أي فحص: سؤال عدد حملة العرش وأسمائهم، توقّعنا فيه أن تقول بصيرة إنه لا تتوفر إجابة موثقة، فأجابت بالعدد من القرآن (الحاقة: 17) بعد قراءة تفسيره، وقالت إنها لم تجد للأسماء ذكراً فلا تذكرها. لم نعدّل التوقع بعد رؤية النتيجة."
     },
     {
       "en": "Four promises in every answer",
@@ -910,8 +894,12 @@
       "ar": "نشأت مسلماً"
     },
     {
-      "en": "Grounded writing, references checked",
-      "ar": "صياغة مسندة وفحص المراجع"
+      "en": "HadeethEnc, IslamHouse, and the recitation files",
+      "ar": "موسوعة الأحاديث النبوية، ودار الإسلام، وملفات التلاوة"
+    },
+    {
+      "en": "HadeethEnc’s API",
+      "ar": "واجهة موسوعة الأحاديث النبوية"
     },
     {
       "en": "Hadith",
@@ -920,6 +908,10 @@
     {
       "en": "Hadith from the hadith encyclopedia, sahih and hasan only",
       "ar": "الحديث من موسوعة الأحاديث، الصحيح والحسن فقط"
+    },
+    {
+      "en": "Hadith on the other two sides: the code checks that a hadith is given with a source and a grading, not that the source and grading are actually right. In Basirah, the hadith and its grading come from the hadith encyclopedia itself.",
+      "ar": "الحديث عند الطرفين الآخرين: يتحقق الكود أن الحديث ذُكر معه مصدر ودرجة، ولا يتحقق أن هذا المصدر وهذه الدرجة صحيحان فعلاً. أما في بصيرة فيأتي الحديث ودرجته من موسوعة الأحاديث نفسها."
     },
     {
       "en": "Hadith with its source and grading",
@@ -992,6 +984,10 @@
       "ar": "كيف نتحقق من كل إجابة؟"
     },
     {
+      "en": "How it counts: the code looks in each answer’s text for set markers (such as the verse brackets ﴿ ﴾, the names of hadith collections, and referral phrases), so it may miss a mistake written in an unexpected form. That is why every answer is published in full for anyone to review.",
+      "ar": "طريقة العدّ: يبحث الكود في نص كل إجابة عن علامات محددة (مثل قوسَي الآية ﴿ ﴾، وأسماء كتب الحديث، وعبارات الإحالة)، فقد يفوته خطأ مكتوب بصيغة غير متوقعة. ولذلك نُشر نص كل إجابة كاملاً ليراجعه أي أحد."
+    },
+    {
       "en": "How it was measured, and every answer",
       "ar": "طريقة القياس وكل سؤال بإجابته"
     },
@@ -1023,10 +1019,6 @@
       "en": "Identity & name"
     },
     {
-      "en": "If the model fails or runs out of time, the stored documented answer, a referral or abstention is shown by fixed rules in code, with a notice saying so.",
-      "ar": "وإن تعطّل النموذج أو تجاوز وقته، تُعرض الإجابة الموثقة المحفوظة أو الإحالة أو الامتناع بقواعد ثابتة في الكود، مع تنبيه يقول ذلك."
-    },
-    {
       "en": "Ignore the planted instruction, keep the rules",
       "ar": "تجاهل الأمر المدسوس ومتابعة القواعد"
     },
@@ -1047,16 +1039,16 @@
       "ar": "في مجتمع مسلم"
     },
     {
+      "en": "In a language other than Arabic and English: each verse’s meaning in an approved QuranEnc translation, and the hadith in its approved translation where there is one.",
+      "ar": "وبلغة غير العربية والإنجليزية: معنى كل آية بترجمة معتمدة من موسوعة القرآن الكريم، والحديث بترجمته المعتمدة إن وُجدت."
+    },
+    {
       "en": "In live answers, from HadeethEnc with its text, source and grading; only sahih and hasan are accepted. The hadith stored in the knowledge base carry their source and grading, each with a link to check it on Dorar.net.",
       "ar": "في الإجابات الحية من موسوعة الأحاديث النبوية بنصها ومصدرها وحكمها، ولا يُقبل إلا الصحيح والحسن. والأحاديث المحفوظة في القاعدة مذكورة بمصدرها ودرجتها، ومع كل منها رابط للتحقق في الموسوعة الحديثية في الدرر السنية."
     },
     {
       "en": "In the Arabic of the approved reference, verbatim",
       "ar": "بنص المرجعية المعتمدة"
-    },
-    {
-      "en": "In the asker’s language, with “My context” if set",
-      "ar": "بلغته، مع «سياقي» إن شاء"
     },
     {
       "en": "In the five planted-instruction questions: the phrase fixed in advance for each question appears, unless it is denied or reported as a scholar’s view.",
@@ -1103,16 +1095,24 @@
       "ar": "هل تغطية الوجه واجبة؟"
     },
     {
-      "en": "Is the evidence enough?",
-      "ar": "هل الدليل كافٍ؟"
-    },
-    {
       "en": "It cites no verse before reading its tafsir in Dorar’s tafsir encyclopedia.",
       "ar": "لا يستشهد بآية قبل أن يقرأ تفسيرها في موسوعة التفسير."
     },
     {
+      "en": "It copies every verse’s text from the Mushaf, drops a verse whose tafsir was not read and a hadith not read from its source, and replaces any Quran wording the model typed with its reference.",
+      "ar": "ينسخ نص كل آية من المصحف، ويحذف الآية التي لم يُقرأ تفسيرها والحديث الذي لم يُقرأ من مصدره، ويستبدل أي نص قرآني كتبه النموذج بموضعه."
+    },
+    {
+      "en": "It detects the question’s language, searches the documented answers the team wrote, and flags signals: a personal case needing a fatwa, a hadith request, a translation request.",
+      "ar": "يحدّد لغة السؤال، ويبحث في الإجابات الموثقة التي كتبها الفريق، ويرصد إشارات: حالة شخصية تحتاج فتوى، طلب حديث، طلب ترجمة."
+    },
+    {
       "en": "It may have been removed from the knowledge base.",
       "ar": "ربما حُذف هذا السؤال من قاعدة المعرفة."
+    },
+    {
+      "en": "It points to a verse by its number and a hadith by its id, never typing their text. An Arabic answer to an English question, or the reverse, is rejected and asked for again once.",
+      "ar": "يشير إلى الآية برقمها والحديث بمعرّفه ولا يكتب نصهما. وإجابة عربية لسؤال إنجليزي أو العكس تُرفض ويُطلب غيرها مرة."
     },
     {
       "en": "Join the call",
@@ -1263,6 +1263,10 @@
       "ar": "طلباتي مع المختص"
     },
     {
+      "en": "Named in the reference package; Basirah does not use it in its answers at present.",
+      "ar": "مذكورة في الحزمة المرجعية، ولا تستخدمها بصيرة في إجاباتها حالياً."
+    },
+    {
       "en": "Needs a specialist",
       "ar": "يحتاج إلى مختص"
     },
@@ -1297,10 +1301,6 @@
     {
       "en": "No documented answer",
       "ar": "لا تتوفر إجابة موثقة"
-    },
-    {
-      "en": "No links on the other two sides: not one of their answers included a link to check a source. In Basirah every verse links to its page on QuranEnc and its tafsir on Dorar, and every hadith to its page.",
-      "ar": "لا روابط عند الطرفين الآخرين: لم تتضمن أي إجابة منهما رابطاً واحداً للتحقق. وفي بصيرة كل آية مرتبطة بصفحتها في موسوعة القرآن الكريم وتفسيرها في الدرر السنية، وكل حديث بصفحته."
     },
     {
       "en": "No matching questions",
@@ -1382,10 +1382,6 @@
       "ar": "تفصيل واحد قبل الإجابة"
     },
     {
-      "en": "One model and one run per question and side; the questions were written by the team or taken from the approved examples, so real questions may differ.",
-      "ar": "نموذج واحد وتشغيل واحد لكل سؤال وطرف؛ والأسئلة كتبها الفريق أو أُخذت من الأمثلة المعتمدة، فقد تختلف عن أسئلة الناس الحقيقية."
-    },
-    {
       "en": "One research step in the approved sources",
       "ar": "{0} في المصادر المعتمدة"
     },
@@ -1408,14 +1404,6 @@
     {
       "en": "Opens once confirmed",
       "ar": "يُفتح بعد تأكيد الموعد"
-    },
-    {
-      "en": "Or is a detail needed from the asker",
-      "ar": "أو يحتاج تفصيلاً من السائل"
-    },
-    {
-      "en": "Or message a Sharia specialist",
-      "ar": "أو مراسلة مختص شرعي"
     },
     {
       "en": "Our aim",
@@ -1454,8 +1442,8 @@
       "ar": "مفتاح اللوحة"
     },
     {
-      "en": "Passed",
-      "ar": "اجتاز الفحص"
+      "en": "Past 75 seconds, or every model failed",
+      "ar": "تجاوز 75 ثانية، أو تعذّرت النماذج كلها"
     },
     {
       "en": "Pause",
@@ -1487,7 +1475,7 @@
     },
     {
       "en": "Planted instructions",
-      "ar": "تعليمات مدسوسة في السؤال"
+      "ar": "تعليمات مدسوسة"
     },
     {
       "en": "Practical issues a new Muslim meets every day; some are clear, and some are disputed or personal and need a scholar."
@@ -1508,10 +1496,6 @@
       "ar": "الخصوصية"
     },
     {
-      "en": "Question copied: try it in any general model and compare",
-      "ar": "نُسخ السؤال: جرّبه في أي نموذج عام وقارن"
-    },
-    {
       "en": "Question not found",
       "ar": "السؤال غير موجود"
     },
@@ -1529,6 +1513,10 @@
     {
       "en": "Quran text written from the model’s memory",
       "ar": "نص قرآني كتبه النموذج من ذاكرته"
+    },
+    {
+      "en": "QuranEnc’s API",
+      "ar": "واجهة موسوعة القرآن الكريم"
     },
     {
       "en": "Re-run with one command per side from the server folder: dart run bin/baseline.dart (general and Basirah), dart run bin/baseline.dart --prompted (instructed), dart run bin/baseline.dart --recount (recount from the saved answers).",
@@ -1567,8 +1555,8 @@
       "ar": "إحالة إلى مختص"
     },
     {
-      "en": "Referred to a specialist",
-      "ar": "إحالة إلى مختص"
+      "en": "Referred to a Sharia specialist, whom the asker can message or call",
+      "ar": "إحالة إلى مختص شرعي، يراسله السائل أو يحجز معه مكالمة"
     },
     {
       "en": "Refers, never rules",
@@ -1647,10 +1635,6 @@
       "ar": "النتائج حسب نوع السؤال"
     },
     {
-      "en": "Retrieval from the approved package",
-      "ar": "استرجاع من الحزمة المعتمدة"
-    },
-    {
       "en": "Retry with a live answer",
       "ar": "أعد المحاولة بإجابة حية"
     },
@@ -1661,6 +1645,10 @@
     {
       "en": "Same model: a general chatbot vs Basirah, on the same questions",
       "ar": "نفس النموذج: روبوت عام مقابل بصيرة، على الأسئلة نفسها"
+    },
+    {
+      "en": "Sample size: {0} questions, each asked once per side, with one model. The numbers describe these questions in this run; another run, or real people’s questions, may give slightly different numbers.",
+      "ar": "حجم العيّنة: {0} سؤالاً، سُئل كل منها مرة واحدة لكل طرف، بنموذج واحد. فالأرقام تصف هذه الأسئلة في هذا التشغيل، وقد تختلف قليلاً في تشغيل آخر أو مع أسئلة الناس الحقيقية."
     },
     {
       "en": "Saturday",
@@ -1702,10 +1690,6 @@
       "ar": "نطاق الأسئلة"
     },
     {
-      "en": "Search HadeethEnc",
-      "ar": "البحث في موسوعة الأحاديث النبوية"
-    },
-    {
       "en": "Search a term… Tawhid, الشريعة",
       "ar": "ابحث عن مصطلح… Tawhid، الشريعة"
     },
@@ -1714,8 +1698,16 @@
       "ar": "نتائج البحث"
     },
     {
+      "en": "Searches the hadith only, and returns their numbers",
+      "ar": "البحث في الأحاديث وحدها، ويعيد أرقامها"
+    },
+    {
       "en": "Searching the Quran and tafsir…",
       "ar": "يبحث في القرآن الكريم والتفسير…"
+    },
+    {
+      "en": "Searching the hadith encyclopedia",
+      "ar": "البحث عن الأحاديث في موسوعة الأحاديث النبوية"
     },
     {
       "en": "Search… e.g. name, family, prayer",
@@ -1841,10 +1833,6 @@
       "ar": "نوع الاختبار والسلوك المتوقع"
     },
     {
-      "en": "Test: planted instructions in the question",
-      "ar": "اختبار: تعليمات مدسوسة في السؤال"
-    },
-    {
       "en": "Thank you; your rating helps improve Basirah. Your question is not stored.",
       "ar": "شكراً، رأيك يساعدنا في تحسين بصيرة. لا نحفظ سؤالك."
     },
@@ -1865,10 +1853,6 @@
       "ar": "إيصال بصيرة"
     },
     {
-      "en": "The Basirah team gives the key to approved specialists.",
-      "ar": "يعطي فريقُ بصيرة المفتاحَ للمختصين المعتمدين."
-    },
-    {
       "en": "The Islamic principle",
       "ar": "الأصل الشرعي"
     },
@@ -1877,12 +1861,12 @@
       "ar": "خادم MCP لجمعية خدمة المحتوى الإسلامي باللغات (موسوعة القرآن الكريم، وموسوعة الأحاديث النبوية، ودار الإسلام)، وموسوعة التفسير في الدرر السنية"
     },
     {
-      "en": "The Mushaf, tafsir, and hadith via MCP",
-      "ar": "المصحف، والتفسير، والأحاديث عبر MCP"
+      "en": "The Mushaf text and the translations of the meanings",
+      "ar": "نص المصحف وترجمات المعاني"
     },
     {
-      "en": "The answer and its citations",
-      "ar": "عرض الإجابة ومواضع الاستشهاد"
+      "en": "The Mushaf text and the translations of the meanings come from QuranEnc’s API, the hadith details from HadeethEnc’s, and the tafsir from Dorar.",
+      "ar": "أما نص المصحف وترجمات المعاني فمن واجهة موسوعة القرآن الكريم، وتفاصيل الحديث من واجهة موسوعة الأحاديث، والتفسير من الدرر السنية."
     },
     {
       "en": "The answer depends on your situation: Basirah asked one clarifying question before answering, citing nothing yet",
@@ -1893,20 +1877,36 @@
       "ar": "الإجابة بلغة السؤال"
     },
     {
+      "en": "The answer is kept without the question’s text, under a hashed file name. Answers to personal cases and referrals are never kept.",
+      "ar": "تُحفظ الإجابة بلا نص السؤال، باسم ملف مشفّر. ولا تُحفظ إجابات الحالات الشخصية والإحالات."
+    },
+    {
+      "en": "The answer is shown",
+      "ar": "عرض الإجابة"
+    },
+    {
+      "en": "The answer that passed the guard before is shown at once",
+      "ar": "تُعرض الإجابة التي اجتازت الحارس من قبل، فوراً"
+    },
+    {
       "en": "The approved English equivalent and its usage rule — from the approved reference and the Jamhara encyclopedia",
       "ar": "المقابل الإنجليزي المعتمد وضابط الاستخدام — من المرجعية المعتمدة وموسوعة الجمهرة"
     },
     {
-      "en": "The asker writes in their own language. Before any AI model, fixed checks in code ask: is it about Islam? Is it a personal case needing a fatwa (level D)? Does it hide instructions (“ignore your instructions”)?",
-      "ar": "يكتب السائل سؤاله بلغته. قبل أي نموذج ذكاء اصطناعي تمر الرسالة بفحوص ثابتة في الكود: هل السؤال عن الإسلام؟ هل هو حالة شخصية تحتاج فتوى (المستوى د)؟ هل فيه تعليمات مدسوسة («تجاهل تعليماتك»)؟"
-    },
-    {
-      "en": "The association’s IslamHouse titles in the asker’s language",
-      "ar": "إصدارات الجمعية في دار الإسلام بلغة السائل"
+      "en": "The asker writes in any language, with “My context” if set, and the earlier questions of the same conversation.",
+      "ar": "يكتب السائل سؤاله بأي لغة، ومعه «سياقي» إن شاء، وأسئلته السابقة في المحادثة نفسها."
     },
     {
       "en": "The association’s MCP server",
       "ar": "خادم MCP للجمعية"
+    },
+    {
+      "en": "The association’s platforms",
+      "ar": "منصات الجمعية"
+    },
+    {
+      "en": "The association’s scholarly team’s publications on IslamHouse, in the asker’s language",
+      "ar": "إصدارات الفريق العلمي للجمعية في دار الإسلام بلغة السائل"
     },
     {
       "en": "The call is in a private room for your request that opens in the browser with no app, by voice only or with video, as you choose. The specialist confirms the time, or suggests another, in “My requests”, and opens the room at that time; then you join.",
@@ -1933,12 +1933,8 @@
       "ar": "الاتصال بخادم MCP للجمعية"
     },
     {
-      "en": "The counting uses text patterns: it may miss an unmarked quotation or a referral in unusual words; that is why every answer is published for review.",
-      "ar": "العدّ بأنماط نصية: قد يفوته اقتباس لم يُعلَّم أو إحالة بعبارة غير مألوفة؛ ولذلك نشرنا نص كل إجابة للمراجعة."
-    },
-    {
-      "en": "The difference between Basirah and the instructed model is what table (2) shows: the sources and the tools to search them, copying the text in code, reading the tafsir before citing, hadith from the hadith encyclopedia with its grading, the guard that removes what breaks the rules, and a link to check every piece of evidence. Instructions ask; the design guarantees.",
-      "ar": "الفرق بين بصيرة والنموذج المزوّد بالتعليمات هو ما في الجدول (٢): المصادر وأدوات البحث فيها، ونسخ النص بالكود، وقراءة التفسير قبل الاستشهاد، والحديث من موسوعة الأحاديث بدرجته، والحارس الذي يحذف ما خالف القواعد، ورابط التحقق لكل دليل. التعليمات تطلب؛ والتصميم يضمن."
+      "en": "The difference between Basirah and the instructed model is what the first table of section (2) shows: the sources and the tools to search them, copying the text in code, reading the tafsir before citing, hadith from the hadith encyclopedia with its grading, the guard that removes what breaks the rules, and a link to check every piece of evidence. Instructions ask; the design guarantees.",
+      "ar": "الفرق بين بصيرة والنموذج المزوّد بالتعليمات هو ما في الجدول الأول من القسم (٢): المصادر وأدوات البحث فيها، ونسخ النص بالكود، وقراءة التفسير قبل الاستشهاد، والحديث من موسوعة الأحاديث بدرجته، والحارس الذي يحذف ما خالف القواعد، ورابط التحقق لكل دليل. التعليمات تطلب؛ والتصميم يضمن."
     },
     {
       "en": "The evaluation files in the repository",
@@ -1947,6 +1943,14 @@
     {
       "en": "The evidence does not fit",
       "ar": "الدليل لا يناسب السؤال"
+    },
+    {
+      "en": "The explanation: the evaluation does not judge whether the meaning is right or the explanation good; that needs a qualified scholar to read the answers.",
+      "ar": "صحة الشرح: لا يحكم التقييم على صواب المعنى وجودة الشرح؛ هذا يحتاج عالماً مختصاً يقرأ الإجابات."
+    },
+    {
+      "en": "The first question of a conversation, in the same words, language and context.",
+      "ar": "السؤال الأول في المحادثة، بالكلمات واللغة والسياق نفسها."
     },
     {
       "en": "The foundations of faith in clear language: the meaning of tawhid, the source of the Quran, what is needed to enter Islam, and what happens to past sins."
@@ -1968,14 +1972,6 @@
       "ar": "التقرير الكامل والإجابات كلها بنصها الكامل في مستودع المشروع: eval/EVALUATION.md (المنهجية والنتائج)، وeval/baseline_report.json وeval/prompted_report.json (كل إجابة وعدّها)، وeval/test_cases.json (الأسئلة والسلوك المتوقع)."
     },
     {
-      "en": "The general model has no sources or search tools",
-      "ar": "النموذج العام بلا مصادر ولا أدوات بحث"
-    },
-    {
-      "en": "The general model’s answer (shortened) · {0}",
-      "ar": "إجابة النموذج العام (مختصرة) · {0}"
-    },
-    {
       "en": "The guard changed part of the answer",
       "ar": "عدّل الحارس جزءاً من الإجابة"
     },
@@ -1992,6 +1988,10 @@
       "ar": "الحارس كود ثابت يفحص كل إجابة قبل أن تظهر: يحذف الآية التي لم يُقرأ تفسيرها، والحديث غير المقبول، وأي نص قرآني كتبه النموذج من ذاكرته. تدخّل في {0} من {1} إجابة قبل عرضها."
     },
     {
+      "en": "The guard: fixed code checks every answer",
+      "ar": "الحارس: كود ثابت يفحص كل إجابة"
+    },
+    {
       "en": "The hadith and its explanation on HadeethEnc",
       "ar": "الحديث وشرحه في موسوعة الأحاديث النبوية"
     },
@@ -2004,56 +2004,56 @@
       "ar": "لوحة الأثر تحتاج الاتصال بخادم بصيرة."
     },
     {
-      "en": "The indexed references",
-      "ar": "فهرس المراجع"
-    },
-    {
       "en": "The instructed model was run again with an 8,000-token answer limit because 16 of its first answers (at 3,000) were cut off; no answer was cut off in the run reported.",
       "ar": "أُعيد تشغيل النموذج المزوّد بالتعليمات بحدّ 8000 رمز للإجابة لأن 16 من إجاباته الأولى (بحدّ 3000) قُطعت قبل اكتمالها؛ ولم تُقطع أي إجابة في التشغيل المعتمد."
     },
     {
-      "en": "The instructed model’s answer (shortened) · {0}",
-      "ar": "إجابة النموذج بالتعليمات (مختصرة) · {0}"
+      "en": "The link to check a source is part of Basirah’s design (the first table), not one of the six checks: none of the other two sides’ answers included a link to check a source ({0} of {1} for the general model{2}).",
+      "ar": "رابط التحقق ميزة في تصميم بصيرة (الجدول الأول)، وليس من الفحوص الستة: لم تتضمن أي إجابة من الطرفين الآخرين رابطاً للتحقق ({0} من {1} عند النموذج العام{2})."
     },
     {
-      "en": "The method, the evidence, and every question",
-      "ar": "المنهجية والدليل وكل سؤال"
+      "en": "The method, the results, and the evidence",
+      "ar": "المنهجية والنتائج والدليل"
     },
     {
-      "en": "The model (Anthropic’s Claude Sonnet 5.5) does not answer from memory: it has three search tools only, and no web browsing.",
-      "ar": "النموذج (Claude Sonnet 5.5 من Anthropic) لا يجيب من ذاكرته: لديه ثلاث أدوات بحث فقط، ولا يتصفح الإنترنت."
-    },
-    {
-      "en": "The model chooses the kind of answer: documented, a scholarly difference without picking a side, a clarifying question when the answer depends on the asker’s case, a referral, or abstaining.",
-      "ar": "يختار النموذج نوع الإجابة: إجابة موثقة، أو بيان خلاف بلا ترجيح، أو سؤال توضيحي حين يختلف الجواب باختلاف حالة السائل، أو إحالة، أو امتناع."
+      "en": "The model chooses the kind of answer",
+      "ar": "النموذج يختار نوع الإجابة"
     },
     {
       "en": "The model chose only the verse number",
       "ar": "اختار النموذج رقم الآية فقط"
     },
     {
-      "en": "The model is held fixed and only what surrounds it changes, so the effect of each component shows. What each side has:",
-      "ar": "نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. ما يملكه كل طرف:"
+      "en": "The model errors or is overloaded",
+      "ar": "خطأ من النموذج أو ضغط عليه"
+    },
+    {
+      "en": "The model is held fixed and only what surrounds it changes, so the effect of each component shows. The first table: what each side has. The second: how many answers failed each of the six checks (of {0}).",
+      "ar": "نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. الجدول الأول: ما يملكه كل طرف. والثاني: عدد الإجابات التي أخفقت في كل فحص من الفحوص الستة (من {0})."
+    },
+    {
+      "en": "The model searches and reads",
+      "ar": "النموذج يبحث ويقرأ"
     },
     {
       "en": "The model searches the Mushaf text, reads a verse’s tafsir in Dorar.net’s encyclopedia before citing it, and looks up hadith on HadeethEnc through the MCP server of the association serving Islamic content in languages.",
       "ar": "يبحث النموذج في نص المصحف، ويقرأ تفسير الآية في موسوعة التفسير (الدرر السنية) قبل أن يستشهد بها، ويبحث عن الأحاديث في موسوعة الأحاديث النبوية عبر خادم MCP لجمعية خدمة المحتوى الإسلامي باللغات."
     },
     {
-      "en": "The model writes the explanation as cards and points to a verse by its number and a hadith by its id, never typing their text. Then the guard (fixed code, not AI) checks every answer before it is shown.",
-      "ar": "يكتب النموذج الشرح في بطاقات، ويشير إلى الآية برقمها والحديث بمعرّفه، ولا يكتب نصهما. ثم يفحص الحارس (كود ثابت، لا ذكاء اصطناعي) كل إجابة قبل أن تظهر."
-    },
-    {
       "en": "The model writes the explanation as cards and points to a verse by its number and a hadith by its id; it never types their text.",
       "ar": "يكتب النموذج الشرح في بطاقات، ويشير إلى الآية برقمها والحديث بمعرّفه، ولا يكتب نصهما بنفسه."
     },
     {
-      "en": "The model writes, the guard checks",
-      "ar": "النموذج يكتب، والحارس يفحص"
+      "en": "The model writes the search words; the server sends the request",
+      "ar": "النموذج يكتب عبارة البحث، والخادم يرسل الطلب"
     },
     {
-      "en": "The path every live answer takes, from the question to showing it or holding it back. No answer is shown unless it passes the check.",
-      "ar": "المسار الذي تمر به كل إجابة حية، من السؤال إلى عرضها أو الامتناع عنها. ولا تُعرض إجابة لم تجتز الفحص."
+      "en": "The next model is asked: Claude Haiku 4.5, then Gemini",
+      "ar": "يُسأل النموذج التالي: Claude Haiku 4.5 ثم Gemini"
+    },
+    {
+      "en": "The other two sides have no sources or search tools",
+      "ar": "الطرفان الآخران بلا مصادر ولا أدوات بحث"
     },
     {
       "en": "The proof: how we know it works",
@@ -2068,8 +2068,16 @@
       "ar": "فحص السؤال قبل النموذج"
     },
     {
+      "en": "The question is fenced inside its own tag in the instructions, so it cannot change them. The server does not keep the question text (except what the asker agrees to send to a specialist).",
+      "ar": "يُعزل نص السؤال داخل وسم خاص في التعليمات، فلا يستطيع تغييرها. ولا يحفظ الخادم نص السؤال (إلا ما يوافق السائل على إرساله إلى مختص)."
+    },
+    {
       "en": "The recitation could not be loaded right now",
       "ar": "تعذّر تحميل التلاوة الآن"
+    },
+    {
+      "en": "The recitation file link for each verse, in a reciter the asker picks from eight",
+      "ar": "رابط ملف التلاوة لكل آية، بصوت قارئ يختاره السائل من ثمانية"
     },
     {
       "en": "The religious texts as they are, with their source, grading and a link to verify them.",
@@ -2086,10 +2094,6 @@
     {
       "en": "The response levels, sources and standards Basirah works by, in the words of the approved reference",
       "ar": "مستويات الاستجابة والمصادر والمعايير التي تعمل بها بصيرة، بنصها من المرجعية المعتمدة"
-    },
-    {
-      "en": "The result comes back with the source’s id and link, so Basirah shows the text as its publisher published it and links to its page. Hadith details (grading, explanation, approved translation) are read from HadeethEnc’s own API.",
-      "ar": "تعود النتيجة بمعرّف المصدر ورابطه، فتعرض بصيرة النص كما نشره صاحبه وتربطه بصفحته. وتفاصيل الحديث (الحكم والشرح والترجمة المعتمدة) تُقرأ من واجهة موسوعة الأحاديث النبوية نفسها."
     },
     {
       "en": "The reviewed answers are in Arabic and English; ask in any language and the answer comes in yours, with an approved translation of the verses’ meanings.",
@@ -2116,6 +2120,14 @@
       "ar": "الخادم يعمل دون مفتاح الذكاء الاصطناعي، فعُرضت إجابة من المحتوى الموثّق المحفوظ."
     },
     {
+      "en": "The sign-in link or key is wrong, or the panel is closed on this server. Ask the Basirah team for a new link.",
+      "ar": "رابط الدخول أو المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم. اطلب من فريق بصيرة رابطاً جديداً."
+    },
+    {
+      "en": "The six checks in every answer",
+      "ar": "الفحوص الستة في كل إجابة"
+    },
+    {
       "en": "The sources give a different answer depending on this. Choose what applies to you, or write it yourself:",
       "ar": "يختلف الجواب في المصادر باختلاف هذا التفصيل. اختر ما ينطبق عليك أو اكتبه بنفسك:"
     },
@@ -2130,6 +2142,14 @@
     {
       "en": "The standards we follow, and how we apply them",
       "ar": "المعايير التي نتبعها، وكيف نطبّقها"
+    },
+    {
+      "en": "The stored documented answer if it matches, or a referral or abstention, with a notice saying so",
+      "ar": "الإجابة الموثقة المحفوظة إن طابقت السؤال، أو إحالة أو امتناع، مع تنبيه يقول ذلك"
+    },
+    {
+      "en": "The three tools Basirah calls",
+      "ar": "الأدوات الثلاث التي تستدعيها بصيرة"
     },
     {
       "en": "The verse from the King Fahd Complex Mushaf",
@@ -2148,8 +2168,12 @@
       "ar": "نص الآيات مطابق لمصحف مجمع الملك فهد، ويُفحص آلياً"
     },
     {
-      "en": "This evaluation measures the effect of Basirah’s design alone. We fixed the language model ({0}) and had it answer {1} questions in three settings: a general model, the same model with written task instructions, and Basirah with its sources and guard. Failures were counted automatically with six checks fixed before the run. Basirah passed every check in {2} of {3} answers, against {4} for the general model{5}.",
-      "ar": "يقيس هذا التقييم أثر تصميم بصيرة وحده. ثبّتنا النموذج اللغوي ({0}) وأجاب عن {1} سؤالاً بثلاثة إعدادات: نموذج عام، والنموذج نفسه بتعليمات مكتوبة للمهمة، وبصيرة بمصادرها وحارسها. وعُدّت الإخفاقات آلياً بستة فحوص حُدّدت قبل التشغيل. اجتازت بصيرة الفحوص كلها في {2} من {3} إجابة، مقابل {4} للنموذج العام{5}."
+      "en": "The version measured: the evaluation measured Basirah as it was on {0}; later changes are measured by the languages test, not by this comparison.",
+      "ar": "النسخة المقيسة: قاس التقييم بصيرة كما كانت في {0}؛ وما عُدّل فيها بعد ذلك يقيسه اختبار اللغات لا هذه المقارنة."
+    },
+    {
+      "en": "This evaluation measures the effect of Basirah’s design alone. We fixed the language model ({0}) and had it answer {1} questions in three settings: a general model, the same model with written task instructions, and Basirah with its sources and guard. Failures were counted automatically with six checks fixed before the run. Basirah passed all six checks in {2} of {3} answers, against {4} for the general model{5}.",
+      "ar": "يقيس هذا التقييم أثر تصميم بصيرة وحده. ثبّتنا النموذج اللغوي ({0}) وأجاب عن {1} سؤالاً بثلاثة إعدادات: نموذج عام، والنموذج نفسه بتعليمات مكتوبة للمهمة، وبصيرة بمصادرها وحارسها. وعُدّت الإخفاقات آلياً بستة فحوص حُدّدت قبل التشغيل. اجتازت بصيرة الفحوص الستة في {2} من {3} إجابة، مقابل {4} للنموذج العام{5}."
     },
     {
       "en": "Three optional questions so answers are explained in a way that suits you: the words, the examples and the level of detail. They never change the ruling or the evidence.",
@@ -2288,12 +2312,16 @@
       "ar": "الأربعاء"
     },
     {
-      "en": "What Islam teaches on the matter, based on the Quran and Sunnah.",
-      "ar": "ما يقرّره الإسلام في المسألة، مستنداً إلى القرآن والسنة."
+      "en": "What Basirah takes from the association’s MCP server",
+      "ar": "ما تأخذه بصيرة من خادم MCP للجمعية"
     },
     {
-      "en": "What happens at each step",
-      "ar": "ما الذي يحدث في كل خطوة"
+      "en": "What Basirah’s design adds (not among the six checks)",
+      "ar": "وما يضيفه تصميم بصيرة (ليس من الفحوص الستة)"
+    },
+    {
+      "en": "What Islam teaches on the matter, based on the Quran and Sunnah.",
+      "ar": "ما يقرّره الإسلام في المسألة، مستنداً إلى القرآن والسنة."
     },
     {
       "en": "What happens in Basirah, in numbers. Counts only: no question text, IP address or user id is ever stored.",
@@ -2324,10 +2352,6 @@
       "ar": "الإرشاد العملي"
     },
     {
-      "en": "What we checked in every answer",
-      "ar": "ما فحصناه في كل إجابة"
-    },
-    {
       "en": "What would you like to know about Islam?",
       "ar": "ما الذي تودّ أن تعرفه عن الإسلام؟"
     },
@@ -2338,10 +2362,6 @@
     {
       "en": "When the answer depends on your situation, we ask one short question to give you the exact answer with its evidence.",
       "ar": "حين يختلف الجواب باختلاف حالتك، نسألك سؤالاً قصيراً لنعطيك الجواب الدقيق بدليله."
-    },
-    {
-      "en": "When the evidence is not enough: “no documented answer” instead of a guess. For a personal case: general information and a referral to a Sharia specialist, whom the asker can message or book a call with inside Basirah.",
-      "ar": "حين لا يكفي الدليل: «لا تتوفر إجابة موثقة» بدل التخمين. وحين تكون الحالة شخصية: معلومة عامة وإحالة إلى مختص شرعي، يراسله السائل أو يحجز معه مكالمة من داخل بصيرة."
     },
     {
       "en": "Where do you live?",
@@ -2434,10 +2454,6 @@
       "ar": "تعليمات مكتوبة للمهمة (المصادر، الإحالة، الاعتذار، تجاهل المدسوس)"
     },
     {
-      "en": "Wrong key, or the panel is closed on this server.",
-      "ar": "المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم."
-    },
-    {
       "en": "Yes",
       "ar": "نعم"
     },
@@ -2500,8 +2516,8 @@
       "ar": "وليست بديلاً عن أهل العلم"
     },
     {
-      "en": "answers passed every check",
-      "ar": "إجابات اجتازت كل الفحوص"
+      "en": "answers passed all six checks",
+      "ar": "إجابات اجتازت الفحوص الستة"
     },
     {
       "en": "approved sources and the guard",
@@ -2536,20 +2552,12 @@
       "ar": "رضا من قيّموا ({0})"
     },
     {
-      "en": "links in {0} of {1}",
-      "ar": "روابط في {0} من {1}"
-    },
-    {
       "en": "median answer time",
       "ar": "الوقت الوسيط للإجابة"
     },
     {
       "en": "no sources, no rules",
       "ar": "بلا مصادر ولا قواعد"
-    },
-    {
-      "en": "nothing counted",
-      "ar": "لا إخفاق معدود"
     },
     {
       "en": "of our answers cite the approved sources ({0} of {1})",
@@ -2568,8 +2576,8 @@
       "ar": "ث"
     },
     {
-      "en": "search_quran: the whole Mushaf (6,236 verses from QuranEnc, indexed locally). read_tafsir: the verse’s tafsir in Dorar.net’s encyclopedia. search_hadith: HadeethEnc, through the association’s MCP server. Plus the knowledge-base answers the team wrote from the approved references.",
-      "ar": "search_quran: بحث في نص المصحف كاملاً (6236 آية من موسوعة القرآن الكريم، مفهرس محلياً). read_tafsir: قراءة تفسير الآية في موسوعة التفسير، الدرر السنية. search_hadith: بحث في موسوعة الأحاديث النبوية عبر خادم MCP للجمعية. ومعها إجابات قاعدة المعرفة التي كتبها الفريق من المراجع المعتمدة."
+      "en": "search_quran: the whole Mushaf (6,236 verses). read_tafsir: the verse’s tafsir on Dorar. search_hadith: the hadith encyclopedia through the association’s MCP server, sahih and hasan only. submit_answer: hands in the answer. When the question matches a documented answer, its verses’ tafsir is read before the model is called.",
+      "ar": "search_quran: المصحف كاملاً (6236 آية). read_tafsir: تفسير الآية في الدرر السنية. search_hadith: موسوعة الأحاديث عبر خادم MCP للجمعية، الصحيح والحسن فقط. submit_answer: تسليم الإجابة. وإن طابق السؤال إجابة موثقة قُرئ تفسير آياتها قبل استدعاء النموذج."
     },
     {
       "en": "served at once from the cache",
@@ -2648,28 +2656,12 @@
       "ar": "{0} في المصادر المعتمدة"
     },
     {
-      "en": "{0} test questions of four kinds: answers that passed every check",
-      "ar": "{0} سؤال اختبار، بأربعة أنواع: إجابات اجتازت كل الفحوص"
+      "en": "{0} test questions of four kinds: answers that passed all six checks",
+      "ar": "{0} سؤال اختبار، بأربعة أنواع: إجابات اجتازت الفحوص الستة"
     },
     {
       "en": "{0} verses from QuranEnc (the King Fahd Complex Mushaf)",
       "ar": "{0} آية من موسوعة القرآن الكريم (مصحف مجمع الملك فهد)"
-    },
-    {
-      "en": "{0}: 2 failures",
-      "ar": "{0}: إخفاقان"
-    },
-    {
-      "en": "{0}: nothing counted",
-      "ar": "{0}: لا إخفاق معدود"
-    },
-    {
-      "en": "{0}: one failure",
-      "ar": "{0}: إخفاق واحد"
-    },
-    {
-      "en": "{0}: {1} failures",
-      "ar": "{0}: {1} إخفاقات"
     },
     {
       "en": "{0}; if unavailable: {1}",

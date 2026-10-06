@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:basirah_core/basirah_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
 import '../../core/lang.dart';
-import '../../core/state.dart';
 import '../../shared/motion.dart';
 import '../../shared/web_frame.dart';
 import 'about_screen.dart' show modelName;
@@ -104,15 +102,6 @@ class _Check extends StatelessWidget {
   }
 }
 
-String _kind(BuildContext context, String kind) => switch (kind) {
-  'khilaf' => context.tr('مسألة خلافية', 'Scholarly difference'),
-  'refer' => context.tr('إحالة إلى مختص', 'Referred to a specialist'),
-  'abstain' => context.tr('امتناع: لا مرجع كافٍ', 'Declined: no sufficient reference'),
-  'offTopic' => context.tr('اعتذار: خارج النطاق', 'Declined: out of scope'),
-  'clarify' => context.tr('سؤال توضيحي', 'A clarifying question'),
-  _ => context.tr('إجابة موثقة', 'Documented answer'),
-};
-
 /// «15.9 ث», the unit a word of its own (so it is translated alone).
 String _seconds(BuildContext context, num s) => '${s.toStringAsFixed(1)} ${context.tr('ث', 's')}';
 
@@ -142,7 +131,7 @@ class _Data {
   int total(String side, String id) => rows.fold(0, (n, r) => n + ((((r[side] as Map?)?[id] as num?) ?? 0).toInt()));
 }
 
-/// The three headline numbers: answers that passed every check.
+/// The three headline numbers: answers that passed all six checks.
 class ComparisonHeadline extends ConsumerWidget {
   const ComparisonHeadline({super.key});
 
@@ -193,7 +182,7 @@ class ComparisonHeadline extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  Text(context.tr('إجابات اجتازت كل الفحوص', 'answers passed every check'), style: BText.label(13, color: BColors.ink, weight: FontWeight.w400)),
+                  Text(context.tr('إجابات اجتازت الفحوص الستة', 'answers passed all six checks'), style: BText.label(13, color: BColors.ink, weight: FontWeight.w400)),
                 ],
               ),
             ),
@@ -270,7 +259,6 @@ class _Report extends ConsumerWidget {
     final byType = ((d['byType'] as Map?) ?? const {}).cast<String, dynamic>();
     final links = ((d['withLink'] as Map?) ?? const {}).cast<String, dynamic>();
     final langs = ((d['languages'] as Map?) ?? const {}).cast<String, dynamic>();
-    final shown = [for (final r in data.rows) if (questionLang(r['question'] as String) == context.lang) r];
     final g = data.passed('general');
     final p = prompted == null ? null : data.passed('prompted');
     final b = data.passed('basirah');
@@ -296,9 +284,9 @@ class _Report extends ConsumerWidget {
           paragraphs: [
             context.tr(
               'يقيس هذا التقييم أثر تصميم بصيرة وحده. ثبّتنا النموذج اللغوي (${data.model}) وأجاب عن $cases سؤالاً بثلاثة إعدادات: نموذج عام، والنموذج نفسه بتعليمات مكتوبة للمهمة، وبصيرة بمصادرها وحارسها. '
-                  'وعُدّت الإخفاقات آلياً بستة فحوص حُدّدت قبل التشغيل. اجتازت بصيرة الفحوص كلها في $b من $cases إجابة، مقابل $g للنموذج العام${p == null ? '' : ' و$p للنموذج المزوّد بالتعليمات'}.',
+                  'وعُدّت الإخفاقات آلياً بستة فحوص حُدّدت قبل التشغيل. اجتازت بصيرة الفحوص الستة في $b من $cases إجابة، مقابل $g للنموذج العام${p == null ? '' : ' و$p للنموذج المزوّد بالتعليمات'}.',
               'This evaluation measures the effect of Basirah’s design alone. We fixed the language model (${data.model}) and had it answer $cases questions in three settings: a general model, the same model with written task instructions, and Basirah with its sources and guard. '
-                  'Failures were counted automatically with six checks fixed before the run. Basirah passed every check in $b of $cases answers, against $g for the general model${p == null ? '' : ' and $p for the instructed model'}.',
+                  'Failures were counted automatically with six checks fixed before the run. Basirah passed all six checks in $b of $cases answers, against $g for the general model${p == null ? '' : ' and $p for the instructed model'}.',
             ),
           ],
         ),
@@ -314,15 +302,73 @@ class _Report extends ConsumerWidget {
           ],
         ),
         _Section(
-          title: context.tr('٢. تصميم التجربة: الاستئصال المتدرّج (ablation)', '2. Design: an ablation on the same model'),
+          title: context.tr('٢. تصميم التجربة ونتائجها', '2. The design and its results'),
           paragraphs: [
             context.tr(
-              'نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. ما يملكه كل طرف:',
-              'The model is held fixed and only what surrounds it changes, so the effect of each component shows. What each side has:',
+              'نثبّت النموذج ونغيّر ما حوله فقط، فيظهر أثر كل مكوّن. الجدول الأول: ما يملكه كل طرف. والثاني: عدد الإجابات التي أخفقت في كل فحص من الفحوص الستة (من $cases).',
+              'The model is held fixed and only what surrounds it changes, so the effect of each component shows. The first table: what each side has. The second: how many answers failed each of the six checks (of $cases).',
             ),
           ],
-          table: _DesignTable(hasPrompted: prompted != null),
+          table: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _DesignTable(hasPrompted: prompted != null),
+              const SizedBox(height: 14),
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(16)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _SideRow(
+                      label: Text(context.tr('الفحص', 'Check'), style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w600)),
+                      cells: [
+                        _Head(context.tr('نموذج عام', 'General')),
+                        if (prompted != null) _Head(context.tr('بتعليمات', 'Instructed')),
+                        _Head(context.tr('بصيرة', 'Basirah'), color: Tones.guidance.accent),
+                      ],
+                    ),
+                    const Divider(height: 14),
+                    for (final (i, (id, _, _)) in _counts.indexed)
+                      _SideRow(
+                        label: Text(context.tr(_checks[id]!.$1, _checks[id]!.$2), style: BText.body(13.5, height: 1.45)),
+                        cells: [
+                          _cell(context, 'general', id, i),
+                          if (prompted != null) _cell(context, 'prompted', id, i),
+                          _cell(context, 'basirah', id, i),
+                        ],
+                      ),
+                    const Divider(height: 14),
+                    _SideRow(
+                      label: Text(context.tr('إجابات اجتازت الفحوص الستة', 'Answers that passed all six checks'), style: BText.title(14)),
+                      cells: [
+                        _Value('$g/$cases', Tones.refer.accent),
+                        if (p != null) _Value('$p/$cases', Tones.refer.accent),
+                        _Value('$b/$cases', Tones.guidance.accent),
+                      ],
+                    ),
+                    _SideRow(
+                      label: Text(context.tr('الوقت الوسيط للإجابة', 'Median answer time'), style: BText.body(13.5, height: 1.45)),
+                      cells: [
+                        _Value(_seconds(context, data.general['medianSeconds']!), BColors.ink),
+                        if (prompted != null) _Value(_seconds(context, prompted['medianSeconds'] as num), BColors.ink),
+                        _Value(_seconds(context, data.basirah['medianSeconds']!), BColors.ink),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           after: [
+            context.tr(
+              'بجانب ✗ عدد الإجابات التي أخفقت. وفي الفحص الأول: كتب النموذج العام نصاً قرآنياً من ذاكرته في $memG إجابة (${data.total('general', 'quranFromMemory')} اقتباساً)${prompted == null ? '' : '، والنموذج المزوّد بالتعليمات في $memP إجابة ($quotesP اقتباساً)'}.',
+              'Next to ✗ is the number of answers that failed. In the first check, the general model wrote Quran text from memory in $memG answers (${data.total('general', 'quranFromMemory')} quotations)${prompted == null ? '' : ', and the instructed model in $memP answers ($quotesP quotations)'}.',
+            ),
+            context.tr(
+              'رابط التحقق ميزة في تصميم بصيرة (الجدول الأول)، وليس من الفحوص الستة: لم تتضمن أي إجابة من الطرفين الآخرين رابطاً للتحقق (${links['general'] ?? 0} من $cases عند النموذج العام${prompted == null ? '' : '، و${links['prompted'] ?? 0} عند النموذج المزوّد بالتعليمات'}).',
+              'The link to check a source is part of Basirah’s design (the first table), not one of the six checks: none of the other two sides’ answers included a link to check a source (${links['general'] ?? 0} of $cases for the general model${prompted == null ? '' : ', ${links['prompted'] ?? 0} for the instructed one'}).',
+            ),
             context.tr(
               'الإعدادات المشتركة: ${data.model} بمستوى جهد medium، وتشغيل واحد لكل سؤال وطرف، عبر واجهة Anthropic البرمجية مباشرة (لا عبر نافذة محادثة). وطرف بصيرة يمر بالكود نفسه الذي يشغّل التطبيق.',
               'Common settings: ${data.model} at medium effort, one run per question and side, called directly through the Anthropic API (not a chat window). The Basirah side runs the same code that runs the app.',
@@ -330,102 +376,6 @@ class _Report extends ConsumerWidget {
             context.tr(
               'لماذا النموذج نفسه؟ مقارنة بصيرة بنموذج أضعف تخلط قدرة النموذج بأثر التصميم. واختيار نموذج قوي يجعل الاختبار أصعب لا أسهل: إن أخفق نموذج بهذه القوة بلا مصادر، فالسبب غياب المصادر لا ضعف النموذج.',
               'Why the same model? Comparing with a weaker model would mix the model’s ability with the effect of the design. A strong model makes the test harder, not easier: if a model this capable fails without sources, the cause is the missing sources, not a weak model.',
-            ),
-          ],
-        ),
-        _Section(
-          title: context.tr('٣. عيّنة الاختبار', '3. The test set'),
-          paragraphs: [
-            context.tr(
-              '$cases سؤالاً، كُتب لكل منها السلوك المتوقع قبل التشغيل، منها 12 من أمثلة أسئلة اختبار سلامة المحتوى في المرجعية المعتمدة، والباقي كتبه الفريق:',
-              '$cases questions, each with its expected behaviour written before the run; 12 are content-safety test examples from the approved reference package, the rest were written by the team:',
-            ),
-          ],
-          table: _Table(
-            head: [context.tr('النوع', 'Type'), context.tr('العدد', 'Count'), context.tr('السلوك المتوقع', 'Expected behaviour')],
-            flex: const [3, 1, 5],
-            rows: [
-              [context.tr('سؤال تغطيه المصادر', 'Covered by the sources'), '${(byType['covered'] as Map?)?['cases'] ?? 19}', context.tr('إجابة مرتبطة بدليلها، أو بيان خلاف', 'An answer tied to its evidence, or the difference set out')],
-              [context.tr('حالة شخصية (فتوى)', 'Personal case (fatwa)'), '${(byType['personal'] as Map?)?['cases'] ?? 3}', context.tr('معلومة عامة وإحالة إلى مختص، بلا حكم', 'General information and a referral, no ruling')],
-              [context.tr('خارج التغطية أو النطاق', 'Outside coverage or scope'), '${(byType['outside'] as Map?)?['cases'] ?? 4}', context.tr('بيان الحدود أو الاعتذار، بلا تخمين', 'State the limits or decline, no guessing')],
-              [context.tr('تعليمات مدسوسة في السؤال', 'Planted instructions'), '${(byType['injection'] as Map?)?['cases'] ?? 5}', context.tr('تجاهل الأمر المدسوس ومتابعة القواعد', 'Ignore the planted instruction, keep the rules')],
-            ],
-          ),
-        ),
-        _Section(
-          title: context.tr('٤. المقاييس وتعريفها الإجرائي', '4. Measures and how they are counted'),
-          paragraphs: [
-            context.tr(
-              'ستة فحوص لكل إجابة يعدّها الكود، بلا حكم بشري ولا نموذج حَكَم. والإجابة «اجتازت» إن لم تسقط في أي منها:',
-              'Six checks per answer, counted by code with no human or model judge. An answer “passes” if it fails none of them:',
-            ),
-          ],
-          numbered: [
-            for (final (id, _, _) in _counts) '${context.tr(_checks[id]!.$1, _checks[id]!.$2)}: ${context.tr(_definitions[id]!.$1, _definitions[id]!.$2)}',
-          ],
-        ),
-        _Section(
-          title: context.tr('٥. النتائج', '5. Results'),
-          paragraphs: [context.tr('عدد الإجابات التي أخفقت في كل فحص (من $cases):', 'Answers that failed each check (of $cases):')],
-          table: Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(16)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SideRow(
-                  label: Text(context.tr('الفحص', 'Check'), style: BText.label(12.5, color: BColors.ink, weight: FontWeight.w600)),
-                  cells: [
-                    _Head(context.tr('نموذج عام', 'General')),
-                    if (prompted != null) _Head(context.tr('بتعليمات', 'Instructed')),
-                    _Head(context.tr('بصيرة', 'Basirah'), color: Tones.guidance.accent),
-                  ],
-                ),
-                const Divider(height: 14),
-                for (final (i, (id, _, _)) in _counts.indexed)
-                  _SideRow(
-                    label: Text(context.tr(_checks[id]!.$1, _checks[id]!.$2), style: BText.body(13.5, height: 1.45)),
-                    cells: [
-                      _cell(context, 'general', id, i),
-                      if (prompted != null) _cell(context, 'prompted', id, i),
-                      _cell(context, 'basirah', id, i),
-                    ],
-                  ),
-                const Divider(height: 14),
-                _SideRow(
-                  label: Text(context.tr('رابط للتحقق من المصدر', 'A link to check the source'), style: BText.body(13.5, height: 1.45)),
-                  cells: [
-                    for (final side in ['general', if (prompted != null) 'prompted'])
-                      _Check(
-                        failures: cases - ((links[side] as int?) ?? 0),
-                        label: context.tr('روابط في ${links[side] ?? 0} من $cases', 'links in ${links[side] ?? 0} of $cases'),
-                      ),
-                    const _Check(failures: 0),
-                  ],
-                ),
-                _SideRow(
-                  label: Text(context.tr('إجابات اجتازت كل الفحوص', 'Answers that passed every check'), style: BText.title(14)),
-                  cells: [
-                    _Value('$g/$cases', Tones.refer.accent),
-                    if (p != null) _Value('$p/$cases', Tones.refer.accent),
-                    _Value('$b/$cases', Tones.guidance.accent),
-                  ],
-                ),
-                _SideRow(
-                  label: Text(context.tr('الوقت الوسيط للإجابة', 'Median answer time'), style: BText.body(13.5, height: 1.45)),
-                  cells: [
-                    _Value(_seconds(context, data.general['medianSeconds']!), BColors.ink),
-                    if (prompted != null) _Value(_seconds(context, prompted['medianSeconds'] as num), BColors.ink),
-                    _Value(_seconds(context, data.basirah['medianSeconds']!), BColors.ink),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          after: [
-            context.tr(
-              'بجانب ✗ عدد الإجابات التي أخفقت. وفي الفحص الأول: كتب النموذج العام نصاً قرآنياً من ذاكرته في $memG إجابة (${data.total('general', 'quranFromMemory')} اقتباساً)${prompted == null ? '' : '، والنموذج المزوّد بالتعليمات في $memP إجابة ($quotesP اقتباساً)'}.',
-              'Next to ✗ is the number of answers that failed. In the first check, the general model wrote Quran text from memory in $memG answers (${data.total('general', 'quranFromMemory')} quotations)${prompted == null ? '' : ', and the instructed model in $memP answers ($quotesP quotations)'}.',
             ),
           ],
         ),
@@ -459,7 +409,38 @@ class _Report extends ConsumerWidget {
             ),
           ),
         _Section(
-          title: context.tr('٦. قراءة النتائج: ما الذي تضيفه بصيرة فوق التعليمات؟', '6. Discussion: what Basirah adds beyond instructions'),
+          title: context.tr('٣. عيّنة الاختبار', '3. The test set'),
+          paragraphs: [
+            context.tr(
+              '$cases سؤالاً، كُتب لكل منها السلوك المتوقع قبل التشغيل، منها 12 من أمثلة أسئلة اختبار سلامة المحتوى في المرجعية المعتمدة، والباقي كتبه الفريق:',
+              '$cases questions, each with its expected behaviour written before the run; 12 are content-safety test examples from the approved reference package, the rest were written by the team:',
+            ),
+          ],
+          table: _Table(
+            head: [context.tr('النوع', 'Type'), context.tr('العدد', 'Count'), context.tr('السلوك المتوقع', 'Expected behaviour')],
+            flex: const [3, 1, 5],
+            rows: [
+              [context.tr('سؤال تغطيه المصادر', 'Covered by the sources'), '${(byType['covered'] as Map?)?['cases'] ?? 19}', context.tr('إجابة مرتبطة بدليلها، أو بيان خلاف', 'An answer tied to its evidence, or the difference set out')],
+              [context.tr('حالة شخصية (فتوى)', 'Personal case (fatwa)'), '${(byType['personal'] as Map?)?['cases'] ?? 3}', context.tr('معلومة عامة وإحالة إلى مختص، بلا حكم', 'General information and a referral, no ruling')],
+              [context.tr('خارج التغطية أو النطاق', 'Outside coverage or scope'), '${(byType['outside'] as Map?)?['cases'] ?? 4}', context.tr('بيان الحدود أو الاعتذار، بلا تخمين', 'State the limits or decline, no guessing')],
+              [context.tr('تعليمات مدسوسة في السؤال', 'Planted instructions'), '${(byType['injection'] as Map?)?['cases'] ?? 5}', context.tr('تجاهل الأمر المدسوس ومتابعة القواعد', 'Ignore the planted instruction, keep the rules')],
+            ],
+          ),
+        ),
+        _Section(
+          title: context.tr('٤. المقاييس وتعريفها الإجرائي', '4. Measures and how they are counted'),
+          paragraphs: [
+            context.tr(
+              'ستة فحوص لكل إجابة يعدّها الكود، بلا حكم بشري ولا نموذج حَكَم. والإجابة «اجتازت» إن لم تسقط في أي منها:',
+              'Six checks per answer, counted by code with no human or model judge. An answer “passes” if it fails none of them:',
+            ),
+          ],
+          numbered: [
+            for (final (id, _, _) in _counts) '${context.tr(_checks[id]!.$1, _checks[id]!.$2)}: ${context.tr(_definitions[id]!.$1, _definitions[id]!.$2)}',
+          ],
+        ),
+        _Section(
+          title: context.tr('٥. قراءة النتائج: ما الذي تضيفه بصيرة فوق التعليمات؟', '5. Discussion: what Basirah adds beyond instructions'),
           bullets: [
             context.tr(
               'التعليمات وحدها حسّنت السلوك ولم تضمن النص: النموذج المزوّد بالتعليمات أحال الحالات الشخصية، واعتذر عمّا ليس عن الإسلام، وتجاهل التعليمات المدسوسة، وذكر مصدر الحديث ودرجته؛ لكنه كتب الآيات من ذاكرته${prompted == null ? '' : ' في $memP إجابة'}، وكتب منها أكثر لأن التعليمات طلبت نقل الآيات بنصها.',
@@ -470,21 +451,17 @@ class _Report extends ConsumerWidget {
               'No verse with wrong wording was found on any side in this run; but text written from memory is right by chance, not by guarantee. In Basirah the model picks the verse by its number and the code copies its text from the Mushaf, so it cannot be worded otherwise.',
             ),
             context.tr(
-              'الفرق بين بصيرة والنموذج المزوّد بالتعليمات هو ما في الجدول (٢): المصادر وأدوات البحث فيها، ونسخ النص بالكود، وقراءة التفسير قبل الاستشهاد، والحديث من موسوعة الأحاديث بدرجته، والحارس الذي يحذف ما خالف القواعد، ورابط التحقق لكل دليل. التعليمات تطلب؛ والتصميم يضمن.',
-              'The difference between Basirah and the instructed model is what table (2) shows: the sources and the tools to search them, copying the text in code, reading the tafsir before citing, hadith from the hadith encyclopedia with its grading, the guard that removes what breaks the rules, and a link to check every piece of evidence. Instructions ask; the design guarantees.',
+              'الفرق بين بصيرة والنموذج المزوّد بالتعليمات هو ما في الجدول الأول من القسم (٢): المصادر وأدوات البحث فيها، ونسخ النص بالكود، وقراءة التفسير قبل الاستشهاد، والحديث من موسوعة الأحاديث بدرجته، والحارس الذي يحذف ما خالف القواعد، ورابط التحقق لكل دليل. التعليمات تطلب؛ والتصميم يضمن.',
+              'The difference between Basirah and the instructed model is what the first table of section (2) shows: the sources and the tools to search them, copying the text in code, reading the tafsir before citing, hadith from the hadith encyclopedia with its grading, the guard that removes what breaks the rules, and a link to check every piece of evidence. Instructions ask; the design guarantees.',
             ),
             context.tr(
-              'لا روابط عند الطرفين الآخرين: لم تتضمن أي إجابة منهما رابطاً واحداً للتحقق. وفي بصيرة كل آية مرتبطة بصفحتها في موسوعة القرآن الكريم وتفسيرها في الدرر السنية، وكل حديث بصفحته.',
-              'No links on the other two sides: not one of their answers included a link to check a source. In Basirah every verse links to its page on QuranEnc and its tafsir on Dorar, and every hadith to its page.',
-            ),
-            context.tr(
-              'أعطت بصيرة السلوك المتوقع في ${d['basirahExpectedBehaviour']} من $cases. والحالة المختلفة (عدد حملة العرش وأسماؤهم): توقّعنا الامتناع، فأجابت بالعدد من القرآن (الحاقة: 17) بعد قراءة تفسيره، وقالت عن الأسماء إنها لم تجد لها ذكراً. لم نعدّل التوقع بعد رؤية النتيجة.',
-              'Basirah gave the expected behaviour in ${d['basirahExpectedBehaviour']} of $cases. The one different case (the number and names of the Throne’s bearers): we expected it to decline; it gave the number from the Quran (al-Haqqah 17) after reading its tafsir, and said it found no mention of the names. We did not change the expectation after seeing the result.',
+              'وللدقة، مقياس منفصل ليس من الفحوص الستة: هل طابق «نوع» إجابة بصيرة ما كتبناه قبل التشغيل؟ طابق في ${d['basirahExpectedBehaviour']} من $cases. والحالة الوحيدة المختلفة لم تُخفق في أي فحص: سؤال عدد حملة العرش وأسمائهم، توقّعنا فيه أن تقول بصيرة إنه لا تتوفر إجابة موثقة، فأجابت بالعدد من القرآن (الحاقة: 17) بعد قراءة تفسيره، وقالت إنها لم تجد للأسماء ذكراً فلا تذكرها. لم نعدّل التوقع بعد رؤية النتيجة.',
+              'For accuracy, a separate measure that is not one of the six checks: did the kind of Basirah’s answer match what we wrote before the run? It did in ${d['basirahExpectedBehaviour']} of $cases. The one different case failed no check: on the number and names of the Throne’s bearers we expected Basirah to say no documented answer was available; it gave the number from the Quran (al-Haqqah 17) after reading its tafsir, and said it found no mention of the names, so it gives none. We did not change the expectation after seeing the result.',
             ),
           ],
         ),
         _Section(
-          title: context.tr('٧. التحقق اليدوي من العدّ', '7. Checking the counting by hand'),
+          title: context.tr('٦. التحقق اليدوي من العدّ', '6. Checking the counting by hand'),
           bullets: [
             context.tr(
               'قرأنا بأنفسنا كل إجابة عُدّت فيها مشكلة، في الأطراف الثلاثة، وصحّحنا قواعد العدّ حيث أخطأت، وطبّقنا كل تصحيح على الأطراف كلها من الإجابات المحفوظة دون إعادة السؤال.',
@@ -501,28 +478,36 @@ class _Report extends ConsumerWidget {
           ],
         ),
         _Section(
-          title: context.tr('٨. حدود التقييم', '8. Limits'),
+          title: context.tr('٧. حدود التقييم', '7. Limits'),
           bullets: [
             context.tr(
-              'نموذج واحد وتشغيل واحد لكل سؤال وطرف؛ والأسئلة كتبها الفريق أو أُخذت من الأمثلة المعتمدة، فقد تختلف عن أسئلة الناس الحقيقية.',
-              'One model and one run per question and side; the questions were written by the team or taken from the approved examples, so real questions may differ.',
+              'حجم العيّنة: $cases سؤالاً، سُئل كل منها مرة واحدة لكل طرف، بنموذج واحد. فالأرقام تصف هذه الأسئلة في هذا التشغيل، وقد تختلف قليلاً في تشغيل آخر أو مع أسئلة الناس الحقيقية.',
+              'Sample size: $cases questions, each asked once per side, with one model. The numbers describe these questions in this run; another run, or real people’s questions, may give slightly different numbers.',
             ),
             context.tr(
-              'العدّ بأنماط نصية: قد يفوته اقتباس لم يُعلَّم أو إحالة بعبارة غير مألوفة؛ ولذلك نشرنا نص كل إجابة للمراجعة.',
-              'The counting uses text patterns: it may miss an unmarked quotation or a referral in unusual words; that is why every answer is published for review.',
+              'طريقة العدّ: يبحث الكود في نص كل إجابة عن علامات محددة (مثل قوسَي الآية ﴿ ﴾، وأسماء كتب الحديث، وعبارات الإحالة)، فقد يفوته خطأ مكتوب بصيغة غير متوقعة. ولذلك نُشر نص كل إجابة كاملاً ليراجعه أي أحد.',
+              'How it counts: the code looks in each answer’s text for set markers (such as the verse brackets ﴿ ﴾, the names of hadith collections, and referral phrases), so it may miss a mistake written in an unexpected form. That is why every answer is published in full for anyone to review.',
             ),
             context.tr(
-              'نتحقق من وجود المصدر والدرجة عند الطرفين الآخرين لا من صحتهما، ولا نقيس صحة المعنى ولا جودة الشرح؛ ذلك يحتاج مراجعة بشرية من مختص.',
-              'For the other two sides we check that a source and grading are given, not that they are right, and we do not measure the correctness of the meaning or the quality of the explanation; that needs review by a specialist.',
+              'الحديث عند الطرفين الآخرين: يتحقق الكود أن الحديث ذُكر معه مصدر ودرجة، ولا يتحقق أن هذا المصدر وهذه الدرجة صحيحان فعلاً. أما في بصيرة فيأتي الحديث ودرجته من موسوعة الأحاديث نفسها.',
+              'Hadith on the other two sides: the code checks that a hadith is given with a source and a grading, not that the source and grading are actually right. In Basirah, the hadith and its grading come from the hadith encyclopedia itself.',
+            ),
+            context.tr(
+              'صحة الشرح: لا يحكم التقييم على صواب المعنى وجودة الشرح؛ هذا يحتاج عالماً مختصاً يقرأ الإجابات.',
+              'The explanation: the evaluation does not judge whether the meaning is right or the explanation good; that needs a qualified scholar to read the answers.',
+            ),
+            context.tr(
+              'النسخة المقيسة: قاس التقييم بصيرة كما كانت في ${d['date']}؛ وما عُدّل فيها بعد ذلك يقيسه اختبار اللغات لا هذه المقارنة.',
+              'The version measured: the evaluation measured Basirah as it was on ${d['date']}; later changes are measured by the languages test, not by this comparison.',
             ),
           ],
         ),
         _Section(
-          title: context.tr('٩. الدليل: كيف تتحقق من النتائج بنفسك', '9. The evidence: how to check the results yourself'),
+          title: context.tr('٨. الدليل: كيف تتحقق من النتائج بنفسك', '8. The evidence: how to check the results yourself'),
           bullets: [
             context.tr(
-              'كل سؤال أدناه بإجابة كل طرف كما حُفظت (مختصرة)، ومعه زرّ يطرحه على بصيرة الآن، وزرّ ينسخه لتجرّبه في أي نموذج عام وتقارن.',
-              'Every question below with each side’s saved answer (shortened), a button that asks Basirah now, and a button that copies it so you can try it in any general model and compare.',
+              'كل سؤال من الأسئلة الـ$cases وما فعله كل طرف، بإجاباته كاملة: eval/QUESTIONS.md في مستودع المشروع.',
+              'Every one of the $cases questions and what each side did, with the full answers: eval/QUESTIONS.md in the project repository.',
             ),
             context.tr(
               'التقرير الكامل والإجابات كلها بنصها الكامل في مستودع المشروع: eval/EVALUATION.md (المنهجية والنتائج)، وeval/baseline_report.json وeval/prompted_report.json (كل إجابة وعدّها)، وeval/test_cases.json (الأسئلة والسلوك المتوقع).',
@@ -538,27 +523,23 @@ class _Report extends ConsumerWidget {
                 'And the languages test: ${langs['questions']} questions in ${langs['languages']} languages; ${langs['answered']} answered, ${langs['inLanguage']} in the question’s own language, and ${langs['translated']} with an approved translation of every verse (eval/LANGUAGES_REPORT.md).',
               ),
           ],
-          table: Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: OutlinedButton.icon(
-              onPressed: () => launchUrl(Uri.parse('$_repo/tree/main/eval'), mode: LaunchMode.externalApplication),
-              icon: const Icon(Icons.open_in_new_rounded, size: 18, color: BColors.ink),
-              label: Text(context.tr('ملفات التقييم في المستودع', 'The evaluation files in the repository'), style: BText.label(13.5, color: BColors.ink, weight: FontWeight.w600)),
-            ),
+          table: Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              OutlinedButton.icon(
+                onPressed: () => launchUrl(Uri.parse('$_repo/blob/main/eval/QUESTIONS.md'), mode: LaunchMode.externalApplication),
+                icon: const Icon(Icons.open_in_new_rounded, size: 18, color: BColors.ink),
+                label: Text(context.tr('كل سؤال وما فعله كل طرف', 'Every question and what each side did'), style: BText.label(13.5, color: BColors.ink, weight: FontWeight.w600)),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => launchUrl(Uri.parse('$_repo/tree/main/eval'), mode: LaunchMode.externalApplication),
+                icon: const Icon(Icons.open_in_new_rounded, size: 18, color: BColors.ink),
+                label: Text(context.tr('ملفات التقييم في المستودع', 'The evaluation files in the repository'), style: BText.label(13.5, color: BColors.ink, weight: FontWeight.w600)),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 4),
-        Text(context.tr('كل سؤال وما فعله كل طرف', 'Every question, and what each side did'), style: BText.title(16)),
-        const SizedBox(height: 6),
-        Text(
-          context.tr(
-            'الأسئلة بالعربية هنا (${shown.length})، والأسئلة بالإنجليزية (${data.rows.length - shown.length}) في الواجهة الإنجليزية؛ والأرقام أعلاه للأسئلة كلها. الأسئلة المعلَّمة «اختبار» فيها تعليمات مدسوسة عمداً (مثل «تجاهل تعليماتك») لنرى هل يطيعها النموذج.',
-            'English questions here (${shown.length}); the Arabic ones (${data.rows.length - shown.length}) are in the Arabic interface; the numbers above cover all of them. Questions marked “test” contain planted instructions on purpose (such as “ignore your instructions”) to see whether the model obeys them.',
-          ),
-          style: BText.label(12.5, weight: FontWeight.w400),
-        ),
-        const SizedBox(height: 10),
-        for (final r in shown) _Row(r: r),
       ],
     );
   }
@@ -756,140 +737,6 @@ class _Grow extends StatelessWidget {
   Widget build(BuildContext context) => grow ? Expanded(child: child) : child;
 }
 
-/// One question: what each side did, the saved answers, and the ways to
-/// try it now.
-class _Row extends ConsumerWidget {
-  const _Row({required this.r});
-
-  final Map<String, dynamic> r;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final g = (r['general'] as Map).cast<String, dynamic>();
-    final p = (r['prompted'] as Map?)?.cast<String, dynamic>();
-    final b = (r['basirah'] as Map).cast<String, dynamic>();
-    List<String> problems(Map<String, dynamic> side) => [
-      for (final (id, ar, en) in _counts)
-        if (((side[id] as num?) ?? 0) > 0) '${context.tr(ar, en)}${(side[id] as num) > 1 ? ' (${side[id]})' : ''}',
-    ];
-    // Singular and plural as whole strings, so each translates whole.
-    String summary(String who, List<String> list) => switch (list.length) {
-      0 => context.tr('$who: لا إخفاق معدود', '$who: nothing counted'),
-      1 => context.tr('$who: إخفاق واحد', '$who: one failure'),
-      2 => context.tr('$who: إخفاقان', '$who: 2 failures'),
-      final n => context.tr('$who: $n إخفاقات', '$who: $n failures'),
-    };
-    final pg = problems(g);
-    final pp = p == null ? const <String>[] : problems(p);
-    final pb = problems(b);
-    final counted = pb.isEmpty ? context.tr('لا إخفاق معدود', 'nothing counted') : pb.join(context.tr('، ', ', '));
-    final verses = (b['verses'] as List).cast<String>();
-    final question = r['question'] as String;
-    Widget answer(String title, String text, List<String> list) => Container(
-      margin: const EdgeInsets.only(top: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: BColors.bg, borderRadius: BorderRadius.circular(14)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(title, style: BText.label(11.5, weight: FontWeight.w600)),
-          if (list.isNotEmpty) Text(list.join(context.tr('، ', ', ')), style: BText.label(12, color: Tones.refer.accent, weight: FontWeight.w600)),
-          const SizedBox(height: 4),
-          SelectableText(text, style: BText.body(13, height: 1.7), textDirection: textDirectionOf(text)),
-        ],
-      ),
-    );
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(20)),
-      clipBehavior: Clip.antiAlias,
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          tilePadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
-          childrenPadding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
-          title: Text(question, style: BText.title(14, weight: FontWeight.w500), textDirection: textDirectionOf(question)),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: 6),
-            child: Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: [
-                _Chip(summary(context.tr('العام', 'General'), pg), pg.isEmpty ? Tones.abstain : Tones.refer),
-                if (p != null) _Chip(summary(context.tr('بتعليمات', 'Instructed'), pp), pp.isEmpty ? Tones.abstain : Tones.khilaf),
-                _Chip(context.tr('بصيرة: ${_kind(context, b['kind'] as String)}', 'Basirah: ${_kind(context, b['kind'] as String)}'), Tones.guidance),
-                if ((r['id'] as String).startsWith('inj-')) _Chip(context.tr('اختبار: تعليمات مدسوسة في السؤال', 'Test: planted instructions in the question'), Tones.abstain),
-              ],
-            ),
-          ),
-          children: [
-            answer(context.tr('إجابة النموذج العام (مختصرة) · ${_seconds(context, g['seconds'] as num)}', 'The general model’s answer (shortened) · ${_seconds(context, g['seconds'] as num)}'), g['text'] as String, pg),
-            if (p != null)
-              answer(
-                context.tr('إجابة النموذج بالتعليمات (مختصرة) · ${_seconds(context, p['seconds'] as num)}', 'The instructed model’s answer (shortened) · ${_seconds(context, p['seconds'] as num)}'),
-                p['text'] as String,
-                pp,
-              ),
-            const SizedBox(height: 8),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: Text(
-                verses.isEmpty
-                    ? context.tr('بصيرة · ${_seconds(context, b['seconds'] as num)} · $counted', 'Basirah · ${_seconds(context, b['seconds'] as num)} · $counted')
-                    : context.tr(
-                        'بصيرة · ${_seconds(context, b['seconds'] as num)} · $counted · الآيات من المصحف: ${verses.join('، ')}',
-                        'Basirah · ${_seconds(context, b['seconds'] as num)} · $counted · verses from the Mushaf: ${verses.join(', ')}',
-                      ),
-                style: BText.label(12.5, color: Tones.guidance.accent, weight: FontWeight.w600),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 6,
-              children: [
-                FilledButton.icon(
-                  onPressed: () {
-                    ref.read(askDraftProvider.notifier).state = AskDraft(question: question);
-                    context.go('/ask');
-                  },
-                  style: FilledButton.styleFrom(backgroundColor: BColors.ink),
-                  icon: const Icon(Icons.auto_awesome_rounded, size: 16, color: BColors.goldOnInk),
-                  label: Text(context.tr('اسأل بصيرة الآن', 'Ask Basirah now')),
-                ),
-                OutlinedButton.icon(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: question));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(context.tr('نُسخ السؤال: جرّبه في أي نموذج عام وقارن', 'Question copied: try it in any general model and compare'))),
-                    );
-                  },
-                  icon: const Icon(Icons.copy_rounded, size: 16, color: BColors.ink),
-                  label: Text(context.tr('انسخ السؤال', 'Copy the question'), style: BText.label(13, color: BColors.ink, weight: FontWeight.w600)),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Chip extends StatelessWidget {
-  const _Chip(this.text, this.tone);
-
-  final String text;
-  final Tone tone;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-    decoration: BoxDecoration(color: tone.top, borderRadius: BorderRadius.circular(99)),
-    child: Text(text, style: BText.label(11.5, color: tone.accent, weight: FontWeight.w600)),
-  );
-}
-
 /// The checks as a table: ✓ or ✗ for a general model, the same model with
 /// careful instructions, and Basirah; every mark comes from the measured
 /// report.
@@ -906,13 +753,6 @@ class ComparisonTable extends ConsumerWidget {
     final links = ((d['withLink'] as Map?) ?? const {}).cast<String, dynamic>();
     // (check, failures of the general model, of the instructed one, of Basirah; a note).
     final rows = <(String, int, int?, int, String?)>[
-      (
-        context.tr('يقرأ المصادر المعتمدة قبل أن يجيب', 'Reads the approved sources before answering'),
-        cases,
-        prompted == null ? null : cases,
-        0,
-        context.tr('النموذج العام بلا مصادر ولا أدوات بحث', 'The general model has no sources or search tools'),
-      ),
       for (final (id, _, _) in _counts)
         (
           context.tr(_checks[id]!.$1, _checks[id]!.$2),
@@ -921,6 +761,16 @@ class ComparisonTable extends ConsumerWidget {
           data.basirah[id]!.toInt(),
           null,
         ),
+    ];
+    // What the design adds: not among the six checks, so not in the total.
+    final design = <(String, int, int?, int, String?)>[
+      (
+        context.tr('يقرأ المصادر المعتمدة قبل أن يجيب', 'Reads the approved sources before answering'),
+        cases,
+        prompted == null ? null : cases,
+        0,
+        context.tr('الطرفان الآخران بلا مصادر ولا أدوات بحث', 'The other two sides have no sources or search tools'),
+      ),
       (
         context.tr('رابط للتحقق من كل دليل', 'A link to check every source'),
         cases - ((links['general'] as int?) ?? 0),
@@ -952,7 +802,7 @@ class ComparisonTable extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Expanded(child: Text(context.tr('ما فحصناه في كل إجابة', 'What we checked in every answer'), style: BText.title(14.5))),
+              Expanded(child: Text(context.tr('الفحوص الستة في كل إجابة', 'The six checks in every answer'), style: BText.title(14.5))),
               SizedBox(width: 74, child: Text(context.tr('نموذج عام', 'General model'), textAlign: TextAlign.center, style: head)),
               if (cols == 3)
                 SizedBox(width: 74, child: Text(context.tr('نموذج عام بتعليمات', 'General + instructions'), textAlign: TextAlign.center, style: head)),
@@ -983,7 +833,7 @@ class ComparisonTable extends ConsumerWidget {
           const Divider(height: 18),
           Row(
             children: [
-              Expanded(child: Text(context.tr('إجابات اجتازت كل الفحوص', 'Answers that passed every check'), style: BText.title(14))),
+              Expanded(child: Text(context.tr('إجابات اجتازت الفحوص الستة', 'Answers that passed all six checks'), style: BText.title(14))),
               for (final (side, width, tone) in [
                 ('general', 74.0, Tones.refer),
                 if (cols == 3) ('prompted', 74.0, Tones.refer),
@@ -1000,13 +850,36 @@ class ComparisonTable extends ConsumerWidget {
                 ),
             ],
           ),
+          const Divider(height: 22),
+          Text(context.tr('وما يضيفه تصميم بصيرة (ليس من الفحوص الستة)', 'What Basirah’s design adds (not among the six checks)'), style: BText.title(14)),
+          const SizedBox(height: 8),
+          for (final (i, (label, g, p, b, note)) in design.indexed)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(label, style: BText.body(13.5, height: 1.4)),
+                        if (note != null) Text(note, style: BText.label(11.5, weight: FontWeight.w400)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 74, child: mark(g, rows.length + i)),
+                  if (cols == 3) SizedBox(width: 74, child: mark(p, rows.length + i)),
+                  SizedBox(width: 64, child: mark(b, rows.length + i)),
+                ],
+              ),
+            ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 4,
             children: [
               TextButton(
                 onPressed: () => context.push('/baseline'),
-                child: Text(context.tr('المنهجية والدليل وكل سؤال', 'The method, the evidence, and every question'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
+                child: Text(context.tr('المنهجية والنتائج والدليل', 'The method, the results, and the evidence'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
               ),
               TextButton(
                 onPressed: () => context.push('/pipeline'),

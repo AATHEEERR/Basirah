@@ -9,7 +9,7 @@ import '../core/lang.dart';
 /// list of all of them: Arabic, and the 25 languages with an approved
 /// translation of the meanings.
 class LangToggle extends ConsumerWidget {
-  const LangToggle({super.key, this.color = BColors.surfaceMuted, this.tooltip = true});
+  const LangToggle({super.key, this.color = BColors.surfaceMuted, this.tooltip = true, this.compact = false});
 
   final Color color;
 
@@ -17,10 +17,15 @@ class LangToggle extends ConsumerWidget {
   /// Navigator).
   final bool tooltip;
 
+  /// The phone's top bar: the name without its bracket («Filipino», not
+  /// «Filipino (Tagalog)»), cut short if it is still too long.
+  final bool compact;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ui = ref.watch(langProvider);
-    final name = uiLanguages.firstWhere((l) => l.$1 == ui, orElse: () => uiLanguages.first).$2;
+    final full = uiLanguages.firstWhere((l) => l.$1 == ui, orElse: () => uiLanguages.first).$2;
+    final name = compact ? full.split(' (').first : full;
     final message = context.tr('لغة الواجهة', 'Interface language');
     final pill = Material(
       color: color,
@@ -35,7 +40,13 @@ class LangToggle extends ConsumerWidget {
             children: [
               const Icon(Icons.translate_rounded, size: 18, color: BColors.ink),
               const SizedBox(width: 6),
-              Text(name, style: BText.label(13.5, color: BColors.ink, weight: FontWeight.w600)),
+              if (compact)
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 110),
+                  child: Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: BText.label(13.5, color: BColors.ink, weight: FontWeight.w600)),
+                )
+              else
+                Text(name, style: BText.label(13.5, color: BColors.ink, weight: FontWeight.w600)),
               const Icon(Icons.expand_more_rounded, size: 18, color: BColors.ink),
             ],
           ),

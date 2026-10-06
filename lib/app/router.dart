@@ -69,7 +69,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/baseline', builder: (_, _) => const BaselineScreen()),
       GoRoute(path: '/pipeline', builder: (_, _) => const PipelineScreen()),
       GoRoute(path: '/referrals', builder: (_, _) => const MyReferralsScreen()),
-      GoRoute(path: '/specialist', builder: (_, _) => const SpecialistPanelScreen()),
+      GoRoute(path: '/specialist', builder: (_, state) => SpecialistPanelScreen(linkKey: state.uri.queryParameters['k'])),
     ],
     errorBuilder: (context, _) => Scaffold(body: Center(child: Text(context.tr('الصفحة غير موجودة', 'Page not found')))),
   );

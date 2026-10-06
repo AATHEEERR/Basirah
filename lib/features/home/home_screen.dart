@@ -37,6 +37,7 @@ class HomeScreen extends ConsumerWidget {
         builder: (context, kb) => Stack(
           children: [
             const PatternBackdrop(height: 380),
+            // The website's order, at the phone's size.
             CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(child: _TopBar()),
@@ -46,25 +47,10 @@ class HomeScreen extends ConsumerWidget {
                     child: HomeHero(kb: kb, wide: false, search: _SearchPill(onTap: () => ask())),
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: SectionHeader(
-                    context.tr('ابدأ من هنا', 'Start here'),
-                    eyebrow: context.tr('أكثر ما يشغل المسلم الجديد', 'What new Muslims ask most'),
-                  ),
+                // How every answer is built, right under the opening.
+                const SliverToBoxAdapter(
+                  child: Padding(padding: EdgeInsets.fromLTRB(16, 26, 16, 0), child: _AnswerSample()),
                 ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 300,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: kb.categories.length,
-                      separatorBuilder: (_, _) => const SizedBox(width: 12),
-                      itemBuilder: (_, i) => _FeaturedCard(category: kb.categories[i], kb: kb),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(child: _AiCard(onTap: () => ask())),
                 if (AppConfig.hasApi) ...[
                   SliverToBoxAdapter(
                     child: SectionHeader(
@@ -86,7 +72,25 @@ class HomeScreen extends ConsumerWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   sliver: SliverToBoxAdapter(child: _Promises()),
                 ),
-                SliverToBoxAdapter(child: SectionHeader(context.tr('الأكثر سؤالاً', 'Most asked'))),
+                SliverToBoxAdapter(
+                  child: SectionHeader(
+                    context.tr('ابدأ من هنا', 'Start here'),
+                    eyebrow: context.tr('أكثر ما يشغل المسلم الجديد', 'What new Muslims ask most'),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 300,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: kb.categories.length,
+                      separatorBuilder: (_, _) => const SizedBox(width: 12),
+                      itemBuilder: (_, i) => _FeaturedCard(category: kb.categories[i], kb: kb),
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(child: SectionHeader(context.tr('الأكثر سؤالاً', 'Most asked'), eyebrow: context.tr('الأسئلة', 'Questions'))),
                 SliverList.list(
                   children: [
                     for (final (i, e) in kb.popular.take(5).indexed)
@@ -100,32 +104,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                   ],
                 ),
-                SliverToBoxAdapter(
-                  child: SectionHeader(
-                    context.tr('كيف تُجيب بصيرة؟', 'How does Basirah answer?'),
-                    subtitle: context.tr('لكل بطاقة لون ومعنى ثابت', 'Each card has a fixed colour and meaning'),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final t in Tones.all)
-                          ActionChip(
-                            onPressed: () => showToneLegend(context, focus: t),
-                            avatar: Icon(t.icon, size: 16, color: t.accent),
-                            label: Text(t.titleFor(context.lang), style: BText.label(12.5, color: t.accent, weight: FontWeight.w600)),
-                            backgroundColor: t.top,
-                            side: BorderSide.none,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
+                SliverToBoxAdapter(child: _AiCard(onTap: () => ask())),
                 SliverToBoxAdapter(child: _ReferencesPromo(kb: kb)),
                 SliverToBoxAdapter(
                   child: SectionHeader(
@@ -154,56 +133,26 @@ class _TopBar extends StatelessWidget {
       bottom: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-        // The wordmark stays centred whatever the width of the side actions.
-        child: Stack(
-          alignment: Alignment.center,
+        // As the website header: the name at the start and the language at
+        // the end, side by side, so a long language name never covers the
+        // name. («عن بصيرة» is in the bar at the bottom.)
+        child: Row(
           children: [
-            Row(
-              children: [
-                _CircleAction(
-                  icon: Icons.person_outline_rounded,
-                  tooltip: context.tr('عن بصيرة', 'About Basirah'),
-                  onTap: () => context.push('/about'),
-                ),
-                const Spacer(),
-                const LangToggle(),
-              ],
+            const BrandLogo(size: 36),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Wordmark(style: BText.brand(context.isEn ? 21 : 24)),
+              ),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const BrandLogo(size: 36),
-                const SizedBox(width: 8),
-                Wordmark(style: BText.brand(context.isEn ? 21 : 24)),
-              ],
-            ),
+            const SizedBox(width: 12),
+            const LangToggle(compact: true),
           ],
         ),
       ),
     );
   }
-}
-
-class _CircleAction extends StatelessWidget {
-  const _CircleAction({required this.icon, required this.tooltip, required this.onTap});
-
-  final IconData icon;
-  final String tooltip;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => Tooltip(
-    message: tooltip,
-    child: Material(
-      color: BColors.surfaceMuted,
-      shape: const CircleBorder(),
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        child: SizedBox.square(dimension: 50, child: Icon(icon, color: BColors.ink, size: 24)),
-      ),
-    ),
-  );
 }
 
 class _SearchPill extends StatelessWidget {

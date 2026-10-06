@@ -440,7 +440,7 @@ class _Proof extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                context.tr('$cases سؤال اختبار، بأربعة أنواع: إجابات اجتازت كل الفحوص', '$cases test questions of four kinds: answers that passed every check'),
+                context.tr('$cases سؤال اختبار، بأربعة أنواع: إجابات اجتازت الفحوص الستة', '$cases test questions of four kinds: answers that passed all six checks'),
                 style: BText.title(15),
               ),
               const SizedBox(height: 10),

@@ -692,9 +692,14 @@ class _ThreadState extends ConsumerState<_Thread> {
 }
 
 /// The specialists' panel (/specialist): every request, the conversation and
-/// context the asker approved, and the reply. Opens with the panel key.
+/// context the asker approved, and the reply. Not linked from the app: each
+/// approved specialist opens it with the private sign-in link the team sends
+/// (…/#/specialist?k=…), so nothing is typed.
 class SpecialistPanelScreen extends StatefulWidget {
-  const SpecialistPanelScreen({super.key});
+  const SpecialistPanelScreen({super.key, this.linkKey});
+
+  /// The key in the specialist's sign-in link.
+  final String? linkKey;
 
   @override
   State<SpecialistPanelScreen> createState() => _SpecialistPanelScreenState();
@@ -715,10 +720,21 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
   bool _loading = false;
   Timer? _poll;
 
+  /// The team's own way in: the key typed by hand.
+  bool _manual = false;
+
   @override
   void initState() {
     super.initState();
-    if (_sessionKey != null) _load();
+    final fromLink = widget.linkKey?.trim() ?? '';
+    if (fromLink.isNotEmpty) _key.text = fromLink;
+    // After the first frame: loading changes the state.
+    if (fromLink.isNotEmpty || _sessionKey != null) {
+      _loading = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _load(fromLink: fromLink.isNotEmpty);
+      });
+    }
     // New requests and the askers' follow-ups appear without a reload.
     _poll = Timer.periodic(const Duration(seconds: 30), (_) {
       if (_items != null && !_loading) _load(quiet: true);
@@ -733,7 +749,7 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
     super.dispose();
   }
 
-  Future<void> _load({bool quiet = false}) async {
+  Future<void> _load({bool quiet = false, bool fromLink = false}) async {
     if (!quiet) {
       setState(() {
         _loading = true;
@@ -752,6 +768,8 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
       _unreachable = unreachable;
       _loading = false;
     });
+    // Signed in from the link: the key leaves the address bar.
+    if (items != null && fromLink) GoRouter.of(context).replace('/specialist');
   }
 
   static int _order(Map<String, dynamic> a, Map<String, dynamic> b) {
@@ -784,25 +802,57 @@ class _SpecialistPanelScreenState extends State<SpecialistPanelScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (items == null) ...[
-            TextField(
-              controller: _key,
-              obscureText: true,
-              onSubmitted: (_) => _load(),
-              decoration: InputDecoration(
-                labelText: context.tr('مفتاح اللوحة', 'Panel key'),
-                helperText: context.tr('يعطي فريقُ بصيرة المفتاحَ للمختصين المعتمدين.', 'The Basirah team gives the key to approved specialists.'),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+            if (_loading && !_manual)
+              const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()))
+            else
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(color: BColors.surface, borderRadius: BorderRadius.circular(18)),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.link_rounded, color: BColors.goldDeep),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        context.tr(
+                          'يدخل المختص المعتمد اللوحة برابط الدخول الخاص الذي يرسله له فريق بصيرة: افتح الرابط من رسالة الفريق، فتُفتح اللوحة مباشرة دون كتابة أي شيء.',
+                          'An approved specialist enters the panel with the private sign-in link the Basirah team sends them: open the link from the team’s message and the panel opens directly, with nothing to type.',
+                        ),
+                        style: BText.body(14, height: 1.7),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: TextButton(
+                onPressed: () => setState(() => _manual = !_manual),
+                child: Text(context.tr('دخول فريق بصيرة', 'Basirah team sign-in'), style: BText.label(13, color: BColors.goldDeep, weight: FontWeight.w600)),
               ),
             ),
-            const SizedBox(height: 10),
-            PrimaryButton(label: context.tr('افتح اللوحة', 'Open the panel'), onTap: _load),
+            if (_manual) ...[
+              TextField(
+                controller: _key,
+                obscureText: true,
+                onSubmitted: (_) => _load(),
+                decoration: InputDecoration(
+                  labelText: context.tr('مفتاح اللوحة', 'Panel key'),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                ),
+              ),
+              const SizedBox(height: 10),
+              PrimaryButton(label: context.tr('افتح اللوحة', 'Open the panel'), onTap: _load),
+            ],
             if (_denied || _unreachable)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   _unreachable
                       ? context.tr('تعذّر الوصول إلى الخادم الآن. تحقّق من الاتصال وحاول بعد قليل.', 'Could not reach the server right now. Check the connection and try again shortly.')
-                      : context.tr('المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم.', 'Wrong key, or the panel is closed on this server.'),
+                      : context.tr('رابط الدخول أو المفتاح غير صحيح، أو اللوحة مغلقة على هذا الخادم. اطلب من فريق بصيرة رابطاً جديداً.', 'The sign-in link or key is wrong, or the panel is closed on this server. Ask the Basirah team for a new link.'),
                   style: BText.label(13, color: Tones.refer.accent),
                 ),
               ),

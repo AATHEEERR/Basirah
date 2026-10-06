@@ -59,6 +59,15 @@ class AppShell extends ConsumerWidget {
                       onTap: () => shell.goBranch(branch, initialLocation: branch == current),
                     ),
                   ),
+                // «عن بصيرة», as in the website header (a page, not a tab).
+                Expanded(
+                  child: _NavItem(
+                    icon: Icons.info_outline_rounded,
+                    label: context.tr('عن بصيرة', 'About'),
+                    selected: false,
+                    onTap: () => context.push('/about'),
+                  ),
+                ),
                 const SizedBox(width: 6),
                 _AiPill(active: current == 2, onTap: askTab),
               ],
@@ -71,9 +80,12 @@ class AppShell extends ConsumerWidget {
 }
 
 class _NavItem extends StatelessWidget {
-  const _NavItem({required this.glyph, required this.label, required this.selected, required this.onTap});
+  const _NavItem({this.glyph, this.icon, required this.label, required this.selected, required this.onTap});
 
-  final Glyph glyph;
+  final Glyph? glyph;
+
+  /// For an item that is not one of the tab glyphs («عن بصيرة»).
+  final IconData? icon;
   final String label;
   final bool selected;
   final VoidCallback onTap;
@@ -88,7 +100,7 @@ class _NavItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            NavGlyph(glyph, active: selected),
+            if (glyph case final g?) NavGlyph(g, active: selected) else Icon(icon, size: 26, color: BColors.ink),
             const SizedBox(height: 4),
             // One line in every language: a long label («Ma bibliothèque»)
             // is scaled down to fit rather than wrapped.
